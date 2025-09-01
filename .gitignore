@@ -17,9 +17,11 @@ dist-ssr
 !.vscode/extensions.json
 .idea
 .DS_Store
-.bolt
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+
+*storybook.log
+storybook-static

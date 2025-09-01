@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/types/index.ts","./src/utils/accessibility.ts","./src/components/button.vue"],"version":"5.9.2"}
+{"root":["./src/index.ts","./src/types/index.ts","./src/utils/accessibility.ts","./src/components/atoms/Button.vue"],"version":"5.9.2"}

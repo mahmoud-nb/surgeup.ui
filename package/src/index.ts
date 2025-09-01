@@ -1,5 +1,5 @@
 import type { App } from 'vue'
-import Button from './components/Button.vue'
+import Button from './components/atoms/Button.vue'
 import * as accessibility from './utils/accessibility'
 
 export { Button }

@@ -2,7 +2,39 @@
 
 Composant bouton flexible avec plusieurs variantes, tailles et états. Supporte les interactions au clavier et les états de chargement.
 
-## Exemples
+## Exemples avec icônes
+
+### Icônes
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Boutons avec icônes</h4>
+    <div class="demo-buttons">
+      <SuButton variant="primary" :iconBefore="PlusIcon">Ajouter</SuButton>
+      <SuButton variant="secondary" :iconAfter="ArrowRightIcon">Suivant</SuButton>
+      <SuButton variant="outline" :iconOnly="HeartIcon" aria-label="Aimer" />
+      <SuButton variant="ghost" :iconOnly="TrashIcon" aria-label="Supprimer" />
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <!-- Icône avant le texte -->
+  <SuButton variant="primary" :iconBefore="PlusIcon">
+    Ajouter
+  </SuButton>
+  
+  <!-- Icône après le texte -->
+  <SuButton variant="secondary" :iconAfter="ArrowRightIcon">
+    Suivant
+  </SuButton>
+  
+  <!-- Icône seule (nécessite aria-label) -->
+  <SuButton variant="outline" :iconOnly="HeartIcon" aria-label="Aimer" />
+  <SuButton variant="ghost" :iconOnly="TrashIcon" aria-label="Supprimer" />
+</template>
+```
 
 ### Variantes
 
@@ -122,6 +154,9 @@ Composant bouton flexible avec plusieurs variantes, tailles et états. Supporte 
 | `disabled` | `boolean` | `false` | Désactive le bouton |
 | `loading` | `boolean` | `false` | Affiche un spinner de chargement |
 | `block` | `boolean` | `false` | Prend toute la largeur disponible |
+| `iconBefore` | `Component` | `undefined` | Icône à afficher avant le texte |
+| `iconAfter` | `Component` | `undefined` | Icône à afficher après le texte |
+| `iconOnly` | `Component` | `undefined` | Icône seule (nécessite aria-label) |
 | `ariaLabel` | `string` | `undefined` | Label accessible pour les lecteurs d'écran |
 | `ariaDescribedBy` | `string` | `undefined` | ID de l'élément qui décrit le bouton |
 | `ariaExpanded` | `boolean` | `undefined` | Indique si un élément contrôlé est étendu |
@@ -159,10 +194,17 @@ Le composant Button respecte les normes WCAG 2.1 AA :
 - **Réduction d'animation** : Respect de `prefers-reduced-motion`
 - **Mode sombre** : Contraste adapté en mode sombre
 - **Contraste élevé** : Support de `prefers-contrast: high`
+- **Icônes accessibles** : Icônes marquées avec `aria-hidden="true"`
 
 ### 🎯 Bonnes pratiques
 
 ```vue
+<!-- Bouton avec icône seule (OBLIGATOIRE: aria-label) -->
+<SuButton :icon-only="TrashIcon" aria-label="Supprimer l'élément" />
+
+<!-- Bouton avec icône et texte -->
+<SuButton :icon-before="PlusIcon">Ajouter un élément</SuButton>
+
 <!-- Bouton avec label accessible -->
 <SuButton aria-label="Supprimer l'élément">
   <TrashIcon />
@@ -184,6 +226,65 @@ Le composant Button respecte les normes WCAG 2.1 AA :
 ```
 
 ## Exemples d'usage
+
+### Utilisation avec Heroicons
+
+Les icônes Heroicons les plus courantes sont disponibles globalement :
+
+```vue
+<template>
+  <!-- Icône avant le texte -->
+  <SuButton 
+    variant="primary" 
+    :iconBefore="PlusIcon"
+  >
+    Ajouter
+  </SuButton>
+  
+  <!-- Icône après le texte -->
+  <SuButton 
+    variant="secondary" 
+    :iconAfter="ArrowRightIcon"
+  >
+    Continuer
+  </SuButton>
+  
+  <!-- Icônes seules avec labels accessibles -->
+  <SuButton 
+    variant="ghost" 
+    :iconOnly="HeartIcon" 
+    aria-label="Aimer cette publication"
+  />
+  
+  <SuButton 
+    variant="outline" 
+    :iconOnly="ShareIcon" 
+    aria-label="Partager"
+  />
+  
+  <SuButton 
+    variant="primary" 
+    :iconOnly="ArrowDownTrayIcon" 
+    aria-label="Télécharger le fichier"
+  />
+</template>
+```
+
+### Import personnalisé d'icônes
+
+Pour utiliser d'autres icônes Heroicons :
+
+```vue
+<script setup>
+import { CogIcon } from '@heroicons/vue/24/outline'
+</script>
+
+<template>
+  <SuButton :iconBefore="CogIcon">
+    Paramètres
+  </SuButton>
+</template>
+```
 
 ### Bouton avec gestionnaire de clic
 

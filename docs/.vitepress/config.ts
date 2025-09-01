@@ -36,6 +36,12 @@ export default defineConfig({
     }
   },
 
+  vite: {
+    optimizeDeps: {
+      include: ['@heroicons/vue/24/outline']
+    }
+  },
+
   vue: {
     template: {
       compilerOptions: {

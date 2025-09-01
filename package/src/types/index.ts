@@ -1,3 +1,5 @@
+import type { Component } from 'vue'
+
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost'
 export type ButtonSize = 'sm' | 'md' | 'lg'
 
@@ -7,6 +9,9 @@ export interface ButtonProps {
   disabled?: boolean
   loading?: boolean
   block?: boolean
+  iconBefore?: Component
+  iconAfter?: Component
+  iconOnly?: Component
   ariaLabel?: string
   ariaDescribedBy?: string
   ariaExpanded?: boolean
