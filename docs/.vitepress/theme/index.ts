@@ -14,7 +14,15 @@ import {
   XMarkIcon,
   CheckIcon,
   ExclamationTriangleIcon,
-  InformationCircleIcon
+  InformationCircleIcon,
+  MagnifyingGlassIcon,
+  AtSymbolIcon,
+  LockClosedIcon,
+  UserIcon,
+  StarIcon,
+  BuildingOfficeIcon,
+  GlobeAltIcon,
+  FlagIcon
 } from '@heroicons/vue/24/outline'
 
 export default {
@@ -33,5 +41,13 @@ export default {
     app.component('CheckIcon', CheckIcon)
     app.component('ExclamationTriangleIcon', ExclamationTriangleIcon)
     app.component('InformationCircleIcon', InformationCircleIcon)
+    app.component('MagnifyingGlassIcon', MagnifyingGlassIcon)
+    app.component('AtSymbolIcon', AtSymbolIcon)
+    app.component('LockClosedIcon', LockClosedIcon)
+    app.component('UserIcon', UserIcon)
+    app.component('StarIcon', StarIcon)
+    app.component('BuildingOfficeIcon', BuildingOfficeIcon)
+    app.component('GlobeAltIcon', GlobeAltIcon)
+    app.component('FlagIcon', FlagIcon)
   }
 }

@@ -2,6 +2,11 @@
 
 Bibliothèque de composants Vue.js 3 avec Composition API, conçue pour créer des interfaces modernes et cohérentes.
 
+## 📖 Documentation et exemples
+
+- **[Documentation complète](/)** - Guide d'utilisation et API des composants
+- **[Storybook](http://localhost:6006)** - Exemples interactifs et tests des composants
+
 ## ✨ Fonctionnalités
 
 - 🎨 **Design moderne** - Composants avec un design soigné et professionnel

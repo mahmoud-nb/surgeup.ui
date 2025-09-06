@@ -5,8 +5,9 @@
 /**
  * Génère un ID unique pour les éléments
  */
+let idCounter = 0
 export function generateId(prefix: string = 'su'): string {
-  return `${prefix}-${Math.random().toString(36).substr(2, 9)}`
+  return `${prefix}-${++idCounter}-${Date.now().toString(36)}`
 }
 
 /**

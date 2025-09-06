@@ -1,5 +1,10 @@
 # Installation
 
+## 📚 Ressources
+
+- **Documentation** : Guide complet avec exemples
+- **[Storybook](http://localhost:6006)** : Exemples interactifs et playground des composants
+
 ## Prérequis
 
 - Vue.js 3.3+

@@ -1,8 +1,5 @@
 @use './variables' as *;
 
-// Import du composant Button
-@import '../components/atoms/Button.vue';
-
 // Styles globaux pour l'accessibilité
 .sr-only {
   position: absolute;

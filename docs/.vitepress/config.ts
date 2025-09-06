@@ -7,7 +7,8 @@ export default defineConfig({
   themeConfig: {
     nav: [
       { text: 'Accueil', link: '/' },
-      { text: 'Composants', link: '/components/' }
+      { text: 'Composants', link: '/components/' },
+      { text: 'Storybook', link: 'http://localhost:6006', target: '_blank' }
     ],
 
     sidebar: [
@@ -21,7 +22,9 @@ export default defineConfig({
       {
         text: 'Composants',
         items: [
-          { text: 'Button', link: '/components/button' }
+          { text: 'Button', link: '/components/button' },
+          { text: 'Input', link: '/components/input' },
+          { text: 'SelectBox', link: '/components/selectbox' }
         ]
       }
     ],

@@ -30,7 +30,16 @@
     "typescript": "^5.5.3",
     "vite": "^5.4.2",
     "vite-plugin-dts": "^4.0.3",
-    "vue-tsc": "^2.1.4"
+    "vue-tsc": "^2.1.4",
+    "@storybook/cli": "^8.0.0",
+    "@storybook/vue3": "^8.0.0",
+    "@storybook/vue3-vite": "^8.0.0",
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/addon-interactions": "^8.0.0",
+    "@storybook/addon-links": "^8.0.0",
+    "@storybook/blocks": "^8.0.0",
+    "@storybook/test": "^8.0.0",
+    "storybook": "^8.0.0"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0"

@@ -1,5 +1,25 @@
 import type { Preview } from '@storybook/vue3'
 import '../src/styles/index.scss'
+import SurgeUpDS from '../src/index'
+
+// Import de la police Nunito Sans depuis Google Fonts
+const link = document.createElement('link')
+link.href = 'https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap'
+link.rel = 'stylesheet'
+document.head.appendChild(link)
+
+// Application de la police globalement
+const style = document.createElement('style')
+style.textContent = `
+  body, .sb-show-main {
+    font-family: 'Nunito Sans', 'system-ui', 'tahoma', sans-serif !important;
+  }
+  
+  .docs-story, .sbdocs-content {
+    font-family: 'Nunito Sans', 'system-ui', 'tahoma', sans-serif !important;
+  }
+`
+document.head.appendChild(style)
 
 const preview: Preview = {
   parameters: {
@@ -11,7 +31,11 @@ const preview: Preview = {
       }
     },
     docs: {
-      toc: true
+      toc: true,
+      source: {
+        language: 'vue',
+        format: true
+      }
     },
     backgrounds: {
       default: 'light',
@@ -43,6 +67,11 @@ const preview: Preview = {
       }
     }
   }
+}
+
+export const setup = (app) => {
+  // Installer le plugin globalement pour Storybook
+  app.use(SurgeUpDS)
 }
 
 export default preview
