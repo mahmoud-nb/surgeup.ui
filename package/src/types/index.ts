@@ -56,10 +56,7 @@ export interface InputProps {
   textAlign?: TextAlign
   dir?: 'ltr' | 'rtl' | 'auto'
   label?: string
-  helpText?: string
-  errorMessage?: string
-  successMessage?: string
-  warningMessage?: string
+  message?: string
   ariaLabel?: string
   ariaDescribedBy?: string
   ariaInvalid?: boolean
@@ -93,10 +90,7 @@ export interface SelectProps {
   textAlign?: TextAlign
   dir?: 'ltr' | 'rtl' | 'auto'
   label?: string
-  helpText?: string
-  errorMessage?: string
-  successMessage?: string
-  warningMessage?: string
+  message?: string
   ariaLabel?: string
   ariaDescribedBy?: string
   ariaInvalid?: boolean

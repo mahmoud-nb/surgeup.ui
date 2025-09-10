@@ -565,13 +565,9 @@ export const Playground: Story = {
       control: { type: 'text' },
       description: 'Texte de suffixe'
     },
-    helpText: {
+    message: {
       control: { type: 'text' },
-      description: 'Texte d\'aide'
-    },
-    errorMessage: {
-      control: { type: 'text' },
-      description: 'Message d\'erreur'
+      description: 'Message affiché (style déterminé par le state)'
     }
   },
   parameters: {

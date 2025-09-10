@@ -31,10 +31,7 @@ const inputRef = ref<HTMLInputElement>()
 
 // Génération d'IDs uniques pour l'accessibilité
 const inputId = computed(() => attrs.id as string || generateId('input'))
-const helpTextId = computed(() => props.helpText ? `${inputId.value}-help` : undefined)
-const errorId = computed(() => props.errorMessage ? `${inputId.value}-error` : undefined)
-const successId = computed(() => props.successMessage ? `${inputId.value}-success` : undefined)
-const warningId = computed(() => props.warningMessage ? `${inputId.value}-warning` : undefined)
+const messageId = computed(() => props.message ? `${inputId.value}-message` : undefined)
 
 // Classes CSS
 const containerClasses = computed(() => [
@@ -62,33 +59,6 @@ const inputClasses = computed(() => [
     'su-input--has-suffix': props.suffix || props.suffixIcon
   }
 ])
-
-// Message à afficher selon l'état
-const displayMessage = computed(() => {
-  switch (props.state) {
-    case 'error':
-      return props.errorMessage
-    case 'success':
-      return props.successMessage
-    case 'warning':
-      return props.warningMessage
-    default:
-      return props.helpText
-  }
-})
-
-const messageId = computed(() => {
-  switch (props.state) {
-    case 'error':
-      return errorId.value
-    case 'success':
-      return successId.value
-    case 'warning':
-      return warningId.value
-    default:
-      return helpTextId.value
-  }
-})
 
 // Attributs ARIA
 const ariaAttributes = computed(() => {
@@ -229,13 +199,13 @@ defineExpose({
 
     <!-- Message d'aide/erreur/succès -->
     <div 
-      v-if="displayMessage" 
+      v-if="message" 
       :id="messageId"
       class="su-input-message"
       :class="`su-input-message--${state}`"
       :aria-live="state === 'error' ? 'assertive' : 'polite'"
     >
-      {{ displayMessage }}
+      {{ message }}
     </div>
   </div>
 </template>

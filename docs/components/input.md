@@ -120,27 +120,27 @@ import {
       <SuInput 
         label="État par défaut" 
         placeholder="Entrez du texte"
-        helpText="Texte d'aide pour guider l'utilisateur"
+        message="Texte d'aide pour guider l'utilisateur"
       />
       <SuInput 
         state="error"
         label="État d'erreur" 
         placeholder="Entrez du texte"
-        errorMessage="Ce champ contient une erreur"
+        message="Ce champ contient une erreur"
         value="valeur incorrecte"
       />
       <SuInput 
         state="success"
         label="État de succès" 
         placeholder="Entrez du texte"
-        successMessage="Valeur valide !"
+        message="Valeur valide !"
         value="valeur correcte"
       />
       <SuInput 
         state="warning"
         label="État d'avertissement" 
         placeholder="Entrez du texte"
-        warningMessage="Attention à cette valeur"
+        message="Attention à cette valeur"
         value="attention"
       />
     </div>
@@ -152,25 +152,25 @@ import {
   <SuInput 
     label="État par défaut" 
     placeholder="Entrez du texte"
-    helpText="Texte d'aide pour guider l'utilisateur"
+    message="Texte d'aide pour guider l'utilisateur"
   />
   <SuInput 
     state="error"
     label="État d'erreur" 
     placeholder="Entrez du texte"
-    errorMessage="Ce champ contient une erreur"
+    message="Ce champ contient une erreur"
   />
   <SuInput 
     state="success"
     label="État de succès" 
     placeholder="Entrez du texte"
-    successMessage="Valeur valide !"
+    message="Valeur valide !"
   />
   <SuInput 
     state="warning"
     label="État d'avertissement" 
     placeholder="Entrez du texte"
-    warningMessage="Attention à cette valeur"
+    message="Attention à cette valeur"
   />
 </template>
 ```
@@ -317,10 +317,7 @@ import {
 | `textAlign` | `'left' \| 'center' \| 'right'` | `'left'` | Alignement du texte |
 | `dir` | `'ltr' \| 'rtl' \| 'auto'` | `'auto'` | Direction du texte |
 | `label` | `string` | `undefined` | Label de l'input |
-| `helpText` | `string` | `undefined` | Texte d'aide |
-| `errorMessage` | `string` | `undefined` | Message d'erreur |
-| `successMessage` | `string` | `undefined` | Message de succès |
-| `warningMessage` | `string` | `undefined` | Message d'avertissement |
+| `message` | `string` | `undefined` | Message additionnel |
 
 ### Attributs d'accessibilité
 
@@ -389,7 +386,7 @@ Le composant Input respecte les normes WCAG 2.1 AA et les bonnes pratiques W3C :
   label="Adresse email"
   :required="true"
   placeholder="nom@exemple.com"
-  helpText="Utilisé pour la connexion et les notifications"
+  message="Utilisé pour la connexion et les notifications"
   autocomplete="email"
   v-model:value="email"
 />
@@ -413,7 +410,7 @@ Le composant Input respecte les normes WCAG 2.1 AA et les bonnes pratiques W3C :
   :required="true"
   :min="0"
   :max="120"
-  helpText="Votre âge en années"
+  message="Votre âge en années"
   v-model:value="age"
 />
 ```
