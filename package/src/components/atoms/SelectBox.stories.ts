@@ -254,7 +254,7 @@ export const States: Story = {
           state="default"
           label="État par défaut" 
           placeholder="Sélectionnez une option"
-          helpText="Texte d'aide pour guider l'utilisateur"
+          message="Texte d'aide pour guider l'utilisateur"
           v-model:value="defaultValue"
         />
         <SelectBox 
@@ -262,7 +262,7 @@ export const States: Story = {
           state="error"
           label="État d'erreur" 
           placeholder="Sélectionnez une option"
-          errorMessage="Cette sélection contient une erreur"
+          message="Cette sélection contient une erreur"
           v-model:value="errorValue"
         />
         <SelectBox 
@@ -270,7 +270,7 @@ export const States: Story = {
           state="success"
           label="État de succès" 
           placeholder="Sélectionnez une option"
-          successMessage="Sélection valide !"
+          message="Sélection valide !"
           v-model:value="successValue"
         />
         <SelectBox 
@@ -278,7 +278,7 @@ export const States: Story = {
           state="warning"
           label="État d'avertissement" 
           placeholder="Sélectionnez une option"
-          warningMessage="Attention à cette sélection"
+          message="Attention à cette sélection"
           v-model:value="warningValue"
         />
       </div>
@@ -316,7 +316,7 @@ export const MultipleSelection: Story = {
           :clearable="true"
           label="Sélection multiple" 
           placeholder="Sélectionnez plusieurs options"
-          helpText="Vous pouvez sélectionner plusieurs options"
+          message="Vous pouvez sélectionner plusieurs options"
           v-model:value="multipleValue"
         />
         <SelectBox 
@@ -326,7 +326,7 @@ export const MultipleSelection: Story = {
           :clearable="true"
           label="Sélection limitée (max 2)" 
           placeholder="Maximum 2 sélections"
-          helpText="Vous pouvez sélectionner jusqu'à 2 options"
+          message="Vous pouvez sélectionner jusqu'à 2 options"
           v-model:value="limitedValue"
         />
       </div>
@@ -558,7 +558,7 @@ export const DisabledAndReadonly: Story = {
           :options="basicOptions"
           label="SelectBox en lecture seule"
           :readonly="true"
-          helpText="Cette valeur ne peut pas être modifiée"
+          message="Cette valeur ne peut pas être modifiée"
           v-model:value="readonlyValue"
         />
         <SelectBox 
@@ -604,15 +604,15 @@ export const ValidationAndAccessibility: Story = {
           label="Champ requis"
           :required="true"
           placeholder="Sélection obligatoire"
-          helpText="Ce champ est obligatoire"
+          message="Ce champ est obligatoire"
           v-model:value="requiredValue"
         />
         <SelectBox 
           :options="detailedOptions"
           label="Avec validation"
           :state="validatedValue ? 'success' : 'error'"
-          :errorMessage="!validatedValue ? 'Veuillez faire une sélection' : undefined"
-          :successMessage="validatedValue ? 'Sélection valide' : undefined"
+          :message="!validatedValue ? 'Veuillez faire une sélection' : undefined"
+          :message="validatedValue ? 'Sélection valide' : undefined"
           placeholder="Choisissez une option..."
           v-model:value="validatedValue"
         />
@@ -691,13 +691,9 @@ export const Playground: Story = {
       control: { type: 'boolean' },
       description: 'Utiliser les options avec descriptions'
     },
-    helpText: {
+    message: {
       control: { type: 'text' },
-      description: 'Texte d\'aide'
-    },
-    errorMessage: {
-      control: { type: 'text' },
-      description: 'Message d\'erreur'
+      description: 'Message affiché (style déterminé par le state)'
     },
     maxSelectedItems: {
       control: { type: 'number' },
@@ -772,7 +768,7 @@ export const AccessibilityTests: Story = {
             :clearable="true"
             label="Test de contraste"
             state="error"
-            errorMessage="Erreur avec contraste élevé"
+            message="Erreur avec contraste élevé"
             v-model:value="contrastValue"
           />
         </div>

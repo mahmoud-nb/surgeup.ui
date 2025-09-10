@@ -32,15 +32,24 @@ export interface ButtonProps {
   iconBefore?: Component
   iconAfter?: Component
   iconOnly?: Component
-  ariaLabel?: string
-  ariaDescribedBy?: string
   ariaExpanded?: boolean
   ariaPressed?: boolean
-  role?: string
-  tabIndex?: number
 }
 
-export interface InputProps {
+export interface ButtonProps extends AccessibilityProps {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  disabled?: boolean
+  loading?: boolean
+  block?: boolean
+  iconBefore?: Component
+  iconAfter?: Component
+  iconOnly?: Component
+  ariaExpanded?: boolean
+  ariaPressed?: boolean
+}
+
+export interface InputProps extends AccessibilityProps {
   type?: InputType
   size?: InputSize
   state?: InputState
@@ -57,8 +66,6 @@ export interface InputProps {
   dir?: 'ltr' | 'rtl' | 'auto'
   label?: string
   message?: string
-  ariaLabel?: string
-  ariaDescribedBy?: string
   ariaInvalid?: boolean
   ariaRequired?: boolean
   autocomplete?: string
@@ -70,7 +77,7 @@ export interface InputProps {
   pattern?: string
 }
 
-export interface SelectProps {
+export interface SelectProps extends AccessibilityProps {
   options?: SelectOption[]
   groups?: SelectGroup[]
   value?: string | number | (string | number)[]
@@ -91,13 +98,11 @@ export interface SelectProps {
   dir?: 'ltr' | 'rtl' | 'auto'
   label?: string
   message?: string
-  ariaLabel?: string
-  ariaDescribedBy?: string
   ariaInvalid?: boolean
   ariaRequired?: boolean
-  loading?: boolean
-  closeOnSelect?: boolean
   maxSelectedItems?: number
+  closeOnSelect?: boolean
+  loading?: boolean
 }
 
 // Types pour l'accessibilité

@@ -348,7 +348,7 @@ const plans = [
         ]"
         label="État par défaut"
         placeholder="Sélectionnez une option"
-        helpText="Texte d'aide pour guider l'utilisateur"
+        message="Texte d'aide pour guider l'utilisateur"
       />
       <SuSelectBox 
         :options="[
@@ -358,7 +358,7 @@ const plans = [
         state="error"
         label="État d'erreur"
         placeholder="Sélectionnez une option"
-        errorMessage="Cette sélection contient une erreur"
+        message="Cette sélection contient une erreur"
         value="invalid"
       />
       <SuSelectBox 
@@ -369,7 +369,7 @@ const plans = [
         state="success"
         label="État de succès"
         placeholder="Sélectionnez une option"
-        successMessage="Sélection valide !"
+        message="Sélection valide !"
         value="valid"
       />
       <SuSelectBox 
@@ -380,7 +380,7 @@ const plans = [
         state="warning"
         label="État d'avertissement"
         placeholder="Sélectionnez une option"
-        warningMessage="Attention à cette sélection"
+        message="Attention à cette sélection"
         value="invalid"
       />
     </div>
@@ -392,22 +392,22 @@ const plans = [
   <SuSelectBox 
     state="default"
     label="État par défaut"
-    helpText="Texte d'aide pour guider l'utilisateur"
+    message="Texte d'aide pour guider l'utilisateur"
   />
   <SuSelectBox 
     state="error"
     label="État d'erreur"
-    errorMessage="Cette sélection contient une erreur"
+    message="Cette sélection contient une erreur"
   />
   <SuSelectBox 
     state="success"
     label="État de succès"
-    successMessage="Sélection valide !"
+    message="Sélection valide !"
   />
   <SuSelectBox 
     state="warning"
     label="État d'avertissement"
-    warningMessage="Attention à cette sélection"
+    message="Attention à cette sélection"
   />
 </template>
 ```
@@ -489,6 +489,8 @@ const plans = [
 | `loading` | `boolean` | `false` | État de chargement |
 | `closeOnSelect` | `boolean` | `true` | Fermer après sélection |
 | `maxSelectedItems` | `number` | `undefined` | Limite de sélection multiple |
+| `label` | `string` | `undefined` | Label du SelectBox |
+| `message` | `string` | `undefined` | Message affiché (style déterminé par le state) |
 
 ### Types d'options
 
@@ -562,9 +564,8 @@ Le composant SelectBox respecte les normes WCAG 2.1 AA et les bonnes pratiques W
   :required="true"
   label="Catégorie"
   placeholder="Sélectionnez une catégorie..."
-  helpText="Choisissez la catégorie qui correspond le mieux"
   :state="hasError ? 'error' : 'default'"
-  :errorMessage="hasError ? 'Veuillez sélectionner une catégorie' : undefined"
+  :message="hasError ? 'Veuillez sélectionner une catégorie' : 'Choisissez la catégorie qui correspond le mieux'"
   v-model:value="category"
 />
 
@@ -577,7 +578,7 @@ Le composant SelectBox respecte les normes WCAG 2.1 AA et les bonnes pratiques W
   :clearable="true"
   label="Compétences"
   placeholder="Sélectionnez vos compétences..."
-  helpText="Maximum 5 compétences"
+  message="Maximum 5 compétences"
   v-model:value="selectedSkills"
 />
 

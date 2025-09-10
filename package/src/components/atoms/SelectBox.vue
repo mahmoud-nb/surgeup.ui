@@ -57,10 +57,6 @@ const cleanupFocusTrap = ref<(() => void) | null>(null)
 // IDs pour l'accessibilité
 const selectId = computed(() => attrs.id as string || generateId('select'))
 const listboxId = computed(() => `${selectId.value}-listbox`)
-const helpTextId = computed(() => props.helpText ? `${selectId.value}-help` : undefined)
-const errorId = computed(() => props.errorMessage ? `${selectId.value}-error` : undefined)
-const successId = computed(() => props.successMessage ? `${selectId.value}-success` : undefined)
-const warningId = computed(() => props.warningMessage ? `${selectId.value}-warning` : undefined)
 
 // Normalisation des options
 const normalizedOptions = computed(() => {
@@ -164,31 +160,7 @@ const triggerClasses = computed(() => [
 ])
 
 // Message à afficher selon l'état
-const displayMessage = computed(() => {
-  switch (props.state) {
-    case 'error':
-      return props.errorMessage
-    case 'success':
-      return props.successMessage
-    case 'warning':
-      return props.warningMessage
-    default:
-      return props.helpText
-  }
-})
-
-const messageId = computed(() => {
-  switch (props.state) {
-    case 'error':
-      return errorId.value
-    case 'success':
-      return successId.value
-    case 'warning':
-      return warningId.value
-    default:
-      return helpTextId.value
-  }
-})
+const messageId = computed(() => props.message ? `${selectId.value}-message` : undefined)
 
 // Attributs ARIA
 const ariaAttributes = computed(() => {
@@ -668,13 +640,13 @@ watch(() => props.value, () => {
 
     <!-- Message d'aide/erreur/succès -->
     <div 
-      v-if="displayMessage" 
+      v-if="message" 
       :id="messageId"
       class="su-select-message"
       :class="`su-select-message--${state}`"
       :aria-live="state === 'error' ? 'assertive' : 'polite'"
     >
-      {{ displayMessage }}
+      {{ message }}
     </div>
   </div>
 </template>
