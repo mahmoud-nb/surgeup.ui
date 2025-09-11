@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick, onMounted, onUnmounted, useAttrs } from 'vue'
 import { ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon, CheckIcon } from '@heroicons/vue/24/outline'
-import type { SelectProps, SelectOption, SelectGroup } from '@/types'
+import type { SelectProps, SelectOption } from '@/types'
 import { generateId, trapFocus, announceToScreenReader } from '@/utils/accessibility'
 
 export interface Props extends SelectProps {}
@@ -31,8 +31,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  'update:value': [value: string | number | (string | number)[]]
-  change: [value: string | number | (string | number)[]]
+  'update:value': [value: string | number | (string | number)[] | undefined]
+  change: [value: string | number | (string | number)[] | undefined]
   open: []
   close: []
   search: [query: string]
@@ -566,7 +566,7 @@ watch(() => props.value, () => {
                 
                 <!-- Options du groupe -->
                 <div
-                  v-for="(option, index) in groupOptions"
+                  v-for="option in groupOptions"
                   :key="option.value"
                   class="su-select-option"
                   :class="{

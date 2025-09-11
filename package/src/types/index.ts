@@ -8,6 +8,12 @@ export type InputState = 'default' | 'error' | 'success' | 'warning'
 export type TextAlign = 'left' | 'center' | 'right'
 export type SelectSize = 'sm' | 'md' | 'lg'
 export type SelectState = 'default' | 'error' | 'success' | 'warning'
+export type RadioSize = 'sm' | 'md' | 'lg'
+export type RadioState = 'default' | 'error' | 'success' | 'warning'
+export type RadioDisplayType = 'default' | 'inline-card' | 'block-card'
+export type CheckboxSize = 'sm' | 'md' | 'lg'
+export type CheckboxState = 'default' | 'error' | 'success' | 'warning'
+export type CheckboxDisplayType = 'default' | 'inline-card' | 'block-card'
 
 export interface SelectOption {
   value: string | number
@@ -21,19 +27,6 @@ export interface SelectOption {
 export interface SelectGroup {
   label: string
   options: SelectOption[]
-}
-
-export interface ButtonProps {
-  variant?: ButtonVariant
-  size?: ButtonSize
-  disabled?: boolean
-  loading?: boolean
-  block?: boolean
-  iconBefore?: Component
-  iconAfter?: Component
-  iconOnly?: Component
-  ariaExpanded?: boolean
-  ariaPressed?: boolean
 }
 
 export interface ButtonProps extends AccessibilityProps {
@@ -103,6 +96,50 @@ export interface SelectProps extends AccessibilityProps {
   maxSelectedItems?: number
   closeOnSelect?: boolean
   loading?: boolean
+}
+
+export interface RadioOption {
+  value: string | number
+  label: string
+  description?: string
+  disabled?: boolean
+  icon?: Component
+}
+
+export interface RadioGroupProps extends AccessibilityProps {
+  options: RadioOption[]
+  value?: string | number
+  name?: string
+  size?: RadioSize
+  state?: RadioState
+  disabled?: boolean
+  required?: boolean
+  displayType?: RadioDisplayType
+  label?: string
+  message?: string
+  direction?: 'horizontal' | 'vertical'
+}
+
+export interface CheckboxOption {
+  value: string | number
+  label: string
+  description?: string
+  disabled?: boolean
+  icon?: Component
+}
+
+export interface CheckboxGroupProps extends AccessibilityProps {
+  options: CheckboxOption[]
+  value?: (string | number)[]
+  size?: CheckboxSize
+  state?: CheckboxState
+  disabled?: boolean
+  required?: boolean
+  displayType?: CheckboxDisplayType
+  label?: string
+  message?: string
+  direction?: 'horizontal' | 'vertical'
+  maxSelections?: number
 }
 
 // Types pour l'accessibilité
