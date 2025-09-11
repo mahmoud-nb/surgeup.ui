@@ -26,7 +26,8 @@ export default defineConfig({
           { text: 'Input', link: '/components/input' },
           { text: 'SelectBox', link: '/components/selectbox' },
           { text: 'RadioGroup', link: '/components/radiogroup' },
-          { text: 'CheckboxGroup', link: '/components/checkboxgroup' }
+          { text: 'CheckboxGroup', link: '/components/checkboxgroup' },
+          { text: 'Switch', link: '/components/switch' }
         ]
       }
     ],

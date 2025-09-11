@@ -14,6 +14,8 @@ export type RadioDisplayType = 'default' | 'inline-card' | 'block-card'
 export type CheckboxSize = 'sm' | 'md' | 'lg'
 export type CheckboxState = 'default' | 'error' | 'success' | 'warning'
 export type CheckboxDisplayType = 'default' | 'inline-card' | 'block-card'
+export type SwitchSize = 'sm' | 'md' | 'lg'
+export type SwitchState = 'default' | 'error' | 'success' | 'warning'
 
 export interface SelectOption {
   value: string | number
@@ -140,6 +142,21 @@ export interface CheckboxGroupProps extends AccessibilityProps {
   message?: string
   direction?: 'horizontal' | 'vertical'
   maxSelections?: number
+}
+
+export interface SwitchProps extends AccessibilityProps {
+  value?: boolean
+  size?: SwitchSize
+  state?: SwitchState
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
+  label?: string
+  leftLabel?: string
+  rightLabel?: string
+  message?: string
+  ariaInvalid?: boolean
+  ariaRequired?: boolean
 }
 
 // Types pour l'accessibilité

@@ -4,9 +4,10 @@ import Input from './components/atoms/Input.vue'
 import SelectBox from './components/atoms/SelectBox.vue'
 import RadioGroup from './components/atoms/RadioGroup.vue'
 import CheckboxGroup from './components/atoms/CheckboxGroup.vue'
+import Switch from './components/atoms/Switch.vue'
 import * as accessibility from './utils/accessibility'
 
-export { Button, Input, SelectBox, RadioGroup, CheckboxGroup }
+export { Button, Input, SelectBox, RadioGroup, CheckboxGroup, Switch }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -22,6 +23,7 @@ export default {
     app.component(`${prefix}SelectBox`, SelectBox)
     app.component(`${prefix}RadioGroup`, RadioGroup)
     app.component(`${prefix}CheckboxGroup`, CheckboxGroup)
+    app.component(`${prefix}Switch`, Switch)
   }
 }
 
