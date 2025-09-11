@@ -16,6 +16,8 @@ export type CheckboxState = 'default' | 'error' | 'success' | 'warning'
 export type CheckboxDisplayType = 'default' | 'inline-card' | 'block-card'
 export type SwitchSize = 'sm' | 'md' | 'lg'
 export type SwitchState = 'default' | 'error' | 'success' | 'warning'
+export type FileUploadSize = 'sm' | 'md' | 'lg'
+export type FileUploadState = 'default' | 'error' | 'success' | 'warning'
 
 export interface SelectOption {
   value: string | number
@@ -155,6 +157,40 @@ export interface SwitchProps extends AccessibilityProps {
   leftLabel?: string
   rightLabel?: string
   message?: string
+  ariaInvalid?: boolean
+  ariaRequired?: boolean
+}
+
+export interface UploadedFile {
+  id: string
+  file: File
+  name: string
+  size: number
+  type: string
+  status: 'pending' | 'uploading' | 'success' | 'error'
+  progress?: number
+  error?: string
+  preview?: string
+}
+
+export interface FileUploadProps extends AccessibilityProps {
+  value?: UploadedFile[]
+  multiple?: boolean
+  accept?: string
+  maxSize?: number
+  maxFiles?: number
+  size?: FileUploadSize
+  state?: FileUploadState
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
+  label?: string
+  message?: string
+  placeholder?: string
+  dragText?: string
+  browseText?: string
+  allowPreview?: boolean
+  showFileList?: boolean
   ariaInvalid?: boolean
   ariaRequired?: boolean
 }

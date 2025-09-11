@@ -228,28 +228,28 @@ export const States: Story = {
           state="default"
           label="État par défaut" 
           placeholder="Entrez du texte"
-          message="Texte d'aide pour guider l'utilisateur"
+          help-text="Texte d'aide pour guider l'utilisateur"
           v-model:value="defaultValue"
         />
         <Input 
           state="error"
           label="État d'erreur" 
           placeholder="Entrez du texte"
-          message="Ce champ contient une erreur"
+          error-message="Ce champ contient une erreur"
           v-model:value="errorValue"
         />
         <Input 
           state="success"
           label="État de succès" 
           placeholder="Entrez du texte"
-          message="Valeur valide !"
+          success-message="Valeur valide !"
           v-model:value="successValue"
         />
         <Input 
           state="warning"
           label="État d'avertissement" 
           placeholder="Entrez du texte"
-          message="Attention à cette valeur"
+          warning-message="Attention à cette valeur"
           v-model:value="warningValue"
         />
       </div>

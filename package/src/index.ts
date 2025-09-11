@@ -5,9 +5,10 @@ import SelectBox from './components/atoms/SelectBox.vue'
 import RadioGroup from './components/atoms/RadioGroup.vue'
 import CheckboxGroup from './components/atoms/CheckboxGroup.vue'
 import Switch from './components/atoms/Switch.vue'
+import FileUpload from './components/atoms/FileUpload.vue'
 import * as accessibility from './utils/accessibility'
 
-export { Button, Input, SelectBox, RadioGroup, CheckboxGroup, Switch }
+export { Button, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -24,6 +25,7 @@ export default {
     app.component(`${prefix}RadioGroup`, RadioGroup)
     app.component(`${prefix}CheckboxGroup`, CheckboxGroup)
     app.component(`${prefix}Switch`, Switch)
+    app.component(`${prefix}FileUpload`, FileUpload)
   }
 }
 
