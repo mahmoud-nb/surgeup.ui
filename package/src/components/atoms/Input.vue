@@ -390,15 +390,6 @@ defineExpose({
     text-align: right;
   }
   
-  // Ajustements avec préfixe/suffixe
-  &--has-prefix {
-    padding-left: 0 !important;
-  }
-  
-  &--has-suffix {
-    padding-right: 0 !important;
-  }
-  
   &--disabled {
     color: $text-tertiary;
     cursor: not-allowed;
