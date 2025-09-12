@@ -28,7 +28,8 @@ export default defineConfig({
           { text: 'RadioGroup', link: '/components/radiogroup' },
           { text: 'CheckboxGroup', link: '/components/checkboxgroup' },
           { text: 'Switch', link: '/components/switch' },
-          { text: 'FileUpload', link: '/components/fileupload' }
+          { text: 'FileUpload', link: '/components/fileupload' },
+          { text: 'Textarea', link: '/components/textarea' }
         ]
       }
     ],

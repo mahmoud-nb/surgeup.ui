@@ -18,6 +18,8 @@ export type SwitchSize = 'sm' | 'md' | 'lg'
 export type SwitchState = 'default' | 'error' | 'success' | 'warning'
 export type FileUploadSize = 'sm' | 'md' | 'lg'
 export type FileUploadState = 'default' | 'error' | 'success' | 'warning'
+export type TextareaSize = 'sm' | 'md' | 'lg'
+export type TextareaState = 'default' | 'error' | 'success' | 'warning'
 
 export interface SelectOption {
   value: string | number
@@ -193,6 +195,29 @@ export interface FileUploadProps extends AccessibilityProps {
   showFileList?: boolean
   ariaInvalid?: boolean
   ariaRequired?: boolean
+}
+
+export interface TextareaProps extends AccessibilityProps {
+  size?: TextareaSize
+  state?: TextareaState
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
+  placeholder?: string
+  value?: string
+  rows?: number
+  minRows?: number
+  maxRows?: number
+  maxLength?: number
+  showCounter?: boolean
+  autoResize?: boolean
+  label?: string
+  message?: string
+  ariaInvalid?: boolean
+  ariaRequired?: boolean
+  autocomplete?: string
+  spellcheck?: boolean
+  wrap?: 'soft' | 'hard' | 'off'
 }
 
 // Types pour l'accessibilité
