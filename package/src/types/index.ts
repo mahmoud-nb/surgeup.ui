@@ -124,6 +124,8 @@ export interface RadioGroupProps extends AccessibilityProps {
   label?: string
   message?: string
   direction?: 'horizontal' | 'vertical'
+  maxHeight?: string | null
+  initialVisibleOptions?: number | null
 }
 
 export interface CheckboxOption {
@@ -146,6 +148,8 @@ export interface CheckboxGroupProps extends AccessibilityProps {
   message?: string
   direction?: 'horizontal' | 'vertical'
   maxSelections?: number
+  maxHeight?: string | null
+  initialVisibleOptions?: number | null
 }
 
 export interface SwitchProps extends AccessibilityProps {

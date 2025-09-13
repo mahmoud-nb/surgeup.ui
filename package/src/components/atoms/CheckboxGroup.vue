@@ -637,6 +637,17 @@ const isDisabled = (option: any) => {
     color: $text-secondary-dark;
   }
   
+  .su-checkbox-group-toggle {
+    background-color: $gray-800;
+    border-color: $gray-600;
+    color: $primary-400;
+    
+    &:hover {
+      background-color: $gray-700;
+      border-color: $primary-400;
+    }
+  }
+  
   .su-checkbox-group-message {
     &--default {
       color: $text-secondary-dark;

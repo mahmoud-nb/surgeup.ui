@@ -12,7 +12,9 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   required: false,
   displayType: 'default',
-  direction: 'vertical'
+  direction: 'vertical',
+  maxHeight: null,
+  initialVisibleOptions: null
 })
 
 const emit = defineEmits<{
@@ -24,10 +26,32 @@ const emit = defineEmits<{
 
 const attrs = useAttrs()
 
+// État local pour "Afficher plus"
+const showAll = ref(false)
+
 // Génération d'IDs uniques
 const groupId = computed(() => attrs.id as string || generateId('radio-group'))
 const messageId = computed(() => props.message ? `${groupId.value}-message` : undefined)
 const radioName = computed(() => props.name || groupId.value)
+
+// Options visibles selon initialVisibleOptions
+const visibleOptions = computed(() => {
+  if (!props.initialVisibleOptions || showAll.value) {
+    return props.options
+  }
+  return props.options.slice(0, props.initialVisibleOptions)
+})
+
+// Détermine si le bouton "Afficher plus" est nécessaire
+const needsShowMore = computed(() => {
+  return props.initialVisibleOptions && props.options.length > props.initialVisibleOptions
+})
+
+// Nombre d'options cachées
+const hiddenOptionsCount = computed(() => {
+  if (!props.initialVisibleOptions || showAll.value) return 0
+  return Math.max(0, props.options.length - props.initialVisibleOptions)
+})
 
 // Classes CSS
 const groupClasses = computed(() => [
@@ -37,7 +61,8 @@ const groupClasses = computed(() => [
   `su-radio-group--${props.displayType}`,
   `su-radio-group--${props.direction}`,
   {
-    'su-radio-group--disabled': props.disabled
+    'su-radio-group--disabled': props.disabled,
+    'su-radio-group--scrollable': props.maxHeight
   }
 ])
 
@@ -84,6 +109,11 @@ const handleFocus = (event: FocusEvent) => {
 const handleBlur = (event: FocusEvent) => {
   emit('blur', event)
 }
+
+// Gestionnaire pour "Afficher plus/moins"
+const toggleShowAll = () => {
+  showAll.value = !showAll.value
+}
 </script>
 
 <template>
@@ -106,9 +136,12 @@ const handleBlur = (event: FocusEvent) => {
       </legend>
 
       <!-- Options -->
-      <div class="su-radio-group-options">
+      <div 
+        class="su-radio-group-options"
+        :style="{ maxHeight: maxHeight || undefined, overflowY: maxHeight ? 'auto' : undefined }"
+      >
         <label
-          v-for="option in options"
+          v-for="option in visibleOptions"
           :key="option.value"
           :class="getOptionClasses(option)"
           :for="`${groupId}-${option.value}`"
@@ -156,6 +189,16 @@ const handleBlur = (event: FocusEvent) => {
           </div>
         </label>
       </div>
+
+      <!-- Bouton "Afficher plus/moins" -->
+      <button
+        v-if="needsShowMore"
+        type="button"
+        class="su-radio-group-toggle"
+        @click="toggleShowAll"
+      >
+        {{ showAll ? 'Afficher moins' : `Afficher plus (${hiddenOptionsCount})` }}
+      </button>
     </fieldset>
 
     <!-- Message -->
@@ -236,6 +279,33 @@ const handleBlur = (event: FocusEvent) => {
   &--inline-card {
     .su-radio-group-options {
       gap: 0.5rem;
+    }
+  }
+  
+  // Scroll
+  &--scrollable {
+    .su-radio-group-options {
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: $gray-400 $gray-100;
+      
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: $gray-100;
+        border-radius: 3px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: $gray-400;
+        border-radius: 3px;
+        
+        &:hover {
+          background: $gray-500;
+        }
+      }
     }
   }
 }
@@ -509,6 +579,29 @@ const handleBlur = (event: FocusEvent) => {
   margin-top: 0.25rem;
 }
 
+.su-radio-group-toggle {
+  margin-top: 0.75rem;
+  padding: 0.5rem 1rem;
+  background-color: transparent;
+  border: 1px solid $gray-300;
+  border-radius: $border-radius-md;
+  color: $primary-600;
+  font-size: $font-size-sm;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:hover {
+    background-color: $gray-50;
+    border-color: $primary-300;
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba($primary-500, 0.2);
+  }
+}
+
 .su-radio-group-message {
   font-size: $font-size-sm;
   line-height: $line-height-tight;
@@ -573,6 +666,17 @@ const handleBlur = (event: FocusEvent) => {
   
   .su-radio-description {
     color: $text-secondary-dark;
+  }
+  
+  .su-radio-group-toggle {
+    background-color: $gray-800;
+    border-color: $gray-600;
+    color: $primary-400;
+    
+    &:hover {
+      background-color: $gray-700;
+      border-color: $primary-400;
+    }
   }
   
   .su-radio-group-message {
