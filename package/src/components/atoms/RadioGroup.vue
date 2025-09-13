@@ -14,7 +14,6 @@ const props = withDefaults(defineProps<Props>(), {
   displayType: 'default',
   direction: 'vertical',
   maxHeight: null,
-  initialVisibleOptions: null
 })
 
 const emit = defineEmits<{
@@ -26,32 +25,10 @@ const emit = defineEmits<{
 
 const attrs = useAttrs()
 
-// État local pour "Afficher plus"
-const showAll = ref(false)
-
 // Génération d'IDs uniques
 const groupId = computed(() => attrs.id as string || generateId('radio-group'))
 const messageId = computed(() => props.message ? `${groupId.value}-message` : undefined)
 const radioName = computed(() => props.name || groupId.value)
-
-// Options visibles selon initialVisibleOptions
-const visibleOptions = computed(() => {
-  if (!props.initialVisibleOptions || showAll.value) {
-    return props.options
-  }
-  return props.options.slice(0, props.initialVisibleOptions)
-})
-
-// Détermine si le bouton "Afficher plus" est nécessaire
-const needsShowMore = computed(() => {
-  return props.initialVisibleOptions && props.options.length > props.initialVisibleOptions
-})
-
-// Nombre d'options cachées
-const hiddenOptionsCount = computed(() => {
-  if (!props.initialVisibleOptions || showAll.value) return 0
-  return Math.max(0, props.options.length - props.initialVisibleOptions)
-})
 
 // Classes CSS
 const groupClasses = computed(() => [
@@ -109,11 +86,6 @@ const handleFocus = (event: FocusEvent) => {
 const handleBlur = (event: FocusEvent) => {
   emit('blur', event)
 }
-
-// Gestionnaire pour "Afficher plus/moins"
-const toggleShowAll = () => {
-  showAll.value = !showAll.value
-}
 </script>
 
 <template>
@@ -141,7 +113,7 @@ const toggleShowAll = () => {
         :style="{ maxHeight: maxHeight || undefined, overflowY: maxHeight ? 'auto' : undefined }"
       >
         <label
-          v-for="option in visibleOptions"
+          v-for="option in options"
           :key="option.value"
           :class="getOptionClasses(option)"
           :for="`${groupId}-${option.value}`"
@@ -189,16 +161,6 @@ const toggleShowAll = () => {
           </div>
         </label>
       </div>
-
-      <!-- Bouton "Afficher plus/moins" -->
-      <button
-        v-if="needsShowMore"
-        type="button"
-        class="su-radio-group-toggle"
-        @click="toggleShowAll"
-      >
-        {{ showAll ? 'Afficher moins' : `Afficher plus (${hiddenOptionsCount})` }}
-      </button>
     </fieldset>
 
     <!-- Message -->

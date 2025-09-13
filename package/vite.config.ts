@@ -7,8 +7,8 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({
-      insertTypesEntry: true,
-      rollupTypes: true
+      insertTypesEntry: false,
+      rollupTypes: false
     })
   ],
   css: {

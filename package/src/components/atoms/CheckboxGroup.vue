@@ -41,7 +41,8 @@ const groupClasses = computed(() => [
   `su-checkbox-group--${props.displayType}`,
   `su-checkbox-group--${props.direction}`,
   {
-    'su-checkbox-group--disabled': props.disabled
+    'su-checkbox-group--disabled': props.disabled,
+    'su-checkbox-group--scrollable': props.maxHeight
   }
 ])
 
@@ -136,7 +137,10 @@ const isDisabled = (option: any) => {
       </legend>
 
       <!-- Options -->
-      <div class="su-checkbox-group-options">
+      <div 
+        class="su-checkbox-group-options"
+        :style="{ maxHeight: maxHeight || undefined, overflowY: maxHeight ? 'auto' : undefined }"
+      >
         <label
           v-for="option in options"
           :key="option.value"
@@ -185,12 +189,6 @@ const isDisabled = (option: any) => {
             <!-- Texte -->
             <div class="su-checkbox-text">
               <div class="su-checkbox-label">{{ option.label }}</div>
-              <div 
-                v-if="option.description" 
-                class="su-checkbox-description"
-              >
-                {{ option.description }}
-              </div>
             </div>
           </div>
         </label>
@@ -275,6 +273,33 @@ const isDisabled = (option: any) => {
   &--inline-card {
     .su-checkbox-group-options {
       gap: 0.5rem;
+    }
+  }
+  
+  // Scroll
+  &--scrollable {
+    .su-checkbox-group-options {
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: $gray-400 $gray-100;
+      
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: $gray-100;
+        border-radius: 3px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: $gray-400;
+        border-radius: 3px;
+        
+        &:hover {
+          background: $gray-500;
+        }
+      }
     }
   }
 }

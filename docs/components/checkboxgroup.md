@@ -335,6 +335,45 @@ const permissionOptions = [
 </template>
 ```
 
+### Scroll avec hauteur limitée
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Liste avec scroll vertical</h4>
+    <div class="demo-inputs">
+      <SuCheckboxGroup 
+        :options="[
+          { value: 'skill1', label: 'JavaScript' },
+          { value: 'skill2', label: 'TypeScript' },
+          { value: 'skill3', label: 'Vue.js' },
+          { value: 'skill4', label: 'React' },
+          { value: 'skill5', label: 'Angular' },
+          { value: 'skill6', label: 'Node.js' },
+          { value: 'skill7', label: 'Python' },
+          { value: 'skill8', label: 'Java' },
+          { value: 'skill9', label: 'C#' },
+          { value: 'skill10', label: 'PHP' }
+        ]"
+        maxHeight="150px"
+        label="Compétences (avec scroll)"
+        message="Liste avec hauteur limitée et scroll automatique"
+      />
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuCheckboxGroup 
+    :options="longSkillsList"
+    maxHeight="150px"
+    label="Compétences (avec scroll)"
+    message="Liste avec hauteur limitée et scroll automatique"
+    v-model:value="selectedSkills"
+  />
+</template>
+```
+
 ## API
 
 ### Props
@@ -350,6 +389,7 @@ const permissionOptions = [
 | `displayType` | `'default' \| 'inline-card' \| 'block-card'` | `'default'` | Type d'affichage |
 | `direction` | `'horizontal' \| 'vertical'` | `'vertical'` | Direction du groupe |
 | `maxSelections` | `number` | `undefined` | Nombre maximum de sélections |
+| `maxHeight` | `string` | `null` | Hauteur maximale avec scroll automatique |
 | `label` | `string` | `undefined` | Label du groupe |
 | `message` | `string` | `undefined` | Message affiché (style déterminé par le state) |
 

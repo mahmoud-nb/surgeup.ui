@@ -325,6 +325,47 @@ const accountOptions = [
 </template>
 ```
 
+### Scroll avec hauteur limitée
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Liste avec scroll vertical</h4>
+    <div class="demo-inputs">
+      <SuRadioGroup 
+        :options="[
+          { value: 'country1', label: 'France' },
+          { value: 'country2', label: 'Allemagne' },
+          { value: 'country3', label: 'Espagne' },
+          { value: 'country4', label: 'Italie' },
+          { value: 'country5', label: 'Portugal' },
+          { value: 'country6', label: 'Belgique' },
+          { value: 'country7', label: 'Pays-Bas' },
+          { value: 'country8', label: 'Suisse' },
+          { value: 'country9', label: 'Autriche' },
+          { value: 'country10', label: 'Luxembourg' }
+        ]"
+        maxHeight="180px"
+        label="Pays (avec scroll)"
+        name="countries-scroll"
+        message="Liste avec hauteur limitée et scroll automatique"
+      />
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuRadioGroup 
+    :options="longCountriesList"
+    maxHeight="180px"
+    label="Pays (avec scroll)"
+    name="countries-scroll"
+    message="Liste avec hauteur limitée et scroll automatique"
+    v-model:value="selectedCountry"
+  />
+</template>
+```
+
 ## API
 
 ### Props
@@ -340,6 +381,7 @@ const accountOptions = [
 | `required` | `boolean` | `false` | Champ requis |
 | `displayType` | `'default' \| 'inline-card' \| 'block-card'` | `'default'` | Type d'affichage |
 | `direction` | `'horizontal' \| 'vertical'` | `'vertical'` | Direction du groupe |
+| `maxHeight` | `string` | `null` | Hauteur maximale avec scroll automatique |
 | `label` | `string` | `undefined` | Label du groupe |
 | `message` | `string` | `undefined` | Message affiché (style déterminé par le state) |
 
