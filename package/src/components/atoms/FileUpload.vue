@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs, nextTick } from 'vue'
+import { computed, ref, useAttrs } from 'vue'
 import { CloudArrowUpIcon, DocumentIcon, PhotoIcon, XMarkIcon, CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/vue/24/outline'
 import type { FileUploadProps, UploadedFile } from '@/types'
 import { generateId, announceToScreenReader } from '@/utils/accessibility'

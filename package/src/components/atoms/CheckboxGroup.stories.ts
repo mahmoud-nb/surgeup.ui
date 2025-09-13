@@ -7,7 +7,7 @@ import {
   StarIcon,
   CogIcon,
   BellIcon,
-  MailIcon,
+  AtSymbolIcon,
   DevicePhoneMobileIcon
 } from '@heroicons/vue/24/outline'
 import CheckboxGroup from './CheckboxGroup.vue'
@@ -103,7 +103,7 @@ const detailedOptions: CheckboxOption[] = [
 
 // Options de notifications
 const notificationOptions: CheckboxOption[] = [
-  { value: 'email', label: 'Email', icon: MailIcon, description: 'Recevoir des emails' },
+  { value: 'email', label: 'Email', icon: AtSymbolIcon, description: 'Recevoir des emails' },
   { value: 'push', label: 'Push', icon: BellIcon, description: 'Notifications push' },
   { value: 'sms', label: 'SMS', icon: DevicePhoneMobileIcon, description: 'Messages SMS' }
 ]
