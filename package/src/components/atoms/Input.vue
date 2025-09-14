@@ -24,6 +24,10 @@ const emit = defineEmits<{
   blur: [event: FocusEvent]
   keydown: [event: KeyboardEvent]
   keyup: [event: KeyboardEvent]
+  'prefix-click': [event: MouseEvent]
+  'prefix-icon-click': [event: MouseEvent]
+  'suffix-click': [event: MouseEvent]
+  'suffix-icon-click': [event: MouseEvent]
 }>()
 
 const attrs = useAttrs()
@@ -120,6 +124,27 @@ const handleKeyup = (event: KeyboardEvent) => {
   emit('keyup', event)
 }
 
+// Gestionnaires d'événements pour prefix et suffix
+const handlePrefixClick = (event: MouseEvent) => {
+  if (props.disabled || props.readonly) return
+  emit('prefix-click', event)
+}
+
+const handlePrefixIconClick = (event: MouseEvent) => {
+  if (props.disabled || props.readonly) return
+  emit('prefix-icon-click', event)
+}
+
+const handleSuffixClick = (event: MouseEvent) => {
+  if (props.disabled || props.readonly) return
+  emit('suffix-click', event)
+}
+
+const handleSuffixIconClick = (event: MouseEvent) => {
+  if (props.disabled || props.readonly) return
+  emit('suffix-icon-click', event)
+}
+
 // Méthode pour donner le focus à l'input
 const focus = () => {
   inputRef.value?.focus()
@@ -157,12 +182,20 @@ defineExpose({
     <!-- Container de l'input -->
     <div :class="containerClasses">
       <!-- Préfixe icône -->
-      <div v-if="prefixIcon" class="su-input-prefix su-input-prefix--icon">
+      <div 
+        v-if="prefixIcon" 
+        class="su-input-prefix su-input-prefix--icon su-input-prefix--clickable"
+        @click="handlePrefixIconClick"
+      >
         <component :is="prefixIcon" class="su-input-icon" aria-hidden="true" />
       </div>
       
       <!-- Préfixe texte -->
-      <div v-else-if="prefix" class="su-input-prefix su-input-prefix--text">
+      <div 
+        v-else-if="prefix" 
+        class="su-input-prefix su-input-prefix--text su-input-prefix--clickable"
+        @click="handlePrefixClick"
+      >
         {{ prefix }}
       </div>
 
@@ -187,12 +220,20 @@ defineExpose({
       />
 
       <!-- Suffixe texte -->
-      <div v-if="suffix" class="su-input-suffix su-input-suffix--text">
+      <div 
+        v-if="suffix" 
+        class="su-input-suffix su-input-suffix--text su-input-suffix--clickable"
+        @click="handleSuffixClick"
+      >
         {{ suffix }}
       </div>
       
       <!-- Suffixe icône -->
-      <div v-else-if="suffixIcon" class="su-input-suffix su-input-suffix--icon">
+      <div 
+        v-else-if="suffixIcon" 
+        class="su-input-suffix su-input-suffix--icon su-input-suffix--clickable"
+        @click="handleSuffixIconClick"
+      >
         <component :is="suffixIcon" class="su-input-icon" aria-hidden="true" />
       </div>
     </div>
@@ -440,6 +481,20 @@ defineExpose({
       height: 1.25em;
     }
   }
+  
+  &--clickable {
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    &:hover:not(.su-input-container--disabled):not(.su-input-container--readonly) {
+      background-color: $gray-100;
+      color: $text-primary;
+    }
+    
+    &:active:not(.su-input-container--disabled):not(.su-input-container--readonly) {
+      background-color: $gray-200;
+    }
+  }
 }
 
 .su-input-suffix {
@@ -519,6 +574,15 @@ defineExpose({
     background-color: $gray-900;
     border-color: $gray-600;
     color: $text-secondary-dark;
+    
+    &--clickable:hover:not(.su-input-container--disabled):not(.su-input-container--readonly) {
+      background-color: $gray-700;
+      color: $text-primary-dark;
+    }
+    
+    &--clickable:active:not(.su-input-container--disabled):not(.su-input-container--readonly) {
+      background-color: $gray-600;
+    }
   }
   
   .su-input-message {

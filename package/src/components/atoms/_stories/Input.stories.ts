@@ -142,6 +142,41 @@ export const WithSuffix: Story = {
   }
 }
 
+export const ClickablePrefix: Story = {
+  args: {
+    label: 'Recherche avec action',
+    placeholder: 'Rechercher...',
+    prefixIcon: MagnifyingGlassIcon
+  },
+  render: (args) => ({
+    components: { Input },
+    setup() {
+      const handlePrefixIconClick = () => {
+        alert('Icône de recherche cliquée!')
+      }
+      return { args, MagnifyingGlassIcon, handlePrefixIconClick }
+    },
+    template: '<Input v-bind="args" :prefixIcon="MagnifyingGlassIcon" @prefix-icon-click="handlePrefixIconClick" />'
+  })
+}
+
+export const ClickableSuffix: Story = {
+  args: {
+    label: 'Montant',
+    placeholder: '0.00',
+    suffix: '€'
+  },
+  render: (args) => ({
+    components: { Input },
+    setup() {
+      const handleSuffixClick = () => {
+        alert('Suffixe € cliqué!')
+      }
+      return { args, handleSuffixClick }
+    },
+    template: '<Input v-bind="args" @suffix-click="handleSuffixClick" />'
+  })
+}
 export const States: Story = {
   render: () => ({
     components: { Input },
