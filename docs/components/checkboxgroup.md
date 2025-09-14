@@ -374,6 +374,64 @@ const permissionOptions = [
 </template>
 ```
 
+### Avec slots personnalisés
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Slots before et after</h4>
+    <div class="demo-inputs">
+      <SuCheckboxGroup 
+        :options="[
+          { value: 'feature1', label: 'Fonctionnalité 1' },
+          { value: 'feature2', label: 'Fonctionnalité 2' },
+          { value: 'feature3', label: 'Fonctionnalité 3' }
+        ]"
+        label="Fonctionnalités"
+      >
+        <template #before>
+          <div style="padding: 0.75rem; background-color: #f3f4f6; border-radius: 0.375rem; margin-bottom: 0.75rem;">
+            <p style="margin: 0; font-size: 0.875rem; color: #6b7280;">
+              💡 Sélectionnez les fonctionnalités que vous souhaitez activer pour votre compte.
+            </p>
+          </div>
+        </template>
+        <template #after>
+          <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+            <button type="button" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #e5e7eb; border: none; border-radius: 0.25rem; cursor: pointer;">
+              Tout sélectionner
+            </button>
+            <button type="button" style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #e5e7eb; border: none; border-radius: 0.25rem; cursor: pointer;">
+              Tout désélectionner
+            </button>
+          </div>
+        </template>
+      </SuCheckboxGroup>
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuCheckboxGroup 
+    :options="featureOptions"
+    label="Fonctionnalités"
+    v-model:value="selectedFeatures"
+  >
+    <template #before>
+      <div class="info-box">
+        💡 Sélectionnez les fonctionnalités que vous souhaitez activer.
+      </div>
+    </template>
+    <template #after>
+      <div class="actions">
+        <button @click="selectAll">Tout sélectionner</button>
+        <button @click="selectNone">Tout désélectionner</button>
+      </div>
+    </template>
+  </SuCheckboxGroup>
+</template>
+```
+
 ## API
 
 ### Props
@@ -414,6 +472,13 @@ interface CheckboxOption {
 | `@change` | `(value: (string \| number)[]) => void` | Émis lors du changement |
 | `@focus` | `(event: FocusEvent) => void` | Émis lors du focus |
 | `@blur` | `(event: FocusEvent) => void` | Émis lors de la perte de focus |
+
+### Slots
+
+| Slot | Description |
+|------|-------------|
+| `before` | Contenu affiché entre le label et la liste des options |
+| `after` | Contenu affiché entre la liste des options et le message |
 
 ## Accessibilité
 

@@ -1,31 +1,31 @@
 {
-  "hash": "7a1c817e",
-  "configHash": "613b51be",
+  "hash": "864377f0",
+  "configHash": "9aa17255",
   "lockfileHash": "df4ca922",
-  "browserHash": "f302cbd1",
+  "browserHash": "1c3b00a0",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "68807b42",
+      "fileHash": "ca122dc0",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "9f27ec74",
+      "fileHash": "b37bfb63",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../../node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "ba0c1f80",
+      "fileHash": "ac33d285",
       "needsInterop": false
     },
     "@heroicons/vue/24/outline": {
       "src": "../../../../node_modules/@heroicons/vue/24/outline/esm/index.js",
       "file": "@heroicons_vue_24_outline.js",
-      "fileHash": "7e96d543",
+      "fileHash": "6a40aeb9",
       "needsInterop": false
     }
   },

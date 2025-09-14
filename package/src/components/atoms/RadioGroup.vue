@@ -112,6 +112,11 @@ const handleBlur = (event: FocusEvent) => {
         class="su-radio-group-options"
         :style="{ maxHeight: maxHeight || undefined, overflowY: maxHeight ? 'auto' : undefined }"
       >
+      <!-- Slot before: contenu entre le label et les options -->
+      <div v-if="$slots.before" class="su-radio-group-before">
+        <slot name="before" />
+      </div>
+
         <label
           v-for="option in options"
           :key="option.value"
@@ -160,6 +165,11 @@ const handleBlur = (event: FocusEvent) => {
             </div>
           </div>
         </label>
+      </div>
+
+      <!-- Slot after: contenu entre les options et le message -->
+      <div v-if="$slots.after" class="su-radio-group-after">
+        <slot name="after" />
       </div>
     </fieldset>
 
@@ -582,6 +592,19 @@ const handleBlur = (event: FocusEvent) => {
   
   &--warning {
     color: $warning-600;
+  }
+}
+
+.su-radio-group-before,
+.su-radio-group-after {
+  margin: 0.75rem 0;
+  
+  &:first-child {
+    margin-top: 0;
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 

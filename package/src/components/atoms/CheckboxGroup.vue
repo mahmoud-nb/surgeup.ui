@@ -141,6 +141,11 @@ const isDisabled = (option: any) => {
         class="su-checkbox-group-options"
         :style="{ maxHeight: maxHeight || undefined, overflowY: maxHeight ? 'auto' : undefined }"
       >
+      <!-- Slot before: contenu entre le label et les options -->
+      <div v-if="$slots.before" class="su-checkbox-group-before">
+        <slot name="before" />
+      </div>
+
         <label
           v-for="option in options"
           :key="option.value"
@@ -192,6 +197,11 @@ const isDisabled = (option: any) => {
             </div>
           </div>
         </label>
+      </div>
+
+      <!-- Slot after: contenu entre les options et le message -->
+      <div v-if="$slots.after" class="su-checkbox-group-after">
+        <slot name="after" />
       </div>
     </fieldset>
 
@@ -609,6 +619,19 @@ const isDisabled = (option: any) => {
   
   &--warning {
     color: $warning-600;
+  }
+}
+
+.su-checkbox-group-before,
+.su-checkbox-group-after {
+  margin: 0.75rem 0;
+  
+  &:first-child {
+    margin-top: 0;
+  }
+  
+  &:last-child {
+    margin-bottom: 0;
   }
 }
 

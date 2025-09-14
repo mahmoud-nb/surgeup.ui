@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { UserIcon, BuildingOfficeIcon, GlobeAltIcon } from '@heroicons/vue/24/outline'
 import RadioGroup from '../RadioGroup.vue'
@@ -273,4 +274,46 @@ export const Required: Story = {
     name: 'required-radio',
     message: 'Vous devez accepter ou refuser les conditions'
   }
+}
+
+export const WithSlots: Story = {
+  render: () => ({
+    components: { RadioGroup },
+    setup() {
+      const plans = [
+        { value: 'basic', label: 'Plan Basic', description: '9€/mois - Fonctionnalités de base' },
+        { value: 'pro', label: 'Plan Pro', description: '19€/mois - Fonctionnalités avancées' },
+        { value: 'enterprise', label: 'Plan Enterprise', description: '49€/mois - Solution complète' }
+      ]
+      const selectedPlan = ref('')
+      
+      return { plans, selectedPlan }
+    },
+    template: `
+      <div style="width: 500px;">
+        <RadioGroup 
+          :options="plans"
+          displayType="block-card"
+          label="Choisissez votre plan"
+          name="plan-with-slots"
+          v-model:value="selectedPlan"
+        >
+          <template #before>
+            <div style="padding: 0.75rem; background-color: #dbeafe; border-radius: 0.375rem; margin-bottom: 0.75rem;">
+              <p style="margin: 0; font-size: 0.875rem; color: #1e40af;">
+                🎯 Choisissez le plan qui correspond le mieux à vos besoins. Vous pourrez changer à tout moment.
+              </p>
+            </div>
+          </template>
+          <template #after>
+            <div style="text-align: center; margin-top: 0.75rem;">
+              <a href="#" style="font-size: 0.875rem; color: #3b82f6; text-decoration: underline;">
+                Comparer tous les plans en détail →
+              </a>
+            </div>
+          </template>
+        </RadioGroup>
+      </div>
+    `
+  })
 }

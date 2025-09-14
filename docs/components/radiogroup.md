@@ -366,6 +366,64 @@ const accountOptions = [
 </template>
 ```
 
+### Avec slots personnalisés
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Slots before et after</h4>
+    <div class="demo-inputs">
+      <SuRadioGroup 
+        :options="[
+          { value: 'basic', label: 'Plan Basic', description: '9€/mois' },
+          { value: 'pro', label: 'Plan Pro', description: '19€/mois' },
+          { value: 'enterprise', label: 'Plan Enterprise', description: '49€/mois' }
+        ]"
+        displayType="block-card"
+        label="Choisissez votre plan"
+        name="plan-with-slots"
+      >
+        <template #before>
+          <div style="padding: 0.75rem; background-color: #dbeafe; border-radius: 0.375rem; margin-bottom: 0.75rem;">
+            <p style="margin: 0; font-size: 0.875rem; color: #1e40af;">
+              🎯 Choisissez le plan qui correspond le mieux à vos besoins.
+            </p>
+          </div>
+        </template>
+        <template #after>
+          <div style="text-align: center; margin-top: 0.75rem;">
+            <a href="#" style="font-size: 0.875rem; color: #3b82f6; text-decoration: underline;">
+              Comparer tous les plans en détail →
+            </a>
+          </div>
+        </template>
+      </SuRadioGroup>
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuRadioGroup 
+    :options="planOptions"
+    displayType="block-card"
+    label="Choisissez votre plan"
+    name="subscription-plan"
+    v-model:value="selectedPlan"
+  >
+    <template #before>
+      <div class="plan-info">
+        🎯 Choisissez le plan qui correspond le mieux à vos besoins.
+      </div>
+    </template>
+    <template #after>
+      <div class="plan-comparison">
+        <a href="/plans/compare">Comparer tous les plans en détail →</a>
+      </div>
+    </template>
+  </SuRadioGroup>
+</template>
+```
+
 ## API
 
 ### Props

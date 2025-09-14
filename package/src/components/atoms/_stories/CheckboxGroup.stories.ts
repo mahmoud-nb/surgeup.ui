@@ -1,3 +1,4 @@
+import { ref } from 'vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { StarIcon, BuildingOfficeIcon, GlobeAltIcon } from '@heroicons/vue/24/outline'
 import CheckboxGroup from '../CheckboxGroup.vue'
@@ -275,4 +276,64 @@ export const Required: Story = {
     message: 'Veuillez accepter les conditions',
     value: []
   }
+}
+
+export const WithSlots: Story = {
+  render: () => ({
+    components: { CheckboxGroup },
+    setup() {
+      const features = [
+        { value: 'notifications', label: 'Notifications push' },
+        { value: 'analytics', label: 'Analytics avancées' },
+        { value: 'api', label: 'Accès API' },
+        { value: 'support', label: 'Support prioritaire' }
+      ]
+      const selectedFeatures = ref([])
+      
+      const selectAll = () => {
+        selectedFeatures.value = features.map(f => f.value)
+      }
+      
+      const selectNone = () => {
+        selectedFeatures.value = []
+      }
+      
+      return { features, selectedFeatures, selectAll, selectNone }
+    },
+    template: `
+      <div style="width: 400px;">
+        <CheckboxGroup 
+          :options="features"
+          label="Fonctionnalités"
+          v-model:value="selectedFeatures"
+        >
+          <template #before>
+            <div style="padding: 0.75rem; background-color: #f3f4f6; border-radius: 0.375rem; margin-bottom: 0.75rem;">
+              <p style="margin: 0; font-size: 0.875rem; color: #6b7280;">
+                💡 Sélectionnez les fonctionnalités que vous souhaitez activer pour votre compte.
+              </p>
+            </div>
+          </template>
+          <template #after>
+            <div style="display: flex; gap: 0.5rem; margin-top: 0.75rem;">
+              <button 
+                @click="selectAll"
+                type="button" 
+                style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #e5e7eb; border: none; border-radius: 0.25rem; cursor: pointer;"
+              >
+                Tout sélectionner
+              </button>
+              <button 
+                @click="selectNone"
+                type="button" 
+                style="padding: 0.25rem 0.5rem; font-size: 0.75rem; background: #e5e7eb; border: none; border-radius: 0.25rem; cursor: pointer;"
+              >
+                Tout désélectionner
+              </button>
+            </div>
+          </template>
+        </CheckboxGroup>
+      </div>
+    `
+  })
 }
