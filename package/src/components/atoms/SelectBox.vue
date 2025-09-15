@@ -97,21 +97,30 @@ const groupedOptions = computed(() => {
 })
 
 // Valeur sélectionnée normalisée
-const selectedValue = computed(() => {
-  if (props.multiple) {
-    return Array.isArray(props.value) ? props.value : (props.value !== undefined ? [props.value] : [])
+const selectedValue = computed({
+  get() {
+    if (props.multiple) {
+      return Array.isArray(props.value) ? props.value : (props.value !== undefined && props.value !== null ? [props.value] : [])
+    }
+    return props.value
+  },
+  set(newValue) {
+    emit('update:value', newValue)
+    emit('change', newValue)
   }
-  return props.value
 })
 
 // Options sélectionnées
 const selectedOptions = computed(() => {
+  console.log('selectedOptions computed updated', selectedValue.value)
   if (props.multiple) {
     const values = selectedValue.value as (string | number)[]
-    return normalizedOptions.value.filter(option => values.includes(option.value))
+    return values ? normalizedOptions.value.filter(option => values.includes(option.value)) : []
   } else {
     const value = selectedValue.value as string | number
-    return normalizedOptions.value.filter(option => option.value === value)
+    return value !== undefined && value !== null 
+      ? normalizedOptions.value.filter(option => option.value === value)
+      : []
   }
 })
 
@@ -240,7 +249,7 @@ const selectOption = (option: SelectOption) => {
   let newValue: string | number | (string | number)[]
   
   if (props.multiple) {
-    const currentValues = selectedValue.value as (string | number)[]
+    const currentValues = (selectedValue.value as (string | number)[]) || []
     const isSelected = currentValues.includes(option.value)
     
     if (isSelected) {
@@ -256,8 +265,8 @@ const selectOption = (option: SelectOption) => {
     newValue = option.value
   }
   
-  emit('update:value', newValue)
-  emit('change', newValue)
+  console.log('>>>>', newValue)
+  selectedValue.value = newValue
   
   // Annonce pour les lecteurs d'écran
   const action = props.multiple && (selectedValue.value as (string | number)[]).includes(option.value) ? 'désélectionné' : 'sélectionné'
@@ -272,8 +281,7 @@ const clearSelection = (event: Event) => {
   event.stopPropagation()
   
   const newValue = props.multiple ? [] : undefined
-  emit('update:value', newValue)
-  emit('change', newValue)
+  selectedValue.value = newValue
   
   announceToScreenReader('Sélection effacée')
 }
@@ -282,10 +290,9 @@ const removeSelectedOption = (option: SelectOption, event: Event) => {
   event.stopPropagation()
   
   if (props.multiple) {
-    const currentValues = selectedValue.value as (string | number)[]
+    const currentValues = (selectedValue.value as (string | number)[]) || []
     const newValue = currentValues.filter(v => v !== option.value)
-    emit('update:value', newValue)
-    emit('change', newValue)
+    selectedValue.value = newValue
     
     announceToScreenReader(`${option.label} retiré de la sélection`)
   }
@@ -410,6 +417,7 @@ onUnmounted(() => {
 
 // Watchers
 watch(() => props.value, () => {
+  console.log('Value changed:', props.value)
   // Réinitialiser l'index de focus quand la valeur change
   focusedIndex.value = -1
 })
@@ -711,10 +719,6 @@ watch(() => props.value, () => {
   // RTL Support
   &--rtl {
     direction: rtl;
-    
-    .su-select-actions {
-      order: -1;
-    }
   }
 }
 
@@ -722,6 +726,7 @@ watch(() => props.value, () => {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.5rem;
   width: 100%;
   background-color: white;
   border: 1px solid $gray-300;
@@ -892,7 +897,6 @@ watch(() => props.value, () => {
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  margin-left: 0.5rem;
 }
 
 .su-select-spinner {

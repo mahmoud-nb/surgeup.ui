@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { StarIcon, BuildingOfficeIcon, GlobeAltIcon } from '@heroicons/vue/24/outline'
 import SelectBox from '../SelectBox.vue'
+import { ref } from 'vue'
 
 const meta: Meta<typeof SelectBox> = {
   title: 'Atoms/SelectBox',
@@ -145,76 +146,71 @@ const groupedOptions = [
   }
 ]
 
-export const Default: Story = {
-  args: {
-    options: basicOptions,
-    label: 'Sélection simple',
-    placeholder: 'Choisissez une option...'
-  }
-}
-
-export const WithValue: Story = {
-  args: {
-    options: basicOptions,
-    label: 'Avec valeur pré-sélectionnée',
-    placeholder: 'Choisissez une option...',
-    value: 'option2'
-  }
-}
-
-export const Multiple: Story = {
-  args: {
-    options: technologies,
-    multiple: true,
-    clearable: true,
-    label: 'Technologies',
-    placeholder: 'Sélectionnez vos technologies...',
-    message: 'Vous pouvez sélectionner plusieurs options'
-  }
-}
-
-export const Searchable: Story = {
-  args: {
-    options: countries,
-    searchable: true,
-    clearable: true,
-    label: 'Pays',
-    placeholder: 'Rechercher un pays...',
-    searchPlaceholder: 'Tapez pour rechercher...'
-  }
-}
-
-export const WithIcons: Story = {
-  args: {
-    options: plans,
-    searchable: true,
-    label: 'Plan d\'abonnement',
-    placeholder: 'Choisissez votre plan...'
-  },
+const createInteractiveStory = (args: any): Story => ({
   render: (args) => ({
     components: { SelectBox },
     setup() {
-      return { args, plans }
+      const value = ref(args.value);
+      return { args, value };
     },
-    template: '<SelectBox v-bind="args" :options="plans" />'
-  })
-}
+    // On utilise v-model pour lier la ref locale au composant
+    template: '<SelectBox v-bind="args" v-model:value="value" @update:value="args[\'onUpdate:value\']" />',
+  }),
+  args,
+});
 
-export const Grouped: Story = {
-  args: {
-    groups: groupedOptions,
-    searchable: true,
-    multiple: true,
-    label: 'Produits alimentaires',
-    placeholder: 'Sélectionnez des produits...'
-  }
-}
+export const Default = createInteractiveStory({
+  options: basicOptions,
+  label: 'Sélection simple',
+  placeholder: 'Choisissez une option...'
+})
+
+export const WithValue: Story = createInteractiveStory({
+  options: basicOptions,
+  label: 'Avec valeur pré-sélectionnée',
+  placeholder: 'Choisissez une option...',
+  value: 'option2'
+})
+
+export const Multiple: Story = createInteractiveStory({
+  options: technologies,
+  multiple: true,
+  clearable: true,
+  label: 'Technologies',
+  placeholder: 'Sélectionnez vos technologies...',
+  message: 'Vous pouvez sélectionner plusieurs options'
+})
+
+export const Searchable: Story = createInteractiveStory({
+  options: countries,
+  searchable: true,
+  clearable: true,
+  label: 'Pays',
+  placeholder: 'Rechercher un pays...',
+  searchPlaceholder: 'Tapez pour rechercher...'
+})
+
+export const WithIcons: Story = createInteractiveStory({
+  options: plans,
+  searchable: true,
+  label: 'Plan d\'abonnement',
+  placeholder: 'Choisissez votre plan...'
+})
+
+export const Grouped: Story = createInteractiveStory({
+  groups: groupedOptions,
+  searchable: true,
+  multiple: true,
+  label: 'Produits alimentaires',
+  placeholder: 'Sélectionnez des produits...'
+})
 
 export const States: Story = {
-  render: () => ({
+  render: (args) => ({
     components: { SelectBox },
     setup() {
-      return { basicOptions }
+      const value = ref(args.value)
+      return { basicOptions, value }
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 2rem; width: 300px;">
@@ -223,6 +219,7 @@ export const States: Story = {
           label="État par défaut"
           placeholder="Sélectionnez une option"
           message="Texte d'aide pour guider l'utilisateur"
+          v-model:value="value"
         />
         <SelectBox 
           :options="basicOptions"
@@ -288,34 +285,48 @@ export const Readonly: Story = {
 }
 
 export const Required: Story = {
-  args: {
-    options: basicOptions,
-    required: true,
-    label: 'Champ requis',
-    placeholder: 'Sélection obligatoire'
-  }
+  render: (args) => ({
+    components: { SelectBox },
+    setup() {
+      const value = ref(args.value)
+      const options = [
+        { value: undefined, label: 'Option with undefined value' },
+        ...basicOptions
+      ]
+      return { value, options }
+    },
+    template: `
+      <div style="width: 300px;">
+        <SelectBox 
+          label="Champ requis"
+          required
+          placeholder="Sélection obligatoire" 
+          :options="options" 
+          :state="value ? 'default' : 'error'" 
+          :message="value ? 'Sélection valide !' : 'Ce champ est requis'"
+          v-model:value="value"
+        />
+      </div>
+    `
+  })
 }
 
-export const MaxSelectedItems: Story = {
-  args: {
-    options: technologies,
-    multiple: true,
-    maxSelectedItems: 3,
-    label: 'Technologies (max 3)',
-    placeholder: 'Sélectionnez jusqu\'à 3 technologies...',
-    message: 'Maximum 3 sélections autorisées'
-  }
-}
+export const MaxSelectedItems: Story = createInteractiveStory({
+  options: technologies,
+  multiple: true,
+  maxSelectedItems: 3,
+  label: 'Technologies (max 3)',
+  placeholder: 'Sélectionnez jusqu\'à 3 technologies...',
+  message: 'Maximum 3 sélections autorisées'
+})
 
-export const RTL: Story = {
-  args: {
-    options: [
-      { value: 'ar', label: 'العربية' },
-      { value: 'he', label: 'עברית' },
-      { value: 'fa', label: 'فارسی' }
-    ],
-    dir: 'rtl',
-    label: 'اللغة (RTL)',
-    placeholder: 'اختر لغة...'
-  }
-}
+export const RTL: Story = createInteractiveStory({
+  options: [
+    { value: 'ar', label: 'العربية' },
+    { value: 'he', label: 'עברית' },
+    { value: 'fa', label: 'فارسی' }
+  ],
+  dir: 'rtl',
+  label: 'اللغة (RTL)',
+  placeholder: 'اختر لغة...'
+})
