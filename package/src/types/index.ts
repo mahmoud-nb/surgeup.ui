@@ -47,6 +47,12 @@ export interface ButtonProps extends AccessibilityProps {
   ariaPressed?: boolean
 }
 
+export interface ButtonsGroupProps extends AccessibilityProps {
+  gap?: 'sm' | 'md' | 'lg' | 'none'
+  size?: ButtonSize
+  variant?: ButtonVariant
+}
+
 export interface InputProps extends AccessibilityProps {
   type?: InputType
   size?: InputSize

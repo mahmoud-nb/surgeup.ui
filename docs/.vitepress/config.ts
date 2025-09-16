@@ -23,6 +23,7 @@ export default defineConfig({
         text: 'Composants',
         items: [
           { text: 'Button', link: '/components/button' },
+          { text: 'ButtonsGroup', link: '/components/buttonsgroup' },
           { text: 'Input', link: '/components/input' },
           { text: 'SelectBox', link: '/components/selectbox' },
           { text: 'RadioGroup', link: '/components/radiogroup' },
@@ -46,7 +47,7 @@ export default defineConfig({
 
   vite: {
     optimizeDeps: {
-      include: ['@heroicons/vue/24/outline']
+      include: ['@heroicons/vue/24/outline', '@surgeup/ds-vue']
     }
   },
 

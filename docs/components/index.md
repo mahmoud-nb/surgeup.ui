@@ -5,6 +5,7 @@ Cette section contient la documentation de tous les composants disponibles dans 
 ## Actions
 
 - [Button](/components/button) - Composant bouton avec plusieurs variantes
+- [ButtonsGroup](/components/buttonsgroup) - Groupe de boutons avec espacement contrôlé
 
 ## Navigation
 

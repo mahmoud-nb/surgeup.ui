@@ -1,5 +1,6 @@
 import type { App } from 'vue'
 import Button from './components/atoms/Button.vue'
+import ButtonsGroup from './components/atoms/ButtonsGroup.vue'
 import Input from './components/atoms/Input.vue'
 import SelectBox from './components/atoms/SelectBox.vue'
 import RadioGroup from './components/atoms/RadioGroup.vue'
@@ -9,7 +10,7 @@ import FileUpload from './components/atoms/FileUpload.vue'
 import Textarea from './components/atoms/Textarea.vue'
 import * as accessibility from './utils/accessibility'
 
-export { Button, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea }
+export { Button, ButtonsGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -21,6 +22,7 @@ export default {
     const prefix = options.prefix || 'Su'
     
     app.component(`${prefix}Button`, Button)
+    app.component(`${prefix}ButtonsGroup`, ButtonsGroup)
     app.component(`${prefix}Input`, Input)
     app.component(`${prefix}SelectBox`, SelectBox)
     app.component(`${prefix}RadioGroup`, RadioGroup)
