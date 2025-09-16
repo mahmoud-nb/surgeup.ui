@@ -10,10 +10,10 @@ Composant bouton flexible avec plusieurs variantes, tailles et états. Supporte 
   <div class="demo-section">
     <h4>Boutons avec icônes</h4>
     <div class="demo-buttons">
-      <SuButton variant="primary" :iconBefore="PlusIcon">Ajouter</SuButton>
-      <SuButton variant="secondary" :iconAfter="ArrowRightIcon">Suivant</SuButton>
-      <SuButton variant="outline" :iconOnly="HeartIcon" aria-label="Aimer" />
-      <SuButton variant="ghost" :iconOnly="TrashIcon" aria-label="Supprimer" />
+      <SuButton variant="primary" :icon="PlusIcon" iconDisplay="left">Ajouter</SuButton>
+      <SuButton variant="secondary" :icon="ArrowRightIcon" iconDisplay="right">Suivant</SuButton>
+      <SuButton variant="outline" :icon="HeartIcon" iconDisplay="only" aria-label="Aimer" />
+      <SuButton variant="ghost" :icon="TrashIcon" iconDisplay="only" aria-label="Supprimer" />
     </div>
   </div>
 </div>
@@ -21,18 +21,18 @@ Composant bouton flexible avec plusieurs variantes, tailles et états. Supporte 
 ```vue
 <template>
   <!-- Icône avant le texte -->
-  <SuButton variant="primary" :iconBefore="PlusIcon">
+  <SuButton variant="primary" :icon="PlusIcon" iconDisplay="left">
     Ajouter
   </SuButton>
   
   <!-- Icône après le texte -->
-  <SuButton variant="secondary" :iconAfter="ArrowRightIcon">
+  <SuButton variant="secondary" :icon="ArrowRightIcon" iconDisplay="right">
     Suivant
   </SuButton>
   
   <!-- Icône seule (nécessite aria-label) -->
-  <SuButton variant="outline" :iconOnly="HeartIcon" aria-label="Aimer" />
-  <SuButton variant="ghost" :iconOnly="TrashIcon" aria-label="Supprimer" />
+  <SuButton variant="outline" :icon="HeartIcon" iconDisplay="only" aria-label="Aimer" />
+  <SuButton variant="ghost" :icon="TrashIcon" iconDisplay="only" aria-label="Supprimer" />
 </template>
 ```
 
@@ -154,9 +154,8 @@ Composant bouton flexible avec plusieurs variantes, tailles et états. Supporte 
 | `disabled` | `boolean` | `false` | Désactive le bouton |
 | `loading` | `boolean` | `false` | Affiche un spinner de chargement |
 | `block` | `boolean` | `false` | Prend toute la largeur disponible |
-| `iconBefore` | `Component` | `undefined` | Icône à afficher avant le texte |
-| `iconAfter` | `Component` | `undefined` | Icône à afficher après le texte |
-| `iconOnly` | `Component` | `undefined` | Icône seule (nécessite aria-label) |
+| `icon` | `Component` | `undefined` | Icône à afficher |
+| `iconDisplay` | `'left' \| 'right' \| 'only'` | `'left'` | Position de l'icône |
 | `ariaLabel` | `string` | `undefined` | Label accessible pour les lecteurs d'écran |
 | `ariaDescribedBy` | `string` | `undefined` | ID de l'élément qui décrit le bouton |
 | `ariaExpanded` | `boolean` | `undefined` | Indique si un élément contrôlé est étendu |
@@ -200,10 +199,10 @@ Le composant Button respecte les normes WCAG 2.1 AA :
 
 ```vue
 <!-- Bouton avec icône seule (OBLIGATOIRE: aria-label) -->
-<SuButton :icon-only="TrashIcon" aria-label="Supprimer l'élément" />
+<SuButton :icon="TrashIcon" iconDisplay="only" aria-label="Supprimer l'élément" />
 
 <!-- Bouton avec icône et texte -->
-<SuButton :icon-before="PlusIcon">Ajouter un élément</SuButton>
+<SuButton :icon="PlusIcon" iconDisplay="left">Ajouter un élément</SuButton>
 
 <!-- Bouton avec label accessible -->
 <SuButton aria-label="Supprimer l'élément">
@@ -236,7 +235,8 @@ Les icônes Heroicons les plus courantes sont disponibles globalement :
   <!-- Icône avant le texte -->
   <SuButton 
     variant="primary" 
-    :iconBefore="PlusIcon"
+    :icon="PlusIcon"
+    iconDisplay="left"
   >
     Ajouter
   </SuButton>
@@ -244,7 +244,8 @@ Les icônes Heroicons les plus courantes sont disponibles globalement :
   <!-- Icône après le texte -->
   <SuButton 
     variant="secondary" 
-    :iconAfter="ArrowRightIcon"
+    :icon="ArrowRightIcon"
+    iconDisplay="right"
   >
     Continuer
   </SuButton>
@@ -252,19 +253,22 @@ Les icônes Heroicons les plus courantes sont disponibles globalement :
   <!-- Icônes seules avec labels accessibles -->
   <SuButton 
     variant="ghost" 
-    :iconOnly="HeartIcon" 
+    :icon="HeartIcon"
+    iconDisplay="only"
     aria-label="Aimer cette publication"
   />
   
   <SuButton 
     variant="outline" 
-    :iconOnly="ShareIcon" 
+    :icon="ShareIcon"
+    iconDisplay="only"
     aria-label="Partager"
   />
   
   <SuButton 
     variant="primary" 
-    :iconOnly="ArrowDownTrayIcon" 
+    :icon="ArrowDownTrayIcon"
+    iconDisplay="only"
     aria-label="Télécharger le fichier"
   />
 </template>
@@ -280,7 +284,7 @@ import { CogIcon } from '@heroicons/vue/24/outline'
 </script>
 
 <template>
-  <SuButton :iconBefore="CogIcon">
+  <SuButton :icon="CogIcon" iconDisplay="left">
     Paramètres
   </SuButton>
 </template>

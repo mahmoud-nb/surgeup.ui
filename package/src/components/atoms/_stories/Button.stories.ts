@@ -37,17 +37,14 @@ const meta: Meta<typeof Button> = {
       control: 'boolean',
       description: 'Prend toute la largeur disponible'
     },
-    iconBefore: {
+    icon: {
       control: false,
-      description: 'Icône à afficher avant le texte'
+      description: 'Icône à afficher'
     },
-    iconAfter: {
-      control: false,
-      description: 'Icône à afficher après le texte'
-    },
-    iconOnly: {
-      control: false,
-      description: 'Icône seule (nécessite aria-label)'
+    iconDisplay: {
+      control: { type: 'select' },
+      options: ['left', 'right', 'only'],
+      description: 'Position de l\'icône'
     }
   }
 }
@@ -110,35 +107,38 @@ export const Ghost: Story = {
 export const WithIconBefore: Story = {
   args: {
     variant: 'primary',
-    iconBefore: PlusIcon
+    icon: PlusIcon,
+    iconDisplay: 'left'
   },
   render: (args) => ({
     components: { Button },
     setup() {
       return { args, PlusIcon }
     },
-    template: '<Button v-bind="args" :iconBefore="PlusIcon">Ajouter</Button>'
+    template: '<Button v-bind="args" :icon="PlusIcon">Ajouter</Button>'
   })
 }
 
 export const WithIconAfter: Story = {
   args: {
     variant: 'secondary',
-    iconAfter: ArrowRightIcon
+    icon: ArrowRightIcon,
+    iconDisplay: 'right'
   },
   render: (args) => ({
     components: { Button },
     setup() {
       return { args, ArrowRightIcon }
     },
-    template: '<Button v-bind="args" :iconAfter="ArrowRightIcon">Suivant</Button>'
+    template: '<Button v-bind="args" :icon="ArrowRightIcon">Suivant</Button>'
   })
 }
 
 export const IconOnly: Story = {
   args: {
     variant: 'outline',
-    iconOnly: HeartIcon,
+    icon: HeartIcon,
+    iconDisplay: 'only',
     ariaLabel: 'Aimer'
   },
   render: (args) => ({
@@ -146,7 +146,7 @@ export const IconOnly: Story = {
     setup() {
       return { args, HeartIcon }
     },
-    template: '<Button v-bind="args" :iconOnly="HeartIcon" />'
+    template: '<Button v-bind="args" :icon="HeartIcon" />'
   })
 }
 

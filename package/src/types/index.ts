@@ -41,9 +41,8 @@ export interface ButtonProps extends AccessibilityProps {
   disabled?: boolean
   loading?: boolean
   block?: boolean
-  iconBefore?: Component
-  iconAfter?: Component
-  iconOnly?: Component
+  icon?: Component
+  iconDisplay?: 'left' | 'right' | 'only'
   ariaExpanded?: boolean
   ariaPressed?: boolean
 }

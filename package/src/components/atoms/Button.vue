@@ -10,6 +10,7 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
   loading: false,
   block: false,
+  iconDisplay: 'left',
   tabIndex: 0
 })
 
@@ -29,14 +30,15 @@ const classes = computed(() => {
       'su-button--disabled': props.disabled,
       'su-button--loading': props.loading,
       'su-button--block': props.block,
-      'su-button--icon-only': props.iconOnly && !props.iconBefore && !props.iconAfter
+      'su-button--icon-only': props.icon && props.iconDisplay === 'only',
+      'su-button--icon-right': props.icon && props.iconDisplay === 'right'
     }
   ]
 })
 
 // Détermine si le bouton contient du texte
 const hasText = computed(() => {
-  return !props.iconOnly
+  return !(props.icon && props.iconDisplay === 'only')
 })
 
 const handleClick = (event: MouseEvent) => {
@@ -84,8 +86,8 @@ const ariaAttributes = computed(() => {
   }
   
   // Pour les boutons avec icône seule, s'assurer qu'il y a un label
-  if (props.iconOnly && !props.ariaLabel) {
-    console.warn('Button with iconOnly should have an ariaLabel for accessibility')
+  if (props.icon && props.iconDisplay === 'only' && !props.ariaLabel) {
+    console.warn('Button with icon and iconDisplay="only" should have an ariaLabel for accessibility')
   }
   
   return attrs
@@ -127,11 +129,11 @@ const ariaAttributes = computed(() => {
     </span>
     
     <template v-if="!loading">
-      <!-- Icône avant le texte -->
+      <!-- Icône -->
       <component 
-        v-if="iconBefore" 
-        :is="iconBefore" 
-        class="su-button__icon su-button__icon--before"
+        v-if="icon" 
+        :is="icon" 
+        class="su-button__icon"
         aria-hidden="true"
       />
       
@@ -139,22 +141,6 @@ const ariaAttributes = computed(() => {
       <span v-if="hasText" class="su-button__content">
         <slot />
       </span>
-      
-      <!-- Icône après le texte -->
-      <component 
-        v-if="iconAfter" 
-        :is="iconAfter" 
-        class="su-button__icon su-button__icon--after"
-        aria-hidden="true"
-      />
-      
-      <!-- Icône seule -->
-      <component 
-        v-if="iconOnly" 
-        :is="iconOnly" 
-        class="su-button__icon su-button__icon--only"
-        aria-hidden="true"
-      />
     </template>
   </button>
 </template>
@@ -166,7 +152,6 @@ const ariaAttributes = computed(() => {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
   font-family: inherit;
   font-weight: 500;
   border: 1px solid transparent;
@@ -177,6 +162,7 @@ const ariaAttributes = computed(() => {
   white-space: nowrap;
   user-select: none;
   position: relative;
+  gap: 0.5rem;
   
   // Focus visible amélioré pour l'accessibilité
   &:focus-visible {
@@ -318,24 +304,17 @@ const ariaAttributes = computed(() => {
   &--block {
     width: 100%;
   }
+  
+  // Direction de l'icône
+  &--icon-right {
+    flex-direction: row-reverse;
+  }
 
   // Icon styles
   &__icon {
     width: 1em;
     height: 1em;
     flex-shrink: 0;
-    
-    &--before {
-      margin-right: 0.25rem;
-    }
-    
-    &--after {
-      margin-left: 0.25rem;
-    }
-    
-    &--only {
-      margin: 0;
-    }
   }
   
   // Ajustements pour les boutons avec icônes seules
