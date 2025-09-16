@@ -67,7 +67,8 @@ const meta: Meta<typeof CheckboxGroup> = {
     message: {
       control: 'text',
       description: 'Message affiché'
-    }
+    },
+    'onUpdate:value': { action: 'update:value' },
   }
 }
 
@@ -112,86 +113,107 @@ const longSkillsList = [
   { value: 'skill15', label: 'Kotlin' }
 ]
 
-export const Default: Story = {
-  args: {
-    options: basicOptions,
-    label: 'Sélection multiple',
-    value: []
-  }
-}
+/**
+ * Fonction helper pour créer une story interactive qui gère son propre état avec v-model.
+ * @param {object} args - Les arguments de base de la story.
+ * @returns {Story} - L'objet Story configuré avec une fonction render.
+ */
+const createInteractiveStory = (args: any): Story => ({
+  render: (renderArgs) => ({
+    components: { CheckboxGroup },
+    setup() {
+      // On crée une ref locale pour stocker la valeur, initialisée avec la valeur des args
+      const value = ref(renderArgs.value);
+      return { args: renderArgs, value };
+    },
+    // On utilise v-model pour lier la ref locale au composant
+    template: '<CheckboxGroup v-bind="args" v-model:value="value" @update:value="args[\'onUpdate:value\']" />',
+  }),
+  args,
+});
 
-export const WithValue: Story = {
-  args: {
-    options: basicOptions,
-    label: 'Avec valeurs pré-sélectionnées',
-    value: ['option1', 'option3']
-  }
-}
+export const Default = createInteractiveStory({
+  options: basicOptions,
+  label: 'Sélection multiple',
+  value: []
+})
 
-export const BlockCard: Story = {
-  args: {
-    options: techOptions,
-    displayType: 'block-card',
-    label: 'Technologies',
-    value: []
-  }
-}
+export const WithValue = createInteractiveStory({
+  options: basicOptions,
+  label: 'Avec valeurs pré-sélectionnées',
+  value: ['option1', 'option3']
+})
 
-export const InlineCard: Story = {
-  args: {
-    options: [
-      { value: 'email', label: 'Email', description: 'Notifications par email' },
-      { value: 'sms', label: 'SMS', description: 'Notifications par SMS' },
-      { value: 'push', label: 'Push', description: 'Notifications push' }
-    ],
-    displayType: 'inline-card',
-    direction: 'horizontal',
-    label: 'Notifications',
-    value: []
-  }
-}
+export const BlockCard = createInteractiveStory({
+  options: techOptions,
+  displayType: 'block-card',
+  label: 'Technologies',
+  value: ['vue']
+})
+
+export const InlineCard = createInteractiveStory({
+  options: [
+    { value: 'email', label: 'Email', description: 'Notifications par email' },
+    { value: 'sms', label: 'SMS', description: 'Notifications par SMS' },
+    { value: 'push', label: 'Push', description: 'Notifications push' }
+  ],
+  displayType: 'inline-card',
+  direction: 'horizontal',
+  label: 'Notifications',
+  value: ['email', 'push']
+})
 
 export const WithIcons: Story = {
-  args: {
-    options: permissionOptions,
-    displayType: 'block-card',
-    label: 'Permissions',
-    value: []
-  },
   render: (args) => ({
     components: { CheckboxGroup },
     setup() {
-      return { args, permissionOptions }
+      const value = ref(args.value);
+      return { args, permissionOptions, value }
     },
-    template: '<CheckboxGroup v-bind="args" :options="permissionOptions" />'
-  })
+    template: '<CheckboxGroup v-bind="args" :options="permissionOptions" v-model:value="value" @update:value="args[\'onUpdate:value\']" />'
+  }),
+  args: {
+    options: permissionOptions, // Nécessaire pour que les controls Storybook fonctionnent
+    displayType: 'block-card',
+    label: 'Permissions',
+    value: ['read']
+  },
 }
 
-export const MaxSelections: Story = {
-  args: {
-    options: [
-      { value: 'skill1', label: 'JavaScript' },
-      { value: 'skill2', label: 'Python' },
-      { value: 'skill3', label: 'Java' },
-      { value: 'skill4', label: 'C#' },
-      { value: 'skill5', label: 'PHP' }
-    ],
-    maxSelections: 2,
-    label: 'Compétences principales',
-    message: 'Sélectionnez maximum 2 compétences',
-    value: []
-  }
-}
+export const MaxSelections = createInteractiveStory({
+  options: [
+    { value: 'skill1', label: 'JavaScript' },
+    { value: 'skill2', label: 'Python' },
+    { value: 'skill3', label: 'Java' },
+    { value: 'skill4', label: 'C#' },
+    { value: 'skill5', label: 'PHP' }
+  ],
+  maxSelections: 2,
+  label: 'Compétences principales (2 max)',
+  message: 'Sélectionnez maximum 2 compétences',
+  value: ['skill1']
+})
 
-export const ScrollableList: Story = {
-  args: {
-    options: longSkillsList,
-    maxHeight: '150px',
-    label: 'Compétences (avec scroll)',
-    message: 'Liste avec hauteur limitée et scroll automatique',
-    value: []
-  }
-}
+export const ScrollableList = createInteractiveStory({
+  options: longSkillsList,
+  maxHeight: '150px',
+  label: 'Compétences (avec scroll)',
+  message: 'Liste avec hauteur limitée et scroll automatique',
+  value: ['skill3', 'skill7']
+})
+
+export const Horizontal = createInteractiveStory({
+  options: [
+    { value: 'monday', label: 'Lundi' },
+    { value: 'tuesday', label: 'Mardi' },
+    { value: 'wednesday', label: 'Mercredi' },
+    { value: 'thursday', label: 'Jeudi' },
+    { value: 'friday', label: 'Vendredi' }
+  ],
+  direction: 'horizontal',
+  label: 'Jours de travail',
+  value: ['monday', 'tuesday', 'friday']
+})
 
 export const States: Story = {
   render: () => ({
@@ -241,21 +263,6 @@ export const Sizes: Story = {
   })
 }
 
-export const Horizontal: Story = {
-  args: {
-    options: [
-      { value: 'monday', label: 'Lundi' },
-      { value: 'tuesday', label: 'Mardi' },
-      { value: 'wednesday', label: 'Mercredi' },
-      { value: 'thursday', label: 'Jeudi' },
-      { value: 'friday', label: 'Vendredi' }
-    ],
-    direction: 'horizontal',
-    label: 'Jours de travail',
-    value: []
-  }
-}
-
 export const Disabled: Story = {
   args: {
     options: basicOptions,
@@ -265,18 +272,16 @@ export const Disabled: Story = {
   }
 }
 
-export const Required: Story = {
-  args: {
-    options: [
-      { value: 'terms', label: 'J\'accepte les conditions d\'utilisation' },
-      { value: 'privacy', label: 'J\'accepte la politique de confidentialité' }
-    ],
-    required: true,
-    label: 'Acceptation',
-    message: 'Veuillez accepter les conditions',
-    value: []
-  }
-}
+export const Required = createInteractiveStory({
+  options: [
+    { value: 'terms', label: 'J\'accepte les conditions d\'utilisation' },
+    { value: 'privacy', label: 'J\'accepte la politique de confidentialité' }
+  ],
+  required: true,
+  label: 'Acceptation',
+  message: 'Veuillez accepter les conditions',
+  value: []
+})
 
 export const WithSlots: Story = {
   render: () => ({

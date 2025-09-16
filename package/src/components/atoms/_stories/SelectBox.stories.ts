@@ -73,7 +73,8 @@ const meta: Meta<typeof SelectBox> = {
     message: {
       control: 'text',
       description: 'Message affiché'
-    }
+    },
+    'onUpdate:value': { action: 'update:value' }
   }
 }
 

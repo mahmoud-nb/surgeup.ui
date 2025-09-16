@@ -31,7 +31,15 @@ const groupId = computed(() => attrs.id as string || generateId('checkbox-group'
 const messageId = computed(() => props.message ? `${groupId.value}-message` : undefined)
 
 // Valeur normalisée
-const selectedValues = computed(() => Array.isArray(props.value) ? props.value : [])
+const selectedValues = computed({
+  get() {
+    return Array.isArray(props.value) ? props.value : []
+  },
+  set(newValue: (string | number)[]) {
+    emit('update:value', newValue)
+    emit('change', newValue)
+  }
+})
 
 // Classes CSS
 const groupClasses = computed(() => [
@@ -91,8 +99,7 @@ const handleChange = (optionValue: string | number, checked: boolean) => {
     newValue = selectedValues.value.filter(v => v !== optionValue)
   }
   
-  emit('update:value', newValue)
-  emit('change', newValue)
+  selectedValues.value = newValue
   
   // Annonce pour les lecteurs d'écran
   const option = props.options.find(opt => opt.value === optionValue)

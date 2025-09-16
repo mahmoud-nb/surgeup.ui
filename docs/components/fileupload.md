@@ -21,6 +21,8 @@ Composant FileUpload pour le téléchargement de fichiers avec support du drag &
 
 ```vue
 <script setup>
+import { ref } from 'vue'
+
 const files = ref([])
 </script>
 
