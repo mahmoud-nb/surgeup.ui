@@ -104,20 +104,6 @@ export const Ghost: Story = {
   })
 }
 
-export const Variants: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
-      <div style="display: flex; gap: 1rem; align-items: center;">
-        <Button variant="primary">Primary</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
-      </div>
-    `
-  })
-}
-
 export const WithIconBefore: Story = {
   args: {
     variant: 'primary',
@@ -219,3 +205,16 @@ export const Sizes: Story = {
   })
 }
 
+export const Variants: Story = {
+  render: () => ({
+    components: { Button },
+    template: `
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <Button variant="primary">Primary</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
+      </div>
+    `
+  })
+}

@@ -24,6 +24,8 @@ export default defineConfig({
         items: [
           { text: 'Button', link: '/components/button' },
           { text: 'ButtonsGroup', link: '/components/buttonsgroup' },
+          { text: 'Link', link: '/components/link' },
+          { text: 'LinksGroup', link: '/components/linksgroup' },
           { text: 'Input', link: '/components/input' },
           { text: 'SelectBox', link: '/components/selectbox' },
           { text: 'RadioGroup', link: '/components/radiogroup' },

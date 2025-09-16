@@ -1,6 +1,8 @@
 import type { App } from 'vue'
 import Button from './components/atoms/Button.vue'
-import ButtonsGroup from './components/atoms/ButtonsGroup.vue'
+import ButtonsGroup from './components/molecules/ButtonsGroup.vue'
+import Link from './components/atoms/Link.vue'
+import LinksGroup from './components/molecules/LinksGroup.vue'
 import Input from './components/atoms/Input.vue'
 import SelectBox from './components/atoms/SelectBox.vue'
 import RadioGroup from './components/atoms/RadioGroup.vue'
@@ -10,7 +12,7 @@ import FileUpload from './components/atoms/FileUpload.vue'
 import Textarea from './components/atoms/Textarea.vue'
 import * as accessibility from './utils/accessibility'
 
-export { Button, ButtonsGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea }
+export { Button, ButtonsGroup, Link, LinksGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -23,6 +25,8 @@ export default {
     
     app.component(`${prefix}Button`, Button)
     app.component(`${prefix}ButtonsGroup`, ButtonsGroup)
+    app.component(`${prefix}Link`, Link)
+    app.component(`${prefix}LinksGroup`, LinksGroup)
     app.component(`${prefix}Input`, Input)
     app.component(`${prefix}SelectBox`, SelectBox)
     app.component(`${prefix}RadioGroup`, RadioGroup)
