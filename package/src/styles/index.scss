@@ -1,4 +1,5 @@
 @use './variables' as *;
+@use './mixins' as *;
 
 // Styles globaux pour l'accessibilité
 .sr-only {
@@ -37,3 +38,7 @@
   --su-gray-800: #{$gray-800};
   --su-gray-900: #{$gray-900};
 }
+
+// Inclusion des modes sombre et contraste élevé pour les champs de formulaire
+@include dark-mode-form-field;
+@include high-contrast-form-field;

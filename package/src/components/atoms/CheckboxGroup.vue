@@ -140,7 +140,7 @@ const isDisabled = (option: any) => {
         }"
       >
         {{ label }}
-        <span v-if="required" class="su-checkbox-group-required" aria-label="requis">*</span>
+        <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
       </legend>
 
       <!-- Options -->
@@ -227,6 +227,7 @@ const isDisabled = (option: any) => {
 
 <style lang="scss">
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .su-checkbox-group-wrapper {
   display: flex;

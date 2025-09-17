@@ -112,7 +112,6 @@ const selectedValue = computed({
 
 // Options sélectionnées
 const selectedOptions = computed(() => {
-  console.log('selectedOptions computed updated', selectedValue.value)
   if (props.multiple) {
     const values = selectedValue.value as (string | number)[]
     return values ? normalizedOptions.value.filter(option => values.includes(option.value)) : []
@@ -265,7 +264,6 @@ const selectOption = (option: SelectOption) => {
     newValue = option.value
   }
   
-  console.log('>>>>', newValue)
   selectedValue.value = newValue
   
   // Annonce pour les lecteurs d'écran
@@ -417,7 +415,6 @@ onUnmounted(() => {
 
 // Watchers
 watch(() => props.value, () => {
-  console.log('Value changed:', props.value)
   // Réinitialiser l'index de focus quand la valeur change
   focusedIndex.value = -1
 })
@@ -436,7 +433,7 @@ watch(() => props.value, () => {
       }"
     >
       {{ label }}
-      <span v-if="required" class="su-select-required" aria-label="requis">*</span>
+      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
     </label>
 
     <!-- Container principal -->
@@ -661,6 +658,7 @@ watch(() => props.value, () => {
 
 <style lang="scss">
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .su-select-wrapper {
   display: flex;

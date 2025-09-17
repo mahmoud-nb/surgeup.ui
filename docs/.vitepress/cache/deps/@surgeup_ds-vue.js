@@ -33,16 +33,16 @@ import {
 } from "./chunk-FJMVHDE5.js";
 
 // ../package/dist/index.es.js
-var ze = ["disabled", "tabindex"];
-var De = {
+var Ie = ["disabled", "tabindex"];
+var Re = {
   key: 0,
   class: "su-button__spinner"
 };
-var Re = {
+var Fe = {
   key: 1,
   class: "su-button__content"
 };
-var ge = defineComponent({
+var Be = defineComponent({
   __name: "Button",
   props: {
     variant: { default: "primary" },
@@ -62,8 +62,8 @@ var ge = defineComponent({
     tabIndex: { default: 0 }
   },
   emits: ["click", "focus", "blur", "keydown"],
-  setup(b, { emit: h2 }) {
-    const a = b, e = h2, v = computed(() => [
+  setup(h2, { emit: u }) {
+    const a = h2, e = u, v = computed(() => [
       "su-button",
       `su-button--${a.variant}`,
       `su-button--${a.size}`,
@@ -74,29 +74,29 @@ var ge = defineComponent({
         "su-button--icon-only": a.icon && a.iconDisplay === "only",
         "su-button--icon-right": a.icon && a.iconDisplay === "right"
       }
-    ]), q = computed(() => !(a.icon && a.iconDisplay === "only")), m = (f) => {
-      a.disabled || a.loading || e("click", f);
-    }, w = (f) => {
-      (f.key === "Enter" || f.key === " ") && (f.preventDefault(), !a.disabled && !a.loading && e("click", f)), e("keydown", f);
-    }, y = (f) => {
-      e("focus", f);
-    }, C = (f) => {
-      e("blur", f);
+    ]), _ = computed(() => !(a.icon && a.iconDisplay === "only")), y = (b) => {
+      a.disabled || a.loading || e("click", b);
+    }, k = (b) => {
+      (b.key === "Enter" || b.key === " ") && (b.preventDefault(), !a.disabled && !a.loading && e("click", b)), e("keydown", b);
+    }, m = (b) => {
+      e("focus", b);
+    }, w = (b) => {
+      e("blur", b);
     }, $ = computed(() => {
-      const f = {};
-      return a.ariaLabel && (f["aria-label"] = a.ariaLabel), a.ariaDescribedBy && (f["aria-describedby"] = a.ariaDescribedBy), a.ariaExpanded !== void 0 && (f["aria-expanded"] = a.ariaExpanded), a.ariaPressed !== void 0 && (f["aria-pressed"] = a.ariaPressed), a.role && (f.role = a.role), a.loading && (f["aria-busy"] = "true", f["aria-live"] = "polite"), a.disabled && (f["aria-disabled"] = "true"), a.icon && a.iconDisplay === "only" && !a.ariaLabel && console.warn('Button with icon and iconDisplay="only" should have an ariaLabel for accessibility'), f;
+      const b = {};
+      return a.ariaLabel && (b["aria-label"] = a.ariaLabel), a.ariaDescribedBy && (b["aria-describedby"] = a.ariaDescribedBy), a.ariaExpanded !== void 0 && (b["aria-expanded"] = a.ariaExpanded), a.ariaPressed !== void 0 && (b["aria-pressed"] = a.ariaPressed), a.role && (b.role = a.role), a.loading && (b["aria-busy"] = "true", b["aria-live"] = "polite"), a.disabled && (b["aria-disabled"] = "true"), a.icon && a.iconDisplay === "only" && !a.ariaLabel && console.warn('Button with icon and iconDisplay="only" should have an ariaLabel for accessibility'), b;
     });
-    return (f, k) => (openBlock(), createElementBlock("button", mergeProps({
+    return (b, B) => (openBlock(), createElementBlock("button", mergeProps({
       class: v.value,
-      disabled: f.disabled || f.loading,
-      tabindex: f.disabled ? -1 : f.tabIndex
+      disabled: b.disabled || b.loading,
+      tabindex: b.disabled ? -1 : b.tabIndex
     }, $.value, {
-      onClick: m,
-      onKeydown: w,
-      onFocus: y,
-      onBlur: C
+      onClick: y,
+      onKeydown: k,
+      onFocus: m,
+      onBlur: w
     }), [
-      f.loading ? (openBlock(), createElementBlock("span", De, [...k[0] || (k[0] = [
+      b.loading ? (openBlock(), createElementBlock("span", Re, [...B[0] || (B[0] = [
         createBaseVNode("svg", {
           class: "su-spinner",
           viewBox: "0 0 24 24"
@@ -121,20 +121,20 @@ var ge = defineComponent({
         ], -1),
         createBaseVNode("span", { class: "sr-only" }, "Chargement en cours...", -1)
       ])])) : createCommentVNode("", true),
-      f.loading ? createCommentVNode("", true) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-        f.icon ? (openBlock(), createBlock(resolveDynamicComponent(f.icon), {
+      b.loading ? createCommentVNode("", true) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+        b.icon ? (openBlock(), createBlock(resolveDynamicComponent(b.icon), {
           key: 0,
           class: "su-button__icon",
           "aria-hidden": "true"
         })) : createCommentVNode("", true),
-        q.value ? (openBlock(), createElementBlock("span", Re, [
-          renderSlot(f.$slots, "default")
+        _.value ? (openBlock(), createElementBlock("span", Fe, [
+          renderSlot(b.$slots, "default")
         ])) : createCommentVNode("", true)
       ], 64))
-    ], 16, ze));
+    ], 16, Ie));
   }
 });
-var Fe = defineComponent({
+var Ae = defineComponent({
   __name: "ButtonsGroup",
   props: {
     gap: { default: "md" },
@@ -144,44 +144,341 @@ var Fe = defineComponent({
     ariaDescribedBy: {},
     role: {}
   },
-  setup(b) {
-    const h2 = b, a = useSlots(), e = computed(() => [
+  setup(h2) {
+    const u = h2, a = useSlots(), e = computed(() => [
       "su-buttons-group",
-      `su-buttons-group--gap-${h2.gap}`,
+      `su-buttons-group--gap-${u.gap}`,
       {
-        "su-buttons-group--connected": h2.gap === "none"
+        "su-buttons-group--connected": u.gap === "none"
       }
     ]), v = computed(() => {
       if (!a.default) return [];
-      const m = a.default(), w = [];
-      for (const y of m)
-        if (y.type === ge) {
-          const C = { ...y.props };
-          if (h2.size && (C.size = h2.size), h2.variant && (C.variant = h2.variant), h2.gap === "none") {
-            const $ = C.class || "";
-            C.class = `${$} su-buttons-group__button`.trim();
+      const y = a.default(), k = [];
+      for (const m of y)
+        if (m.type === Be) {
+          const w = { ...m.props };
+          if (u.size && (w.size = u.size), u.variant && (w.variant = u.variant), u.gap === "none") {
+            const $ = w.class || "";
+            w.class = `${$} su-buttons-group__button`.trim();
           }
-          w.push(h(y.type, C, y.children));
+          k.push(h(m.type, w, m == null ? void 0 : m.children));
         } else {
-          if (y.type === Comment || y.type === Text || y.type === Fragment)
+          if (m.type === Comment || m.type === Text || m.type === Fragment)
             continue;
-          console.warn("ButtonsGroup expects only Button components as children. Found:", y.type);
+          console.warn("ButtonsGroup expects only Button components as children. Found:", m.type);
         }
-      return w;
-    }), q = computed(() => {
-      const m = {};
-      return h2.ariaLabel && (m["aria-label"] = h2.ariaLabel), h2.ariaDescribedBy && (m["aria-describedby"] = h2.ariaDescribedBy), h2.role && (m.role = h2.role), m;
+      return k;
+    }), _ = computed(() => {
+      const y = {};
+      return u.ariaLabel && (y["aria-label"] = u.ariaLabel), u.ariaDescribedBy && (y["aria-describedby"] = u.ariaDescribedBy), u.role && (y.role = u.role), y;
     });
-    return (m, w) => (openBlock(), createElementBlock("div", mergeProps({ class: e.value }, q.value), [
-      (openBlock(true), createElementBlock(Fragment, null, renderList(v.value, (y, C) => (openBlock(), createBlock(resolveDynamicComponent(y), { key: C }))), 128))
+    return (y, k) => (openBlock(), createElementBlock("div", mergeProps({ class: e.value }, _.value), [
+      (openBlock(true), createElementBlock(Fragment, null, renderList(v.value, (m, w) => (openBlock(), createBlock(resolveDynamicComponent(m), { key: w }))), 128))
     ], 16));
   }
 });
-var Se = 0;
-function X(b = "su") {
-  return `${b}-${++Se}-${Date.now().toString(36)}`;
+function Se(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "M13.5 6H5.25A2.25 2.25 0 0 0 3 8.25v10.5A2.25 2.25 0 0 0 5.25 21h10.5A2.25 2.25 0 0 0 18 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+    })
+  ]);
 }
-function Ae(b) {
+function Me(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+    })
+  ]);
+}
+function ve(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "m4.5 12.75 6 6 9-13.5"
+    })
+  ]);
+}
+function He(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "m19.5 8.25-7.5 7.5-7.5-7.5"
+    })
+  ]);
+}
+function Te(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"
+    })
+  ]);
+}
+function Ee(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
+    })
+  ]);
+}
+function je(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
+    })
+  ]);
+}
+function Ke(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+    })
+  ]);
+}
+function Pe(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
+    })
+  ]);
+}
+function he(h2, u) {
+  return openBlock(), createElementBlock("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    fill: "none",
+    viewBox: "0 0 24 24",
+    "stroke-width": "1.5",
+    stroke: "currentColor",
+    "aria-hidden": "true",
+    "data-slot": "icon"
+  }, [
+    createBaseVNode("path", {
+      "stroke-linecap": "round",
+      "stroke-linejoin": "round",
+      d: "M6 18 18 6M6 6l12 12"
+    })
+  ]);
+}
+var Oe = {
+  key: 1,
+  class: "su-link__content"
+};
+var xe = defineComponent({
+  __name: "Link",
+  props: {
+    href: {},
+    to: {},
+    target: {},
+    rel: {},
+    variant: { default: "default" },
+    size: { default: "md" },
+    underline: { default: "hover" },
+    disabled: { type: Boolean, default: false },
+    icon: {},
+    iconDisplay: { default: "left" },
+    external: { type: Boolean, default: false },
+    ariaLabel: {},
+    ariaDescribedBy: {},
+    role: {},
+    tabIndex: { default: 0 }
+  },
+  emits: ["click", "focus", "blur", "keydown"],
+  setup(h2, { emit: u }) {
+    const a = h2, e = u, v = computed(() => a.to !== void 0), _ = computed(() => a.external || a.href && (a.href.startsWith("http") || a.href.startsWith("//") || a.target === "_blank")), y = computed(() => {
+      const g = {};
+      return v.value || (g.href = a.href, _.value ? (g.target = a.target || "_blank", g.rel = a.rel || "noopener noreferrer") : (a.target && (g.target = a.target), a.rel && (g.rel = a.rel))), a.ariaLabel && (g["aria-label"] = a.ariaLabel), a.ariaDescribedBy && (g["aria-describedby"] = a.ariaDescribedBy), a.role && (g.role = a.role), a.disabled ? (g["aria-disabled"] = "true", g.tabindex = -1) : g.tabindex = a.tabIndex, g;
+    }), k = computed(() => [
+      "su-link",
+      `su-link--${a.variant}`,
+      `su-link--${a.size}`,
+      `su-link--underline-${a.underline}`,
+      {
+        "su-link--disabled": a.disabled,
+        "su-link--external": _.value,
+        "su-link--icon-only": a.icon && a.iconDisplay === "only",
+        "su-link--icon-right": a.icon && a.iconDisplay === "right"
+      }
+    ]), m = computed(() => !(a.icon && a.iconDisplay === "only")), w = (g) => {
+      if (a.disabled) {
+        g.preventDefault();
+        return;
+      }
+      e("click", g);
+    }, $ = (g) => {
+      if ((g.key === "Enter" || g.key === " ") && a.disabled) {
+        g.preventDefault();
+        return;
+      }
+      e("keydown", g);
+    }, b = (g) => {
+      e("focus", g);
+    }, B = (g) => {
+      e("blur", g);
+    };
+    return a.icon && a.iconDisplay === "only" && !a.ariaLabel && console.warn('Link with icon and iconDisplay="only" should have an ariaLabel for accessibility'), (g, t) => (openBlock(), createBlock(resolveDynamicComponent(v.value ? "router-link" : "a"), mergeProps({ class: k.value }, v.value ? { to: g.to, ...y.value } : y.value, {
+      onClick: w,
+      onKeydown: $,
+      onFocus: b,
+      onBlur: B
+    }), {
+      default: withCtx(() => [
+        g.icon ? (openBlock(), createBlock(resolveDynamicComponent(g.icon), {
+          key: 0,
+          class: "su-link__icon",
+          "aria-hidden": "true"
+        })) : createCommentVNode("", true),
+        m.value ? (openBlock(), createElementBlock("span", Oe, [
+          renderSlot(g.$slots, "default")
+        ])) : createCommentVNode("", true),
+        _.value && !g.icon && m.value ? (openBlock(), createBlock(unref(Se), {
+          key: 2,
+          class: "su-link__external-icon",
+          "aria-hidden": "true"
+        })) : createCommentVNode("", true)
+      ]),
+      _: 3
+    }, 16, ["class"]));
+  }
+});
+var Ve = defineComponent({
+  __name: "LinksGroup",
+  props: {
+    gap: { default: "md" },
+    size: {},
+    variant: {},
+    underline: {},
+    direction: { default: "horizontal" },
+    ariaLabel: {},
+    ariaDescribedBy: {},
+    role: {}
+  },
+  setup(h2) {
+    const u = h2, a = useSlots(), e = computed(() => [
+      "su-links-group",
+      `su-links-group--gap-${u.gap}`,
+      `su-links-group--${u.direction}`,
+      {
+        "su-links-group--connected": u.gap === "none"
+      }
+    ]), v = computed(() => {
+      if (!a.default) return [];
+      const y = a.default(), k = [];
+      for (const m of y)
+        if (m.type === xe) {
+          const w = { ...m.props };
+          if (u.size && (w.size = u.size), u.variant && (w.variant = u.variant), u.underline && (w.underline = u.underline), u.gap === "none") {
+            const $ = w.class || "";
+            w.class = `${$} su-links-group__link`.trim();
+          }
+          k.push(h(m.type, w, m == null ? void 0 : m.children));
+        } else {
+          if (m.type === Comment || m.type === Text || m.type === Fragment)
+            continue;
+          console.warn("LinksGroup expects only Link components as children. Found:", m.type);
+        }
+      return k;
+    }), _ = computed(() => {
+      const y = {};
+      return u.ariaLabel && (y["aria-label"] = u.ariaLabel), u.ariaDescribedBy && (y["aria-describedby"] = u.ariaDescribedBy), u.role && (y.role = u.role), y;
+    });
+    return (y, k) => (openBlock(), createElementBlock("div", mergeProps({ class: e.value }, _.value), [
+      (openBlock(true), createElementBlock(Fragment, null, renderList(v.value, (m, w) => (openBlock(), createBlock(resolveDynamicComponent(m), { key: w }))), 128))
+    ], 16));
+  }
+});
+var Ge = 0;
+function ae(h2 = "su") {
+  return `${h2}-${++Ge}-${Date.now().toString(36)}`;
+}
+function Ze(h2) {
   return [
     "button:not([disabled])",
     "input:not([disabled])",
@@ -189,57 +486,57 @@ function Ae(b) {
     "textarea:not([disabled])",
     "a[href]",
     '[tabindex]:not([tabindex="-1"])'
-  ].some((a) => b.matches(a));
+  ].some((a) => h2.matches(a));
 }
-function ye(b) {
-  const h2 = b.querySelectorAll(
+function _e(h2) {
+  const u = h2.querySelectorAll(
     'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
-  ), a = h2[0], e = h2[h2.length - 1], v = (q) => {
-    q.key === "Tab" && (q.shiftKey ? document.activeElement === a && (q.preventDefault(), e.focus()) : document.activeElement === e && (q.preventDefault(), a.focus()));
+  ), a = u[0], e = u[u.length - 1], v = (_) => {
+    _.key === "Tab" && (_.shiftKey ? document.activeElement === a && (_.preventDefault(), e.focus()) : document.activeElement === e && (_.preventDefault(), a.focus()));
   };
-  return b.addEventListener("keydown", v), a == null || a.focus(), () => {
-    b.removeEventListener("keydown", v);
+  return h2.addEventListener("keydown", v), a == null || a.focus(), () => {
+    h2.removeEventListener("keydown", v);
   };
 }
-function P(b, h2 = "polite") {
+function V(h2, u = "polite") {
   const a = document.createElement("div");
-  a.setAttribute("aria-live", h2), a.setAttribute("aria-atomic", "true"), a.className = "sr-only", a.textContent = b, document.body.appendChild(a), setTimeout(() => {
+  a.setAttribute("aria-live", u), a.setAttribute("aria-atomic", "true"), a.className = "sr-only", a.textContent = h2, document.body.appendChild(a), setTimeout(() => {
     document.body.removeChild(a);
   }, 1e3);
 }
-function He() {
+function Ne() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 }
-function Me() {
+function We() {
   return window.matchMedia("(prefers-contrast: high)").matches;
 }
-function Te(b, h2) {
+function Ue(h2, u) {
   return 4.5;
 }
-function Ee(b, h2 = "AA") {
-  return b >= (h2 === "AAA" ? 7 : 4.5);
+function Ye(h2, u = "AA") {
+  return h2 >= (u === "AAA" ? 7 : 4.5);
 }
-var Ps = Object.freeze(Object.defineProperty({
+var Zs = Object.freeze(Object.defineProperty({
   __proto__: null,
-  announceToScreenReader: P,
-  generateId: X,
-  getContrastRatio: Te,
-  isContrastValid: Ee,
-  isFocusable: Ae,
-  prefersHighContrast: Me,
-  prefersReducedMotion: He,
-  trapFocus: ye
+  announceToScreenReader: V,
+  generateId: ae,
+  getContrastRatio: Ue,
+  isContrastValid: Ye,
+  isFocusable: Ze,
+  prefersHighContrast: We,
+  prefersReducedMotion: Ne,
+  trapFocus: _e
 }, Symbol.toStringTag, { value: "Module" }));
-var je = ["dir"];
-var Oe = ["for"];
-var Pe = {
+var Qe = ["dir"];
+var Je = ["for"];
+var Xe = {
   key: 0,
-  class: "su-input-required",
+  class: "su-indicator-required",
   "aria-label": "requis"
 };
-var Ke = ["id", "type", "value", "placeholder", "disabled", "readonly", "required"];
-var Ve = ["id", "aria-live"];
-var Ze = defineComponent({
+var ea = ["id", "type", "value", "placeholder", "disabled", "readonly", "required"];
+var aa = ["id", "aria-live"];
+var sa = defineComponent({
   __name: "Input",
   props: {
     type: { default: "text" },
@@ -275,8 +572,8 @@ var Ze = defineComponent({
     tabIndex: {}
   },
   emits: ["update:value", "input", "change", "focus", "blur", "keydown", "keyup", "prefix-click", "prefix-icon-click", "suffix-click", "suffix-icon-click"],
-  setup(b, { expose: h2, emit: a }) {
-    const e = b, v = a, q = useAttrs(), m = ref(), w = computed(() => q.id || X("input")), y = computed(() => e.message ? `${w.value}-message` : void 0), C = computed(() => [
+  setup(h2, { expose: u, emit: a }) {
+    const e = h2, v = a, _ = useAttrs(), y = ref(), k = computed(() => _.id || ae("input")), m = computed(() => e.message ? `${k.value}-message` : void 0), w = computed(() => [
       "su-input-container",
       `su-input-container--${e.size}`,
       `su-input-container--${e.state}`,
@@ -298,70 +595,70 @@ var Ze = defineComponent({
         "su-input--has-prefix": e.prefix || e.prefixIcon,
         "su-input--has-suffix": e.suffix || e.suffixIcon
       }
-    ]), f = computed(() => {
+    ]), b = computed(() => {
       const o = {};
-      if (e.ariaLabel && (o["aria-label"] = e.ariaLabel), e.ariaDescribedBy || y.value) {
-        const K = [e.ariaDescribedBy, y.value].filter(Boolean).join(" ");
-        o["aria-describedby"] = K;
+      if (e.ariaLabel && (o["aria-label"] = e.ariaLabel), e.ariaDescribedBy || m.value) {
+        const Z = [e.ariaDescribedBy, m.value].filter(Boolean).join(" ");
+        o["aria-describedby"] = Z;
       }
       return e.ariaInvalid !== void 0 && (o["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (o["aria-required"] = e.ariaRequired), e.required && (o["aria-required"] = "true"), e.state === "error" && (o["aria-invalid"] = "true"), o;
-    }), k = computed(() => {
+    }), B = computed(() => {
       const o = {};
       return e.autocomplete && (o.autocomplete = e.autocomplete), e.min !== void 0 && (o.min = e.min), e.max !== void 0 && (o.max = e.max), e.step !== void 0 && (o.step = e.step), e.minLength !== void 0 && (o.minlength = e.minLength), e.maxLength !== void 0 && (o.maxlength = e.maxLength), e.pattern && (o.pattern = e.pattern), o;
-    }), M = (o) => {
-      const K = o.target, Y = e.type === "number" ? Number(K.value) : K.value;
-      v("update:value", Y), v("input", o);
-    }, i = (o) => {
+    }), g = (o) => {
+      const Z = o.target, J = e.type === "number" ? Number(Z.value) : Z.value;
+      v("update:value", J), v("input", o);
+    }, t = (o) => {
       v("change", o);
-    }, F = (o) => {
+    }, A = (o) => {
       v("focus", o);
-    }, u = (o) => {
+    }, d = (o) => {
       v("blur", o);
     }, S = (o) => {
       v("keydown", o);
-    }, z = (o) => {
+    }, I = (o) => {
       v("keyup", o);
-    }, L = (o) => {
+    }, z = (o) => {
       e.disabled || e.readonly || v("prefix-click", o);
-    }, D = (o) => {
+    }, R = (o) => {
       e.disabled || e.readonly || v("prefix-icon-click", o);
-    }, O = (o) => {
+    }, P = (o) => {
       e.disabled || e.readonly || v("suffix-click", o);
-    }, te = (o) => {
+    }, le = (o) => {
       e.disabled || e.readonly || v("suffix-icon-click", o);
     };
-    return h2({
+    return u({
       focus: () => {
         var o;
-        (o = m.value) == null || o.focus();
+        (o = y.value) == null || o.focus();
       },
       select: () => {
         var o;
-        (o = m.value) == null || o.select();
+        (o = y.value) == null || o.select();
       },
-      inputRef: m
-    }), (o, K) => (openBlock(), createElementBlock("div", {
+      inputRef: y
+    }), (o, Z) => (openBlock(), createElementBlock("div", {
       class: "su-input-wrapper",
       dir: o.dir
     }, [
       o.label ? (openBlock(), createElementBlock("label", {
         key: 0,
-        for: w.value,
+        for: k.value,
         class: normalizeClass(["su-input-label", {
           "su-input-label--required": o.required,
           "su-input-label--disabled": o.disabled
         }])
       }, [
         createTextVNode(toDisplayString(o.label) + " ", 1),
-        o.required ? (openBlock(), createElementBlock("span", Pe, "*")) : createCommentVNode("", true)
-      ], 10, Oe)) : createCommentVNode("", true),
+        o.required ? (openBlock(), createElementBlock("span", Xe, "*")) : createCommentVNode("", true)
+      ], 10, Je)) : createCommentVNode("", true),
       createBaseVNode("div", {
-        class: normalizeClass(C.value)
+        class: normalizeClass(w.value)
       }, [
         o.prefixIcon ? (openBlock(), createElementBlock("div", {
           key: 0,
           class: "su-input-prefix su-input-prefix--icon su-input-prefix--clickable",
-          onClick: D
+          onClick: R
         }, [
           (openBlock(), createBlock(resolveDynamicComponent(o.prefixIcon), {
             class: "su-input-icon",
@@ -370,12 +667,12 @@ var Ze = defineComponent({
         ])) : o.prefix ? (openBlock(), createElementBlock("div", {
           key: 1,
           class: "su-input-prefix su-input-prefix--text su-input-prefix--clickable",
-          onClick: L
+          onClick: z
         }, toDisplayString(o.prefix), 1)) : createCommentVNode("", true),
         createBaseVNode("input", mergeProps({
           ref_key: "inputRef",
-          ref: m,
-          id: w.value,
+          ref: y,
+          id: k.value,
           class: $.value,
           type: o.type,
           value: o.value,
@@ -383,22 +680,22 @@ var Ze = defineComponent({
           disabled: o.disabled,
           readonly: o.readonly,
           required: o.required
-        }, { ...k.value, ...f.value }, {
-          onInput: M,
-          onChange: i,
-          onFocus: F,
-          onBlur: u,
+        }, { ...B.value, ...b.value }, {
+          onInput: g,
+          onChange: t,
+          onFocus: A,
+          onBlur: d,
           onKeydown: S,
-          onKeyup: z
-        }), null, 16, Ke),
+          onKeyup: I
+        }), null, 16, ea),
         o.suffix ? (openBlock(), createElementBlock("div", {
           key: 2,
           class: "su-input-suffix su-input-suffix--text su-input-suffix--clickable",
-          onClick: O
+          onClick: P
         }, toDisplayString(o.suffix), 1)) : o.suffixIcon ? (openBlock(), createElementBlock("div", {
           key: 3,
           class: "su-input-suffix su-input-suffix--icon su-input-suffix--clickable",
-          onClick: te
+          onClick: le
         }, [
           (openBlock(), createBlock(resolveDynamicComponent(o.suffixIcon), {
             class: "su-input-icon",
@@ -408,221 +705,68 @@ var Ze = defineComponent({
       ], 2),
       o.message ? (openBlock(), createElementBlock("div", {
         key: 1,
-        id: y.value,
+        id: m.value,
         class: normalizeClass(["su-input-message", `su-input-message--${o.state}`]),
         "aria-live": o.state === "error" ? "assertive" : "polite"
-      }, toDisplayString(o.message), 11, Ve)) : createCommentVNode("", true)
-    ], 8, je));
+      }, toDisplayString(o.message), 11, aa)) : createCommentVNode("", true)
+    ], 8, Qe));
   }
 });
-function Ge(b, h2) {
-  return openBlock(), createElementBlock("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    "stroke-width": "1.5",
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    "data-slot": "icon"
-  }, [
-    createBaseVNode("path", {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-    })
-  ]);
-}
-function ve(b, h2) {
-  return openBlock(), createElementBlock("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    "stroke-width": "1.5",
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    "data-slot": "icon"
-  }, [
-    createBaseVNode("path", {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "m4.5 12.75 6 6 9-13.5"
-    })
-  ]);
-}
-function Ne(b, h2) {
-  return openBlock(), createElementBlock("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    "stroke-width": "1.5",
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    "data-slot": "icon"
-  }, [
-    createBaseVNode("path", {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "m19.5 8.25-7.5 7.5-7.5-7.5"
-    })
-  ]);
-}
-function Ue(b, h2) {
-  return openBlock(), createElementBlock("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    "stroke-width": "1.5",
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    "data-slot": "icon"
-  }, [
-    createBaseVNode("path", {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M12 16.5V9.75m0 0 3 3m-3-3-3 3M6.75 19.5a4.5 4.5 0 0 1-1.41-8.775 5.25 5.25 0 0 1 10.233-2.33 3 3 0 0 1 3.758 3.848A3.752 3.752 0 0 1 18 19.5H6.75Z"
-    })
-  ]);
-}
-function We(b, h2) {
-  return openBlock(), createElementBlock("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    "stroke-width": "1.5",
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    "data-slot": "icon"
-  }, [
-    createBaseVNode("path", {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z"
-    })
-  ]);
-}
-function Ye(b, h2) {
-  return openBlock(), createElementBlock("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    "stroke-width": "1.5",
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    "data-slot": "icon"
-  }, [
-    createBaseVNode("path", {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"
-    })
-  ]);
-}
-function Qe(b, h2) {
-  return openBlock(), createElementBlock("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    "stroke-width": "1.5",
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    "data-slot": "icon"
-  }, [
-    createBaseVNode("path", {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-    })
-  ]);
-}
-function Je(b, h2) {
-  return openBlock(), createElementBlock("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    "stroke-width": "1.5",
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    "data-slot": "icon"
-  }, [
-    createBaseVNode("path", {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "m2.25 15.75 5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-    })
-  ]);
-}
-function he(b, h2) {
-  return openBlock(), createElementBlock("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    fill: "none",
-    viewBox: "0 0 24 24",
-    "stroke-width": "1.5",
-    stroke: "currentColor",
-    "aria-hidden": "true",
-    "data-slot": "icon"
-  }, [
-    createBaseVNode("path", {
-      "stroke-linecap": "round",
-      "stroke-linejoin": "round",
-      d: "M6 18 18 6M6 6l12 12"
-    })
-  ]);
-}
-var Xe = ["dir"];
-var ea = ["for"];
-var aa = {
+var ta = ["dir"];
+var la = ["for"];
+var ia = {
   key: 0,
-  class: "su-select-required",
+  class: "su-indicator-required",
   "aria-label": "requis"
 };
-var sa = ["id", "tabindex"];
-var ta = { class: "su-select-content" };
-var la = {
+var ra = ["id", "tabindex"];
+var oa = { class: "su-select-content" };
+var na = {
   key: 0,
   class: "su-select-tags"
 };
-var ia = { class: "su-select-tag-label" };
-var ra = ["aria-label", "onClick"];
-var oa = {
+var ua = { class: "su-select-tag-label" };
+var da = ["aria-label", "onClick"];
+var ca = {
   key: 0,
   class: "su-select-tag su-select-tag--more"
 };
-var na = {
+var pa = {
   key: 1,
   class: "su-select-display"
 };
-var ua = { class: "su-select-display-text" };
-var da = { class: "su-select-actions" };
-var ca = {
+var fa = { class: "su-select-display-text" };
+var va = { class: "su-select-actions" };
+var ha = {
   key: 0,
   class: "su-select-spinner"
 };
-var pa = ["id", "aria-multiselectable"];
-var fa = {
+var ba = ["id", "aria-multiselectable"];
+var ya = {
   key: 0,
   class: "su-select-search"
 };
-var va = { class: "su-select-search-container" };
-var ha = ["placeholder", "value"];
-var ba = { class: "su-select-options" };
-var ma = ["aria-label"];
-var ga = ["aria-selected", "aria-disabled", "onClick", "onMouseenter"];
-var ya = {
+var ma = { class: "su-select-search-container" };
+var ga = ["placeholder", "value"];
+var ka = { class: "su-select-options" };
+var wa = ["aria-label"];
+var $a = ["aria-selected", "aria-disabled", "onClick", "onMouseenter"];
+var Ba = {
   key: 0,
   class: "su-select-option-checkbox"
 };
-var ka = { class: "su-select-option-content" };
-var wa = { class: "su-select-option-label" };
-var $a = {
+var xa = { class: "su-select-option-content" };
+var _a = { class: "su-select-option-label" };
+var La = {
   key: 0,
   class: "su-select-option-description"
 };
-var Ba = {
+var Ca = {
   key: 1,
   class: "su-select-no-options"
 };
-var xa = ["id", "aria-live"];
-var _a = defineComponent({
+var qa = ["id", "aria-live"];
+var Da = defineComponent({
   __name: "SelectBox",
   props: {
     options: { default: () => [] },
@@ -658,41 +802,41 @@ var _a = defineComponent({
     tabIndex: {}
   },
   emits: ["update:value", "change", "open", "close", "search", "focus", "blur"],
-  setup(b, { expose: h2, emit: a }) {
-    const e = b, v = a, q = useAttrs(), m = ref(), w = ref(), y = ref(), C = ref(), $ = ref(false), f = ref(""), k = ref(-1), M = ref(null), i = computed(() => q.id || X("select")), F = computed(() => `${i.value}-listbox`), u = computed(() => e.groups && e.groups.length > 0 ? e.groups.flatMap(
-      (l) => l.options.map((x) => ({ ...x, group: l.label }))
+  setup(h2, { expose: u, emit: a }) {
+    const e = h2, v = a, _ = useAttrs(), y = ref(), k = ref(), m = ref(), w = ref(), $ = ref(false), b = ref(""), B = ref(-1), g = ref(null), t = computed(() => _.id || ae("select")), A = computed(() => `${t.value}-listbox`), d = computed(() => e.groups && e.groups.length > 0 ? e.groups.flatMap(
+      (i) => i.options.map((C) => ({ ...C, group: i.label }))
     ) : e.options || []), S = computed(() => {
-      if (!e.searchable || !f.value)
-        return u.value;
-      const l = f.value.toLowerCase();
-      return u.value.filter(
-        (x) => x.label.toLowerCase().includes(l) || x.description && x.description.toLowerCase().includes(l)
+      if (!e.searchable || !b.value)
+        return d.value;
+      const i = b.value.toLowerCase();
+      return d.value.filter(
+        (C) => C.label.toLowerCase().includes(i) || C.description && C.description.toLowerCase().includes(i)
       );
-    }), z = computed(() => {
-      const l = {};
-      return S.value.forEach((x) => {
-        const Q = x.group || "";
-        l[Q] || (l[Q] = []), l[Q].push(x);
-      }), l;
-    }), L = computed({
+    }), I = computed(() => {
+      const i = {};
+      return S.value.forEach((C) => {
+        const X = C.group || "";
+        i[X] || (i[X] = []), i[X].push(C);
+      }), i;
+    }), z = computed({
       get() {
         return e.multiple ? Array.isArray(e.value) ? e.value : e.value !== void 0 && e.value !== null ? [e.value] : [] : e.value;
       },
-      set(l) {
-        v("update:value", l), v("change", l);
+      set(i) {
+        v("update:value", i), v("change", i);
       }
-    }), D = computed(() => {
-      if (console.log("selectedOptions computed updated", L.value), e.multiple) {
-        const l = L.value;
-        return l ? u.value.filter((x) => l.includes(x.value)) : [];
+    }), R = computed(() => {
+      if (e.multiple) {
+        const i = z.value;
+        return i ? d.value.filter((C) => i.includes(C.value)) : [];
       } else {
-        const l = L.value;
-        return l != null ? u.value.filter((x) => x.value === l) : [];
+        const i = z.value;
+        return i != null ? d.value.filter((C) => C.value === i) : [];
       }
-    }), O = computed(() => {
-      var l;
-      return D.value.length === 0 ? e.placeholder : e.multiple ? D.value.length === 1 ? D.value[0].label : `${D.value.length} éléments sélectionnés` : ((l = D.value[0]) == null ? void 0 : l.label) || e.placeholder;
-    }), te = computed(() => [
+    }), P = computed(() => {
+      var i;
+      return R.value.length === 0 ? e.placeholder : e.multiple ? R.value.length === 1 ? R.value[0].label : `${R.value.length} éléments sélectionnés` : ((i = R.value[0]) == null ? void 0 : i.label) || e.placeholder;
+    }), le = computed(() => [
       "su-select-container",
       `su-select-container--${e.size}`,
       `su-select-container--${e.state}`,
@@ -712,183 +856,183 @@ var _a = defineComponent({
         "su-select-trigger--disabled": e.disabled,
         "su-select-trigger--readonly": e.readonly,
         "su-select-trigger--open": $.value,
-        "su-select-trigger--has-value": D.value.length > 0,
-        "su-select-trigger--placeholder": D.value.length === 0
+        "su-select-trigger--has-value": R.value.length > 0,
+        "su-select-trigger--placeholder": R.value.length === 0
       }
-    ]), G = computed(() => e.message ? `${i.value}-message` : void 0), o = computed(() => {
-      const l = {
+    ]), Y = computed(() => e.message ? `${t.value}-message` : void 0), o = computed(() => {
+      const i = {
         "aria-haspopup": "listbox",
         "aria-expanded": $.value,
-        "aria-controls": $.value ? F.value : void 0,
+        "aria-controls": $.value ? A.value : void 0,
         role: "combobox"
       };
-      if (e.ariaLabel && (l["aria-label"] = e.ariaLabel), e.ariaDescribedBy || G.value) {
-        const x = [e.ariaDescribedBy, G.value].filter(Boolean).join(" ");
-        l["aria-describedby"] = x;
+      if (e.ariaLabel && (i["aria-label"] = e.ariaLabel), e.ariaDescribedBy || Y.value) {
+        const C = [e.ariaDescribedBy, Y.value].filter(Boolean).join(" ");
+        i["aria-describedby"] = C;
       }
-      return e.ariaInvalid !== void 0 && (l["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (l["aria-required"] = e.ariaRequired), e.required && (l["aria-required"] = "true"), e.state === "error" && (l["aria-invalid"] = "true"), e.multiple && (l["aria-multiselectable"] = "true"), l;
-    }), K = () => {
-      e.disabled || e.readonly || ($.value ? N() : Y());
-    }, Y = async () => {
-      e.disabled || e.readonly || ($.value = true, f.value = "", k.value = -1, v("open"), await nextTick(), e.searchable && C.value && C.value.focus(), y.value && (M.value = ye(y.value)));
-    }, N = () => {
-      $.value = false, k.value = -1, M.value && (M.value(), M.value = null), v("close"), w.value && w.value.focus();
-    }, d = (l) => {
-      if (l.disabled) return;
-      let x;
+      return e.ariaInvalid !== void 0 && (i["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (i["aria-required"] = e.ariaRequired), e.required && (i["aria-required"] = "true"), e.state === "error" && (i["aria-invalid"] = "true"), e.multiple && (i["aria-multiselectable"] = "true"), i;
+    }), Z = () => {
+      e.disabled || e.readonly || ($.value ? Q() : J());
+    }, J = async () => {
+      e.disabled || e.readonly || ($.value = true, b.value = "", B.value = -1, v("open"), await nextTick(), e.searchable && w.value && w.value.focus(), m.value && (g.value = _e(m.value)));
+    }, Q = () => {
+      $.value = false, B.value = -1, g.value && (g.value(), g.value = null), v("close"), k.value && k.value.focus();
+    }, c = (i) => {
+      if (i.disabled) return;
+      let C;
       if (e.multiple) {
-        const T = L.value || [];
-        if (T.includes(l.value))
-          x = T.filter((H) => H !== l.value);
+        const E = z.value || [];
+        if (E.includes(i.value))
+          C = E.filter((H) => H !== i.value);
         else {
-          if (e.maxSelectedItems && T.length >= e.maxSelectedItems) {
-            P(`Maximum ${e.maxSelectedItems} éléments sélectionnables`);
+          if (e.maxSelectedItems && E.length >= e.maxSelectedItems) {
+            V(`Maximum ${e.maxSelectedItems} éléments sélectionnables`);
             return;
           }
-          x = [...T, l.value];
+          C = [...E, i.value];
         }
       } else
-        x = l.value;
-      console.log(">>>>", x), L.value = x;
-      const Q = e.multiple && L.value.includes(l.value) ? "désélectionné" : "sélectionné";
-      P(`${l.label} ${Q}`), !e.multiple && e.closeOnSelect && N();
-    }, V = (l) => {
-      l.stopPropagation();
-      const x = e.multiple ? [] : void 0;
-      L.value = x, P("Sélection effacée");
-    }, ue = (l, x) => {
-      if (x.stopPropagation(), e.multiple) {
-        const T = (L.value || []).filter((J) => J !== l.value);
-        L.value = T, P(`${l.label} retiré de la sélection`);
+        C = i.value;
+      z.value = C;
+      const X = e.multiple && z.value.includes(i.value) ? "désélectionné" : "sélectionné";
+      V(`${i.label} ${X}`), !e.multiple && e.closeOnSelect && Q();
+    }, N = (i) => {
+      i.stopPropagation();
+      const C = e.multiple ? [] : void 0;
+      z.value = C, V("Sélection effacée");
+    }, de = (i, C) => {
+      if (C.stopPropagation(), e.multiple) {
+        const E = (z.value || []).filter((ee) => ee !== i.value);
+        z.value = E, V(`${i.label} retiré de la sélection`);
       }
-    }, pe = (l) => {
-      const x = l.target;
-      f.value = x.value, k.value = -1, v("search", f.value);
-    }, de = (l) => {
-      switch (l.key) {
+    }, pe = (i) => {
+      const C = i.target;
+      b.value = C.value, B.value = -1, v("search", b.value);
+    }, ce = (i) => {
+      switch (i.key) {
         case "Enter":
         case " ":
-          if (l.preventDefault(), !$.value)
-            Y();
-          else if (k.value >= 0) {
-            const x = S.value[k.value];
-            x && d(x);
+          if (i.preventDefault(), !$.value)
+            J();
+          else if (B.value >= 0) {
+            const C = S.value[B.value];
+            C && c(C);
           }
           break;
         case "Escape":
-          l.preventDefault(), N();
+          i.preventDefault(), Q();
           break;
         case "ArrowDown":
-          l.preventDefault(), $.value ? k.value = Math.min(k.value + 1, S.value.length - 1) : Y();
+          i.preventDefault(), $.value ? B.value = Math.min(B.value + 1, S.value.length - 1) : J();
           break;
         case "ArrowUp":
-          l.preventDefault(), $.value && (k.value = Math.max(k.value - 1, -1));
+          i.preventDefault(), $.value && (B.value = Math.max(B.value - 1, -1));
           break;
         case "Home":
-          $.value && (l.preventDefault(), k.value = 0);
+          $.value && (i.preventDefault(), B.value = 0);
           break;
         case "End":
-          $.value && (l.preventDefault(), k.value = S.value.length - 1);
+          $.value && (i.preventDefault(), B.value = S.value.length - 1);
           break;
         case "Tab":
-          $.value && N();
+          $.value && Q();
           break;
       }
-    }, t = (l) => {
-      v("focus", l);
-    }, I = (l) => {
+    }, l = (i) => {
+      v("focus", i);
+    }, D = (i) => {
       setTimeout(() => {
-        $.value && m.value && !m.value.contains(document.activeElement) && (N(), v("blur", l));
+        $.value && y.value && !y.value.contains(document.activeElement) && (Q(), v("blur", i));
       }, 0);
-    }, B = (l) => {
-      $.value && m.value && !m.value.contains(l.target) && N();
+    }, L = (i) => {
+      $.value && y.value && !y.value.contains(i.target) && Q();
     };
-    return h2({
+    return u({
       focus: () => {
-        var l;
-        (l = w.value) == null || l.focus();
+        var i;
+        (i = k.value) == null || i.focus();
       },
       open: () => {
-        Y();
+        J();
       },
       close: () => {
-        N();
+        Q();
       },
-      selectRef: m,
-      inputRef: w
+      selectRef: y,
+      inputRef: k
     }), onMounted(() => {
-      document.addEventListener("click", B, { passive: true });
+      document.addEventListener("click", L, { passive: true });
     }), onUnmounted(() => {
-      document.removeEventListener("click", B, { passive: true }), M.value && M.value();
+      document.removeEventListener("click", L, { passive: true }), g.value && g.value();
     }), watch(() => e.value, () => {
-      console.log("Value changed:", e.value), k.value = -1;
-    }), (l, x) => {
-      var Q;
+      B.value = -1;
+    }), (i, C) => {
+      var X;
       return openBlock(), createElementBlock("div", {
         class: "su-select-wrapper",
-        dir: l.dir
+        dir: i.dir
       }, [
-        l.label ? (openBlock(), createElementBlock("label", {
+        i.label ? (openBlock(), createElementBlock("label", {
           key: 0,
-          for: i.value,
+          for: t.value,
           class: normalizeClass(["su-select-label", {
-            "su-select-label--required": l.required,
-            "su-select-label--disabled": l.disabled
+            "su-select-label--required": i.required,
+            "su-select-label--disabled": i.disabled
           }])
         }, [
-          createTextVNode(toDisplayString(l.label) + " ", 1),
-          l.required ? (openBlock(), createElementBlock("span", aa, "*")) : createCommentVNode("", true)
-        ], 10, ea)) : createCommentVNode("", true),
+          createTextVNode(toDisplayString(i.label) + " ", 1),
+          i.required ? (openBlock(), createElementBlock("span", ia, "*")) : createCommentVNode("", true)
+        ], 10, la)) : createCommentVNode("", true),
         createBaseVNode("div", {
           ref_key: "selectRef",
-          ref: m,
-          class: normalizeClass(te.value)
+          ref: y,
+          class: normalizeClass(le.value)
         }, [
           createBaseVNode("div", mergeProps({
             ref_key: "inputRef",
-            ref: w,
-            id: i.value,
+            ref: k,
+            id: t.value,
             class: oe.value,
-            tabindex: l.disabled ? -1 : 0
+            tabindex: i.disabled ? -1 : 0
           }, o.value, {
-            onClick: K,
-            onKeydown: de,
-            onFocus: t,
-            onBlur: I
+            onClick: Z,
+            onKeydown: ce,
+            onFocus: l,
+            onBlur: D
           }), [
-            createBaseVNode("div", ta, [
-              l.multiple && D.value.length > 0 ? (openBlock(), createElementBlock("div", la, [
-                (openBlock(true), createElementBlock(Fragment, null, renderList(D.value.slice(0, 3), (T) => (openBlock(), createElementBlock("span", {
-                  key: T.value,
+            createBaseVNode("div", oa, [
+              i.multiple && R.value.length > 0 ? (openBlock(), createElementBlock("div", na, [
+                (openBlock(true), createElementBlock(Fragment, null, renderList(R.value.slice(0, 3), (E) => (openBlock(), createElementBlock("span", {
+                  key: E.value,
                   class: "su-select-tag"
                 }, [
-                  T.icon ? (openBlock(), createBlock(resolveDynamicComponent(T.icon), {
+                  E.icon ? (openBlock(), createBlock(resolveDynamicComponent(E.icon), {
                     key: 0,
                     class: "su-select-tag-icon",
                     "aria-hidden": "true"
                   })) : createCommentVNode("", true),
-                  createBaseVNode("span", ia, toDisplayString(T.label), 1),
+                  createBaseVNode("span", ua, toDisplayString(E.label), 1),
                   createBaseVNode("button", {
                     type: "button",
                     class: "su-select-tag-remove",
-                    "aria-label": `Retirer ${T.label}`,
-                    onClick: (J) => ue(T, J)
+                    "aria-label": `Retirer ${E.label}`,
+                    onClick: (ee) => de(E, ee)
                   }, [
                     createVNode(unref(he), { class: "su-select-tag-remove-icon" })
-                  ], 8, ra)
+                  ], 8, da)
                 ]))), 128)),
-                D.value.length > 3 ? (openBlock(), createElementBlock("span", oa, " +" + toDisplayString(D.value.length - 3), 1)) : createCommentVNode("", true)
-              ])) : (openBlock(), createElementBlock("div", na, [
-                (Q = D.value[0]) != null && Q.icon ? (openBlock(), createBlock(resolveDynamicComponent(D.value[0].icon), {
+                R.value.length > 3 ? (openBlock(), createElementBlock("span", ca, " +" + toDisplayString(R.value.length - 3), 1)) : createCommentVNode("", true)
+              ])) : (openBlock(), createElementBlock("div", pa, [
+                (X = R.value[0]) != null && X.icon ? (openBlock(), createBlock(resolveDynamicComponent(R.value[0].icon), {
                   key: 0,
                   class: "su-select-display-icon",
                   "aria-hidden": "true"
                 })) : createCommentVNode("", true),
-                createBaseVNode("span", ua, toDisplayString(O.value), 1)
+                createBaseVNode("span", fa, toDisplayString(P.value), 1)
               ]))
             ]),
-            createBaseVNode("div", da, [
-              l.loading ? (openBlock(), createElementBlock("div", ca, [...x[0] || (x[0] = [
+            createBaseVNode("div", va, [
+              i.loading ? (openBlock(), createElementBlock("div", ha, [...C[0] || (C[0] = [
                 createBaseVNode("svg", {
                   class: "su-spinner",
                   viewBox: "0 0 24 24",
@@ -910,79 +1054,79 @@ var _a = defineComponent({
                     "stroke-linecap": "round"
                   })
                 ], -1)
-              ])])) : l.clearable && D.value.length > 0 && !l.disabled && !l.readonly ? (openBlock(), createElementBlock("button", {
+              ])])) : i.clearable && R.value.length > 0 && !i.disabled && !i.readonly ? (openBlock(), createElementBlock("button", {
                 key: 1,
                 type: "button",
                 class: "su-select-clear",
                 "aria-label": "Effacer la sélection",
-                onClick: V
+                onClick: N
               }, [
                 createVNode(unref(he), { class: "su-select-clear-icon" })
               ])) : createCommentVNode("", true),
-              createVNode(unref(Ne), {
+              createVNode(unref(He), {
                 class: normalizeClass(["su-select-chevron", { "su-select-chevron--open": $.value }]),
                 "aria-hidden": "true"
               }, null, 8, ["class"])
             ])
-          ], 16, sa),
+          ], 16, ra),
           createVNode(Transition, { name: "su-select-dropdown" }, {
             default: withCtx(() => [
               $.value ? (openBlock(), createElementBlock("div", {
                 key: 0,
                 ref_key: "dropdownRef",
-                ref: y,
-                id: F.value,
+                ref: m,
+                id: A.value,
                 class: "su-select-dropdown",
-                style: normalizeStyle({ maxHeight: l.maxHeight }),
+                style: normalizeStyle({ maxHeight: i.maxHeight }),
                 role: "listbox",
-                "aria-multiselectable": l.multiple
+                "aria-multiselectable": i.multiple
               }, [
-                l.searchable ? (openBlock(), createElementBlock("div", fa, [
-                  createBaseVNode("div", va, [
-                    createVNode(unref(Qe), {
+                i.searchable ? (openBlock(), createElementBlock("div", ya, [
+                  createBaseVNode("div", ma, [
+                    createVNode(unref(Ke), {
                       class: "su-select-search-icon",
                       "aria-hidden": "true"
                     }),
                     createBaseVNode("input", {
                       ref_key: "searchInputRef",
-                      ref: C,
+                      ref: w,
                       type: "text",
                       class: "su-select-search-input",
-                      placeholder: l.searchPlaceholder,
-                      value: f.value,
+                      placeholder: i.searchPlaceholder,
+                      value: b.value,
                       onInput: pe,
-                      onKeydown: de
-                    }, null, 40, ha)
+                      onKeydown: ce
+                    }, null, 40, ga)
                   ])
                 ])) : createCommentVNode("", true),
-                createBaseVNode("div", ba, [
-                  S.value.length > 0 ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList(z.value, (T, J) => (openBlock(), createElementBlock(Fragment, { key: J }, [
-                    J && e.groups && e.groups.length > 0 ? (openBlock(), createElementBlock("div", {
+                createBaseVNode("div", ka, [
+                  S.value.length > 0 ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList(I.value, (E, ee) => (openBlock(), createElementBlock(Fragment, { key: ee }, [
+                    ee && e.groups && e.groups.length > 0 ? (openBlock(), createElementBlock("div", {
                       key: 0,
                       class: "su-select-group-header",
                       role: "group",
-                      "aria-label": J
-                    }, toDisplayString(J), 9, ma)) : createCommentVNode("", true),
-                    (openBlock(true), createElementBlock(Fragment, null, renderList(T, (H) => (openBlock(), createElementBlock("div", {
+                      "aria-label": ee
+                    }, toDisplayString(ee), 9, wa)) : createCommentVNode("", true),
+                    (openBlock(true), createElementBlock(Fragment, null, renderList(E, (H) => (openBlock(), createElementBlock("div", {
                       key: H.value,
                       class: normalizeClass(["su-select-option", {
-                        "su-select-option--selected": l.multiple ? L.value.includes(H.value) : L.value === H.value,
+                        "su-select-option--selected": i.multiple ? z.value.includes(H.value) : z.value === H.value,
                         "su-select-option--disabled": H.disabled,
-                        "su-select-option--focused": S.value.indexOf(H) === k.value
+                        "su-select-option--focused": S.value.indexOf(H) === B.value
                       }]),
                       role: "option",
-                      "aria-selected": l.multiple ? L.value.includes(H.value) : L.value === H.value,
+                      "aria-selected": i.multiple ? z.value.includes(H.value) : z.value === H.value,
                       "aria-disabled": H.disabled,
-                      onClick: (ke) => d(H),
-                      onMouseenter: (ke) => k.value = S.value.indexOf(H)
+                      onClick: (Le) => c(H),
+                      onMouseenter: (Le) => B.value = S.value.indexOf(H)
                     }, [
-                      l.multiple ? (openBlock(), createElementBlock("div", ya, [
+                      i.multiple ? (openBlock(), createElementBlock("div", Ba, [
                         createBaseVNode("div", {
                           class: normalizeClass(["su-select-checkbox", {
-                            "su-select-checkbox--checked": L.value.includes(H.value)
+                            "su-select-checkbox--checked": z.value.includes(H.value)
                           }])
                         }, [
-                          L.value.includes(H.value) ? (openBlock(), createBlock(unref(ve), {
+                          z.value.includes(H.value) ? (openBlock(), createBlock(unref(ve), {
                             key: 0,
                             class: "su-select-checkbox-icon",
                             "aria-hidden": "true"
@@ -994,58 +1138,58 @@ var _a = defineComponent({
                         class: "su-select-option-icon",
                         "aria-hidden": "true"
                       })) : createCommentVNode("", true),
-                      createBaseVNode("div", ka, [
-                        createBaseVNode("div", wa, toDisplayString(H.label), 1),
-                        H.description ? (openBlock(), createElementBlock("div", $a, toDisplayString(H.description), 1)) : createCommentVNode("", true)
+                      createBaseVNode("div", xa, [
+                        createBaseVNode("div", _a, toDisplayString(H.label), 1),
+                        H.description ? (openBlock(), createElementBlock("div", La, toDisplayString(H.description), 1)) : createCommentVNode("", true)
                       ]),
-                      !l.multiple && L.value === H.value ? (openBlock(), createBlock(unref(ve), {
+                      !i.multiple && z.value === H.value ? (openBlock(), createBlock(unref(ve), {
                         key: 2,
                         class: "su-select-option-check",
                         "aria-hidden": "true"
                       })) : createCommentVNode("", true)
-                    ], 42, ga))), 128))
-                  ], 64))), 128)) : (openBlock(), createElementBlock("div", Ba, toDisplayString(f.value ? l.noResultsText : l.noOptionsText), 1))
+                    ], 42, $a))), 128))
+                  ], 64))), 128)) : (openBlock(), createElementBlock("div", Ca, toDisplayString(b.value ? i.noResultsText : i.noOptionsText), 1))
                 ])
-              ], 12, pa)) : createCommentVNode("", true)
+              ], 12, ba)) : createCommentVNode("", true)
             ]),
             _: 1
           })
         ], 2),
-        l.message ? (openBlock(), createElementBlock("div", {
+        i.message ? (openBlock(), createElementBlock("div", {
           key: 1,
-          id: G.value,
-          class: normalizeClass(["su-select-message", `su-select-message--${l.state}`]),
-          "aria-live": l.state === "error" ? "assertive" : "polite"
-        }, toDisplayString(l.message), 11, xa)) : createCommentVNode("", true)
-      ], 8, Xe);
+          id: Y.value,
+          class: normalizeClass(["su-select-message", `su-select-message--${i.state}`]),
+          "aria-live": i.state === "error" ? "assertive" : "polite"
+        }, toDisplayString(i.message), 11, qa)) : createCommentVNode("", true)
+      ], 8, ta);
     };
   }
 });
-var Ca = { class: "su-radio-group-wrapper" };
-var qa = {
+var za = { class: "su-radio-group-wrapper" };
+var Ia = {
   key: 0,
-  class: "su-radio-group-required",
+  class: "su-indicator-required",
   "aria-label": "requis"
 };
-var La = {
+var Ra = {
   key: 0,
   class: "su-radio-group-before"
 };
-var Ia = ["for"];
-var za = ["id", "name", "value", "checked", "disabled", "required", "onChange"];
-var Da = { class: "su-radio-content" };
-var Ra = { class: "su-radio-text" };
-var Fa = { class: "su-radio-label" };
-var Sa = {
+var Fa = ["for"];
+var Aa = ["id", "name", "value", "checked", "disabled", "required", "onChange"];
+var Sa = { class: "su-radio-content" };
+var Ma = { class: "su-radio-text" };
+var Ha = { class: "su-radio-label" };
+var Ta = {
   key: 0,
   class: "su-radio-description"
 };
-var Aa = {
+var Ea = {
   key: 1,
   class: "su-radio-group-after"
 };
-var Ha = ["id", "aria-live"];
-var Ma = defineComponent({
+var ja = ["id", "aria-live"];
+var Ka = defineComponent({
   __name: "RadioGroup",
   props: {
     options: { default: () => [] },
@@ -1068,8 +1212,8 @@ var Ma = defineComponent({
     tabIndex: {}
   },
   emits: ["update:value", "change", "focus", "blur"],
-  setup(b, { emit: h2 }) {
-    const a = b, e = h2, v = useAttrs(), q = computed(() => v.id || X("radio-group")), m = computed(() => a.message ? `${q.value}-message` : void 0), w = computed(() => a.name || q.value), y = computed(() => [
+  setup(h2, { emit: u }) {
+    const a = h2, e = u, v = useAttrs(), _ = computed(() => v.id || ae("radio-group")), y = computed(() => a.message ? `${_.value}-message` : void 0), k = computed(() => a.name || _.value), m = computed(() => [
       "su-radio-group",
       `su-radio-group--${a.size}`,
       `su-radio-group--${a.state}`,
@@ -1079,118 +1223,118 @@ var Ma = defineComponent({
         "su-radio-group--disabled": a.disabled,
         "su-radio-group--scrollable": a.maxHeight
       }
-    ]), C = (i) => [
+    ]), w = (t) => [
       "su-radio-option",
       `su-radio-option--${a.size}`,
       `su-radio-option--${a.state}`,
       `su-radio-option--${a.displayType}`,
       {
-        "su-radio-option--selected": a.value === i.value,
-        "su-radio-option--disabled": i.disabled || a.disabled
+        "su-radio-option--selected": a.value === t.value,
+        "su-radio-option--disabled": t.disabled || a.disabled
       }
     ], $ = computed(() => {
-      const i = {
+      const t = {
         role: "radiogroup"
       };
-      if (a.ariaLabel && (i["aria-label"] = a.ariaLabel), a.ariaDescribedBy || m.value) {
-        const F = [a.ariaDescribedBy, m.value].filter(Boolean).join(" ");
-        i["aria-describedby"] = F;
+      if (a.ariaLabel && (t["aria-label"] = a.ariaLabel), a.ariaDescribedBy || y.value) {
+        const A = [a.ariaDescribedBy, y.value].filter(Boolean).join(" ");
+        t["aria-describedby"] = A;
       }
-      return a.required && (i["aria-required"] = "true"), a.state === "error" && (i["aria-invalid"] = "true"), i;
-    }), f = (i) => {
-      a.disabled || (e("update:value", i), e("change", i));
-    }, k = (i) => {
-      e("focus", i);
-    }, M = (i) => {
-      e("blur", i);
+      return a.required && (t["aria-required"] = "true"), a.state === "error" && (t["aria-invalid"] = "true"), t;
+    }), b = (t) => {
+      a.disabled || (e("update:value", t), e("change", t));
+    }, B = (t) => {
+      e("focus", t);
+    }, g = (t) => {
+      e("blur", t);
     };
-    return (i, F) => (openBlock(), createElementBlock("div", Ca, [
-      createBaseVNode("fieldset", mergeProps({ class: y.value }, $.value), [
-        i.label ? (openBlock(), createElementBlock("legend", {
+    return (t, A) => (openBlock(), createElementBlock("div", za, [
+      createBaseVNode("fieldset", mergeProps({ class: m.value }, $.value), [
+        t.label ? (openBlock(), createElementBlock("legend", {
           key: 0,
           class: normalizeClass(["su-radio-group-label", {
-            "su-radio-group-label--required": i.required,
-            "su-radio-group-label--disabled": i.disabled
+            "su-radio-group-label--required": t.required,
+            "su-radio-group-label--disabled": t.disabled
           }])
         }, [
-          createTextVNode(toDisplayString(i.label) + " ", 1),
-          i.required ? (openBlock(), createElementBlock("span", qa, "*")) : createCommentVNode("", true)
+          createTextVNode(toDisplayString(t.label) + " ", 1),
+          t.required ? (openBlock(), createElementBlock("span", Ia, "*")) : createCommentVNode("", true)
         ], 2)) : createCommentVNode("", true),
         createBaseVNode("div", {
           class: "su-radio-group-options",
-          style: normalizeStyle({ maxHeight: i.maxHeight || void 0, overflowY: i.maxHeight ? "auto" : void 0 })
+          style: normalizeStyle({ maxHeight: t.maxHeight || void 0, overflowY: t.maxHeight ? "auto" : void 0 })
         }, [
-          i.$slots.before ? (openBlock(), createElementBlock("div", La, [
-            renderSlot(i.$slots, "before")
+          t.$slots.before ? (openBlock(), createElementBlock("div", Ra, [
+            renderSlot(t.$slots, "before")
           ])) : createCommentVNode("", true),
-          (openBlock(true), createElementBlock(Fragment, null, renderList(i.options, (u) => (openBlock(), createElementBlock("label", {
-            key: u.value,
-            class: normalizeClass(C(u)),
-            for: `${q.value}-${u.value}`
+          (openBlock(true), createElementBlock(Fragment, null, renderList(t.options, (d) => (openBlock(), createElementBlock("label", {
+            key: d.value,
+            class: normalizeClass(w(d)),
+            for: `${_.value}-${d.value}`
           }, [
             createBaseVNode("input", {
-              id: `${q.value}-${u.value}`,
+              id: `${_.value}-${d.value}`,
               type: "radio",
-              name: w.value,
-              value: u.value,
-              checked: i.value === u.value,
-              disabled: u.disabled || i.disabled,
-              required: i.required,
+              name: k.value,
+              value: d.value,
+              checked: t.value === d.value,
+              disabled: d.disabled || t.disabled,
+              required: t.required,
               class: "su-radio-input",
-              onChange: (S) => f(u.value),
-              onFocus: k,
-              onBlur: M
-            }, null, 40, za),
-            F[0] || (F[0] = createBaseVNode("div", { class: "su-radio-indicator" }, [
+              onChange: (S) => b(d.value),
+              onFocus: B,
+              onBlur: g
+            }, null, 40, Aa),
+            A[0] || (A[0] = createBaseVNode("div", { class: "su-radio-indicator" }, [
               createBaseVNode("div", { class: "su-radio-dot" })
             ], -1)),
-            createBaseVNode("div", Da, [
-              u.icon ? (openBlock(), createBlock(resolveDynamicComponent(u.icon), {
+            createBaseVNode("div", Sa, [
+              d.icon ? (openBlock(), createBlock(resolveDynamicComponent(d.icon), {
                 key: 0,
                 class: "su-radio-icon",
                 "aria-hidden": "true"
               })) : createCommentVNode("", true),
-              createBaseVNode("div", Ra, [
-                createBaseVNode("div", Fa, toDisplayString(u.label), 1),
-                u.description ? (openBlock(), createElementBlock("div", Sa, toDisplayString(u.description), 1)) : createCommentVNode("", true)
+              createBaseVNode("div", Ma, [
+                createBaseVNode("div", Ha, toDisplayString(d.label), 1),
+                d.description ? (openBlock(), createElementBlock("div", Ta, toDisplayString(d.description), 1)) : createCommentVNode("", true)
               ])
             ])
-          ], 10, Ia))), 128))
+          ], 10, Fa))), 128))
         ], 4),
-        i.$slots.after ? (openBlock(), createElementBlock("div", Aa, [
-          renderSlot(i.$slots, "after")
+        t.$slots.after ? (openBlock(), createElementBlock("div", Ea, [
+          renderSlot(t.$slots, "after")
         ])) : createCommentVNode("", true)
       ], 16),
-      i.message ? (openBlock(), createElementBlock("div", {
+      t.message ? (openBlock(), createElementBlock("div", {
         key: 0,
-        id: m.value,
-        class: normalizeClass(["su-radio-group-message", `su-radio-group-message--${i.state}`]),
-        "aria-live": i.state === "error" ? "assertive" : "polite"
-      }, toDisplayString(i.message), 11, Ha)) : createCommentVNode("", true)
+        id: y.value,
+        class: normalizeClass(["su-radio-group-message", `su-radio-group-message--${t.state}`]),
+        "aria-live": t.state === "error" ? "assertive" : "polite"
+      }, toDisplayString(t.message), 11, ja)) : createCommentVNode("", true)
     ]));
   }
 });
-var Ta = { class: "su-checkbox-group-wrapper" };
-var Ea = {
+var Pa = { class: "su-checkbox-group-wrapper" };
+var Oa = {
   key: 0,
-  class: "su-checkbox-group-required",
+  class: "su-indicator-required",
   "aria-label": "requis"
 };
-var ja = {
+var Va = {
   key: 0,
   class: "su-checkbox-group-before"
 };
-var Oa = ["for"];
-var Pa = ["id", "value", "checked", "disabled", "required", "onChange"];
-var Ka = { class: "su-checkbox-content" };
-var Va = { class: "su-checkbox-text" };
-var Za = { class: "su-checkbox-label" };
-var Ga = {
+var Ga = ["for"];
+var Za = ["id", "value", "checked", "disabled", "required", "onChange"];
+var Na = { class: "su-checkbox-content" };
+var Wa = { class: "su-checkbox-text" };
+var Ua = { class: "su-checkbox-label" };
+var Ya = {
   key: 1,
   class: "su-checkbox-group-after"
 };
-var Na = ["id", "aria-live"];
-var Ua = defineComponent({
+var Qa = ["id", "aria-live"];
+var Ja = defineComponent({
   __name: "CheckboxGroup",
   props: {
     options: { default: () => [] },
@@ -1213,15 +1357,15 @@ var Ua = defineComponent({
     tabIndex: {}
   },
   emits: ["update:value", "change", "focus", "blur"],
-  setup(b, { emit: h2 }) {
-    const a = b, e = h2, v = useAttrs(), q = computed(() => v.id || X("checkbox-group")), m = computed(() => a.message ? `${q.value}-message` : void 0), w = computed({
+  setup(h2, { emit: u }) {
+    const a = h2, e = u, v = useAttrs(), _ = computed(() => v.id || ae("checkbox-group")), y = computed(() => a.message ? `${_.value}-message` : void 0), k = computed({
       get() {
         return Array.isArray(a.value) ? a.value : [];
       },
-      set(u) {
-        e("update:value", u), e("change", u);
+      set(d) {
+        e("update:value", d), e("change", d);
       }
-    }), y = computed(() => [
+    }), m = computed(() => [
       "su-checkbox-group",
       `su-checkbox-group--${a.size}`,
       `su-checkbox-group--${a.state}`,
@@ -1231,141 +1375,141 @@ var Ua = defineComponent({
         "su-checkbox-group--disabled": a.disabled,
         "su-checkbox-group--scrollable": a.maxHeight
       }
-    ]), C = (u) => [
+    ]), w = (d) => [
       "su-checkbox-option",
       `su-checkbox-option--${a.size}`,
       `su-checkbox-option--${a.state}`,
       `su-checkbox-option--${a.displayType}`,
       {
-        "su-checkbox-option--selected": w.value.includes(u.value),
-        "su-checkbox-option--disabled": u.disabled || a.disabled
+        "su-checkbox-option--selected": k.value.includes(d.value),
+        "su-checkbox-option--disabled": d.disabled || a.disabled
       }
     ], $ = computed(() => {
-      const u = {
+      const d = {
         role: "group"
       };
-      if (a.ariaLabel && (u["aria-label"] = a.ariaLabel), a.ariaDescribedBy || m.value) {
-        const S = [a.ariaDescribedBy, m.value].filter(Boolean).join(" ");
-        u["aria-describedby"] = S;
+      if (a.ariaLabel && (d["aria-label"] = a.ariaLabel), a.ariaDescribedBy || y.value) {
+        const S = [a.ariaDescribedBy, y.value].filter(Boolean).join(" ");
+        d["aria-describedby"] = S;
       }
-      return a.required && (u["aria-required"] = "true"), a.state === "error" && (u["aria-invalid"] = "true"), u;
-    }), f = (u, S) => {
+      return a.required && (d["aria-required"] = "true"), a.state === "error" && (d["aria-invalid"] = "true"), d;
+    }), b = (d, S) => {
       if (a.disabled) return;
-      let z;
+      let I;
       if (S) {
-        if (a.maxSelections && w.value.length >= a.maxSelections) {
-          P(`Maximum ${a.maxSelections} sélections autorisées`);
+        if (a.maxSelections && k.value.length >= a.maxSelections) {
+          V(`Maximum ${a.maxSelections} sélections autorisées`);
           return;
         }
-        z = [...w.value, u];
+        I = [...k.value, d];
       } else
-        z = w.value.filter((O) => O !== u);
-      w.value = z;
-      const L = a.options.find((O) => O.value === u), D = S ? "sélectionné" : "désélectionné";
-      P(`${L == null ? void 0 : L.label} ${D}`);
-    }, k = (u) => {
-      e("focus", u);
-    }, M = (u) => {
-      e("blur", u);
-    }, i = (u) => w.value.includes(u), F = (u) => u.disabled || a.disabled;
-    return (u, S) => (openBlock(), createElementBlock("div", Ta, [
-      createBaseVNode("fieldset", mergeProps({ class: y.value }, $.value), [
-        u.label ? (openBlock(), createElementBlock("legend", {
+        I = k.value.filter((P) => P !== d);
+      k.value = I;
+      const z = a.options.find((P) => P.value === d), R = S ? "sélectionné" : "désélectionné";
+      V(`${z == null ? void 0 : z.label} ${R}`);
+    }, B = (d) => {
+      e("focus", d);
+    }, g = (d) => {
+      e("blur", d);
+    }, t = (d) => k.value.includes(d), A = (d) => d.disabled || a.disabled;
+    return (d, S) => (openBlock(), createElementBlock("div", Pa, [
+      createBaseVNode("fieldset", mergeProps({ class: m.value }, $.value), [
+        d.label ? (openBlock(), createElementBlock("legend", {
           key: 0,
           class: normalizeClass(["su-checkbox-group-label", {
-            "su-checkbox-group-label--required": u.required,
-            "su-checkbox-group-label--disabled": u.disabled
+            "su-checkbox-group-label--required": d.required,
+            "su-checkbox-group-label--disabled": d.disabled
           }])
         }, [
-          createTextVNode(toDisplayString(u.label) + " ", 1),
-          u.required ? (openBlock(), createElementBlock("span", Ea, "*")) : createCommentVNode("", true)
+          createTextVNode(toDisplayString(d.label) + " ", 1),
+          d.required ? (openBlock(), createElementBlock("span", Oa, "*")) : createCommentVNode("", true)
         ], 2)) : createCommentVNode("", true),
         createBaseVNode("div", {
           class: "su-checkbox-group-options",
-          style: normalizeStyle({ maxHeight: u.maxHeight || void 0, overflowY: u.maxHeight ? "auto" : void 0 })
+          style: normalizeStyle({ maxHeight: d.maxHeight || void 0, overflowY: d.maxHeight ? "auto" : void 0 })
         }, [
-          u.$slots.before ? (openBlock(), createElementBlock("div", ja, [
-            renderSlot(u.$slots, "before")
+          d.$slots.before ? (openBlock(), createElementBlock("div", Va, [
+            renderSlot(d.$slots, "before")
           ])) : createCommentVNode("", true),
-          (openBlock(true), createElementBlock(Fragment, null, renderList(u.options, (z) => (openBlock(), createElementBlock("label", {
-            key: z.value,
-            class: normalizeClass(C(z)),
-            for: `${q.value}-${z.value}`
+          (openBlock(true), createElementBlock(Fragment, null, renderList(d.options, (I) => (openBlock(), createElementBlock("label", {
+            key: I.value,
+            class: normalizeClass(w(I)),
+            for: `${_.value}-${I.value}`
           }, [
             createBaseVNode("input", {
-              id: `${q.value}-${z.value}`,
+              id: `${_.value}-${I.value}`,
               type: "checkbox",
-              value: z.value,
-              checked: i(z.value),
-              disabled: F(z),
-              required: u.required && w.value.length === 0,
+              value: I.value,
+              checked: t(I.value),
+              disabled: A(I),
+              required: d.required && k.value.length === 0,
               class: "su-checkbox-input",
-              onChange: (L) => f(z.value, L.target.checked),
-              onFocus: k,
-              onBlur: M
-            }, null, 40, Pa),
+              onChange: (z) => b(I.value, z.target.checked),
+              onFocus: B,
+              onBlur: g
+            }, null, 40, Za),
             createBaseVNode("div", {
               class: normalizeClass(["su-checkbox-indicator", {
-                "su-checkbox-indicator--checked": i(z.value),
+                "su-checkbox-indicator--checked": t(I.value),
                 "su-checkbox-indicator--indeterminate": false
               }])
             }, [
-              i(z.value) ? (openBlock(), createBlock(unref(ve), {
+              t(I.value) ? (openBlock(), createBlock(unref(ve), {
                 key: 0,
                 class: "su-checkbox-check",
                 "aria-hidden": "true"
               })) : createCommentVNode("", true)
             ], 2),
-            createBaseVNode("div", Ka, [
-              z.icon ? (openBlock(), createBlock(resolveDynamicComponent(z.icon), {
+            createBaseVNode("div", Na, [
+              I.icon ? (openBlock(), createBlock(resolveDynamicComponent(I.icon), {
                 key: 0,
                 class: "su-checkbox-icon",
                 "aria-hidden": "true"
               })) : createCommentVNode("", true),
-              createBaseVNode("div", Va, [
-                createBaseVNode("div", Za, toDisplayString(z.label), 1)
+              createBaseVNode("div", Wa, [
+                createBaseVNode("div", Ua, toDisplayString(I.label), 1)
               ])
             ])
-          ], 10, Oa))), 128))
+          ], 10, Ga))), 128))
         ], 4),
-        u.$slots.after ? (openBlock(), createElementBlock("div", Ga, [
-          renderSlot(u.$slots, "after")
+        d.$slots.after ? (openBlock(), createElementBlock("div", Ya, [
+          renderSlot(d.$slots, "after")
         ])) : createCommentVNode("", true)
       ], 16),
-      u.message ? (openBlock(), createElementBlock("div", {
+      d.message ? (openBlock(), createElementBlock("div", {
         key: 0,
-        id: m.value,
-        class: normalizeClass(["su-checkbox-group-message", `su-checkbox-group-message--${u.state}`]),
-        "aria-live": u.state === "error" ? "assertive" : "polite"
-      }, toDisplayString(u.message), 11, Na)) : createCommentVNode("", true)
+        id: y.value,
+        class: normalizeClass(["su-checkbox-group-message", `su-checkbox-group-message--${d.state}`]),
+        "aria-live": d.state === "error" ? "assertive" : "polite"
+      }, toDisplayString(d.message), 11, Qa)) : createCommentVNode("", true)
     ]));
   }
 });
-var Wa = { class: "su-switch-wrapper" };
-var Ya = ["for"];
-var Qa = {
+var Xa = { class: "su-switch-wrapper" };
+var es = ["for"];
+var as = {
   key: 0,
-  class: "su-switch-required",
+  class: "su-indicator-required",
   "aria-label": "requis"
 };
-var Ja = ["id", "tabindex"];
-var Xa = { class: "su-switch-track" };
-var es = { class: "su-switch-thumb" };
-var as = { class: "su-switch-indicator" };
-var ss = {
+var ss = ["id", "tabindex"];
+var ts = { class: "su-switch-track" };
+var ls = { class: "su-switch-thumb" };
+var is = { class: "su-switch-indicator" };
+var rs = {
   key: 0,
   class: "su-switch-icon su-switch-icon--check",
   viewBox: "0 0 16 16",
   "aria-hidden": "true"
 };
-var ts = {
+var os = {
   key: 1,
   class: "su-switch-icon su-switch-icon--cross",
   viewBox: "0 0 16 16",
   "aria-hidden": "true"
 };
-var ls = ["id", "aria-live"];
-var is = defineComponent({
+var ns = ["id", "aria-live"];
+var us = defineComponent({
   __name: "Switch",
   props: {
     value: { type: Boolean, default: false },
@@ -1388,8 +1532,8 @@ var is = defineComponent({
     tabIndex: {}
   },
   emits: ["update:value", "change", "focus", "blur", "keydown"],
-  setup(b, { emit: h2 }) {
-    const a = b, e = h2, v = useAttrs(), q = computed(() => v.id || X("switch")), m = computed(() => a.message ? `${q.value}-message` : void 0), w = computed(() => [
+  setup(h2, { emit: u }) {
+    const a = h2, e = u, v = useAttrs(), _ = computed(() => v.id || ae("switch")), y = computed(() => a.message ? `${_.value}-message` : void 0), k = computed(() => [
       "su-switch-container",
       `su-switch-container--${a.size}`,
       `su-switch-container--${a.state}`,
@@ -1399,7 +1543,7 @@ var is = defineComponent({
         "su-switch-container--has-labels": a.leftLabel || a.rightLabel,
         "su-switch-container--centered": a.leftLabel && a.rightLabel
       }
-    ]), y = computed(() => [
+    ]), m = computed(() => [
       "su-switch",
       `su-switch--${a.size}`,
       `su-switch--${a.state}`,
@@ -1408,128 +1552,128 @@ var is = defineComponent({
         "su-switch--disabled": a.disabled,
         "su-switch--readonly": a.readonly
       }
-    ]), C = computed(() => {
-      const i = {
+    ]), w = computed(() => {
+      const t = {
         role: "switch",
         "aria-checked": a.value
       };
-      if (a.ariaLabel && (i["aria-label"] = a.ariaLabel), a.ariaDescribedBy || m.value) {
-        const F = [a.ariaDescribedBy, m.value].filter(Boolean).join(" ");
-        i["aria-describedby"] = F;
+      if (a.ariaLabel && (t["aria-label"] = a.ariaLabel), a.ariaDescribedBy || y.value) {
+        const A = [a.ariaDescribedBy, y.value].filter(Boolean).join(" ");
+        t["aria-describedby"] = A;
       }
-      return a.ariaInvalid !== void 0 && (i["aria-invalid"] = a.ariaInvalid), a.ariaRequired !== void 0 && (i["aria-required"] = a.ariaRequired), a.required && (i["aria-required"] = "true"), a.state === "error" && (i["aria-invalid"] = "true"), i;
+      return a.ariaInvalid !== void 0 && (t["aria-invalid"] = a.ariaInvalid), a.ariaRequired !== void 0 && (t["aria-required"] = a.ariaRequired), a.required && (t["aria-required"] = "true"), a.state === "error" && (t["aria-invalid"] = "true"), t;
     }), $ = () => {
       if (a.disabled || a.readonly) return;
-      const i = !a.value;
-      e("update:value", i), e("change", i);
-    }, f = (i) => {
-      (i.key === " " || i.key === "Enter") && (i.preventDefault(), $()), e("keydown", i);
-    }, k = (i) => {
-      e("focus", i);
-    }, M = (i) => {
-      e("blur", i);
+      const t = !a.value;
+      e("update:value", t), e("change", t);
+    }, b = (t) => {
+      (t.key === " " || t.key === "Enter") && (t.preventDefault(), $()), e("keydown", t);
+    }, B = (t) => {
+      e("focus", t);
+    }, g = (t) => {
+      e("blur", t);
     };
-    return (i, F) => (openBlock(), createElementBlock("div", Wa, [
-      i.label ? (openBlock(), createElementBlock("label", {
+    return (t, A) => (openBlock(), createElementBlock("div", Xa, [
+      t.label ? (openBlock(), createElementBlock("label", {
         key: 0,
-        for: q.value,
+        for: _.value,
         class: normalizeClass(["su-switch-main-label", {
-          "su-switch-main-label--required": i.required,
-          "su-switch-main-label--disabled": i.disabled
+          "su-switch-main-label--required": t.required,
+          "su-switch-main-label--disabled": t.disabled
         }])
       }, [
-        createTextVNode(toDisplayString(i.label) + " ", 1),
-        i.required ? (openBlock(), createElementBlock("span", Qa, "*")) : createCommentVNode("", true)
-      ], 10, Ya)) : createCommentVNode("", true),
+        createTextVNode(toDisplayString(t.label) + " ", 1),
+        t.required ? (openBlock(), createElementBlock("span", as, "*")) : createCommentVNode("", true)
+      ], 10, es)) : createCommentVNode("", true),
       createBaseVNode("div", {
-        class: normalizeClass(w.value)
+        class: normalizeClass(k.value)
       }, [
-        i.leftLabel ? (openBlock(), createElementBlock("span", {
+        t.leftLabel ? (openBlock(), createElementBlock("span", {
           key: 0,
           class: normalizeClass(["su-switch-side-label su-switch-side-label--left", {
-            "su-switch-side-label--active": !i.value,
-            "su-switch-side-label--disabled": i.disabled
+            "su-switch-side-label--active": !t.value,
+            "su-switch-side-label--disabled": t.disabled
           }])
-        }, toDisplayString(i.leftLabel), 3)) : createCommentVNode("", true),
+        }, toDisplayString(t.leftLabel), 3)) : createCommentVNode("", true),
         createBaseVNode("div", mergeProps({
-          id: q.value,
-          class: y.value,
-          tabindex: i.disabled ? -1 : 0
-        }, C.value, {
+          id: _.value,
+          class: m.value,
+          tabindex: t.disabled ? -1 : 0
+        }, w.value, {
           onClick: $,
-          onKeydown: f,
-          onFocus: k,
-          onBlur: M
+          onKeydown: b,
+          onFocus: B,
+          onBlur: g
         }), [
-          createBaseVNode("div", Xa, [
-            createBaseVNode("div", es, [
-              createBaseVNode("div", as, [
-                i.value ? (openBlock(), createElementBlock("svg", ss, [...F[0] || (F[0] = [
+          createBaseVNode("div", ts, [
+            createBaseVNode("div", ls, [
+              createBaseVNode("div", is, [
+                t.value ? (openBlock(), createElementBlock("svg", rs, [...A[0] || (A[0] = [
                   createBaseVNode("path", { d: "M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" }, null, -1)
-                ])])) : (openBlock(), createElementBlock("svg", ts, [...F[1] || (F[1] = [
+                ])])) : (openBlock(), createElementBlock("svg", os, [...A[1] || (A[1] = [
                   createBaseVNode("path", { d: "M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" }, null, -1)
                 ])]))
               ])
             ])
           ])
-        ], 16, Ja),
-        i.rightLabel ? (openBlock(), createElementBlock("span", {
+        ], 16, ss),
+        t.rightLabel ? (openBlock(), createElementBlock("span", {
           key: 1,
           class: normalizeClass(["su-switch-side-label su-switch-side-label--right", {
-            "su-switch-side-label--active": i.value,
-            "su-switch-side-label--disabled": i.disabled
+            "su-switch-side-label--active": t.value,
+            "su-switch-side-label--disabled": t.disabled
           }])
-        }, toDisplayString(i.rightLabel), 3)) : createCommentVNode("", true)
+        }, toDisplayString(t.rightLabel), 3)) : createCommentVNode("", true)
       ], 2),
-      i.message ? (openBlock(), createElementBlock("div", {
+      t.message ? (openBlock(), createElementBlock("div", {
         key: 1,
-        id: m.value,
-        class: normalizeClass(["su-switch-message", `su-switch-message--${i.state}`]),
-        "aria-live": i.state === "error" ? "assertive" : "polite"
-      }, toDisplayString(i.message), 11, ls)) : createCommentVNode("", true)
+        id: y.value,
+        class: normalizeClass(["su-switch-message", `su-switch-message--${t.state}`]),
+        "aria-live": t.state === "error" ? "assertive" : "polite"
+      }, toDisplayString(t.message), 11, ns)) : createCommentVNode("", true)
     ]));
   }
 });
-var rs = { class: "su-file-upload-wrapper" };
-var os = ["for"];
-var ns = {
+var ds = { class: "su-file-upload-wrapper" };
+var cs = ["for"];
+var ps = {
   key: 0,
-  class: "su-file-upload-required",
+  class: "su-indicator-required",
   "aria-label": "requis"
 };
-var us = ["id", "accept", "multiple", "disabled", "required"];
-var ds = ["tabindex", "aria-label"];
-var cs = { class: "su-file-upload-text" };
-var ps = { class: "su-file-upload-primary-text" };
-var fs = { class: "su-file-upload-secondary-text" };
-var vs = ["disabled"];
-var hs = { key: 0 };
-var bs = { key: 0 };
-var ms = { key: 1 };
-var gs = ["aria-label"];
-var ys = { class: "su-file-upload-item-preview" };
-var ks = ["src", "alt"];
-var ws = { class: "su-file-upload-item-info" };
-var $s = { class: "su-file-upload-item-name" };
-var Bs = { class: "su-file-upload-item-details" };
-var xs = { class: "su-file-upload-item-size" };
-var _s = {
+var fs = ["id", "accept", "multiple", "disabled", "required"];
+var vs = ["tabindex", "aria-label"];
+var hs = { class: "su-file-upload-text" };
+var bs = { class: "su-file-upload-primary-text" };
+var ys = { class: "su-file-upload-secondary-text" };
+var ms = ["disabled"];
+var gs = { key: 0 };
+var ks = { key: 0 };
+var ws = { key: 1 };
+var $s = ["aria-label"];
+var Bs = { class: "su-file-upload-item-preview" };
+var xs = ["src", "alt"];
+var _s = { class: "su-file-upload-item-info" };
+var Ls = { class: "su-file-upload-item-name" };
+var Cs = { class: "su-file-upload-item-details" };
+var qs = { class: "su-file-upload-item-size" };
+var Ds = {
   key: 0,
   class: "su-file-upload-item-progress"
 };
-var Cs = {
+var zs = {
   key: 1,
   class: "su-file-upload-item-error"
 };
-var qs = { class: "su-file-upload-item-status" };
-var Ls = {
+var Is = { class: "su-file-upload-item-status" };
+var Rs = {
   key: 2,
   class: "su-file-upload-spinner",
   "aria-hidden": "true"
 };
-var Is = ["aria-label", "onClick"];
-var zs = ["id", "aria-live"];
-var Ds = defineComponent({
+var Fs = ["aria-label", "onClick"];
+var As = ["id", "aria-live"];
+var Ss = defineComponent({
   __name: "FileUpload",
   props: {
     value: { default: () => [] },
@@ -1559,236 +1703,236 @@ var Ds = defineComponent({
     tabIndex: {}
   },
   emits: ["update:value", "change", "upload", "remove", "error", "focus", "blur"],
-  setup(b, { expose: h2, emit: a }) {
-    const e = b, v = a, q = useAttrs(), m = ref(), w = ref(), y = ref(false), C = ref(0), $ = computed(() => q.id || X("file-upload")), f = computed(() => e.message ? `${$.value}-message` : void 0), k = computed(() => Array.isArray(e.value) ? e.value : []), M = computed(() => [
+  setup(h2, { expose: u, emit: a }) {
+    const e = h2, v = a, _ = useAttrs(), y = ref(), k = ref(), m = ref(false), w = ref(0), $ = computed(() => _.id || ae("file-upload")), b = computed(() => e.message ? `${$.value}-message` : void 0), B = computed(() => Array.isArray(e.value) ? e.value : []), g = computed(() => [
       "su-file-upload-container",
       `su-file-upload-container--${e.size}`,
       `su-file-upload-container--${e.state}`,
       {
         "su-file-upload-container--disabled": e.disabled,
         "su-file-upload-container--readonly": e.readonly,
-        "su-file-upload-container--dragging": y.value,
-        "su-file-upload-container--has-files": k.value.length > 0
+        "su-file-upload-container--dragging": m.value,
+        "su-file-upload-container--has-files": B.value.length > 0
       }
-    ]), i = computed(() => [
+    ]), t = computed(() => [
       "su-file-upload-dropzone",
       `su-file-upload-dropzone--${e.size}`,
       `su-file-upload-dropzone--${e.state}`,
       {
         "su-file-upload-dropzone--disabled": e.disabled,
         "su-file-upload-dropzone--readonly": e.readonly,
-        "su-file-upload-dropzone--dragging": y.value
+        "su-file-upload-dropzone--dragging": m.value
       }
-    ]), F = computed(() => {
-      const t = {};
-      if (e.ariaLabel && (t["aria-label"] = e.ariaLabel), e.ariaDescribedBy || f.value) {
-        const I = [e.ariaDescribedBy, f.value].filter(Boolean).join(" ");
-        t["aria-describedby"] = I;
+    ]), A = computed(() => {
+      const l = {};
+      if (e.ariaLabel && (l["aria-label"] = e.ariaLabel), e.ariaDescribedBy || b.value) {
+        const D = [e.ariaDescribedBy, b.value].filter(Boolean).join(" ");
+        l["aria-describedby"] = D;
       }
-      return e.ariaInvalid !== void 0 && (t["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (t["aria-required"] = e.ariaRequired), e.required && (t["aria-required"] = "true"), e.state === "error" && (t["aria-invalid"] = "true"), t;
-    }), u = (t) => {
-      if (t === 0) return "0 B";
-      const I = 1024, B = ["B", "KB", "MB", "GB"], R = Math.floor(Math.log(t) / Math.log(I));
-      return parseFloat((t / Math.pow(I, R)).toFixed(1)) + " " + B[R];
-    }, S = (t) => t.type.startsWith("image/") ? Je : We, z = (t) => t.type.startsWith("image/"), L = (t) => new Promise((I) => {
-      if (!z(t)) {
-        I("");
+      return e.ariaInvalid !== void 0 && (l["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (l["aria-required"] = e.ariaRequired), e.required && (l["aria-required"] = "true"), e.state === "error" && (l["aria-invalid"] = "true"), l;
+    }), d = (l) => {
+      if (l === 0) return "0 B";
+      const D = 1024, L = ["B", "KB", "MB", "GB"], F = Math.floor(Math.log(l) / Math.log(D));
+      return parseFloat((l / Math.pow(D, F)).toFixed(1)) + " " + L[F];
+    }, S = (l) => l.type.startsWith("image/") ? Pe : Ee, I = (l) => l.type.startsWith("image/"), z = (l) => new Promise((D) => {
+      if (!I(l)) {
+        D("");
         return;
       }
-      const B = new FileReader();
-      B.onload = (R) => {
-        var A;
-        return I(((A = R.target) == null ? void 0 : A.result) || "");
-      }, B.readAsDataURL(t);
-    }), D = (t) => e.maxSize && t.size > e.maxSize ? `Le fichier "${t.name}" est trop volumineux (${u(t.size)}). Taille maximale : ${u(e.maxSize)}` : e.accept && !e.accept.split(",").map((R) => R.trim()).some((R) => {
-      if (R.startsWith("."))
-        return t.name.toLowerCase().endsWith(R.toLowerCase());
-      if (R.includes("*")) {
-        const A = R.split("/")[0];
-        return t.type.startsWith(A);
+      const L = new FileReader();
+      L.onload = (F) => {
+        var M;
+        return D(((M = F.target) == null ? void 0 : M.result) || "");
+      }, L.readAsDataURL(l);
+    }), R = (l) => e.maxSize && l.size > e.maxSize ? `Le fichier "${l.name}" est trop volumineux (${d(l.size)}). Taille maximale : ${d(e.maxSize)}` : e.accept && !e.accept.split(",").map((F) => F.trim()).some((F) => {
+      if (F.startsWith("."))
+        return l.name.toLowerCase().endsWith(F.toLowerCase());
+      if (F.includes("*")) {
+        const M = F.split("/")[0];
+        return l.type.startsWith(M);
       }
-      return t.type === R;
-    }) ? `Le type de fichier "${t.type}" n'est pas accepté pour "${t.name}"` : null, O = async (t) => {
+      return l.type === F;
+    }) ? `Le type de fichier "${l.type}" n'est pas accepté pour "${l.name}"` : null, P = async (l) => {
       if (e.disabled || e.readonly) return;
-      const I = Array.from(t), B = k.value;
-      if (e.maxFiles && B.length + I.length > e.maxFiles) {
-        const A = `Nombre maximum de fichiers dépassé (${e.maxFiles})`;
-        v("error", A), P(A, "assertive");
+      const D = Array.from(l), L = B.value;
+      if (e.maxFiles && L.length + D.length > e.maxFiles) {
+        const M = `Nombre maximum de fichiers dépassé (${e.maxFiles})`;
+        v("error", M), V(M, "assertive");
         return;
       }
-      const R = [];
-      for (const A of I) {
-        const ne = D(A);
+      const F = [];
+      for (const M of D) {
+        const ne = R(M);
         if (ne) {
-          v("error", ne, A), P(ne, "assertive");
+          v("error", ne, M), V(ne, "assertive");
           continue;
         }
-        const l = {
-          id: X("file"),
-          file: A,
-          name: A.name,
-          size: A.size,
-          type: A.type,
+        const i = {
+          id: ae("file"),
+          file: M,
+          name: M.name,
+          size: M.size,
+          type: M.type,
           status: "pending"
         };
-        if (e.allowPreview && z(A))
+        if (e.allowPreview && I(M))
           try {
-            l.preview = await L(A);
-          } catch (x) {
-            console.warn("Erreur lors de la création de l'aperçu:", x);
+            i.preview = await z(M);
+          } catch (C) {
+            console.warn("Erreur lors de la création de l'aperçu:", C);
           }
-        R.push(l);
+        F.push(i);
       }
-      if (R.length > 0) {
-        const A = e.multiple ? [...B, ...R] : R;
-        v("update:value", A), v("change", A);
-        const ne = R.length === 1 ? `Fichier "${R[0].name}" ajouté` : `${R.length} fichiers ajoutés`;
-        P(ne), R.forEach((l) => v("upload", l));
+      if (F.length > 0) {
+        const M = e.multiple ? [...L, ...F] : F;
+        v("update:value", M), v("change", M);
+        const ne = F.length === 1 ? `Fichier "${F[0].name}" ajouté` : `${F.length} fichiers ajoutés`;
+        V(ne), F.forEach((i) => v("upload", i));
       }
-    }, te = (t) => {
+    }, le = (l) => {
       if (e.disabled || e.readonly) return;
-      const I = k.value.filter((B) => B.id !== t.id);
-      v("update:value", I), v("change", I), v("remove", t), P(`Fichier "${t.name}" supprimé`);
-    }, oe = (t) => {
-      const I = t.target;
-      I.files && I.files.length > 0 && O(I.files), I.value = "";
-    }, G = () => {
-      var t;
-      e.disabled || e.readonly || (t = m.value) == null || t.click();
-    }, o = (t) => {
-      (t.key === "Enter" || t.key === " ") && (t.preventDefault(), G());
-    }, K = (t) => {
-      v("focus", t);
-    }, Y = (t) => {
-      v("blur", t);
-    }, N = (t) => {
-      t.preventDefault(), t.stopPropagation(), !(e.disabled || e.readonly) && (C.value++, C.value === 1 && (y.value = true));
-    }, d = (t) => {
-      t.preventDefault(), t.stopPropagation(), !(e.disabled || e.readonly) && (C.value--, C.value === 0 && (y.value = false));
-    }, V = (t) => {
-      t.preventDefault(), t.stopPropagation(), !(e.disabled || e.readonly) && t.dataTransfer && (t.dataTransfer.dropEffect = "copy");
-    }, ue = (t) => {
-      var B;
-      if (t.preventDefault(), t.stopPropagation(), e.disabled || e.readonly) return;
-      y.value = false, C.value = 0;
-      const I = (B = t.dataTransfer) == null ? void 0 : B.files;
-      I && I.length > 0 && O(I);
+      const D = B.value.filter((L) => L.id !== l.id);
+      v("update:value", D), v("change", D), v("remove", l), V(`Fichier "${l.name}" supprimé`);
+    }, oe = (l) => {
+      const D = l.target;
+      D.files && D.files.length > 0 && P(D.files), D.value = "";
+    }, Y = () => {
+      var l;
+      e.disabled || e.readonly || (l = y.value) == null || l.click();
+    }, o = (l) => {
+      (l.key === "Enter" || l.key === " ") && (l.preventDefault(), Y());
+    }, Z = (l) => {
+      v("focus", l);
+    }, J = (l) => {
+      v("blur", l);
+    }, Q = (l) => {
+      l.preventDefault(), l.stopPropagation(), !(e.disabled || e.readonly) && (w.value++, w.value === 1 && (m.value = true));
+    }, c = (l) => {
+      l.preventDefault(), l.stopPropagation(), !(e.disabled || e.readonly) && (w.value--, w.value === 0 && (m.value = false));
+    }, N = (l) => {
+      l.preventDefault(), l.stopPropagation(), !(e.disabled || e.readonly) && l.dataTransfer && (l.dataTransfer.dropEffect = "copy");
+    }, de = (l) => {
+      var L;
+      if (l.preventDefault(), l.stopPropagation(), e.disabled || e.readonly) return;
+      m.value = false, w.value = 0;
+      const D = (L = l.dataTransfer) == null ? void 0 : L.files;
+      D && D.length > 0 && P(D);
     };
-    return h2({
+    return u({
       focus: () => {
-        var t;
-        (t = w.value) == null || t.focus();
+        var l;
+        (l = k.value) == null || l.focus();
       },
       clear: () => {
-        e.disabled || e.readonly || (v("update:value", []), v("change", []), P("Tous les fichiers ont été supprimés"));
+        e.disabled || e.readonly || (v("update:value", []), v("change", []), V("Tous les fichiers ont été supprimés"));
       },
-      fileInputRef: m,
-      dropZoneRef: w
-    }), (t, I) => (openBlock(), createElementBlock("div", rs, [
-      t.label ? (openBlock(), createElementBlock("label", {
+      fileInputRef: y,
+      dropZoneRef: k
+    }), (l, D) => (openBlock(), createElementBlock("div", ds, [
+      l.label ? (openBlock(), createElementBlock("label", {
         key: 0,
         for: $.value,
         class: normalizeClass(["su-file-upload-label", {
-          "su-file-upload-label--required": t.required,
-          "su-file-upload-label--disabled": t.disabled
+          "su-file-upload-label--required": l.required,
+          "su-file-upload-label--disabled": l.disabled
         }])
       }, [
-        createTextVNode(toDisplayString(t.label) + " ", 1),
-        t.required ? (openBlock(), createElementBlock("span", ns, "*")) : createCommentVNode("", true)
-      ], 10, os)) : createCommentVNode("", true),
+        createTextVNode(toDisplayString(l.label) + " ", 1),
+        l.required ? (openBlock(), createElementBlock("span", ps, "*")) : createCommentVNode("", true)
+      ], 10, cs)) : createCommentVNode("", true),
       createBaseVNode("div", {
-        class: normalizeClass(M.value)
+        class: normalizeClass(g.value)
       }, [
         createBaseVNode("input", mergeProps({
           ref_key: "fileInputRef",
-          ref: m,
+          ref: y,
           id: $.value,
           type: "file",
-          accept: t.accept,
-          multiple: t.multiple,
-          disabled: t.disabled,
-          required: t.required,
+          accept: l.accept,
+          multiple: l.multiple,
+          disabled: l.disabled,
+          required: l.required,
           class: "su-file-upload-input"
-        }, F.value, {
+        }, A.value, {
           onChange: oe,
-          onFocus: K,
-          onBlur: Y
-        }), null, 16, us),
+          onFocus: Z,
+          onBlur: J
+        }), null, 16, fs),
         createBaseVNode("div", {
           ref_key: "dropZoneRef",
-          ref: w,
-          class: normalizeClass(i.value),
-          tabindex: t.disabled ? -1 : 0,
+          ref: k,
+          class: normalizeClass(t.value),
+          tabindex: l.disabled ? -1 : 0,
           role: "button",
-          "aria-label": t.placeholder,
-          onClick: G,
+          "aria-label": l.placeholder,
+          onClick: Y,
           onKeydown: o,
-          onDragenter: N,
-          onDragleave: d,
-          onDragover: V,
-          onDrop: ue
+          onDragenter: Q,
+          onDragleave: c,
+          onDragover: N,
+          onDrop: de
         }, [
-          createVNode(unref(Ue), {
-            class: normalizeClass(["su-file-upload-icon", { "su-file-upload-icon--dragging": y.value }]),
+          createVNode(unref(Te), {
+            class: normalizeClass(["su-file-upload-icon", { "su-file-upload-icon--dragging": m.value }]),
             "aria-hidden": "true"
           }, null, 8, ["class"]),
-          createBaseVNode("div", cs, [
-            createBaseVNode("p", ps, toDisplayString(y.value ? t.dragText : t.placeholder), 1),
-            createBaseVNode("p", fs, [
+          createBaseVNode("div", hs, [
+            createBaseVNode("p", bs, toDisplayString(m.value ? l.dragText : l.placeholder), 1),
+            createBaseVNode("p", ys, [
               createBaseVNode("button", {
                 type: "button",
                 class: "su-file-upload-browse-button",
-                disabled: t.disabled || t.readonly,
-                onClick: withModifiers(G, ["stop"])
-              }, toDisplayString(t.browseText), 9, vs),
-              t.accept || t.maxSize ? (openBlock(), createElementBlock("span", hs, [
-                t.accept ? (openBlock(), createElementBlock("span", bs, " • " + toDisplayString(t.accept), 1)) : createCommentVNode("", true),
-                t.maxSize ? (openBlock(), createElementBlock("span", ms, " • Max " + toDisplayString(u(t.maxSize)), 1)) : createCommentVNode("", true)
+                disabled: l.disabled || l.readonly,
+                onClick: withModifiers(Y, ["stop"])
+              }, toDisplayString(l.browseText), 9, ms),
+              l.accept || l.maxSize ? (openBlock(), createElementBlock("span", gs, [
+                l.accept ? (openBlock(), createElementBlock("span", ks, " • " + toDisplayString(l.accept), 1)) : createCommentVNode("", true),
+                l.maxSize ? (openBlock(), createElementBlock("span", ws, " • Max " + toDisplayString(d(l.maxSize)), 1)) : createCommentVNode("", true)
               ])) : createCommentVNode("", true)
             ])
           ])
-        ], 42, ds),
-        t.showFileList && k.value.length > 0 ? (openBlock(), createElementBlock("div", {
+        ], 42, vs),
+        l.showFileList && B.value.length > 0 ? (openBlock(), createElementBlock("div", {
           key: 0,
           class: "su-file-upload-list",
           role: "list",
-          "aria-label": `${k.value.length} fichier(s) sélectionné(s)`
+          "aria-label": `${B.value.length} fichier(s) sélectionné(s)`
         }, [
-          (openBlock(true), createElementBlock(Fragment, null, renderList(k.value, (B) => (openBlock(), createElementBlock("div", {
-            key: B.id,
-            class: normalizeClass(["su-file-upload-item", `su-file-upload-item--${B.status}`]),
+          (openBlock(true), createElementBlock(Fragment, null, renderList(B.value, (L) => (openBlock(), createElementBlock("div", {
+            key: L.id,
+            class: normalizeClass(["su-file-upload-item", `su-file-upload-item--${L.status}`]),
             role: "listitem"
           }, [
-            createBaseVNode("div", ys, [
-              B.preview ? (openBlock(), createElementBlock("img", {
+            createBaseVNode("div", Bs, [
+              L.preview ? (openBlock(), createElementBlock("img", {
                 key: 0,
-                src: B.preview,
-                alt: `Aperçu de ${B.name}`,
+                src: L.preview,
+                alt: `Aperçu de ${L.name}`,
                 class: "su-file-upload-preview-image"
-              }, null, 8, ks)) : (openBlock(), createBlock(resolveDynamicComponent(S(B.file)), {
+              }, null, 8, xs)) : (openBlock(), createBlock(resolveDynamicComponent(S(L.file)), {
                 key: 1,
                 class: "su-file-upload-item-icon",
                 "aria-hidden": "true"
               }))
             ]),
-            createBaseVNode("div", ws, [
-              createBaseVNode("div", $s, toDisplayString(B.name), 1),
-              createBaseVNode("div", Bs, [
-                createBaseVNode("span", xs, toDisplayString(u(B.size)), 1),
-                B.status === "uploading" && B.progress !== void 0 ? (openBlock(), createElementBlock("span", _s, toDisplayString(B.progress) + "% ", 1)) : createCommentVNode("", true),
-                B.error ? (openBlock(), createElementBlock("span", Cs, toDisplayString(B.error), 1)) : createCommentVNode("", true)
+            createBaseVNode("div", _s, [
+              createBaseVNode("div", Ls, toDisplayString(L.name), 1),
+              createBaseVNode("div", Cs, [
+                createBaseVNode("span", qs, toDisplayString(d(L.size)), 1),
+                L.status === "uploading" && L.progress !== void 0 ? (openBlock(), createElementBlock("span", Ds, toDisplayString(L.progress) + "% ", 1)) : createCommentVNode("", true),
+                L.error ? (openBlock(), createElementBlock("span", zs, toDisplayString(L.error), 1)) : createCommentVNode("", true)
               ])
             ]),
-            createBaseVNode("div", qs, [
-              B.status === "success" ? (openBlock(), createBlock(unref(Ge), {
+            createBaseVNode("div", Is, [
+              L.status === "success" ? (openBlock(), createBlock(unref(Me), {
                 key: 0,
                 class: "su-file-upload-status-icon su-file-upload-status-icon--success",
                 "aria-hidden": "true"
-              })) : B.status === "error" ? (openBlock(), createBlock(unref(Ye), {
+              })) : L.status === "error" ? (openBlock(), createBlock(unref(je), {
                 key: 1,
                 class: "su-file-upload-status-icon su-file-upload-status-icon--error",
                 "aria-hidden": "true"
-              })) : B.status === "uploading" ? (openBlock(), createElementBlock("div", Ls, [...I[0] || (I[0] = [
+              })) : L.status === "uploading" ? (openBlock(), createElementBlock("div", Rs, [...D[0] || (D[0] = [
                 createBaseVNode("svg", {
                   class: "su-spinner",
                   viewBox: "0 0 24 24"
@@ -1811,46 +1955,46 @@ var Ds = defineComponent({
                 ], -1)
               ])])) : createCommentVNode("", true)
             ]),
-            !t.disabled && !t.readonly ? (openBlock(), createElementBlock("button", {
+            !l.disabled && !l.readonly ? (openBlock(), createElementBlock("button", {
               key: 0,
               type: "button",
               class: "su-file-upload-remove-button",
-              "aria-label": `Supprimer ${B.name}`,
-              onClick: (R) => te(B)
+              "aria-label": `Supprimer ${L.name}`,
+              onClick: (F) => le(L)
             }, [
               createVNode(unref(he), {
                 class: "su-file-upload-remove-icon",
                 "aria-hidden": "true"
               })
-            ], 8, Is)) : createCommentVNode("", true)
+            ], 8, Fs)) : createCommentVNode("", true)
           ], 2))), 128))
-        ], 8, gs)) : createCommentVNode("", true)
+        ], 8, $s)) : createCommentVNode("", true)
       ], 2),
-      t.message ? (openBlock(), createElementBlock("div", {
+      l.message ? (openBlock(), createElementBlock("div", {
         key: 1,
-        id: f.value,
-        class: normalizeClass(["su-file-upload-message", `su-file-upload-message--${t.state}`]),
-        "aria-live": t.state === "error" ? "assertive" : "polite"
-      }, toDisplayString(t.message), 11, zs)) : createCommentVNode("", true)
+        id: b.value,
+        class: normalizeClass(["su-file-upload-message", `su-file-upload-message--${l.state}`]),
+        "aria-live": l.state === "error" ? "assertive" : "polite"
+      }, toDisplayString(l.message), 11, As)) : createCommentVNode("", true)
     ]));
   }
 });
-var Rs = { class: "su-textarea-wrapper" };
-var Fs = ["for"];
-var Ss = {
+var Ms = { class: "su-textarea-wrapper" };
+var Hs = ["for"];
+var Ts = {
   key: 0,
-  class: "su-textarea-required",
+  class: "su-indicator-required",
   "aria-label": "requis"
 };
-var As = ["id", "value", "placeholder", "disabled", "readonly", "required", "rows"];
-var Hs = {
+var Es = ["id", "value", "placeholder", "disabled", "readonly", "required", "rows"];
+var js = {
   key: 1,
   class: "su-textarea-footer"
 };
-var Ms = ["id", "aria-live"];
-var Ts = ["id", "aria-live"];
-var Es = { class: "sr-only" };
-var js = defineComponent({
+var Ks = ["id", "aria-live"];
+var Ps = ["id", "aria-live"];
+var Os = { class: "sr-only" };
+var Vs = defineComponent({
   __name: "Textarea",
   props: {
     size: { default: "md" },
@@ -1881,8 +2025,8 @@ var js = defineComponent({
     tabIndex: {}
   },
   emits: ["update:value", "input", "change", "focus", "blur", "keydown", "keyup"],
-  setup(b, { expose: h2, emit: a }) {
-    const e = b, v = a, q = useAttrs(), m = ref(), w = computed(() => q.id || X("textarea")), y = computed(() => e.message ? `${w.value}-message` : void 0), C = computed(() => e.showCounter && e.maxLength ? `${w.value}-counter` : void 0), $ = computed(() => e.value || ""), f = computed(() => $.value.length), k = computed(() => e.maxLength ? e.maxLength - f.value : null), M = computed(() => e.maxLength ? k.value !== null && k.value <= e.maxLength * 0.1 : false), i = computed(() => e.maxLength ? k.value !== null && k.value < 0 : false), F = computed(() => [
+  setup(h2, { expose: u, emit: a }) {
+    const e = h2, v = a, _ = useAttrs(), y = ref(), k = computed(() => _.id || ae("textarea")), m = computed(() => e.message ? `${k.value}-message` : void 0), w = computed(() => e.showCounter && e.maxLength ? `${k.value}-counter` : void 0), $ = computed(() => e.value || ""), b = computed(() => $.value.length), B = computed(() => e.maxLength ? e.maxLength - b.value : null), g = computed(() => e.maxLength ? B.value !== null && B.value <= e.maxLength * 0.1 : false), t = computed(() => e.maxLength ? B.value !== null && B.value < 0 : false), A = computed(() => [
       "su-textarea-container",
       `su-textarea-container--${e.size}`,
       `su-textarea-container--${e.state}`,
@@ -1890,9 +2034,9 @@ var js = defineComponent({
         "su-textarea-container--disabled": e.disabled,
         "su-textarea-container--readonly": e.readonly,
         "su-textarea-container--auto-resize": e.autoResize,
-        "su-textarea-container--over-limit": i.value
+        "su-textarea-container--over-limit": t.value
       }
-    ]), u = computed(() => [
+    ]), d = computed(() => [
       "su-textarea",
       `su-textarea--${e.size}`,
       `su-textarea--${e.state}`,
@@ -1900,133 +2044,135 @@ var js = defineComponent({
         "su-textarea--disabled": e.disabled,
         "su-textarea--readonly": e.readonly,
         "su-textarea--auto-resize": e.autoResize,
-        "su-textarea--over-limit": i.value
+        "su-textarea--over-limit": t.value
       }
     ]), S = computed(() => [
       "su-textarea-counter",
       {
-        "su-textarea-counter--near-limit": M.value,
-        "su-textarea-counter--over-limit": i.value
+        "su-textarea-counter--near-limit": g.value,
+        "su-textarea-counter--over-limit": t.value
       }
-    ]), z = computed(() => {
-      const d = {};
-      e.ariaLabel && (d["aria-label"] = e.ariaLabel);
-      const V = [
+    ]), I = computed(() => {
+      const c = {};
+      e.ariaLabel && (c["aria-label"] = e.ariaLabel);
+      const N = [
         e.ariaDescribedBy,
-        y.value,
-        C.value
+        m.value,
+        w.value
       ].filter(Boolean);
-      return V.length > 0 && (d["aria-describedby"] = V.join(" ")), e.ariaInvalid !== void 0 && (d["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (d["aria-required"] = e.ariaRequired), e.required && (d["aria-required"] = "true"), (e.state === "error" || i.value) && (d["aria-invalid"] = "true"), d;
-    }), L = computed(() => {
-      const d = {};
-      return e.autocomplete && (d.autocomplete = e.autocomplete), e.maxLength && (d.maxlength = e.maxLength), e.spellcheck !== void 0 && (d.spellcheck = e.spellcheck), e.wrap && (d.wrap = e.wrap), d;
-    }), D = async () => {
-      if (!e.autoResize || !m.value) return;
+      return N.length > 0 && (c["aria-describedby"] = N.join(" ")), e.ariaInvalid !== void 0 && (c["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (c["aria-required"] = e.ariaRequired), e.required && (c["aria-required"] = "true"), (e.state === "error" || t.value) && (c["aria-invalid"] = "true"), c;
+    }), z = computed(() => {
+      const c = {};
+      return e.autocomplete && (c.autocomplete = e.autocomplete), e.maxLength && (c.maxlength = e.maxLength), e.spellcheck !== void 0 && (c.spellcheck = e.spellcheck), e.wrap && (c.wrap = e.wrap), c;
+    }), R = async () => {
+      if (!e.autoResize || !y.value) return;
       await nextTick();
-      const d = m.value, V = e.minRows ? e.minRows * 1.5 : 3 * 1.5, ue = e.maxRows ? e.maxRows * 1.5 : 10 * 1.5;
-      d.style.height = "auto";
-      const pe = d.scrollHeight, de = Math.max(V * 16, Math.min(ue * 16, pe));
-      d.style.height = `${de}px`;
-    }, O = (d) => {
-      const V = d.target;
-      v("update:value", V.value), v("input", d), e.autoResize && D();
-    }, te = (d) => {
-      v("change", d);
-    }, oe = (d) => {
-      v("focus", d);
-    }, G = (d) => {
-      v("blur", d);
-    }, o = (d) => {
-      v("keydown", d);
-    }, K = (d) => {
-      v("keyup", d);
+      const c = y.value, N = e.minRows ? e.minRows * 1.5 : 3 * 1.5, de = e.maxRows ? e.maxRows * 1.5 : 10 * 1.5;
+      c.style.height = "auto";
+      const pe = c.scrollHeight, ce = Math.max(N * 16, Math.min(de * 16, pe));
+      c.style.height = `${ce}px`;
+    }, P = (c) => {
+      const N = c.target;
+      v("update:value", N.value), v("input", c), e.autoResize && R();
+    }, le = (c) => {
+      v("change", c);
+    }, oe = (c) => {
+      v("focus", c);
+    }, Y = (c) => {
+      v("blur", c);
+    }, o = (c) => {
+      v("keydown", c);
+    }, Z = (c) => {
+      v("keyup", c);
     };
-    return h2({
+    return u({
       focus: () => {
-        var d;
-        (d = m.value) == null || d.focus();
+        var c;
+        (c = y.value) == null || c.focus();
       },
       select: () => {
-        var d;
-        (d = m.value) == null || d.select();
+        var c;
+        (c = y.value) == null || c.select();
       },
-      textareaRef: m
+      textareaRef: y
     }), watch(() => e.value, () => {
-      e.autoResize && D();
-    }, { immediate: true }), watch(() => e.autoResize, (d) => {
-      d && D();
-    }), (d, V) => (openBlock(), createElementBlock("div", Rs, [
-      d.label ? (openBlock(), createElementBlock("label", {
+      e.autoResize && R();
+    }, { immediate: true }), watch(() => e.autoResize, (c) => {
+      c && R();
+    }), (c, N) => (openBlock(), createElementBlock("div", Ms, [
+      c.label ? (openBlock(), createElementBlock("label", {
         key: 0,
-        for: w.value,
+        for: k.value,
         class: normalizeClass(["su-textarea-label", {
-          "su-textarea-label--required": d.required,
-          "su-textarea-label--disabled": d.disabled
+          "su-textarea-label--required": c.required,
+          "su-textarea-label--disabled": c.disabled
         }])
       }, [
-        createTextVNode(toDisplayString(d.label) + " ", 1),
-        d.required ? (openBlock(), createElementBlock("span", Ss, "*")) : createCommentVNode("", true)
-      ], 10, Fs)) : createCommentVNode("", true),
+        createTextVNode(toDisplayString(c.label) + " ", 1),
+        c.required ? (openBlock(), createElementBlock("span", Ts, "*")) : createCommentVNode("", true)
+      ], 10, Hs)) : createCommentVNode("", true),
       createBaseVNode("div", {
-        class: normalizeClass(F.value)
+        class: normalizeClass(A.value)
       }, [
         createBaseVNode("textarea", mergeProps({
           ref_key: "textareaRef",
-          ref: m,
-          id: w.value,
-          class: u.value,
-          value: d.value,
-          placeholder: d.placeholder,
-          disabled: d.disabled,
-          readonly: d.readonly,
-          required: d.required,
-          rows: d.autoResize ? d.minRows : d.rows
-        }, { ...L.value, ...z.value }, {
-          onInput: O,
-          onChange: te,
+          ref: y,
+          id: k.value,
+          class: d.value,
+          value: c.value,
+          placeholder: c.placeholder,
+          disabled: c.disabled,
+          readonly: c.readonly,
+          required: c.required,
+          rows: c.autoResize ? c.minRows : c.rows
+        }, { ...z.value, ...I.value }, {
+          onInput: P,
+          onChange: le,
           onFocus: oe,
-          onBlur: G,
+          onBlur: Y,
           onKeydown: o,
-          onKeyup: K
-        }), null, 16, As)
+          onKeyup: Z
+        }), null, 16, Es)
       ], 2),
-      d.message || d.showCounter && d.maxLength ? (openBlock(), createElementBlock("div", Hs, [
-        d.message ? (openBlock(), createElementBlock("div", {
+      c.message || c.showCounter && c.maxLength ? (openBlock(), createElementBlock("div", js, [
+        c.message ? (openBlock(), createElementBlock("div", {
           key: 0,
-          id: y.value,
-          class: normalizeClass(["su-textarea-message", `su-textarea-message--${d.state}`]),
-          "aria-live": d.state === "error" ? "assertive" : "polite"
-        }, toDisplayString(d.message), 11, Ms)) : createCommentVNode("", true),
-        d.showCounter && d.maxLength ? (openBlock(), createElementBlock("div", {
+          id: m.value,
+          class: normalizeClass(["su-textarea-message", `su-textarea-message--${c.state}`]),
+          "aria-live": c.state === "error" ? "assertive" : "polite"
+        }, toDisplayString(c.message), 11, Ks)) : createCommentVNode("", true),
+        c.showCounter && c.maxLength ? (openBlock(), createElementBlock("div", {
           key: 1,
-          id: C.value,
+          id: w.value,
           class: normalizeClass(S.value),
-          "aria-live": M.value || i.value ? "polite" : "off"
+          "aria-live": g.value || t.value ? "polite" : "off"
         }, [
-          createBaseVNode("span", Es, toDisplayString(i.value ? "Limite de caractères dépassée" : "Caractères restants") + ": ", 1),
-          createTextVNode(" " + toDisplayString(f.value) + "/" + toDisplayString(d.maxLength), 1)
-        ], 10, Ts)) : createCommentVNode("", true)
+          createBaseVNode("span", Os, toDisplayString(t.value ? "Limite de caractères dépassée" : "Caractères restants") + ": ", 1),
+          createTextVNode(" " + toDisplayString(b.value) + "/" + toDisplayString(c.maxLength), 1)
+        ], 10, Ps)) : createCommentVNode("", true)
       ])) : createCommentVNode("", true)
     ]));
   }
 });
-var Ks = {
-  install(b, h2 = {}) {
-    const a = h2.prefix || "Su";
-    b.component(`${a}Button`, ge), b.component(`${a}ButtonsGroup`, Fe), b.component(`${a}Input`, Ze), b.component(`${a}SelectBox`, _a), b.component(`${a}RadioGroup`, Ma), b.component(`${a}CheckboxGroup`, Ua), b.component(`${a}Switch`, is), b.component(`${a}FileUpload`, Ds), b.component(`${a}Textarea`, js);
+var Ns = {
+  install(h2, u = {}) {
+    const a = u.prefix || "Su";
+    h2.component(`${a}Button`, Be), h2.component(`${a}ButtonsGroup`, Ae), h2.component(`${a}Link`, xe), h2.component(`${a}LinksGroup`, Ve), h2.component(`${a}Input`, sa), h2.component(`${a}SelectBox`, Da), h2.component(`${a}RadioGroup`, Ka), h2.component(`${a}CheckboxGroup`, Ja), h2.component(`${a}Switch`, us), h2.component(`${a}FileUpload`, Ss), h2.component(`${a}Textarea`, Vs);
   }
 };
 export {
-  ge as Button,
-  Fe as ButtonsGroup,
-  Ua as CheckboxGroup,
-  Ds as FileUpload,
-  Ze as Input,
-  Ma as RadioGroup,
-  _a as SelectBox,
-  is as Switch,
-  js as Textarea,
-  Ps as accessibility,
-  Ks as default
+  Be as Button,
+  Ae as ButtonsGroup,
+  Ja as CheckboxGroup,
+  Ss as FileUpload,
+  sa as Input,
+  xe as Link,
+  Ve as LinksGroup,
+  Ka as RadioGroup,
+  Da as SelectBox,
+  us as Switch,
+  Vs as Textarea,
+  Zs as accessibility,
+  Ns as default
 };
 //# sourceMappingURL=@surgeup_ds-vue.js.map

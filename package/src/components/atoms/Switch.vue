@@ -111,7 +111,7 @@ const handleBlur = (event: FocusEvent) => {
       }"
     >
       {{ label }}
-      <span v-if="required" class="su-switch-required" aria-label="requis">*</span>
+      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
     </label>
 
     <!-- Container du switch -->
@@ -194,31 +194,14 @@ const handleBlur = (event: FocusEvent) => {
 
 <style lang="scss">
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .su-switch-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
+  @include su-form-field-wrapper;
 }
 
 .su-switch-main-label {
-  display: block;
-  font-size: $font-size-sm;
-  font-weight: 500;
-  color: $text-primary;
-  line-height: $line-height-tight;
-  
-  &--required {
-    .su-switch-required {
-      color: $error-500;
-      margin-left: 0.125rem;
-    }
-  }
-  
-  &--disabled {
-    color: $text-tertiary;
-    cursor: not-allowed;
-  }
+  @include su-form-field-label;
 }
 
 .su-switch-container {
@@ -408,87 +391,7 @@ const handleBlur = (event: FocusEvent) => {
 }
 
 .su-switch-message {
-  font-size: $font-size-sm;
-  line-height: $line-height-tight;
-  
-  &--default {
-    color: $text-secondary;
-  }
-  
-  &--error {
-    color: $error-600;
-  }
-  
-  &--success {
-    color: $success-600;
-  }
-  
-  &--warning {
-    color: $warning-600;
-  }
+  @include su-form-field-message;
 }
 
-// Mode sombre
-@media (prefers-color-scheme: dark) {
-  .su-switch-main-label {
-    color: $text-primary-dark;
-    
-    &--disabled {
-      color: $text-tertiary-dark;
-    }
-  }
-  
-  .su-switch-side-label {
-    color: $text-secondary-dark;
-    
-    &--active {
-      color: $text-primary-dark;
-    }
-    
-    &--disabled {
-      color: $text-tertiary-dark;
-    }
-  }
-  
-  .su-switch-track {
-    background-color: $gray-600;
-  }
-  
-  .su-switch-thumb {
-    background-color: $gray-200;
-  }
-  
-  .su-switch--checked .su-switch-thumb {
-    background-color: white;
-  }
-  
-  .su-switch-message {
-    &--default {
-      color: $text-secondary-dark;
-    }
-  }
-}
-
-// Mode de contraste élevé
-@media (prefers-contrast: high) {
-  .su-switch {
-    &:focus-visible {
-      box-shadow: 0 0 0 3px rgba($primary-600, 0.5);
-    }
-  }
-  
-  .su-switch-thumb {
-    box-shadow: 0 0 0 2px $gray-900, 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-}
-
-// Support de la réduction des animations
-@media (prefers-reduced-motion: reduce) {
-  .su-switch,
-  .su-switch-track,
-  .su-switch-thumb,
-  .su-switch-side-label {
-    transition: none;
-  }
-}
 </style>

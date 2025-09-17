@@ -104,7 +104,7 @@ const handleBlur = (event: FocusEvent) => {
         }"
       >
         {{ label }}
-        <span v-if="required" class="su-radio-group-required" aria-label="requis">*</span>
+        <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
       </legend>
 
       <!-- Options -->
@@ -188,6 +188,7 @@ const handleBlur = (event: FocusEvent) => {
 
 <style lang="scss">
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .su-radio-group-wrapper {
   display: flex;

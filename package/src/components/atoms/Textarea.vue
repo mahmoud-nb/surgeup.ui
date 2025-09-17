@@ -220,7 +220,7 @@ watch(() => props.autoResize, (newValue) => {
       }"
     >
       {{ label }}
-      <span v-if="required" class="su-textarea-required" aria-label="requis">*</span>
+      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
     </label>
 
     <!-- Container du textarea -->
@@ -279,44 +279,18 @@ watch(() => props.autoResize, (newValue) => {
 
 <style lang="scss">
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .su-textarea-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
+  @include su-form-field-wrapper;
 }
 
 .su-textarea-label {
-  display: block;
-  font-size: $font-size-sm;
-  font-weight: 500;
-  color: $text-primary;
-  line-height: $line-height-tight;
-  
-  &--required {
-    .su-textarea-required {
-      color: $error-500;
-      margin-left: 0.125rem;
-    }
-  }
-  
-  &--disabled {
-    color: $text-tertiary;
-    cursor: not-allowed;
-  }
+  @include su-form-field-label;
 }
 
 .su-textarea-container {
-  position: relative;
-  background-color: white;
-  border: 1px solid $gray-300;
-  border-radius: $border-radius-md;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  &:focus-within {
-    border-color: $primary-500;
-    box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
-  }
+  @include su-form-field-container;
   
   // Tailles
   &--sm {
@@ -343,53 +317,6 @@ watch(() => props.autoResize, (newValue) => {
     }
   }
   
-  // États
-  &--error {
-    border-color: $error-500;
-    
-    &:focus-within {
-      border-color: $error-500;
-      box-shadow: 0 0 0 3px rgba($error-500, 0.1);
-    }
-  }
-  
-  &--success {
-    border-color: $success-500;
-    
-    &:focus-within {
-      border-color: $success-500;
-      box-shadow: 0 0 0 3px rgba($success-500, 0.1);
-    }
-  }
-  
-  &--warning {
-    border-color: $warning-500;
-    
-    &:focus-within {
-      border-color: $warning-500;
-      box-shadow: 0 0 0 3px rgba($warning-500, 0.1);
-    }
-  }
-  
-  &--disabled {
-    background-color: $gray-50;
-    border-color: $gray-200;
-    cursor: not-allowed;
-    
-    &:focus-within {
-      border-color: $gray-200;
-      box-shadow: none;
-    }
-  }
-  
-  &--readonly {
-    background-color: $gray-50;
-    
-    &:focus-within {
-      box-shadow: 0 0 0 3px rgba($gray-500, 0.1);
-    }
-  }
-  
   &--over-limit {
     border-color: $error-500;
     
@@ -401,30 +328,15 @@ watch(() => props.autoResize, (newValue) => {
 }
 
 .su-textarea {
+  @include su-form-field-element;
   width: 100%;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: $text-primary;
-  font-family: inherit;
   resize: vertical;
   
-  &::placeholder {
-    color: $text-tertiary;
-  }
-  
   &--disabled {
-    color: $text-tertiary;
-    cursor: not-allowed;
     resize: none;
-    
-    &::placeholder {
-      color: $gray-400;
-    }
   }
   
   &--readonly {
-    cursor: default;
     resize: none;
   }
   
@@ -447,25 +359,8 @@ watch(() => props.autoResize, (newValue) => {
 }
 
 .su-textarea-message {
+  @include su-form-field-message;
   flex: 1;
-  font-size: $font-size-sm;
-  line-height: $line-height-tight;
-  
-  &--default {
-    color: $text-secondary;
-  }
-  
-  &--error {
-    color: $error-600;
-  }
-  
-  &--success {
-    color: $success-600;
-  }
-  
-  &--warning {
-    color: $warning-600;
-  }
 }
 
 .su-textarea-counter {
@@ -482,83 +377,6 @@ watch(() => props.autoResize, (newValue) => {
   &--over-limit {
     color: $error-600;
     font-weight: 600;
-  }
-}
-
-// Mode sombre
-@media (prefers-color-scheme: dark) {
-  .su-textarea-label {
-    color: $text-primary-dark;
-    
-    &--disabled {
-      color: $text-tertiary-dark;
-    }
-  }
-  
-  .su-textarea-container {
-    background-color: $gray-800;
-    border-color: $gray-600;
-    
-    &--disabled {
-      background-color: $gray-900;
-      border-color: $gray-700;
-    }
-    
-    &--readonly {
-      background-color: $gray-900;
-    }
-  }
-  
-  .su-textarea {
-    color: $text-primary-dark;
-    
-    &::placeholder {
-      color: $text-tertiary-dark;
-    }
-    
-    &--disabled {
-      color: $text-tertiary-dark;
-    }
-    
-    &--over-limit {
-      color: $error-400;
-    }
-  }
-  
-  .su-textarea-message {
-    &--default {
-      color: $text-secondary-dark;
-    }
-  }
-  
-  .su-textarea-counter {
-    color: $text-secondary-dark;
-    
-    &--near-limit {
-      color: $warning-400;
-    }
-    
-    &--over-limit {
-      color: $error-400;
-    }
-  }
-}
-
-// Mode de contraste élevé
-@media (prefers-contrast: high) {
-  .su-textarea-container {
-    border-width: 2px;
-    
-    &:focus-within {
-      border-width: 3px;
-    }
-  }
-}
-
-// Support de la réduction des animations
-@media (prefers-reduced-motion: reduce) {
-  .su-textarea-container {
-    transition: none;
   }
 }
 </style>

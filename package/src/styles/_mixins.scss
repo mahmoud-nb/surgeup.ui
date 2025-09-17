@@ -1,0 +1,278 @@
+// Mixins et classes communes pour les composants
+
+// Classes génériques réutilisables
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// Mixin pour les wrappers de champs de formulaire
+@mixin su-form-field-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+// Mixin pour les labels de champs de formulaire
+@mixin su-form-field-label {
+  display: block;
+  font-size: 0.875rem; // $font-size-sm
+  font-weight: 500;
+  color: #111827; // $text-primary
+  line-height: 1.25; // $line-height-tight
+  
+  &--required {
+    .su-indicator-required {
+      color: #ef4444; // $error-500
+      margin-left: 0.125rem;
+    }
+  }
+  
+  &--disabled {
+    color: #6b7280; // $text-tertiary
+    cursor: not-allowed;
+  }
+}
+
+// Mixin pour les containers d'input
+@mixin su-form-field-container {
+  position: relative;
+  background-color: white;
+  border: 1px solid #d1d5db; // $gray-300
+  border-radius: 0.375rem; // $border-radius-md
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  &:focus-within {
+    border-color: #3b82f6; // $primary-500
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); // rgba($primary-500, 0.1)
+  }
+  
+  // États
+  &--error {
+    border-color: #ef4444; // $error-500
+    
+    &:focus-within {
+      border-color: #ef4444; // $error-500
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); // rgba($error-500, 0.1)
+    }
+  }
+  
+  &--success {
+    border-color: #10b981; // $success-500
+    
+    &:focus-within {
+      border-color: #10b981; // $success-500
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1); // rgba($success-500, 0.1)
+    }
+  }
+  
+  &--warning {
+    border-color: #f59e0b; // $warning-500
+    
+    &:focus-within {
+      border-color: #f59e0b; // $warning-500
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1); // rgba($warning-500, 0.1)
+    }
+  }
+  
+  &--disabled {
+    background-color: #f9fafb; // $gray-50
+    border-color: #e5e7eb; // $gray-200
+    cursor: not-allowed;
+    
+    &:focus-within {
+      border-color: #e5e7eb; // $gray-200
+      box-shadow: none;
+    }
+  }
+  
+  &--readonly {
+    background-color: #f9fafb; // $gray-50
+    
+    &:focus-within {
+      box-shadow: 0 0 0 3px rgba(107, 114, 128, 0.1); // rgba($gray-500, 0.1)
+    }
+  }
+}
+
+// Mixin pour les messages de champs de formulaire
+@mixin su-form-field-message {
+  font-size: 0.875rem; // $font-size-sm
+  line-height: 1.25; // $line-height-tight
+  
+  &--default {
+    color: #374151; // $text-secondary
+  }
+  
+  &--error {
+    color: #dc2626; // $error-600
+  }
+  
+  &--success {
+    color: #059669; // $success-600
+  }
+  
+  &--warning {
+    color: #d97706; // $warning-600
+  }
+}
+
+// Mixin pour les éléments de champs de formulaire (input, textarea, select) 
+@mixin su-form-field-element {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #111827; // $text-primary
+  font-family: inherit;
+  
+  &::placeholder {
+    color: #6b7280; // $text-tertiary
+  }
+  
+  &--disabled {
+    color: #6b7280; // $text-tertiary
+    cursor: not-allowed;
+    
+    &::placeholder {
+      color: #9ca3af; // $gray-400
+    }
+  }
+  
+  &--readonly {
+    cursor: default;
+  }
+}
+
+// Mixin pour les tailles d'input
+@mixin input-size($size) {
+  @if $size == 'sm' {
+    min-height: 2rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem; // $font-size-sm
+  } @else if $size == 'md' {
+    min-height: 2.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem; // $font-size-base
+  } @else if $size == 'lg' {
+    min-height: 3rem;
+    padding: 0.75rem 1rem;
+    font-size: 1.125rem; // $font-size-lg
+  }
+}
+
+// Mixin pour les groupes de composants
+@mixin component-group($gap) {
+  display: inline-flex;
+  align-items: center;
+  
+  @if $gap == 'sm' {
+    gap: 0.25rem;
+  } @else if $gap == 'md' {
+    gap: 0.5rem;
+  } @else if $gap == 'lg' {
+    gap: 0.75rem;
+  } @else if $gap == 'none' {
+    gap: 0;
+  }
+}
+
+// Mixin pour les éléments connectés (gap: none)
+@mixin connected-elements($border-radius: 0.375rem) {
+  margin-left: -1px;
+  border-radius: 0;
+  position: relative;
+  
+  &:first-child {
+    margin-left: 0;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+  }
+  
+  &:last-child {
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+  
+  &:only-child {
+    border-radius: $border-radius;
+  }
+  
+  &:focus-visible,
+  &:hover:not(:disabled),
+  &:active:not(:disabled) {
+    z-index: 1;
+  }
+}
+
+// Mode sombre pour les champs de formulaire
+@mixin dark-mode-form-field {
+  @media (prefers-color-scheme: dark) {
+    .su-form-field-label {
+      color: #f9fafb; // $text-primary-dark
+      
+      &--disabled {
+        color: #9ca3af; // $text-tertiary-dark
+      }
+    }
+    
+    .su-form-field-container {
+      background-color: #1f2937; // $gray-800
+      border-color: #4b5563; // $gray-600
+      
+      &--disabled {
+        background-color: #111827; // $gray-900
+        border-color: #374151; // $gray-700
+      }
+      
+      &--readonly {
+        background-color: #111827; // $gray-900
+      }
+    }
+    
+    .su-form-field-element {
+      color: #f9fafb; // $text-primary-dark
+      
+      &::placeholder {
+        color: #9ca3af; // $text-tertiary-dark
+      }
+      
+      &--disabled {
+        color: #9ca3af; // $text-tertiary-dark
+      }
+    }
+    
+    .su-form-field-message {
+      &--default {
+        color: #e5e7eb; // $text-secondary-dark
+      }
+    }
+  }
+}
+
+// Mixin pour le mode de contraste élevé
+@mixin high-contrast-form-field {
+  @media (prefers-contrast: high) {
+    .su-form-field-container {
+      border-width: 2px;
+      
+      &:focus-within {
+        border-width: 3px;
+      }
+    }
+  }
+}
+
+// Mixin pour la réduction des animations
+@mixin reduced-motion {
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}

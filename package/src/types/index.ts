@@ -20,6 +20,9 @@ export type FileUploadSize = 'sm' | 'md' | 'lg'
 export type FileUploadState = 'default' | 'error' | 'success' | 'warning'
 export type TextareaSize = 'sm' | 'md' | 'lg'
 export type TextareaState = 'default' | 'error' | 'success' | 'warning'
+export type LinkVariant = 'default' | 'primary' | 'secondary' | 'muted'
+export type LinkSize = 'sm' | 'md' | 'lg'
+export type LinkUnderline = 'always' | 'hover' | 'never'
 
 export interface SelectOption {
   value: string | number
@@ -225,6 +228,28 @@ export interface TextareaProps extends AccessibilityProps {
   autocomplete?: string
   spellcheck?: boolean
   wrap?: 'soft' | 'hard' | 'off'
+}
+
+export interface LinkProps extends AccessibilityProps {
+  href?: string
+  to?: string | object
+  target?: '_blank' | '_self' | '_parent' | '_top'
+  rel?: string
+  variant?: LinkVariant
+  size?: LinkSize
+  underline?: LinkUnderline
+  disabled?: boolean
+  icon?: Component
+  iconDisplay?: 'left' | 'right' | 'only'
+  external?: boolean
+}
+
+export interface LinksGroupProps extends AccessibilityProps {
+  gap?: 'sm' | 'md' | 'lg' | 'none'
+  size?: LinkSize
+  variant?: LinkVariant
+  underline?: LinkUnderline
+  direction?: 'horizontal' | 'vertical'
 }
 
 // Types pour l'accessibilité

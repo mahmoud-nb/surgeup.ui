@@ -176,7 +176,7 @@ defineExpose({
       }"
     >
       {{ label }}
-      <span v-if="required" class="su-input-required" aria-label="requis">*</span>
+      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
     </label>
 
     <!-- Container de l'input -->
@@ -253,46 +253,20 @@ defineExpose({
 
 <style lang="scss">
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .su-input-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
+  @include su-form-field-wrapper;
 }
 
 .su-input-label {
-  display: block;
-  font-size: $font-size-sm;
-  font-weight: 500;
-  color: $text-primary;
-  line-height: $line-height-tight;
-  
-  &--required {
-    .su-input-required {
-      color: $error-500;
-      margin-left: 0.125rem;
-    }
-  }
-  
-  &--disabled {
-    color: $text-tertiary;
-    cursor: not-allowed;
-  }
+  @include su-form-field-label;
 }
 
 .su-input-container {
-  position: relative;
+  @include su-form-field-container;
   display: flex;
   align-items: center;
-  background-color: white;
-  border: 1px solid $gray-300;
-  border-radius: $border-radius-md;
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  
-  &:focus-within {
-    border-color: $primary-500;
-    box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
-  }
   
   // Tailles
   &--sm {
@@ -340,53 +314,6 @@ defineExpose({
     }
   }
   
-  // États
-  &--error {
-    border-color: $error-500;
-    
-    &:focus-within {
-      border-color: $error-500;
-      box-shadow: 0 0 0 3px rgba($error-500, 0.1);
-    }
-  }
-  
-  &--success {
-    border-color: $success-500;
-    
-    &:focus-within {
-      border-color: $success-500;
-      box-shadow: 0 0 0 3px rgba($success-500, 0.1);
-    }
-  }
-  
-  &--warning {
-    border-color: $warning-500;
-    
-    &:focus-within {
-      border-color: $warning-500;
-      box-shadow: 0 0 0 3px rgba($warning-500, 0.1);
-    }
-  }
-  
-  &--disabled {
-    background-color: $gray-50;
-    border-color: $gray-200;
-    cursor: not-allowed;
-    
-    &:focus-within {
-      border-color: $gray-200;
-      box-shadow: none;
-    }
-  }
-  
-  &--readonly {
-    background-color: $gray-50;
-    
-    &:focus-within {
-      box-shadow: 0 0 0 3px rgba($gray-500, 0.1);
-    }
-  }
-  
   // RTL Support
   &--rtl {
     direction: rtl;
@@ -406,17 +333,9 @@ defineExpose({
 }
 
 .su-input {
+  @include su-form-field-element;
   flex: 1;
-  border: none;
-  outline: none;
-  background: transparent;
-  color: $text-primary;
-  font-family: inherit;
   line-height: $line-height-normal;
-  
-  &::placeholder {
-    color: $text-tertiary;
-  }
   
   // Alignement du texte
   &--align-left {
@@ -429,19 +348,6 @@ defineExpose({
   
   &--align-right {
     text-align: right;
-  }
-  
-  &--disabled {
-    color: $text-tertiary;
-    cursor: not-allowed;
-    
-    &::placeholder {
-      color: $gray-400;
-    }
-  }
-  
-  &--readonly {
-    cursor: default;
   }
   
   // Types spéciaux
@@ -513,62 +419,11 @@ defineExpose({
 }
 
 .su-input-message {
-  font-size: $font-size-sm;
-  line-height: $line-height-tight;
-  
-  &--default {
-    color: $text-secondary;
-  }
-  
-  &--error {
-    color: $error-600;
-  }
-  
-  &--success {
-    color: $success-600;
-  }
-  
-  &--warning {
-    color: $warning-600;
-  }
+  @include su-form-field-message;
 }
 
-// Mode sombre
+// Styles spécifiques au mode sombre pour les préfixes/suffixes
 @media (prefers-color-scheme: dark) {
-  .su-input-label {
-    color: $text-primary-dark;
-    
-    &--disabled {
-      color: $text-tertiary-dark;
-    }
-  }
-  
-  .su-input-container {
-    background-color: $gray-800;
-    border-color: $gray-600;
-    
-    &--disabled {
-      background-color: $gray-900;
-      border-color: $gray-700;
-    }
-    
-    &--readonly {
-      background-color: $gray-900;
-    }
-  }
-  
-  .su-input {
-    color: $text-primary-dark;
-    
-    &::placeholder {
-      color: $text-tertiary-dark;
-    }
-    
-    &--disabled {
-      color: $text-tertiary-dark;
-    }
-  }
-  
   .su-input-prefix,
   .su-input-suffix {
     background-color: $gray-900;
@@ -583,30 +438,6 @@ defineExpose({
     &--clickable:active:not(.su-input-container--disabled):not(.su-input-container--readonly) {
       background-color: $gray-600;
     }
-  }
-  
-  .su-input-message {
-    &--default {
-      color: $text-secondary-dark;
-    }
-  }
-}
-
-// Mode de contraste élevé
-@media (prefers-contrast: high) {
-  .su-input-container {
-    border-width: 2px;
-    
-    &:focus-within {
-      border-width: 3px;
-    }
-  }
-}
-
-// Support de la réduction des animations
-@media (prefers-reduced-motion: reduce) {
-  .su-input-container {
-    transition: none;
   }
 }
 </style>

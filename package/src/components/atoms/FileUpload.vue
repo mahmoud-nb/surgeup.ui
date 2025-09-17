@@ -337,7 +337,7 @@ defineExpose({
       }"
     >
       {{ label }}
-      <span v-if="required" class="su-file-upload-required" aria-label="requis">*</span>
+      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
     </label>
 
     <!-- Container principal -->
@@ -496,6 +496,7 @@ defineExpose({
 
 <style lang="scss">
 @use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
 
 .su-file-upload-wrapper {
   display: flex;
