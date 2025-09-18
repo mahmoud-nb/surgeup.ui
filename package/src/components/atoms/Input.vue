@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs } from 'vue'
+import { computed, ref } from 'vue'
+import FormField from './FormField.vue'
+import { useId } from '@/composables/useId'
 import type { InputProps } from '@/types'
-import { generateId } from '@/utils/accessibility'
 
 export interface Props extends InputProps {}
 
@@ -30,12 +31,8 @@ const emit = defineEmits<{
   'suffix-icon-click': [event: MouseEvent]
 }>()
 
-const attrs = useAttrs()
 const inputRef = ref<HTMLInputElement>()
-
-// Génération d'IDs uniques pour l'accessibilité
-const inputId = computed(() => attrs.id as string || generateId('input'))
-const messageId = computed(() => props.message ? `${inputId.value}-message` : undefined)
+const fieldId = useId('input')
 
 // Classes CSS
 const containerClasses = computed(() => [
@@ -69,10 +66,6 @@ const ariaAttributes = computed(() => {
   const attrs: Record<string, any> = {}
   
   if (props.ariaLabel) attrs['aria-label'] = props.ariaLabel
-  if (props.ariaDescribedBy || messageId.value) {
-    const describedBy = [props.ariaDescribedBy, messageId.value].filter(Boolean).join(' ')
-    attrs['aria-describedby'] = describedBy
-  }
   if (props.ariaInvalid !== undefined) attrs['aria-invalid'] = props.ariaInvalid
   if (props.ariaRequired !== undefined) attrs['aria-required'] = props.ariaRequired
   if (props.required) attrs['aria-required'] = 'true'
@@ -145,17 +138,15 @@ const handleSuffixIconClick = (event: MouseEvent) => {
   emit('suffix-icon-click', event)
 }
 
-// Méthode pour donner le focus à l'input
+// Méthodes exposées
 const focus = () => {
   inputRef.value?.focus()
 }
 
-// Méthode pour sélectionner le texte
 const select = () => {
   inputRef.value?.select()
 }
 
-// Exposer les méthodes publiques
 defineExpose({
   focus,
   select,
@@ -164,104 +155,80 @@ defineExpose({
 </script>
 
 <template>
-  <div class="su-input-wrapper" :dir="dir">
-    <!-- Label -->
-    <label 
-      v-if="label" 
-      :for="inputId" 
-      class="su-input-label"
-      :class="{
-        'su-input-label--required': required,
-        'su-input-label--disabled': disabled
-      }"
-    >
-      {{ label }}
-      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
-    </label>
+  <FormField
+    :fieldId="fieldId"
+    :label="label"
+    :message="message"
+    :state="state"
+    :required="required"
+    :disabled="disabled"
+  >
+    <template #default="{ fieldId: id, messageId }">
+      <div :class="containerClasses" :dir="dir">
+        <!-- Préfixe icône -->
+        <div 
+          v-if="prefixIcon" 
+          class="su-input-prefix su-input-prefix--icon su-input-prefix--clickable"
+          @click="handlePrefixIconClick"
+        >
+          <component :is="prefixIcon" class="su-input-icon" aria-hidden="true" />
+        </div>
+        
+        <!-- Préfixe texte -->
+        <div 
+          v-else-if="prefix" 
+          class="su-input-prefix su-input-prefix--text su-input-prefix--clickable"
+          @click="handlePrefixClick"
+        >
+          {{ prefix }}
+        </div>
 
-    <!-- Container de l'input -->
-    <div :class="containerClasses">
-      <!-- Préfixe icône -->
-      <div 
-        v-if="prefixIcon" 
-        class="su-input-prefix su-input-prefix--icon su-input-prefix--clickable"
-        @click="handlePrefixIconClick"
-      >
-        <component :is="prefixIcon" class="su-input-icon" aria-hidden="true" />
-      </div>
-      
-      <!-- Préfixe texte -->
-      <div 
-        v-else-if="prefix" 
-        class="su-input-prefix su-input-prefix--text su-input-prefix--clickable"
-        @click="handlePrefixClick"
-      >
-        {{ prefix }}
-      </div>
+        <!-- Input -->
+        <input
+          ref="inputRef"
+          :id="id"
+          :class="inputClasses"
+          :type="type"
+          :value="value"
+          :placeholder="placeholder"
+          :disabled="disabled"
+          :readonly="readonly"
+          :required="required"
+          :aria-describedby="messageId"
+          v-bind="{ ...nativeAttributes, ...ariaAttributes }"
+          @input="handleInput"
+          @change="handleChange"
+          @focus="handleFocus"
+          @blur="handleBlur"
+          @keydown="handleKeydown"
+          @keyup="handleKeyup"
+        />
 
-      <!-- Input -->
-      <input
-        ref="inputRef"
-        :id="inputId"
-        :class="inputClasses"
-        :type="type"
-        :value="value"
-        :placeholder="placeholder"
-        :disabled="disabled"
-        :readonly="readonly"
-        :required="required"
-        v-bind="{ ...nativeAttributes, ...ariaAttributes }"
-        @input="handleInput"
-        @change="handleChange"
-        @focus="handleFocus"
-        @blur="handleBlur"
-        @keydown="handleKeydown"
-        @keyup="handleKeyup"
-      />
-
-      <!-- Suffixe texte -->
-      <div 
-        v-if="suffix" 
-        class="su-input-suffix su-input-suffix--text su-input-suffix--clickable"
-        @click="handleSuffixClick"
-      >
-        {{ suffix }}
+        <!-- Suffixe texte -->
+        <div 
+          v-if="suffix" 
+          class="su-input-suffix su-input-suffix--text su-input-suffix--clickable"
+          @click="handleSuffixClick"
+        >
+          {{ suffix }}
+        </div>
+        
+        <!-- Suffixe icône -->
+        <div 
+          v-else-if="suffixIcon" 
+          class="su-input-suffix su-input-suffix--icon su-input-suffix--clickable"
+          @click="handleSuffixIconClick"
+        >
+          <component :is="suffixIcon" class="su-input-icon" aria-hidden="true" />
+        </div>
       </div>
-      
-      <!-- Suffixe icône -->
-      <div 
-        v-else-if="suffixIcon" 
-        class="su-input-suffix su-input-suffix--icon su-input-suffix--clickable"
-        @click="handleSuffixIconClick"
-      >
-        <component :is="suffixIcon" class="su-input-icon" aria-hidden="true" />
-      </div>
-    </div>
-
-    <!-- Message d'aide/erreur/succès -->
-    <div 
-      v-if="message" 
-      :id="messageId"
-      class="su-input-message"
-      :class="`su-input-message--${state}`"
-      :aria-live="state === 'error' ? 'assertive' : 'polite'"
-    >
-      {{ message }}
-    </div>
-  </div>
+    </template>
+  </FormField>
 </template>
 
 <style lang="scss">
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
-
-.su-input-wrapper {
-  @include su-form-field-wrapper;
-}
-
-.su-input-label {
-  @include su-form-field-label;
-}
 
 .su-input-container {
   @include su-form-field-container;
@@ -334,6 +301,7 @@ defineExpose({
 
 .su-input {
   @include su-form-field-element;
+  width: 100%;
   flex: 1;
   line-height: $line-height-normal;
   
@@ -416,10 +384,6 @@ defineExpose({
 .su-input-suffix {
   border-top-right-radius: $border-radius-md;
   border-bottom-right-radius: $border-radius-md;
-}
-
-.su-input-message {
-  @include su-form-field-message;
 }
 
 // Styles spécifiques au mode sombre pour les préfixes/suffixes

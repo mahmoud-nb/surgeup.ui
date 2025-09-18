@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue'
+import { computed } from 'vue'
+import FormField from './FormField.vue'
+import { useId } from '@/composables/useId'
 import type { SwitchProps } from '@/types'
-import { generateId } from '@/utils/accessibility'
 
 export interface Props extends SwitchProps {}
 
@@ -22,11 +23,7 @@ const emit = defineEmits<{
   keydown: [event: KeyboardEvent]
 }>()
 
-const attrs = useAttrs()
-
-// Génération d'IDs uniques pour l'accessibilité
-const switchId = computed(() => attrs.id as string || generateId('switch'))
-const messageId = computed(() => props.message ? `${switchId.value}-message` : undefined)
+const fieldId = useId('switch')
 
 // Classes CSS
 const containerClasses = computed(() => [
@@ -60,10 +57,6 @@ const ariaAttributes = computed(() => {
   }
   
   if (props.ariaLabel) attrs['aria-label'] = props.ariaLabel
-  if (props.ariaDescribedBy || messageId.value) {
-    const describedBy = [props.ariaDescribedBy, messageId.value].filter(Boolean).join(' ')
-    attrs['aria-describedby'] = describedBy
-  }
   if (props.ariaInvalid !== undefined) attrs['aria-invalid'] = props.ariaInvalid
   if (props.ariaRequired !== undefined) attrs['aria-required'] = props.ariaRequired
   if (props.required) attrs['aria-required'] = 'true'
@@ -99,110 +92,86 @@ const handleBlur = (event: FocusEvent) => {
 </script>
 
 <template>
-  <div class="su-switch-wrapper">
-    <!-- Label principal -->
-    <label 
-      v-if="label" 
-      :for="switchId" 
-      class="su-switch-main-label"
-      :class="{
-        'su-switch-main-label--required': required,
-        'su-switch-main-label--disabled': disabled
-      }"
-    >
-      {{ label }}
-      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
-    </label>
+  <FormField
+    :fieldId="fieldId"
+    :label="label"
+    :message="message"
+    :state="state"
+    :required="required"
+    :disabled="disabled"
+  >
+    <template #default="{ fieldId: id, messageId }">
+      <div :class="containerClasses">
+        <!-- Label gauche -->
+        <span 
+          v-if="leftLabel" 
+          class="su-switch-side-label su-switch-side-label--left"
+          :class="{
+            'su-switch-side-label--active': !value,
+            'su-switch-side-label--disabled': disabled
+          }"
+        >
+          {{ leftLabel }}
+        </span>
 
-    <!-- Container du switch -->
-    <div :class="containerClasses">
-      <!-- Label gauche -->
-      <span 
-        v-if="leftLabel" 
-        class="su-switch-side-label su-switch-side-label--left"
-        :class="{
-          'su-switch-side-label--active': !value,
-          'su-switch-side-label--disabled': disabled
-        }"
-      >
-        {{ leftLabel }}
-      </span>
-
-      <!-- Switch -->
-      <div
-        :id="switchId"
-        :class="switchClasses"
-        :tabindex="disabled ? -1 : 0"
-        v-bind="ariaAttributes"
-        @click="handleToggle"
-        @keydown="handleKeydown"
-        @focus="handleFocus"
-        @blur="handleBlur"
-      >
-        <!-- Track -->
-        <div class="su-switch-track">
-          <!-- Thumb -->
-          <div class="su-switch-thumb">
-            <!-- Indicateur visuel optionnel -->
-            <div class="su-switch-indicator">
-              <svg 
-                v-if="value" 
-                class="su-switch-icon su-switch-icon--check" 
-                viewBox="0 0 16 16"
-                aria-hidden="true"
-              >
-                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-              </svg>
-              <svg 
-                v-else 
-                class="su-switch-icon su-switch-icon--cross" 
-                viewBox="0 0 16 16"
-                aria-hidden="true"
-              >
-                <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-              </svg>
+        <!-- Switch -->
+        <div
+          :id="id"
+          :class="switchClasses"
+          :tabindex="disabled ? -1 : 0"
+          :aria-describedby="messageId"
+          v-bind="ariaAttributes"
+          @click="handleToggle"
+          @keydown="handleKeydown"
+          @focus="handleFocus"
+          @blur="handleBlur"
+        >
+          <!-- Track -->
+          <div class="su-switch-track">
+            <!-- Thumb -->
+            <div class="su-switch-thumb">
+              <!-- Indicateur visuel optionnel -->
+              <div class="su-switch-indicator">
+                <svg 
+                  v-if="value" 
+                  class="su-switch-icon su-switch-icon--check" 
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                >
+                  <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+                <svg 
+                  v-else 
+                  class="su-switch-icon su-switch-icon--cross" 
+                  viewBox="0 0 16 16"
+                  aria-hidden="true"
+                >
+                  <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Label droite -->
+        <span 
+          v-if="rightLabel" 
+          class="su-switch-side-label su-switch-side-label--right"
+          :class="{
+            'su-switch-side-label--active': value,
+            'su-switch-side-label--disabled': disabled
+          }"
+        >
+          {{ rightLabel }}
+        </span>
       </div>
-
-      <!-- Label droite -->
-      <span 
-        v-if="rightLabel" 
-        class="su-switch-side-label su-switch-side-label--right"
-        :class="{
-          'su-switch-side-label--active': value,
-          'su-switch-side-label--disabled': disabled
-        }"
-      >
-        {{ rightLabel }}
-      </span>
-    </div>
-
-    <!-- Message d'aide/erreur/succès -->
-    <div 
-      v-if="message" 
-      :id="messageId"
-      class="su-switch-message"
-      :class="`su-switch-message--${state}`"
-      :aria-live="state === 'error' ? 'assertive' : 'polite'"
-    >
-      {{ message }}
-    </div>
-  </div>
+    </template>
+  </FormField>
 </template>
 
 <style lang="scss">
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
-
-.su-switch-wrapper {
-  @include su-form-field-wrapper;
-}
-
-.su-switch-main-label {
-  @include su-form-field-label;
-}
 
 .su-switch-container {
   display: flex;
@@ -248,13 +217,13 @@ const handleBlur = (event: FocusEvent) => {
   
   // Tailles
   &--sm {
-    width: 2.75rem; // 44px
-    height: 1.5rem; // 24px
+    width: 2.75rem;
+    height: 1.5rem;
     
     .su-switch-thumb {
-      width: 1.25rem; // 20px
-      height: 1.25rem; // 20px
-      margin: 0.125rem; // 2px
+      width: 1.25rem;
+      height: 1.25rem;
+      margin: 0.125rem;
     }
     
     .su-switch-icon {
@@ -263,18 +232,18 @@ const handleBlur = (event: FocusEvent) => {
     }
     
     &.su-switch--checked .su-switch-thumb {
-      transform: translateX(1.25rem); // 20px
+      transform: translateX(1.25rem);
     }
   }
   
   &--md {
-    width: 3.5rem; // 56px
-    height: 2rem; // 32px
+    width: 3.5rem;
+    height: 2rem;
     
     .su-switch-thumb {
-      width: 1.75rem; // 28px
-      height: 1.75rem; // 28px
-      margin: 0.125rem; // 2px
+      width: 1.75rem;
+      height: 1.75rem;
+      margin: 0.125rem;
     }
     
     .su-switch-icon {
@@ -283,18 +252,18 @@ const handleBlur = (event: FocusEvent) => {
     }
     
     &.su-switch--checked .su-switch-thumb {
-      transform: translateX(1.5rem); // 24px
+      transform: translateX(1.5rem);
     }
   }
   
   &--lg {
-    width: 4rem; // 64px
-    height: 2.25rem; // 36px
+    width: 4rem;
+    height: 2.25rem;
     
     .su-switch-thumb {
-      width: 2rem; // 32px
-      height: 2rem; // 32px
-      margin: 0.125rem; // 2px
+      width: 2rem;
+      height: 2rem;
+      margin: 0.125rem;
     }
     
     .su-switch-icon {
@@ -303,7 +272,7 @@ const handleBlur = (event: FocusEvent) => {
     }
     
     &.su-switch--checked .su-switch-thumb {
-      transform: translateX(1.75rem); // 28px
+      transform: translateX(1.75rem);
     }
   }
   
@@ -389,9 +358,4 @@ const handleBlur = (event: FocusEvent) => {
     color: $gray-400;
   }
 }
-
-.su-switch-message {
-  @include su-form-field-message;
-}
-
 </style>

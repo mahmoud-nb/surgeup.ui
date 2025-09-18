@@ -1,6 +1,10 @@
 // Mixins et classes communes pour les composants
 
 // Classes génériques réutilisables
+.su-indicator-required {
+  color: #ef4444; // $error-500
+  margin-left: 0.125rem;
+}
 
 .sr-only {
   position: absolute;
@@ -39,6 +43,28 @@
   &--disabled {
     color: #6b7280; // $text-tertiary
     cursor: not-allowed;
+  }
+}
+
+// Mixin pour les messages de champs de formulaire
+@mixin su-form-field-message {
+  font-size: 0.875rem; // $font-size-sm
+  line-height: 1.25; // $line-height-tight
+  
+  &--default {
+    color: #374151; // $text-secondary
+  }
+  
+  &--error {
+    color: #dc2626; // $error-600
+  }
+  
+  &--success {
+    color: #059669; // $success-600
+  }
+  
+  &--warning {
+    color: #d97706; // $warning-600
   }
 }
 
@@ -103,35 +129,14 @@
   }
 }
 
-// Mixin pour les messages de champs de formulaire
-@mixin su-form-field-message {
-  font-size: 0.875rem; // $font-size-sm
-  line-height: 1.25; // $line-height-tight
-  
-  &--default {
-    color: #374151; // $text-secondary
-  }
-  
-  &--error {
-    color: #dc2626; // $error-600
-  }
-  
-  &--success {
-    color: #059669; // $success-600
-  }
-  
-  &--warning {
-    color: #d97706; // $warning-600
-  }
-}
-
-// Mixin pour les éléments de champs de formulaire (input, textarea, select) 
+// Mixin pour les éléments de formulaire
 @mixin su-form-field-element {
   border: none;
   outline: none;
   background: transparent;
   color: #111827; // $text-primary
   font-family: inherit;
+  box-sizing: border-box;
   
   &::placeholder {
     color: #6b7280; // $text-tertiary
