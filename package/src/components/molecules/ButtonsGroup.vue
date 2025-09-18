@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useSlots, h, Fragment, Comment, Text } from 'vue'
+import { computed, h, Fragment, Comment, Text } from 'vue'
 import type { ButtonVariant, ButtonSize } from '@/types'
 import Button from '../atoms/Button.vue'
 
@@ -16,7 +16,9 @@ const props = withDefaults(defineProps<Props>(), {
   gap: 'md'
 })
 
-const slots = useSlots()
+const slots = defineSlots<{
+  default(): any
+}>()
 
 // Classes CSS pour le container
 const containerClasses = computed(() => [
@@ -29,9 +31,9 @@ const containerClasses = computed(() => [
 
 // Traitement des boutons du slot avec propagation des props
 const processedButtons = computed(() => {
-  if (!slots.default) return []
+  if (!slots?.default) return []
 
-  const children = slots.default()
+  const children = (slots?.default?.() ?? [])
   const processedChildren = []
 
   for (const vnode of children) {

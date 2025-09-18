@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs, defineModel, useId } from 'vue'
+import { computed, useAttrs, useId } from 'vue'
 import type { RadioGroupProps } from '@/types'
 import FormField from './FormField.vue'
 
@@ -25,11 +25,11 @@ const emit = defineEmits<{
   blur: [event: FocusEvent]
 }>()
 
-//const attrs = useAttrs()
+const attrs = useAttrs()
 
 // Génération d'IDs uniques
 const fieldId = 'radio-group-' + useId()
-//const groupId = computed(() => attrs.id as string || fieldId)
+const groupId = computed(() => attrs.id as string || fieldId)
 const radioName = computed(() => props.name || fieldId)
 
 // Classes CSS
@@ -92,7 +92,7 @@ const handleBlur = (event: FocusEvent) => {
 
 <template>
   <FormField
-    :fieldId="fieldId"
+    :fieldId="groupId"
     :label="label"
     :message="message"
     :state="state"

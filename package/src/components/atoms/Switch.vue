@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineModel, useId } from 'vue'
+import { computed, useAttrs, useId } from 'vue'
 import FormField from './FormField.vue'
 import type { SwitchProps } from '@/types'
 
@@ -23,7 +23,10 @@ const emit = defineEmits<{
   keydown: [event: KeyboardEvent]
 }>()
 
+const attrs = useAttrs()
+
 const fieldId = 'switch-' + useId()
+const switchId = computed(() => attrs.id as string || fieldId)
 
 // Classes CSS
 const containerClasses = computed(() => [
@@ -93,7 +96,7 @@ const handleBlur = (event: FocusEvent) => {
 
 <template>
   <FormField
-    :fieldId="fieldId"
+    :fieldId="switchId"
     :label="label"
     :message="message"
     :state="state"

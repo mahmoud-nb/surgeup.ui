@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs, defineModel, useId } from 'vue'
+import { computed, ref, useAttrs, useId } from 'vue'
 import { CloudArrowUpIcon, DocumentIcon, PhotoIcon, XMarkIcon, CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/vue/24/outline'
 import type { FileUploadProps, UploadedFile } from '@/types'
 import { announceToScreenReader } from '@/utils/accessibility'
@@ -332,7 +332,7 @@ defineExpose({
 
 <template>
   <FormField
-    :fieldId="fieldId"
+    :fieldId="uploadId"
     :label="label"
     :message="message"
     :state="state"

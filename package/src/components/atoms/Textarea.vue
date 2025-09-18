@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, defineModel, useId } from 'vue'
+import { computed, ref, watch, nextTick, useId, useAttrs } from 'vue'
 import FormField from './FormField.vue'
 import type { TextareaProps } from '@/types'
 
@@ -32,8 +32,11 @@ const emit = defineEmits<{
   keyup: [event: KeyboardEvent]
 }>()
 
+const attrs = useAttrs()
+
 const textareaRef = ref<HTMLTextAreaElement>()
 const fieldId = 'textarea-' + useId()
+const textareaId = computed(() => attrs.id as string || fieldId)
 
 // Valeur normalisée
 const currentValue = computed(() => modelValue.value || '')
@@ -191,7 +194,7 @@ watch(() => props.autoResize, (newValue) => {
 
 <template>
   <FormField
-    :fieldId="fieldId"
+    :fieldId="textareaId"
     :label="label"
     :message="message"
     :state="state"

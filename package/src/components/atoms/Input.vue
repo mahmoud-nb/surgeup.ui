@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, defineModel, useId, useAttrs } from 'vue'
+import { computed, ref, useId, useAttrs } from 'vue'
 import FormField from './FormField.vue'
 import type { InputProps } from '@/types'
 
@@ -35,6 +35,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 const inputRef = ref<HTMLInputElement>()
 const fieldId = 'input-' + useId()
+const inputId = computed(() => attrs.id as string || fieldId)
 
 // Détection des écouteurs d'événements pour l'accessibilité conditionnelle
 const hasPrefixClickListener = computed(() => typeof attrs.onPrefixClick === 'function')
@@ -163,7 +164,7 @@ defineExpose({
 
 <template>
   <FormField
-    :fieldId="fieldId"
+    :fieldId="inputId"
     :label="label"
     :message="message"
     :state="state"
@@ -323,10 +324,10 @@ defineExpose({
 }
 
 .su-input {
-  @include su-form-field-element;
   width: 100%;
   flex: 1;
   line-height: $line-height-normal;
+  @include su-form-field-element;
   
   // Alignement du texte
   &--align-left {

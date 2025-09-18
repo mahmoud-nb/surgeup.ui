@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, onMounted, onUnmounted, useAttrs, defineModel, useId } from 'vue'
+import { computed, ref, watch, nextTick, onMounted, onUnmounted, useAttrs, useId } from 'vue'
 import { ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon, CheckIcon } from '@heroicons/vue/24/outline'
 import type { SelectProps, SelectOption } from '@/types'
 import { trapFocus, announceToScreenReader } from '@/utils/accessibility'
@@ -418,7 +418,7 @@ watch(modelValue, () => {
 
 <template>
   <FormField
-    :fieldId="fieldId"
+    :fieldId="selectId"
     :label="label"
     :message="message"
     :state="state"

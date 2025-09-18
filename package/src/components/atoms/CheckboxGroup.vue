@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, useAttrs, defineModel, useId } from 'vue'
+import { computed, useAttrs, useId } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 import type { CheckboxGroupProps } from '@/types'
 import { announceToScreenReader } from '@/utils/accessibility'
@@ -128,7 +128,7 @@ const isDisabled = (option: any) => {
 
 <template>
   <FormField
-    :fieldId="fieldId"
+    :fieldId="groupId"
     :label="label"
     :message="message"
     :state="state"
