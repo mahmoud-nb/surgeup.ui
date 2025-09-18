@@ -254,9 +254,9 @@ defineExpose({
 @use '../../styles/mixins' as *;
 
 .su-input-container {
-  @include su-form-field-container;
   display: flex;
   align-items: center;
+  @include su-form-field-container;
   
   // Tailles
   &--sm {
