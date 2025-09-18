@@ -12,7 +12,7 @@ import {
   createVNode,
   defineComponent,
   h,
-  inject,
+  mergeModels,
   mergeProps,
   nextTick,
   normalizeClass,
@@ -20,7 +20,6 @@ import {
   onMounted,
   onUnmounted,
   openBlock,
-  provide,
   ref,
   renderList,
   renderSlot,
@@ -28,6 +27,7 @@ import {
   toDisplayString,
   unref,
   useAttrs,
+  useModel,
   useSlots,
   watch,
   withCtx,
@@ -35,128 +35,69 @@ import {
 } from "./chunk-FJMVHDE5.js";
 
 // ../package/dist/index.es.js
-var Se = 0;
-function ce(y = "su") {
-  return `${y}-${++Se}-${Date.now().toString(36)}`;
-}
-function Ae(y) {
-  return [
-    "button:not([disabled])",
-    "input:not([disabled])",
-    "select:not([disabled])",
-    "textarea:not([disabled])",
-    "a[href]",
-    '[tabindex]:not([tabindex="-1"])'
-  ].some((a) => y.matches(a));
-}
-function _e(y) {
-  const n = y.querySelectorAll(
-    'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
-  ), a = n[0], e = n[n.length - 1], v = (w) => {
-    w.key === "Tab" && (w.shiftKey ? document.activeElement === a && (w.preventDefault(), e.focus()) : document.activeElement === e && (w.preventDefault(), a.focus()));
-  };
-  return y.addEventListener("keydown", v), a == null || a.focus(), () => {
-    y.removeEventListener("keydown", v);
-  };
-}
-function Y(y, n = "polite") {
-  const a = document.createElement("div");
-  a.setAttribute("aria-live", n), a.setAttribute("aria-atomic", "true"), a.className = "sr-only", a.textContent = y, document.body.appendChild(a), setTimeout(() => {
-    document.body.removeChild(a);
-  }, 1e3);
-}
-function Me() {
-  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-}
-function je() {
-  return window.matchMedia("(prefers-contrast: high)").matches;
-}
-function He(y, n) {
-  return 4.5;
-}
-function Te(y, n = "AA") {
-  return y >= (n === "AAA" ? 7 : 4.5);
-}
-var ei = Object.freeze(Object.defineProperty({
-  __proto__: null,
-  announceToScreenReader: Y,
-  generateId: ce,
-  getContrastRatio: He,
-  isContrastValid: Te,
-  isFocusable: Ae,
-  prefersHighContrast: je,
-  prefersReducedMotion: Me,
-  trapFocus: _e
-}, Symbol.toStringTag, { value: "Module" }));
-var Ee = { class: "su-form-field-wrapper" };
-var Ke = ["for"];
-var Pe = {
+var Ve = { class: "su-form-field-wrapper" };
+var He = ["for"];
+var Te = {
   key: 0,
   class: "su-indicator-required",
   "aria-label": "requis"
 };
-var Oe = ["id"];
-var be = defineComponent({
+var Ee = ["id"];
+var se = defineComponent({
   __name: "FormField",
   props: {
+    fieldId: {},
     label: {},
     message: {},
     state: { default: "default" },
     required: { type: Boolean, default: false },
-    disabled: { type: Boolean, default: false },
-    ariaLabel: {},
-    ariaDescribedBy: {}
+    disabled: { type: Boolean, default: false }
   },
-  setup(y) {
-    const n = y, a = useAttrs(), e = computed(() => a.id || ce("field")), v = computed(() => n.message ? `${e.value}-message` : void 0);
-    provide("fieldId", e.value), provide("messageId", v.value), provide("isRequired", n.required), provide("isDisabled", n.disabled), provide("fieldState", n.state);
-    const w = computed(() => {
-      const p = {};
-      return n.state === "error" ? p["aria-live"] = "assertive" : (n.state === "success" || n.state === "warning") && (p["aria-live"] = "polite"), p;
-    }), k = computed(() => [
+  setup(u) {
+    const r = u, a = computed(() => r.message ? `${r.fieldId}-message` : void 0), e = computed(() => {
+      const h2 = {};
+      return r.state === "error" ? h2["aria-live"] = "assertive" : (r.state === "success" || r.state === "warning") && (h2["aria-live"] = "polite"), h2;
+    }), y = computed(() => [
       "su-form-field-message",
-      `su-form-field-message--${n.state}`
-    ]), x = computed(() => [
+      `su-form-field-message--${r.state}`
+    ]), b = computed(() => [
       "su-form-field-label",
       {
-        "su-form-field-label--required": n.required,
-        "su-form-field-label--disabled": n.disabled
+        "su-form-field-label--required": r.required,
+        "su-form-field-label--disabled": r.disabled
       }
     ]);
-    return (p, $) => (openBlock(), createElementBlock("div", Ee, [
-      p.label ? (openBlock(), createElementBlock("label", {
+    return (h2, $) => (openBlock(), createElementBlock("div", Ve, [
+      h2.label ? (openBlock(), createElementBlock("label", {
         key: 0,
-        for: e.value,
-        class: normalizeClass(x.value)
+        for: h2.fieldId,
+        class: normalizeClass(b.value)
       }, [
-        createTextVNode(toDisplayString(p.label) + " ", 1),
-        p.required ? (openBlock(), createElementBlock("span", Pe, "*")) : createCommentVNode("", true)
-      ], 10, Ke)) : createCommentVNode("", true),
-      renderSlot(p.$slots, "default", {
-        fieldId: e.value,
-        messageId: v.value,
-        isRequired: p.required,
-        isDisabled: p.disabled,
-        fieldState: p.state
+        createTextVNode(toDisplayString(h2.label) + " ", 1),
+        h2.required ? (openBlock(), createElementBlock("span", Te, "*")) : createCommentVNode("", true)
+      ], 10, He)) : createCommentVNode("", true),
+      renderSlot(h2.$slots, "default", {
+        fieldId: h2.fieldId,
+        messageId: a.value
       }),
-      p.message ? (openBlock(), createElementBlock("div", mergeProps({
+      h2.message ? (openBlock(), createElementBlock("div", mergeProps({
         key: 1,
-        id: v.value,
-        class: k.value
-      }, w.value), toDisplayString(p.message), 17, Oe)) : createCommentVNode("", true)
+        id: a.value,
+        class: y.value
+      }, e.value), toDisplayString(h2.message), 17, Ee)) : createCommentVNode("", true)
     ]));
   }
 });
-var Ve = ["disabled", "tabindex"];
-var Ge = {
+var Ke = ["disabled", "tabindex"];
+var Pe = {
   key: 0,
   class: "su-button__spinner"
 };
-var Ze = {
+var Oe = {
   key: 1,
   class: "su-button__content"
 };
-var Ce = defineComponent({
+var qe = defineComponent({
   __name: "Button",
   props: {
     variant: { default: "primary" },
@@ -176,8 +117,8 @@ var Ce = defineComponent({
     tabIndex: { default: 0 }
   },
   emits: ["click", "focus", "blur", "keydown"],
-  setup(y, { emit: n }) {
-    const a = y, e = n, v = computed(() => [
+  setup(u, { emit: r }) {
+    const a = u, e = r, y = computed(() => [
       "su-button",
       `su-button--${a.variant}`,
       `su-button--${a.size}`,
@@ -188,29 +129,29 @@ var Ce = defineComponent({
         "su-button--icon-only": a.icon && a.iconDisplay === "only",
         "su-button--icon-right": a.icon && a.iconDisplay === "right"
       }
-    ]), w = computed(() => !(a.icon && a.iconDisplay === "only")), k = (h2) => {
-      a.disabled || a.loading || e("click", h2);
-    }, x = (h2) => {
-      (h2.key === "Enter" || h2.key === " ") && (h2.preventDefault(), !a.disabled && !a.loading && e("click", h2)), e("keydown", h2);
-    }, p = (h2) => {
-      e("focus", h2);
-    }, $ = (h2) => {
-      e("blur", h2);
-    }, L = computed(() => {
-      const h2 = {};
-      return a.ariaLabel && (h2["aria-label"] = a.ariaLabel), a.ariaDescribedBy && (h2["aria-describedby"] = a.ariaDescribedBy), a.ariaExpanded !== void 0 && (h2["aria-expanded"] = a.ariaExpanded), a.ariaPressed !== void 0 && (h2["aria-pressed"] = a.ariaPressed), a.role && (h2.role = a.role), a.loading && (h2["aria-busy"] = "true", h2["aria-live"] = "polite"), a.disabled && (h2["aria-disabled"] = "true"), a.icon && a.iconDisplay === "only" && !a.ariaLabel && console.warn('Button with icon and iconDisplay="only" should have an ariaLabel for accessibility'), h2;
+    ]), b = computed(() => !(a.icon && a.iconDisplay === "only")), h2 = (c) => {
+      a.disabled || a.loading || e("click", c);
+    }, $ = (c) => {
+      (c.key === "Enter" || c.key === " ") && (c.preventDefault(), !a.disabled && !a.loading && e("click", c)), e("keydown", c);
+    }, g = (c) => {
+      e("focus", c);
+    }, k = (c) => {
+      e("blur", c);
+    }, I = computed(() => {
+      const c = {};
+      return a.ariaLabel && (c["aria-label"] = a.ariaLabel), a.ariaDescribedBy && (c["aria-describedby"] = a.ariaDescribedBy), a.ariaExpanded !== void 0 && (c["aria-expanded"] = a.ariaExpanded), a.ariaPressed !== void 0 && (c["aria-pressed"] = a.ariaPressed), a.role && (c.role = a.role), a.loading && (c["aria-busy"] = "true", c["aria-live"] = "polite"), a.disabled && (c["aria-disabled"] = "true"), a.icon && a.iconDisplay === "only" && !a.ariaLabel && console.warn('Button with icon and iconDisplay="only" should have an ariaLabel for accessibility'), c;
     });
-    return (h2, _) => (openBlock(), createElementBlock("button", mergeProps({
-      class: v.value,
-      disabled: h2.disabled || h2.loading,
-      tabindex: h2.disabled ? -1 : h2.tabIndex
-    }, L.value, {
-      onClick: k,
-      onKeydown: x,
-      onFocus: p,
-      onBlur: $
+    return (c, L) => (openBlock(), createElementBlock("button", mergeProps({
+      class: y.value,
+      disabled: c.disabled || c.loading,
+      tabindex: c.disabled ? -1 : c.tabIndex
+    }, I.value, {
+      onClick: h2,
+      onKeydown: $,
+      onFocus: g,
+      onBlur: k
     }), [
-      h2.loading ? (openBlock(), createElementBlock("span", Ge, [..._[0] || (_[0] = [
+      c.loading ? (openBlock(), createElementBlock("span", Pe, [...L[0] || (L[0] = [
         createBaseVNode("svg", {
           class: "su-spinner",
           viewBox: "0 0 24 24"
@@ -235,20 +176,20 @@ var Ce = defineComponent({
         ], -1),
         createBaseVNode("span", { class: "sr-only" }, "Chargement en cours...", -1)
       ])])) : createCommentVNode("", true),
-      h2.loading ? createCommentVNode("", true) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
-        h2.icon ? (openBlock(), createBlock(resolveDynamicComponent(h2.icon), {
+      c.loading ? createCommentVNode("", true) : (openBlock(), createElementBlock(Fragment, { key: 1 }, [
+        c.icon ? (openBlock(), createBlock(resolveDynamicComponent(c.icon), {
           key: 0,
           class: "su-button__icon",
           "aria-hidden": "true"
         })) : createCommentVNode("", true),
-        w.value ? (openBlock(), createElementBlock("span", Ze, [
-          renderSlot(h2.$slots, "default")
+        b.value ? (openBlock(), createElementBlock("span", Oe, [
+          renderSlot(c.$slots, "default")
         ])) : createCommentVNode("", true)
       ], 64))
-    ], 16, Ve));
+    ], 16, Ke));
   }
 });
-var Ne = defineComponent({
+var je = defineComponent({
   __name: "ButtonsGroup",
   props: {
     gap: { default: "md" },
@@ -258,40 +199,40 @@ var Ne = defineComponent({
     ariaDescribedBy: {},
     role: {}
   },
-  setup(y) {
-    const n = y, a = useSlots(), e = computed(() => [
+  setup(u) {
+    const r = u, a = useSlots(), e = computed(() => [
       "su-buttons-group",
-      `su-buttons-group--gap-${n.gap}`,
+      `su-buttons-group--gap-${r.gap}`,
       {
-        "su-buttons-group--connected": n.gap === "none"
+        "su-buttons-group--connected": r.gap === "none"
       }
-    ]), v = computed(() => {
+    ]), y = computed(() => {
       if (!a.default) return [];
-      const k = a.default(), x = [];
-      for (const p of k)
-        if (p.type === Ce) {
-          const $ = { ...p.props };
-          if (n.size && ($.size = n.size), n.variant && ($.variant = n.variant), n.gap === "none") {
-            const L = $.class || "";
-            $.class = `${L} su-buttons-group__button`.trim();
+      const h2 = a.default(), $ = [];
+      for (const g of h2)
+        if (g.type === qe) {
+          const k = { ...g.props };
+          if (r.size && (k.size = r.size), r.variant && (k.variant = r.variant), r.gap === "none") {
+            const I = k.class || "";
+            k.class = `${I} su-buttons-group__button`.trim();
           }
-          x.push(h(p.type, $, p == null ? void 0 : p.children));
+          $.push(h(g.type, k, g == null ? void 0 : g.children));
         } else {
-          if (p.type === Comment || p.type === Text || p.type === Fragment)
+          if (g.type === Comment || g.type === Text || g.type === Fragment)
             continue;
-          console.warn("ButtonsGroup expects only Button components as children. Found:", p.type);
+          console.warn("ButtonsGroup expects only Button components as children. Found:", g.type);
         }
-      return x;
-    }), w = computed(() => {
-      const k = {};
-      return n.ariaLabel && (k["aria-label"] = n.ariaLabel), n.ariaDescribedBy && (k["aria-describedby"] = n.ariaDescribedBy), n.role && (k.role = n.role), k;
+      return $;
+    }), b = computed(() => {
+      const h2 = {};
+      return r.ariaLabel && (h2["aria-label"] = r.ariaLabel), r.ariaDescribedBy && (h2["aria-describedby"] = r.ariaDescribedBy), r.role && (h2.role = r.role), h2;
     });
-    return (k, x) => (openBlock(), createElementBlock("div", mergeProps({ class: e.value }, w.value), [
-      (openBlock(true), createElementBlock(Fragment, null, renderList(v.value, (p, $) => (openBlock(), createBlock(resolveDynamicComponent(p), { key: $ }))), 128))
+    return (h2, $) => (openBlock(), createElementBlock("div", mergeProps({ class: e.value }, b.value), [
+      (openBlock(true), createElementBlock(Fragment, null, renderList(y.value, (g, k) => (openBlock(), createBlock(resolveDynamicComponent(g), { key: k }))), 128))
     ], 16));
   }
 });
-function We(y, n) {
+function Ge(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -308,7 +249,7 @@ function We(y, n) {
     })
   ]);
 }
-function Ue(y, n) {
+function Ze(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -325,7 +266,7 @@ function Ue(y, n) {
     })
   ]);
 }
-function me(y, n) {
+function ge(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -342,7 +283,7 @@ function me(y, n) {
     })
   ]);
 }
-function Ye(y, n) {
+function Ne(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -359,7 +300,7 @@ function Ye(y, n) {
     })
   ]);
 }
-function Qe(y, n) {
+function We(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -376,7 +317,7 @@ function Qe(y, n) {
     })
   ]);
 }
-function Je(y, n) {
+function Ue(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -393,7 +334,7 @@ function Je(y, n) {
     })
   ]);
 }
-function Xe(y, n) {
+function Ye(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -410,7 +351,7 @@ function Xe(y, n) {
     })
   ]);
 }
-function ea(y, n) {
+function Qe(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -427,7 +368,7 @@ function ea(y, n) {
     })
   ]);
 }
-function aa(y, n) {
+function Je(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -444,7 +385,7 @@ function aa(y, n) {
     })
   ]);
 }
-function ge(y, n) {
+function ke(u, r) {
   return openBlock(), createElementBlock("svg", {
     xmlns: "http://www.w3.org/2000/svg",
     fill: "none",
@@ -461,11 +402,11 @@ function ge(y, n) {
     })
   ]);
 }
-var sa = {
+var Xe = {
   key: 1,
   class: "su-link__content"
 };
-var qe = defineComponent({
+var De = defineComponent({
   __name: "Link",
   props: {
     href: {},
@@ -485,54 +426,54 @@ var qe = defineComponent({
     tabIndex: { default: 0 }
   },
   emits: ["click", "focus", "blur", "keydown"],
-  setup(y, { emit: n }) {
-    const a = y, e = n, v = computed(() => a.to !== void 0), w = computed(() => a.external || a.href && (a.href.startsWith("http") || a.href.startsWith("//") || a.target === "_blank")), k = computed(() => {
-      const m = {};
-      return v.value || (m.href = a.href, w.value ? (m.target = a.target || "_blank", m.rel = a.rel || "noopener noreferrer") : (a.target && (m.target = a.target), a.rel && (m.rel = a.rel))), a.ariaLabel && (m["aria-label"] = a.ariaLabel), a.ariaDescribedBy && (m["aria-describedby"] = a.ariaDescribedBy), a.role && (m.role = a.role), a.disabled ? (m["aria-disabled"] = "true", m.tabindex = -1) : m.tabindex = a.tabIndex, m;
-    }), x = computed(() => [
+  setup(u, { emit: r }) {
+    const a = u, e = r, y = computed(() => a.to !== void 0), b = computed(() => a.external || a.href && (a.href.startsWith("http") || a.href.startsWith("//") || a.target === "_blank")), h2 = computed(() => {
+      const i = {};
+      return y.value || (i.href = a.href, b.value ? (i.target = a.target || "_blank", i.rel = a.rel || "noopener noreferrer") : (a.target && (i.target = a.target), a.rel && (i.rel = a.rel))), a.ariaLabel && (i["aria-label"] = a.ariaLabel), a.ariaDescribedBy && (i["aria-describedby"] = a.ariaDescribedBy), a.role && (i.role = a.role), a.disabled ? (i["aria-disabled"] = "true", i.tabindex = -1) : i.tabindex = a.tabIndex, i;
+    }), $ = computed(() => [
       "su-link",
       `su-link--${a.variant}`,
       `su-link--${a.size}`,
       `su-link--underline-${a.underline}`,
       {
         "su-link--disabled": a.disabled,
-        "su-link--external": w.value,
+        "su-link--external": b.value,
         "su-link--icon-only": a.icon && a.iconDisplay === "only",
         "su-link--icon-right": a.icon && a.iconDisplay === "right"
       }
-    ]), p = computed(() => !(a.icon && a.iconDisplay === "only")), $ = (m) => {
+    ]), g = computed(() => !(a.icon && a.iconDisplay === "only")), k = (i) => {
       if (a.disabled) {
-        m.preventDefault();
+        i.preventDefault();
         return;
       }
-      e("click", m);
-    }, L = (m) => {
-      if ((m.key === "Enter" || m.key === " ") && a.disabled) {
-        m.preventDefault();
+      e("click", i);
+    }, I = (i) => {
+      if ((i.key === "Enter" || i.key === " ") && a.disabled) {
+        i.preventDefault();
         return;
       }
-      e("keydown", m);
-    }, h2 = (m) => {
-      e("focus", m);
-    }, _ = (m) => {
-      e("blur", m);
+      e("keydown", i);
+    }, c = (i) => {
+      e("focus", i);
+    }, L = (i) => {
+      e("blur", i);
     };
-    return a.icon && a.iconDisplay === "only" && !a.ariaLabel && console.warn('Link with icon and iconDisplay="only" should have an ariaLabel for accessibility'), (m, g) => (openBlock(), createBlock(resolveDynamicComponent(v.value ? "router-link" : "a"), mergeProps({ class: x.value }, v.value ? { to: m.to, ...k.value } : k.value, {
-      onClick: $,
-      onKeydown: L,
-      onFocus: h2,
-      onBlur: _
+    return a.icon && a.iconDisplay === "only" && !a.ariaLabel && console.warn('Link with icon and iconDisplay="only" should have an ariaLabel for accessibility'), (i, m) => (openBlock(), createBlock(resolveDynamicComponent(y.value ? "router-link" : "a"), mergeProps({ class: $.value }, y.value ? { to: i.to, ...h2.value } : h2.value, {
+      onClick: k,
+      onKeydown: I,
+      onFocus: c,
+      onBlur: L
     }), {
       default: withCtx(() => [
-        m.icon ? (openBlock(), createBlock(resolveDynamicComponent(m.icon), {
+        i.icon ? (openBlock(), createBlock(resolveDynamicComponent(i.icon), {
           key: 0,
           class: "su-link__icon",
           "aria-hidden": "true"
         })) : createCommentVNode("", true),
-        p.value ? (openBlock(), createElementBlock("span", sa, [
-          renderSlot(m.$slots, "default")
+        g.value ? (openBlock(), createElementBlock("span", Xe, [
+          renderSlot(i.$slots, "default")
         ])) : createCommentVNode("", true),
-        w.value && !m.icon && p.value ? (openBlock(), createBlock(unref(We), {
+        b.value && !i.icon && g.value ? (openBlock(), createBlock(unref(Ge), {
           key: 2,
           class: "su-link__external-icon",
           "aria-hidden": "true"
@@ -542,7 +483,7 @@ var qe = defineComponent({
     }, 16, ["class"]));
   }
 });
-var ia = defineComponent({
+var ea = defineComponent({
   __name: "LinksGroup",
   props: {
     gap: { default: "md" },
@@ -554,47 +495,49 @@ var ia = defineComponent({
     ariaDescribedBy: {},
     role: {}
   },
-  setup(y) {
-    const n = y, a = useSlots(), e = computed(() => [
+  setup(u) {
+    const r = u, a = useSlots(), e = computed(() => [
       "su-links-group",
-      `su-links-group--gap-${n.gap}`,
-      `su-links-group--${n.direction}`,
+      `su-links-group--gap-${r.gap}`,
+      `su-links-group--${r.direction}`,
       {
-        "su-links-group--connected": n.gap === "none"
+        "su-links-group--connected": r.gap === "none"
       }
-    ]), v = computed(() => {
+    ]), y = computed(() => {
       if (!a.default) return [];
-      const k = a.default(), x = [];
-      for (const p of k)
-        if (p.type === qe) {
-          const $ = { ...p.props };
-          if (n.size && ($.size = n.size), n.variant && ($.variant = n.variant), n.underline && ($.underline = n.underline), n.gap === "none") {
-            const L = $.class || "";
-            $.class = `${L} su-links-group__link`.trim();
+      const h2 = a.default(), $ = [];
+      for (const g of h2)
+        if (g.type === De) {
+          const k = { ...g.props };
+          if (r.size && (k.size = r.size), r.variant && (k.variant = r.variant), r.underline && (k.underline = r.underline), r.gap === "none") {
+            const I = k.class || "";
+            k.class = `${I} su-links-group__link`.trim();
           }
-          x.push(h(p.type, $, p == null ? void 0 : p.children));
+          $.push(h(g.type, k, g == null ? void 0 : g.children));
         } else {
-          if (p.type === Comment || p.type === Text || p.type === Fragment)
+          if (g.type === Comment || g.type === Text || g.type === Fragment)
             continue;
-          console.warn("LinksGroup expects only Link components as children. Found:", p.type);
+          console.warn("LinksGroup expects only Link components as children. Found:", g.type);
         }
-      return x;
-    }), w = computed(() => {
-      const k = {};
-      return n.ariaLabel && (k["aria-label"] = n.ariaLabel), n.ariaDescribedBy && (k["aria-describedby"] = n.ariaDescribedBy), n.role && (k.role = n.role), k;
+      return $;
+    }), b = computed(() => {
+      const h2 = {};
+      return r.ariaLabel && (h2["aria-label"] = r.ariaLabel), r.ariaDescribedBy && (h2["aria-describedby"] = r.ariaDescribedBy), r.role && (h2.role = r.role), h2;
     });
-    return (k, x) => (openBlock(), createElementBlock("div", mergeProps({ class: e.value }, w.value), [
-      (openBlock(true), createElementBlock(Fragment, null, renderList(v.value, (p, $) => (openBlock(), createBlock(resolveDynamicComponent(p), { key: $ }))), 128))
+    return (h2, $) => (openBlock(), createElementBlock("div", mergeProps({ class: e.value }, b.value), [
+      (openBlock(true), createElementBlock(Fragment, null, renderList(y.value, (g, k) => (openBlock(), createBlock(resolveDynamicComponent(g), { key: k }))), 128))
     ], 16));
   }
 });
-var la = ["dir"];
-var ta = ["id", "type", "value", "placeholder", "disabled", "readonly", "required"];
-var ra = ["dir"];
-var oa = ["id", "type", "value", "placeholder", "disabled", "readonly", "required", "aria-describedby"];
-var na = defineComponent({
+var aa = 0;
+function fe(u = "su") {
+  return `${u}-${++aa}-${Date.now().toString(36)}`;
+}
+var sa = ["dir"];
+var ta = ["id", "type", "value", "placeholder", "disabled", "readonly", "required", "aria-describedby"];
+var la = defineComponent({
   __name: "Input",
-  props: {
+  props: mergeModels({
     type: { default: "text" },
     size: { default: "md" },
     state: { default: "default" },
@@ -602,7 +545,6 @@ var na = defineComponent({
     readonly: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
     placeholder: {},
-    value: {},
     prefix: {},
     suffix: {},
     prefixIcon: {},
@@ -626,255 +568,244 @@ var na = defineComponent({
     ariaHidden: { type: Boolean },
     role: {},
     tabIndex: {}
-  },
-  emits: ["update:value", "input", "change", "focus", "blur", "keydown", "keyup", "prefix-click", "prefix-icon-click", "suffix-click", "suffix-icon-click"],
-  setup(y, { expose: n, emit: a }) {
-    const e = y, v = a, w = ref(), k = inject("fieldId", ""), x = inject("messageId", ""), p = inject("isRequired", false), $ = inject("isDisabled", false), L = inject("fieldState", "default"), h2 = computed(() => L || e.state), _ = computed(() => p || e.required), m = computed(() => $ || e.disabled), g = computed(() => [
+  }, {
+    modelValue: { default: "" },
+    modelModifiers: {}
+  }),
+  emits: mergeModels(["input", "change", "focus", "blur", "keydown", "keyup", "prefix-click", "prefix-icon-click", "suffix-click", "suffix-icon-click"], ["update:modelValue"]),
+  setup(u, { expose: r, emit: a }) {
+    const e = u, y = useModel(u, "modelValue"), b = a, h2 = ref(), $ = fe("input"), g = computed(() => [
       "su-input-container",
       `su-input-container--${e.size}`,
-      `su-input-container--${h2.value}`,
+      `su-input-container--${e.state}`,
       {
-        "su-input-container--disabled": m.value,
+        "su-input-container--disabled": e.disabled,
         "su-input-container--readonly": e.readonly,
         "su-input-container--has-prefix": e.prefix || e.prefixIcon,
         "su-input-container--has-suffix": e.suffix || e.suffixIcon,
         "su-input-container--rtl": e.dir === "rtl"
       }
-    ]), M = computed(() => [
+    ]), k = computed(() => [
       "su-input",
       `su-input--${e.size}`,
-      `su-input--${h2.value}`,
+      `su-input--${e.state}`,
       `su-input--align-${e.textAlign}`,
       {
-        "su-input--disabled": m.value,
+        "su-input--disabled": e.disabled,
         "su-input--readonly": e.readonly,
         "su-input--has-prefix": e.prefix || e.prefixIcon,
         "su-input--has-suffix": e.suffix || e.suffixIcon
       }
-    ]), u = computed(() => {
-      const o = {};
-      e.ariaLabel && (o["aria-label"] = e.ariaLabel);
-      const X = [
-        e.ariaDescribedBy,
-        x
-      ].filter(Boolean);
-      return X.length > 0 && (o["aria-describedby"] = X.join(" ")), e.ariaInvalid !== void 0 && (o["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (o["aria-required"] = e.ariaRequired), _.value && (o["aria-required"] = "true"), h2.value === "error" && (o["aria-invalid"] = "true"), o;
-    }), F = computed(() => {
-      const o = {};
-      return e.autocomplete && (o.autocomplete = e.autocomplete), e.min !== void 0 && (o.min = e.min), e.max !== void 0 && (o.max = e.max), e.step !== void 0 && (o.step = e.step), e.minLength !== void 0 && (o.minlength = e.minLength), e.maxLength !== void 0 && (o.maxlength = e.maxLength), e.pattern && (o.pattern = e.pattern), o;
-    }), q = (o) => {
-      const X = o.target, oe = e.type === "number" ? Number(X.value) : X.value;
-      v("update:value", oe), v("input", o);
-    }, d = (o) => {
-      v("change", o);
-    }, I = (o) => {
-      v("focus", o);
-    }, E = (o) => {
-      v("blur", o);
-    }, J = (o) => {
-      v("keydown", o);
-    }, ee = (o) => {
-      v("keyup", o);
-    }, G = (o) => {
-      m.value || e.readonly || v("prefix-click", o);
-    }, ae = (o) => {
-      m.value || e.readonly || v("prefix-icon-click", o);
-    }, se = (o) => {
-      m.value || e.readonly || v("suffix-click", o);
-    }, U = (o) => {
-      m.value || e.readonly || v("suffix-icon-click", o);
+    ]), I = computed(() => {
+      const d = {};
+      return e.ariaLabel && (d["aria-label"] = e.ariaLabel), e.ariaInvalid !== void 0 && (d["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (d["aria-required"] = e.ariaRequired), e.required && (d["aria-required"] = "true"), e.state === "error" && (d["aria-invalid"] = "true"), d;
+    }), c = computed(() => {
+      const d = {};
+      return e.autocomplete && (d.autocomplete = e.autocomplete), e.min !== void 0 && (d.min = e.min), e.max !== void 0 && (d.max = e.max), e.step !== void 0 && (d.step = e.step), e.minLength !== void 0 && (d.minlength = e.minLength), e.maxLength !== void 0 && (d.maxlength = e.maxLength), e.pattern && (d.pattern = e.pattern), d;
+    }), L = (d) => {
+      const Y = d.target;
+      y.value = e.type === "number" ? Number(Y.value) : Y.value, b("input", d);
+    }, i = (d) => {
+      b("change", d);
+    }, m = (d) => {
+      b("focus", d);
+    }, T = (d) => {
+      b("blur", d);
+    }, v = (d) => {
+      b("keydown", d);
+    }, A = (d) => {
+      b("keyup", d);
+    }, _ = (d) => {
+      e.disabled || e.readonly || b("prefix-click", d);
+    }, E = (d) => {
+      e.disabled || e.readonly || b("prefix-icon-click", d);
+    }, B = (d) => {
+      e.disabled || e.readonly || b("suffix-click", d);
+    }, z = (d) => {
+      e.disabled || e.readonly || b("suffix-icon-click", d);
     };
-    return n({
+    return r({
       focus: () => {
-        var o;
-        (o = w.value) == null || o.focus();
+        var d;
+        (d = h2.value) == null || d.focus();
       },
       select: () => {
-        var o;
-        (o = w.value) == null || o.select();
+        var d;
+        (d = h2.value) == null || d.select();
       },
-      inputRef: w
-    }), (o, X) => unref(k) ? (openBlock(), createElementBlock("div", {
-      key: 0,
-      class: normalizeClass(g.value),
-      dir: o.dir
-    }, [
-      o.prefixIcon ? (openBlock(), createElementBlock("div", {
-        key: 0,
-        class: "su-input-prefix su-input-prefix--icon su-input-prefix--clickable",
-        onClick: ae
-      }, [
-        (openBlock(), createBlock(resolveDynamicComponent(o.prefixIcon), {
-          class: "su-input-icon",
-          "aria-hidden": "true"
-        }))
-      ])) : o.prefix ? (openBlock(), createElementBlock("div", {
-        key: 1,
-        class: "su-input-prefix su-input-prefix--text su-input-prefix--clickable",
-        onClick: G
-      }, toDisplayString(o.prefix), 1)) : createCommentVNode("", true),
-      createBaseVNode("input", mergeProps({
-        ref_key: "inputRef",
-        ref: w,
-        id: unref(k),
-        class: M.value,
-        type: o.type,
-        value: o.value,
-        placeholder: o.placeholder,
-        disabled: m.value,
-        readonly: o.readonly,
-        required: _.value
-      }, { ...F.value, ...u.value }, {
-        onInput: q,
-        onChange: d,
-        onFocus: I,
-        onBlur: E,
-        onKeydown: J,
-        onKeyup: ee
-      }), null, 16, ta),
-      o.suffix ? (openBlock(), createElementBlock("div", {
-        key: 2,
-        class: "su-input-suffix su-input-suffix--text su-input-suffix--clickable",
-        onClick: se
-      }, toDisplayString(o.suffix), 1)) : o.suffixIcon ? (openBlock(), createElementBlock("div", {
-        key: 3,
-        class: "su-input-suffix su-input-suffix--icon su-input-suffix--clickable",
-        onClick: U
-      }, [
-        (openBlock(), createBlock(resolveDynamicComponent(o.suffixIcon), {
-          class: "su-input-icon",
-          "aria-hidden": "true"
-        }))
-      ])) : createCommentVNode("", true)
-    ], 10, la)) : (openBlock(), createBlock(be, {
-      key: 1,
-      label: o.label,
-      message: o.message,
-      state: o.state,
-      required: o.required,
-      disabled: o.disabled,
-      ariaLabel: o.ariaLabel,
-      ariaDescribedBy: o.ariaDescribedBy
+      inputRef: h2
+    }), (d, Y) => (openBlock(), createBlock(se, {
+      fieldId: unref($),
+      label: d.label,
+      message: d.message,
+      state: d.state,
+      required: d.required,
+      disabled: d.disabled
     }, {
-      default: withCtx(({ fieldId: oe, messageId: f }) => [
+      default: withCtx(({ fieldId: de, messageId: p }) => [
         createBaseVNode("div", {
           class: normalizeClass(g.value),
-          dir: o.dir
+          dir: d.dir
         }, [
-          o.prefixIcon ? (openBlock(), createElementBlock("div", {
+          d.prefixIcon ? (openBlock(), createElementBlock("div", {
             key: 0,
             class: "su-input-prefix su-input-prefix--icon su-input-prefix--clickable",
-            onClick: ae
+            onClick: E
           }, [
-            (openBlock(), createBlock(resolveDynamicComponent(o.prefixIcon), {
+            (openBlock(), createBlock(resolveDynamicComponent(d.prefixIcon), {
               class: "su-input-icon",
               "aria-hidden": "true"
             }))
-          ])) : o.prefix ? (openBlock(), createElementBlock("div", {
+          ])) : d.prefix ? (openBlock(), createElementBlock("div", {
             key: 1,
             class: "su-input-prefix su-input-prefix--text su-input-prefix--clickable",
-            onClick: G
-          }, toDisplayString(o.prefix), 1)) : createCommentVNode("", true),
+            onClick: _
+          }, toDisplayString(d.prefix), 1)) : createCommentVNode("", true),
           createBaseVNode("input", mergeProps({
             ref_key: "inputRef",
-            ref: w,
-            id: oe,
-            class: M.value,
-            type: o.type,
-            value: o.value,
-            placeholder: o.placeholder,
-            disabled: o.disabled,
-            readonly: o.readonly,
-            required: o.required,
-            "aria-describedby": f
-          }, { ...F.value, ...u.value }, {
-            onInput: q,
-            onChange: d,
-            onFocus: I,
-            onBlur: E,
-            onKeydown: J,
-            onKeyup: ee
-          }), null, 16, oa),
-          o.suffix ? (openBlock(), createElementBlock("div", {
+            ref: h2,
+            id: de,
+            class: k.value,
+            type: d.type,
+            value: y.value,
+            placeholder: d.placeholder,
+            disabled: d.disabled,
+            readonly: d.readonly,
+            required: d.required,
+            "aria-describedby": p
+          }, { ...c.value, ...I.value }, {
+            onInput: L,
+            onChange: i,
+            onFocus: m,
+            onBlur: T,
+            onKeydown: v,
+            onKeyup: A
+          }), null, 16, ta),
+          d.suffix ? (openBlock(), createElementBlock("div", {
             key: 2,
             class: "su-input-suffix su-input-suffix--text su-input-suffix--clickable",
-            onClick: se
-          }, toDisplayString(o.suffix), 1)) : o.suffixIcon ? (openBlock(), createElementBlock("div", {
+            onClick: B
+          }, toDisplayString(d.suffix), 1)) : d.suffixIcon ? (openBlock(), createElementBlock("div", {
             key: 3,
             class: "su-input-suffix su-input-suffix--icon su-input-suffix--clickable",
-            onClick: U
+            onClick: z
           }, [
-            (openBlock(), createBlock(resolveDynamicComponent(o.suffixIcon), {
+            (openBlock(), createBlock(resolveDynamicComponent(d.suffixIcon), {
               class: "su-input-icon",
               "aria-hidden": "true"
             }))
           ])) : createCommentVNode("", true)
-        ], 10, ra)
+        ], 10, sa)
       ]),
       _: 1
-    }, 8, ["label", "message", "state", "required", "disabled", "ariaLabel", "ariaDescribedBy"]));
+    }, 8, ["fieldId", "label", "message", "state", "required", "disabled"]));
   }
 });
-var ua = ["dir"];
-var da = ["for"];
-var ca = {
-  key: 0,
-  class: "su-indicator-required",
-  "aria-label": "requis"
-};
-var fa = ["id", "tabindex"];
-var pa = { class: "su-select-content" };
-var va = {
+var ia = 0;
+function ra(u = "su") {
+  return `${u}-${++ia}-${Date.now().toString(36)}`;
+}
+function oa(u) {
+  return [
+    "button:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "a[href]",
+    '[tabindex]:not([tabindex="-1"])'
+  ].some((a) => u.matches(a));
+}
+function ze(u) {
+  const r = u.querySelectorAll(
+    'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+  ), a = r[0], e = r[r.length - 1], y = (b) => {
+    b.key === "Tab" && (b.shiftKey ? document.activeElement === a && (b.preventDefault(), e.focus()) : document.activeElement === e && (b.preventDefault(), a.focus()));
+  };
+  return u.addEventListener("keydown", y), a == null || a.focus(), () => {
+    u.removeEventListener("keydown", y);
+  };
+}
+function Z(u, r = "polite") {
+  const a = document.createElement("div");
+  a.setAttribute("aria-live", r), a.setAttribute("aria-atomic", "true"), a.className = "sr-only", a.textContent = u, document.body.appendChild(a), setTimeout(() => {
+    document.body.removeChild(a);
+  }, 1e3);
+}
+function na() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+function ua() {
+  return window.matchMedia("(prefers-contrast: high)").matches;
+}
+function da(u, r) {
+  return 4.5;
+}
+function ca(u, r = "AA") {
+  return u >= (r === "AAA" ? 7 : 4.5);
+}
+var Ms = Object.freeze(Object.defineProperty({
+  __proto__: null,
+  announceToScreenReader: Z,
+  generateId: ra,
+  getContrastRatio: da,
+  isContrastValid: ca,
+  isFocusable: oa,
+  prefersHighContrast: ua,
+  prefersReducedMotion: na,
+  trapFocus: ze
+}, Symbol.toStringTag, { value: "Module" }));
+var fa = ["dir"];
+var pa = ["id", "tabindex"];
+var ha = { class: "su-select-content" };
+var ba = {
   key: 0,
   class: "su-select-tags"
 };
-var ha = { class: "su-select-tag-label" };
-var ba = ["aria-label", "onClick"];
+var va = { class: "su-select-tag-label" };
+var ma = ["aria-label", "onClick"];
 var ya = {
   key: 0,
   class: "su-select-tag su-select-tag--more"
 };
-var ma = {
+var ga = {
   key: 1,
   class: "su-select-display"
 };
-var ga = { class: "su-select-display-text" };
-var ka = { class: "su-select-actions" };
-var wa = {
+var ka = { class: "su-select-display-text" };
+var wa = { class: "su-select-actions" };
+var $a = {
   key: 0,
   class: "su-select-spinner"
 };
-var $a = ["id", "aria-multiselectable"];
+var xa = ["id", "aria-multiselectable"];
 var Ba = {
   key: 0,
   class: "su-select-search"
 };
-var xa = { class: "su-select-search-container" };
+var _a = { class: "su-select-search-container" };
 var La = ["placeholder", "value"];
-var _a = { class: "su-select-options" };
-var Ca = ["aria-label"];
+var Ca = { class: "su-select-options" };
+var Ia = ["aria-label"];
 var qa = ["aria-selected", "aria-disabled", "onClick", "onMouseenter"];
-var Ia = {
+var Da = {
   key: 0,
   class: "su-select-option-checkbox"
 };
-var Da = { class: "su-select-option-content" };
-var za = { class: "su-select-option-label" };
-var Ra = {
+var za = { class: "su-select-option-content" };
+var Ra = { class: "su-select-option-label" };
+var Fa = {
   key: 0,
   class: "su-select-option-description"
 };
-var Fa = {
+var Aa = {
   key: 1,
   class: "su-select-no-options"
 };
-var Sa = ["id", "aria-live"];
-var Aa = defineComponent({
+var Sa = defineComponent({
   __name: "SelectBox",
-  props: {
+  props: mergeModels({
     options: { default: () => [] },
     groups: { default: () => [] },
-    value: { default: void 0 },
     multiple: { type: Boolean, default: false },
     searchable: { type: Boolean, default: false },
     clearable: { type: Boolean, default: false },
@@ -903,54 +834,57 @@ var Aa = defineComponent({
     ariaHidden: { type: Boolean },
     role: {},
     tabIndex: {}
-  },
-  emits: ["update:value", "change", "open", "close", "search", "focus", "blur"],
-  setup(y, { expose: n, emit: a }) {
-    const e = y, v = a, w = useAttrs(), k = ref(), x = ref(), p = ref(), $ = ref(), L = ref(false), h2 = ref(""), _ = ref(-1), m = ref(null), g = computed(() => w.id || ce("select")), M = computed(() => `${g.value}-listbox`), u = computed(() => e.groups && e.groups.length > 0 ? e.groups.flatMap(
-      (t) => t.options.map((z) => ({ ...z, group: t.label }))
-    ) : e.options || []), F = computed(() => {
-      if (!e.searchable || !h2.value)
-        return u.value;
-      const t = h2.value.toLowerCase();
-      return u.value.filter(
-        (z) => z.label.toLowerCase().includes(t) || z.description && z.description.toLowerCase().includes(t)
+  }, {
+    modelValue: {},
+    modelModifiers: {}
+  }),
+  emits: mergeModels(["change", "open", "close", "search", "focus", "blur"], ["update:modelValue"]),
+  setup(u, { expose: r, emit: a }) {
+    const e = u, y = useModel(u, "modelValue"), b = a, h2 = useAttrs(), $ = ref(), g = ref(), k = ref(), I = ref(), c = ref(false), L = ref(""), i = ref(-1), m = ref(null), T = computed(() => h2.id || fieldId), v = computed(() => `${T.value}-listbox`), A = computed(() => e.groups && e.groups.length > 0 ? e.groups.flatMap(
+      (l) => l.options.map((C) => ({ ...C, group: l.label }))
+    ) : e.options || []), _ = computed(() => {
+      if (!e.searchable || !L.value)
+        return A.value;
+      const l = L.value.toLowerCase();
+      return A.value.filter(
+        (C) => C.label.toLowerCase().includes(l) || C.description && C.description.toLowerCase().includes(l)
       );
-    }), q = computed(() => {
-      const t = {};
-      return F.value.forEach((z) => {
-        const ie = z.group || "";
-        t[ie] || (t[ie] = []), t[ie].push(z);
-      }), t;
-    }), d = computed({
-      get() {
-        return e.multiple ? Array.isArray(e.value) ? e.value : e.value !== void 0 && e.value !== null ? [e.value] : [] : e.value;
-      },
-      set(t) {
-        v("update:value", t), v("change", t);
-      }
-    }), I = computed(() => {
-      if (e.multiple) {
-        const t = d.value;
-        return t ? u.value.filter((z) => t.includes(z.value)) : [];
-      } else {
-        const t = d.value;
-        return t != null ? u.value.filter((z) => z.value === t) : [];
-      }
     }), E = computed(() => {
-      var t;
-      return I.value.length === 0 ? e.placeholder : e.multiple ? I.value.length === 1 ? I.value[0].label : `${I.value.length} éléments sélectionnés` : ((t = I.value[0]) == null ? void 0 : t.label) || e.placeholder;
-    }), J = computed(() => [
+      const l = {};
+      return _.value.forEach((C) => {
+        const ee = C.group || "";
+        l[ee] || (l[ee] = []), l[ee].push(C);
+      }), l;
+    }), B = computed({
+      get() {
+        return e.multiple ? Array.isArray(y.value) ? y.value : y.value !== void 0 && y.value !== null ? [y.value] : [] : y.value;
+      },
+      set(l) {
+        y.value = l, b("change", l);
+      }
+    }), z = computed(() => {
+      if (e.multiple) {
+        const l = B.value;
+        return l ? A.value.filter((C) => l.includes(C.value)) : [];
+      } else {
+        const l = B.value;
+        return l != null ? A.value.filter((C) => C.value === l) : [];
+      }
+    }), te = computed(() => {
+      var l;
+      return z.value.length === 0 ? e.placeholder : e.multiple ? z.value.length === 1 ? z.value[0].label : `${z.value.length} éléments sélectionnés` : ((l = z.value[0]) == null ? void 0 : l.label) || e.placeholder;
+    }), ue = computed(() => [
       "su-select-container",
       `su-select-container--${e.size}`,
       `su-select-container--${e.state}`,
       {
         "su-select-container--disabled": e.disabled,
         "su-select-container--readonly": e.readonly,
-        "su-select-container--open": L.value,
+        "su-select-container--open": c.value,
         "su-select-container--multiple": e.multiple,
         "su-select-container--rtl": e.dir === "rtl"
       }
-    ]), ee = computed(() => [
+    ]), d = computed(() => [
       "su-select-trigger",
       `su-select-trigger--${e.size}`,
       `su-select-trigger--${e.state}`,
@@ -958,345 +892,333 @@ var Aa = defineComponent({
       {
         "su-select-trigger--disabled": e.disabled,
         "su-select-trigger--readonly": e.readonly,
-        "su-select-trigger--open": L.value,
-        "su-select-trigger--has-value": I.value.length > 0,
-        "su-select-trigger--placeholder": I.value.length === 0
+        "su-select-trigger--open": c.value,
+        "su-select-trigger--has-value": z.value.length > 0,
+        "su-select-trigger--placeholder": z.value.length === 0
       }
-    ]), G = computed(() => e.message ? `${g.value}-message` : void 0), ae = computed(() => {
-      const t = {
+    ]), Y = computed(() => e.message ? `${T.value}-message` : void 0), de = computed(() => {
+      const l = {
         "aria-haspopup": "listbox",
-        "aria-expanded": L.value,
-        "aria-controls": L.value ? M.value : void 0,
+        "aria-expanded": c.value,
+        "aria-controls": c.value ? v.value : void 0,
         role: "combobox"
       };
-      if (e.ariaLabel && (t["aria-label"] = e.ariaLabel), e.ariaDescribedBy || G.value) {
-        const z = [e.ariaDescribedBy, G.value].filter(Boolean).join(" ");
-        t["aria-describedby"] = z;
+      if (e.ariaLabel && (l["aria-label"] = e.ariaLabel), e.ariaDescribedBy || Y.value) {
+        const C = [e.ariaDescribedBy, Y.value].filter(Boolean).join(" ");
+        l["aria-describedby"] = C;
       }
-      return e.ariaInvalid !== void 0 && (t["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (t["aria-required"] = e.ariaRequired), e.required && (t["aria-required"] = "true"), e.state === "error" && (t["aria-invalid"] = "true"), e.multiple && (t["aria-multiselectable"] = "true"), t;
-    }), se = () => {
-      e.disabled || e.readonly || (L.value ? N() : U());
-    }, U = async () => {
-      e.disabled || e.readonly || (L.value = true, h2.value = "", _.value = -1, v("open"), await nextTick(), e.searchable && $.value && $.value.focus(), p.value && (m.value = _e(p.value)));
-    }, N = () => {
-      L.value = false, _.value = -1, m.value && (m.value(), m.value = null), v("close"), x.value && x.value.focus();
-    }, te = (t) => {
-      if (t.disabled) return;
-      let z;
+      return e.ariaInvalid !== void 0 && (l["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (l["aria-required"] = e.ariaRequired), e.required && (l["aria-required"] = "true"), e.state === "error" && (l["aria-invalid"] = "true"), e.multiple && (l["aria-multiselectable"] = "true"), l;
+    }), p = () => {
+      e.disabled || e.readonly || (c.value ? K() : j());
+    }, j = async () => {
+      e.disabled || e.readonly || (c.value = true, L.value = "", i.value = -1, b("open"), await nextTick(), e.searchable && I.value && I.value.focus(), k.value && (m.value = ze(k.value)));
+    }, K = () => {
+      c.value = false, i.value = -1, m.value && (m.value(), m.value = null), b("close"), g.value && g.value.focus();
+    }, X = (l) => {
+      if (l.disabled) return;
+      let C;
       if (e.multiple) {
-        const K = d.value || [];
-        if (K.includes(t.value))
-          z = K.filter((H) => H !== t.value);
+        const ie = B.value || [];
+        if (ie.includes(l.value))
+          C = ie.filter((Q) => Q !== l.value);
         else {
-          if (e.maxSelectedItems && K.length >= e.maxSelectedItems) {
-            Y(`Maximum ${e.maxSelectedItems} éléments sélectionnables`);
+          if (e.maxSelectedItems && ie.length >= e.maxSelectedItems) {
+            Z(`Maximum ${e.maxSelectedItems} éléments sélectionnables`);
             return;
           }
-          z = [...K, t.value];
+          C = [...ie, l.value];
         }
       } else
-        z = t.value;
-      d.value = z;
-      const ie = e.multiple && d.value.includes(t.value) ? "désélectionné" : "sélectionné";
-      Y(`${t.label} ${ie}`), !e.multiple && e.closeOnSelect && N();
-    }, o = (t) => {
-      t.stopPropagation();
-      const z = e.multiple ? [] : void 0;
-      d.value = z, Y("Sélection effacée");
-    }, X = (t, z) => {
-      if (z.stopPropagation(), e.multiple) {
-        const K = (d.value || []).filter((le) => le !== t.value);
-        d.value = K, Y(`${t.label} retiré de la sélection`);
+        C = l.value;
+      B.value = C;
+      const ee = e.multiple && B.value.includes(l.value) ? "désélectionné" : "sélectionné";
+      Z(`${l.label} ${ee}`), !e.multiple && e.closeOnSelect && K();
+    }, pe = (l) => {
+      l.stopPropagation();
+      const C = e.multiple ? [] : void 0;
+      B.value = C, Z("Sélection effacée");
+    }, ve = (l, C) => {
+      if (C.stopPropagation(), e.multiple) {
+        const ie = (B.value || []).filter((he) => he !== l.value);
+        B.value = ie, Z(`${l.label} retiré de la sélection`);
       }
-    }, oe = (t) => {
-      const z = t.target;
-      h2.value = z.value, _.value = -1, v("search", h2.value);
-    }, f = (t) => {
-      switch (t.key) {
+    }, $e = (l) => {
+      const C = l.target;
+      L.value = C.value, i.value = -1, b("search", L.value);
+    }, me = (l) => {
+      switch (l.key) {
         case "Enter":
         case " ":
-          if (t.preventDefault(), !L.value)
-            U();
-          else if (_.value >= 0) {
-            const z = F.value[_.value];
-            z && te(z);
+          if (l.preventDefault(), !c.value)
+            j();
+          else if (i.value >= 0) {
+            const C = _.value[i.value];
+            C && X(C);
           }
           break;
         case "Escape":
-          t.preventDefault(), N();
+          l.preventDefault(), K();
           break;
         case "ArrowDown":
-          t.preventDefault(), L.value ? _.value = Math.min(_.value + 1, F.value.length - 1) : U();
+          l.preventDefault(), c.value ? i.value = Math.min(i.value + 1, _.value.length - 1) : j();
           break;
         case "ArrowUp":
-          t.preventDefault(), L.value && (_.value = Math.max(_.value - 1, -1));
+          l.preventDefault(), c.value && (i.value = Math.max(i.value - 1, -1));
           break;
         case "Home":
-          L.value && (t.preventDefault(), _.value = 0);
+          c.value && (l.preventDefault(), i.value = 0);
           break;
         case "End":
-          L.value && (t.preventDefault(), _.value = F.value.length - 1);
+          c.value && (l.preventDefault(), i.value = _.value.length - 1);
           break;
         case "Tab":
-          L.value && N();
+          c.value && K();
           break;
       }
-    }, i = (t) => {
-      v("focus", t);
-    }, D = (t) => {
+    }, t = (l) => {
+      b("focus", l);
+    }, q = (l) => {
       setTimeout(() => {
-        L.value && k.value && !k.value.contains(document.activeElement) && (N(), v("blur", t));
+        c.value && $.value && !$.value.contains(document.activeElement) && (K(), b("blur", l));
       }, 0);
-    }, C = (t) => {
-      L.value && k.value && !k.value.contains(t.target) && N();
+    }, S = (l) => {
+      c.value && $.value && !$.value.contains(l.target) && K();
     };
-    return n({
+    return r({
       focus: () => {
-        var t;
-        (t = x.value) == null || t.focus();
+        var l;
+        (l = g.value) == null || l.focus();
       },
       open: () => {
-        U();
+        j();
       },
       close: () => {
-        N();
+        K();
       },
-      selectRef: k,
-      inputRef: x
+      selectRef: $,
+      inputRef: g
     }), onMounted(() => {
-      document.addEventListener("click", C, { passive: true });
+      document.addEventListener("click", S, { passive: true });
     }), onUnmounted(() => {
-      document.removeEventListener("click", C, { passive: true }), m.value && m.value();
-    }), watch(() => e.value, () => {
-      _.value = -1;
-    }), (t, z) => {
-      var ie;
-      return openBlock(), createElementBlock("div", {
-        class: "su-select-wrapper",
-        dir: t.dir
-      }, [
-        t.label ? (openBlock(), createElementBlock("label", {
-          key: 0,
-          for: g.value,
-          class: normalizeClass(["su-select-label", {
-            "su-select-label--required": t.required,
-            "su-select-label--disabled": t.disabled
-          }])
-        }, [
-          createTextVNode(toDisplayString(t.label) + " ", 1),
-          t.required ? (openBlock(), createElementBlock("span", ca, "*")) : createCommentVNode("", true)
-        ], 10, da)) : createCommentVNode("", true),
-        createBaseVNode("div", {
-          ref_key: "selectRef",
-          ref: k,
-          class: normalizeClass(J.value)
-        }, [
-          createBaseVNode("div", mergeProps({
-            ref_key: "inputRef",
-            ref: x,
-            id: g.value,
-            class: ee.value,
-            tabindex: t.disabled ? -1 : 0
-          }, ae.value, {
-            onClick: se,
-            onKeydown: f,
-            onFocus: i,
-            onBlur: D
-          }), [
-            createBaseVNode("div", pa, [
-              t.multiple && I.value.length > 0 ? (openBlock(), createElementBlock("div", va, [
-                (openBlock(true), createElementBlock(Fragment, null, renderList(I.value.slice(0, 3), (K) => (openBlock(), createElementBlock("span", {
-                  key: K.value,
-                  class: "su-select-tag"
-                }, [
-                  K.icon ? (openBlock(), createBlock(resolveDynamicComponent(K.icon), {
-                    key: 0,
-                    class: "su-select-tag-icon",
-                    "aria-hidden": "true"
-                  })) : createCommentVNode("", true),
-                  createBaseVNode("span", ha, toDisplayString(K.label), 1),
-                  createBaseVNode("button", {
-                    type: "button",
-                    class: "su-select-tag-remove",
-                    "aria-label": `Retirer ${K.label}`,
-                    onClick: (le) => X(K, le)
-                  }, [
-                    createVNode(unref(ge), { class: "su-select-tag-remove-icon" })
-                  ], 8, ba)
-                ]))), 128)),
-                I.value.length > 3 ? (openBlock(), createElementBlock("span", ya, " +" + toDisplayString(I.value.length - 3), 1)) : createCommentVNode("", true)
-              ])) : (openBlock(), createElementBlock("div", ma, [
-                (ie = I.value[0]) != null && ie.icon ? (openBlock(), createBlock(resolveDynamicComponent(I.value[0].icon), {
-                  key: 0,
-                  class: "su-select-display-icon",
-                  "aria-hidden": "true"
-                })) : createCommentVNode("", true),
-                createBaseVNode("span", ga, toDisplayString(E.value), 1)
-              ]))
-            ]),
-            createBaseVNode("div", ka, [
-              t.loading ? (openBlock(), createElementBlock("div", wa, [...z[0] || (z[0] = [
-                createBaseVNode("svg", {
-                  class: "su-spinner",
-                  viewBox: "0 0 24 24",
-                  "aria-hidden": "true"
-                }, [
-                  createBaseVNode("circle", {
-                    cx: "12",
-                    cy: "12",
-                    r: "10",
-                    fill: "none",
-                    stroke: "currentColor",
-                    "stroke-width": "2"
-                  }),
-                  createBaseVNode("path", {
-                    d: "M12 2a10 10 0 0 1 10 10",
-                    fill: "none",
-                    stroke: "currentColor",
-                    "stroke-width": "2",
-                    "stroke-linecap": "round"
-                  })
-                ], -1)
-              ])])) : t.clearable && I.value.length > 0 && !t.disabled && !t.readonly ? (openBlock(), createElementBlock("button", {
-                key: 1,
-                type: "button",
-                class: "su-select-clear",
-                "aria-label": "Effacer la sélection",
-                onClick: o
-              }, [
-                createVNode(unref(ge), { class: "su-select-clear-icon" })
-              ])) : createCommentVNode("", true),
-              createVNode(unref(Ye), {
-                class: normalizeClass(["su-select-chevron", { "su-select-chevron--open": L.value }]),
-                "aria-hidden": "true"
-              }, null, 8, ["class"])
-            ])
-          ], 16, fa),
-          createVNode(Transition, { name: "su-select-dropdown" }, {
-            default: withCtx(() => [
-              L.value ? (openBlock(), createElementBlock("div", {
-                key: 0,
-                ref_key: "dropdownRef",
-                ref: p,
-                id: M.value,
-                class: "su-select-dropdown",
-                style: normalizeStyle({ maxHeight: t.maxHeight }),
-                role: "listbox",
-                "aria-multiselectable": t.multiple
-              }, [
-                t.searchable ? (openBlock(), createElementBlock("div", Ba, [
-                  createBaseVNode("div", xa, [
-                    createVNode(unref(ea), {
-                      class: "su-select-search-icon",
-                      "aria-hidden": "true"
-                    }),
-                    createBaseVNode("input", {
-                      ref_key: "searchInputRef",
-                      ref: $,
-                      type: "text",
-                      class: "su-select-search-input",
-                      placeholder: t.searchPlaceholder,
-                      value: h2.value,
-                      onInput: oe,
-                      onKeydown: f
-                    }, null, 40, La)
-                  ])
-                ])) : createCommentVNode("", true),
-                createBaseVNode("div", _a, [
-                  F.value.length > 0 ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList(q.value, (K, le) => (openBlock(), createElementBlock(Fragment, { key: le }, [
-                    le && e.groups && e.groups.length > 0 ? (openBlock(), createElementBlock("div", {
-                      key: 0,
-                      class: "su-select-group-header",
-                      role: "group",
-                      "aria-label": le
-                    }, toDisplayString(le), 9, Ca)) : createCommentVNode("", true),
-                    (openBlock(true), createElementBlock(Fragment, null, renderList(K, (H) => (openBlock(), createElementBlock("div", {
-                      key: H.value,
-                      class: normalizeClass(["su-select-option", {
-                        "su-select-option--selected": t.multiple ? d.value.includes(H.value) : d.value === H.value,
-                        "su-select-option--disabled": H.disabled,
-                        "su-select-option--focused": F.value.indexOf(H) === _.value
-                      }]),
-                      role: "option",
-                      "aria-selected": t.multiple ? d.value.includes(H.value) : d.value === H.value,
-                      "aria-disabled": H.disabled,
-                      onClick: (Ie) => te(H),
-                      onMouseenter: (Ie) => _.value = F.value.indexOf(H)
+      document.removeEventListener("click", S, { passive: true }), m.value && m.value();
+    }), watch(y, () => {
+      i.value = -1;
+    }), (l, C) => (openBlock(), createBlock(se, {
+      fieldId: l.fieldId,
+      label: l.label,
+      message: l.message,
+      state: l.state,
+      required: l.required,
+      disabled: l.disabled
+    }, {
+      default: withCtx(({ fieldId: ee, messageId: ie }) => {
+        var he;
+        return [
+          createBaseVNode("div", {
+            class: "su-select-wrapper",
+            dir: l.dir
+          }, [
+            createBaseVNode("div", {
+              ref_key: "selectRef",
+              ref: $,
+              class: normalizeClass(ue.value)
+            }, [
+              createBaseVNode("div", mergeProps({
+                ref_key: "inputRef",
+                ref: g,
+                id: ee,
+                class: d.value,
+                tabindex: l.disabled ? -1 : 0
+              }, de.value, {
+                onClick: p,
+                onKeydown: me,
+                onFocus: t,
+                onBlur: q
+              }), [
+                createBaseVNode("div", ha, [
+                  l.multiple && z.value.length > 0 ? (openBlock(), createElementBlock("div", ba, [
+                    (openBlock(true), createElementBlock(Fragment, null, renderList(z.value.slice(0, 3), (Q) => (openBlock(), createElementBlock("span", {
+                      key: Q.value,
+                      class: "su-select-tag"
                     }, [
-                      t.multiple ? (openBlock(), createElementBlock("div", Ia, [
-                        createBaseVNode("div", {
-                          class: normalizeClass(["su-select-checkbox", {
-                            "su-select-checkbox--checked": d.value.includes(H.value)
-                          }])
-                        }, [
-                          d.value.includes(H.value) ? (openBlock(), createBlock(unref(me), {
-                            key: 0,
-                            class: "su-select-checkbox-icon",
-                            "aria-hidden": "true"
-                          })) : createCommentVNode("", true)
-                        ], 2)
-                      ])) : createCommentVNode("", true),
-                      H.icon ? (openBlock(), createBlock(resolveDynamicComponent(H.icon), {
-                        key: 1,
-                        class: "su-select-option-icon",
+                      Q.icon ? (openBlock(), createBlock(resolveDynamicComponent(Q.icon), {
+                        key: 0,
+                        class: "su-select-tag-icon",
                         "aria-hidden": "true"
                       })) : createCommentVNode("", true),
-                      createBaseVNode("div", Da, [
-                        createBaseVNode("div", za, toDisplayString(H.label), 1),
-                        H.description ? (openBlock(), createElementBlock("div", Ra, toDisplayString(H.description), 1)) : createCommentVNode("", true)
-                      ]),
-                      !t.multiple && d.value === H.value ? (openBlock(), createBlock(unref(me), {
-                        key: 2,
-                        class: "su-select-option-check",
-                        "aria-hidden": "true"
-                      })) : createCommentVNode("", true)
-                    ], 42, qa))), 128))
-                  ], 64))), 128)) : (openBlock(), createElementBlock("div", Fa, toDisplayString(h2.value ? t.noResultsText : t.noOptionsText), 1))
+                      createBaseVNode("span", va, toDisplayString(Q.label), 1),
+                      createBaseVNode("button", {
+                        type: "button",
+                        class: "su-select-tag-remove",
+                        "aria-label": `Retirer ${Q.label}`,
+                        onClick: (ce) => ve(Q, ce)
+                      }, [
+                        createVNode(unref(ke), { class: "su-select-tag-remove-icon" })
+                      ], 8, ma)
+                    ]))), 128)),
+                    z.value.length > 3 ? (openBlock(), createElementBlock("span", ya, " +" + toDisplayString(z.value.length - 3), 1)) : createCommentVNode("", true)
+                  ])) : (openBlock(), createElementBlock("div", ga, [
+                    (he = z.value[0]) != null && he.icon ? (openBlock(), createBlock(resolveDynamicComponent(z.value[0].icon), {
+                      key: 0,
+                      class: "su-select-display-icon",
+                      "aria-hidden": "true"
+                    })) : createCommentVNode("", true),
+                    createBaseVNode("span", ka, toDisplayString(te.value), 1)
+                  ]))
+                ]),
+                createBaseVNode("div", wa, [
+                  l.loading ? (openBlock(), createElementBlock("div", $a, [...C[0] || (C[0] = [
+                    createBaseVNode("svg", {
+                      class: "su-spinner",
+                      viewBox: "0 0 24 24",
+                      "aria-hidden": "true"
+                    }, [
+                      createBaseVNode("circle", {
+                        cx: "12",
+                        cy: "12",
+                        r: "10",
+                        fill: "none",
+                        stroke: "currentColor",
+                        "stroke-width": "2"
+                      }),
+                      createBaseVNode("path", {
+                        d: "M12 2a10 10 0 0 1 10 10",
+                        fill: "none",
+                        stroke: "currentColor",
+                        "stroke-width": "2",
+                        "stroke-linecap": "round"
+                      })
+                    ], -1)
+                  ])])) : l.clearable && z.value.length > 0 && !l.disabled && !l.readonly ? (openBlock(), createElementBlock("button", {
+                    key: 1,
+                    type: "button",
+                    class: "su-select-clear",
+                    "aria-label": "Effacer la sélection",
+                    onClick: pe
+                  }, [
+                    createVNode(unref(ke), { class: "su-select-clear-icon" })
+                  ])) : createCommentVNode("", true),
+                  createVNode(unref(Ne), {
+                    class: normalizeClass(["su-select-chevron", { "su-select-chevron--open": c.value }]),
+                    "aria-hidden": "true"
+                  }, null, 8, ["class"])
                 ])
-              ], 12, $a)) : createCommentVNode("", true)
-            ]),
-            _: 1
-          })
-        ], 2),
-        t.message ? (openBlock(), createElementBlock("div", {
-          key: 1,
-          id: G.value,
-          class: normalizeClass(["su-select-message", `su-select-message--${t.state}`]),
-          "aria-live": t.state === "error" ? "assertive" : "polite"
-        }, toDisplayString(t.message), 11, Sa)) : createCommentVNode("", true)
-      ], 8, ua);
-    };
+              ], 16, pa),
+              createVNode(Transition, { name: "su-select-dropdown" }, {
+                default: withCtx(() => [
+                  c.value ? (openBlock(), createElementBlock("div", {
+                    key: 0,
+                    ref_key: "dropdownRef",
+                    ref: k,
+                    id: v.value,
+                    class: "su-select-dropdown",
+                    style: normalizeStyle({ maxHeight: l.maxHeight }),
+                    role: "listbox",
+                    "aria-multiselectable": l.multiple
+                  }, [
+                    l.searchable ? (openBlock(), createElementBlock("div", Ba, [
+                      createBaseVNode("div", _a, [
+                        createVNode(unref(Qe), {
+                          class: "su-select-search-icon",
+                          "aria-hidden": "true"
+                        }),
+                        createBaseVNode("input", {
+                          ref_key: "searchInputRef",
+                          ref: I,
+                          type: "text",
+                          class: "su-select-search-input",
+                          placeholder: l.searchPlaceholder,
+                          value: L.value,
+                          onInput: $e,
+                          onKeydown: me
+                        }, null, 40, La)
+                      ])
+                    ])) : createCommentVNode("", true),
+                    createBaseVNode("div", Ca, [
+                      _.value.length > 0 ? (openBlock(true), createElementBlock(Fragment, { key: 0 }, renderList(E.value, (Q, ce) => (openBlock(), createElementBlock(Fragment, { key: ce }, [
+                        ce && e.groups && e.groups.length > 0 ? (openBlock(), createElementBlock("div", {
+                          key: 0,
+                          class: "su-select-group-header",
+                          role: "group",
+                          "aria-label": ce
+                        }, toDisplayString(ce), 9, Ia)) : createCommentVNode("", true),
+                        (openBlock(true), createElementBlock(Fragment, null, renderList(Q, (M) => (openBlock(), createElementBlock("div", {
+                          key: M.value,
+                          class: normalizeClass(["su-select-option", {
+                            "su-select-option--selected": l.multiple ? B.value.includes(M.value) : B.value === M.value,
+                            "su-select-option--disabled": M.disabled,
+                            "su-select-option--focused": _.value.indexOf(M) === i.value
+                          }]),
+                          role: "option",
+                          "aria-selected": l.multiple ? B.value.includes(M.value) : B.value === M.value,
+                          "aria-disabled": M.disabled,
+                          onClick: (Re) => X(M),
+                          onMouseenter: (Re) => i.value = _.value.indexOf(M)
+                        }, [
+                          l.multiple ? (openBlock(), createElementBlock("div", Da, [
+                            createBaseVNode("div", {
+                              class: normalizeClass(["su-select-checkbox", {
+                                "su-select-checkbox--checked": B.value.includes(M.value)
+                              }])
+                            }, [
+                              B.value.includes(M.value) ? (openBlock(), createBlock(unref(ge), {
+                                key: 0,
+                                class: "su-select-checkbox-icon",
+                                "aria-hidden": "true"
+                              })) : createCommentVNode("", true)
+                            ], 2)
+                          ])) : createCommentVNode("", true),
+                          M.icon ? (openBlock(), createBlock(resolveDynamicComponent(M.icon), {
+                            key: 1,
+                            class: "su-select-option-icon",
+                            "aria-hidden": "true"
+                          })) : createCommentVNode("", true),
+                          createBaseVNode("div", za, [
+                            createBaseVNode("div", Ra, toDisplayString(M.label), 1),
+                            M.description ? (openBlock(), createElementBlock("div", Fa, toDisplayString(M.description), 1)) : createCommentVNode("", true)
+                          ]),
+                          !l.multiple && B.value === M.value ? (openBlock(), createBlock(unref(ge), {
+                            key: 2,
+                            class: "su-select-option-check",
+                            "aria-hidden": "true"
+                          })) : createCommentVNode("", true)
+                        ], 42, qa))), 128))
+                      ], 64))), 128)) : (openBlock(), createElementBlock("div", Aa, toDisplayString(L.value ? l.noResultsText : l.noOptionsText), 1))
+                    ])
+                  ], 12, xa)) : createCommentVNode("", true)
+                ]),
+                _: 1
+              })
+            ], 2)
+          ], 8, fa)
+        ];
+      }),
+      _: 1
+    }, 8, ["fieldId", "label", "message", "state", "required", "disabled"]));
   }
 });
-var Ma = { class: "su-radio-group-wrapper" };
-var ja = {
-  key: 0,
-  class: "su-indicator-required",
-  "aria-label": "requis"
-};
-var Ha = {
+var Ma = ["aria-describedby"];
+var Va = {
   key: 0,
   class: "su-radio-group-before"
 };
-var Ta = ["for"];
-var Ea = ["id", "name", "value", "checked", "disabled", "required", "onChange"];
-var Ka = { class: "su-radio-content" };
-var Pa = { class: "su-radio-text" };
-var Oa = { class: "su-radio-label" };
-var Va = {
+var Ha = ["for"];
+var Ta = ["id", "name", "value", "checked", "disabled", "required", "onChange"];
+var Ea = { class: "su-radio-content" };
+var Ka = { class: "su-radio-text" };
+var Pa = { class: "su-radio-label" };
+var Oa = {
   key: 0,
   class: "su-radio-description"
 };
-var Ga = {
-  key: 1,
+var ja = {
+  key: 0,
   class: "su-radio-group-after"
 };
-var Za = ["id", "aria-live"];
-var Na = defineComponent({
+var Ga = defineComponent({
   __name: "RadioGroup",
-  props: {
+  props: mergeModels({
     options: { default: () => [] },
-    value: {},
     name: {},
     size: { default: "md" },
     state: { default: "default" },
@@ -1313,135 +1235,127 @@ var Na = defineComponent({
     ariaHidden: { type: Boolean },
     role: {},
     tabIndex: {}
-  },
-  emits: ["update:value", "change", "focus", "blur"],
-  setup(y, { emit: n }) {
-    const a = y, e = n, v = useAttrs(), w = computed(() => v.id || ce("radio-group")), k = computed(() => a.message ? `${w.value}-message` : void 0), x = computed(() => a.name || w.value), p = computed(() => [
+  }, {
+    modelValue: {},
+    modelModifiers: {}
+  }),
+  emits: mergeModels(["change", "focus", "blur"], ["update:modelValue"]),
+  setup(u, { emit: r }) {
+    const a = useModel(u, "modelValue"), e = u, y = r, b = useAttrs(), h2 = fe("radio-group");
+    computed(() => b.id || h2);
+    const $ = computed(() => e.name || h2), g = computed(() => [
       "su-radio-group",
-      `su-radio-group--${a.size}`,
-      `su-radio-group--${a.state}`,
-      `su-radio-group--${a.displayType}`,
-      `su-radio-group--${a.direction}`,
+      `su-radio-group--${e.size}`,
+      `su-radio-group--${e.state}`,
+      `su-radio-group--${e.displayType}`,
+      `su-radio-group--${e.direction}`,
       {
-        "su-radio-group--disabled": a.disabled,
-        "su-radio-group--scrollable": a.maxHeight
+        "su-radio-group--disabled": e.disabled,
+        "su-radio-group--scrollable": e.maxHeight
       }
-    ]), $ = (g) => [
+    ]), k = (m) => [
       "su-radio-option",
-      `su-radio-option--${a.size}`,
-      `su-radio-option--${a.state}`,
-      `su-radio-option--${a.displayType}`,
+      `su-radio-option--${e.size}`,
+      `su-radio-option--${e.state}`,
+      `su-radio-option--${e.displayType}`,
       {
-        "su-radio-option--selected": a.value === g.value,
-        "su-radio-option--disabled": g.disabled || a.disabled
+        "su-radio-option--selected": a.value === m.value,
+        "su-radio-option--disabled": m.disabled || e.disabled
       }
-    ], L = computed(() => {
-      const g = {
+    ], I = computed(() => {
+      const m = {
         role: "radiogroup"
       };
-      if (a.ariaLabel && (g["aria-label"] = a.ariaLabel), a.ariaDescribedBy || k.value) {
-        const M = [a.ariaDescribedBy, k.value].filter(Boolean).join(" ");
-        g["aria-describedby"] = M;
+      if (e.ariaLabel && (m["aria-label"] = e.ariaLabel), e.ariaDescribedBy) {
+        const T = [e.ariaDescribedBy].filter(Boolean).join(" ");
+        m["aria-describedby"] = T;
       }
-      return a.required && (g["aria-required"] = "true"), a.state === "error" && (g["aria-invalid"] = "true"), g;
-    }), h2 = (g) => {
-      a.disabled || (e("update:value", g), e("change", g));
-    }, _ = (g) => {
-      e("focus", g);
-    }, m = (g) => {
-      e("blur", g);
+      return e.required && (m["aria-required"] = "true"), e.state === "error" && (m["aria-invalid"] = "true"), m;
+    }), c = (m) => {
+      e.disabled || (a.value = m, y("change", m));
+    }, L = (m) => {
+      y("focus", m);
+    }, i = (m) => {
+      y("blur", m);
     };
-    return (g, M) => (openBlock(), createElementBlock("div", Ma, [
-      createBaseVNode("fieldset", mergeProps({ class: p.value }, L.value), [
-        g.label ? (openBlock(), createElementBlock("legend", {
-          key: 0,
-          class: normalizeClass(["su-radio-group-label", {
-            "su-radio-group-label--required": g.required,
-            "su-radio-group-label--disabled": g.disabled
-          }])
-        }, [
-          createTextVNode(toDisplayString(g.label) + " ", 1),
-          g.required ? (openBlock(), createElementBlock("span", ja, "*")) : createCommentVNode("", true)
-        ], 2)) : createCommentVNode("", true),
-        createBaseVNode("div", {
-          class: "su-radio-group-options",
-          style: normalizeStyle({ maxHeight: g.maxHeight || void 0, overflowY: g.maxHeight ? "auto" : void 0 })
-        }, [
-          g.$slots.before ? (openBlock(), createElementBlock("div", Ha, [
-            renderSlot(g.$slots, "before")
-          ])) : createCommentVNode("", true),
-          (openBlock(true), createElementBlock(Fragment, null, renderList(g.options, (u) => (openBlock(), createElementBlock("label", {
-            key: u.value,
-            class: normalizeClass($(u)),
-            for: `${w.value}-${u.value}`
+    return (m, T) => (openBlock(), createBlock(se, {
+      fieldId: unref(h2),
+      label: m.label,
+      message: m.message,
+      state: m.state,
+      required: m.required,
+      disabled: m.disabled
+    }, {
+      default: withCtx(({ fieldId: v, messageId: A }) => [
+        createBaseVNode("fieldset", mergeProps({ class: g.value }, I.value, { "aria-describedby": A }), [
+          createBaseVNode("div", {
+            class: "su-radio-group-options",
+            style: normalizeStyle({ maxHeight: m.maxHeight || void 0, overflowY: m.maxHeight ? "auto" : void 0 })
           }, [
-            createBaseVNode("input", {
-              id: `${w.value}-${u.value}`,
-              type: "radio",
-              name: x.value,
-              value: u.value,
-              checked: g.value === u.value,
-              disabled: u.disabled || g.disabled,
-              required: g.required,
-              class: "su-radio-input",
-              onChange: (F) => h2(u.value),
-              onFocus: _,
-              onBlur: m
-            }, null, 40, Ea),
-            M[0] || (M[0] = createBaseVNode("div", { class: "su-radio-indicator" }, [
-              createBaseVNode("div", { class: "su-radio-dot" })
-            ], -1)),
-            createBaseVNode("div", Ka, [
-              u.icon ? (openBlock(), createBlock(resolveDynamicComponent(u.icon), {
-                key: 0,
-                class: "su-radio-icon",
-                "aria-hidden": "true"
-              })) : createCommentVNode("", true),
-              createBaseVNode("div", Pa, [
-                createBaseVNode("div", Oa, toDisplayString(u.label), 1),
-                u.description ? (openBlock(), createElementBlock("div", Va, toDisplayString(u.description), 1)) : createCommentVNode("", true)
+            m.$slots.before ? (openBlock(), createElementBlock("div", Va, [
+              renderSlot(m.$slots, "before")
+            ])) : createCommentVNode("", true),
+            (openBlock(true), createElementBlock(Fragment, null, renderList(m.options, (_) => (openBlock(), createElementBlock("label", {
+              key: _.value,
+              class: normalizeClass(k(_)),
+              for: `${v}-${_.value}`
+            }, [
+              createBaseVNode("input", {
+                id: `${v}-${_.value}`,
+                type: "radio",
+                name: $.value,
+                value: _.value,
+                checked: a.value === _.value,
+                disabled: _.disabled || m.disabled,
+                required: m.required,
+                class: "su-radio-input",
+                onChange: (E) => c(_.value),
+                onFocus: L,
+                onBlur: i
+              }, null, 40, Ta),
+              T[0] || (T[0] = createBaseVNode("div", { class: "su-radio-indicator" }, [
+                createBaseVNode("div", { class: "su-radio-dot" })
+              ], -1)),
+              createBaseVNode("div", Ea, [
+                _.icon ? (openBlock(), createBlock(resolveDynamicComponent(_.icon), {
+                  key: 0,
+                  class: "su-radio-icon",
+                  "aria-hidden": "true"
+                })) : createCommentVNode("", true),
+                createBaseVNode("div", Ka, [
+                  createBaseVNode("div", Pa, toDisplayString(_.label), 1),
+                  _.description ? (openBlock(), createElementBlock("div", Oa, toDisplayString(_.description), 1)) : createCommentVNode("", true)
+                ])
               ])
-            ])
-          ], 10, Ta))), 128))
-        ], 4),
-        g.$slots.after ? (openBlock(), createElementBlock("div", Ga, [
-          renderSlot(g.$slots, "after")
-        ])) : createCommentVNode("", true)
-      ], 16),
-      g.message ? (openBlock(), createElementBlock("div", {
-        key: 0,
-        id: k.value,
-        class: normalizeClass(["su-radio-group-message", `su-radio-group-message--${g.state}`]),
-        "aria-live": g.state === "error" ? "assertive" : "polite"
-      }, toDisplayString(g.message), 11, Za)) : createCommentVNode("", true)
-    ]));
+            ], 10, Ha))), 128))
+          ], 4),
+          m.$slots.after ? (openBlock(), createElementBlock("div", ja, [
+            renderSlot(m.$slots, "after")
+          ])) : createCommentVNode("", true)
+        ], 16, Ma)
+      ]),
+      _: 3
+    }, 8, ["fieldId", "label", "message", "state", "required", "disabled"]));
   }
 });
-var Wa = { class: "su-checkbox-group-wrapper" };
-var Ua = {
-  key: 0,
-  class: "su-indicator-required",
-  "aria-label": "requis"
-};
-var Ya = {
+var Za = ["aria-describedby"];
+var Na = {
   key: 0,
   class: "su-checkbox-group-before"
 };
-var Qa = ["for"];
-var Ja = ["id", "value", "checked", "disabled", "required", "onChange"];
-var Xa = { class: "su-checkbox-content" };
-var es = { class: "su-checkbox-text" };
-var as = { class: "su-checkbox-label" };
-var ss = {
-  key: 1,
+var Wa = ["for"];
+var Ua = ["id", "value", "checked", "disabled", "required", "onChange"];
+var Ya = { class: "su-checkbox-content" };
+var Qa = { class: "su-checkbox-text" };
+var Ja = { class: "su-checkbox-label" };
+var Xa = {
+  key: 0,
   class: "su-checkbox-group-after"
 };
-var is = ["id", "aria-live"];
-var ls = defineComponent({
+var es = defineComponent({
   __name: "CheckboxGroup",
-  props: {
+  props: mergeModels({
     options: { default: () => [] },
-    value: { default: () => [] },
     size: { default: "md" },
     state: { default: "default" },
     disabled: { type: Boolean, default: false },
@@ -1458,17 +1372,22 @@ var ls = defineComponent({
     ariaHidden: { type: Boolean },
     role: {},
     tabIndex: {}
-  },
-  emits: ["update:value", "change", "focus", "blur"],
-  setup(y, { emit: n }) {
-    const a = y, e = n, v = useAttrs(), w = computed(() => v.id || ce("checkbox-group")), k = computed(() => a.message ? `${w.value}-message` : void 0), x = computed({
+  }, {
+    modelValue: { default: () => [] },
+    modelModifiers: {}
+  }),
+  emits: mergeModels(["change", "focus", "blur"], ["update:modelValue"]),
+  setup(u, { emit: r }) {
+    const a = u, e = useModel(u, "modelValue"), y = r, b = useAttrs(), h2 = fe("checkbox-group");
+    computed(() => b.id || h2);
+    const $ = computed({
       get() {
-        return Array.isArray(a.value) ? a.value : [];
+        return Array.isArray(e.value) ? e.value : [];
       },
-      set(u) {
-        e("update:value", u), e("change", u);
+      set(v) {
+        e.value = v, y("change", v);
       }
-    }), p = computed(() => [
+    }), g = computed(() => [
       "su-checkbox-group",
       `su-checkbox-group--${a.size}`,
       `su-checkbox-group--${a.state}`,
@@ -1478,152 +1397,129 @@ var ls = defineComponent({
         "su-checkbox-group--disabled": a.disabled,
         "su-checkbox-group--scrollable": a.maxHeight
       }
-    ]), $ = (u) => [
+    ]), k = (v) => [
       "su-checkbox-option",
       `su-checkbox-option--${a.size}`,
       `su-checkbox-option--${a.state}`,
       `su-checkbox-option--${a.displayType}`,
       {
-        "su-checkbox-option--selected": x.value.includes(u.value),
-        "su-checkbox-option--disabled": u.disabled || a.disabled
+        "su-checkbox-option--selected": $.value.includes(v.value),
+        "su-checkbox-option--disabled": v.disabled || a.disabled
       }
-    ], L = computed(() => {
-      const u = {
+    ], I = computed(() => {
+      const v = {
         role: "group"
       };
-      if (a.ariaLabel && (u["aria-label"] = a.ariaLabel), a.ariaDescribedBy || k.value) {
-        const F = [a.ariaDescribedBy, k.value].filter(Boolean).join(" ");
-        u["aria-describedby"] = F;
+      if (a.ariaLabel && (v["aria-label"] = a.ariaLabel), a.ariaDescribedBy) {
+        const A = [a.ariaDescribedBy].filter(Boolean).join(" ");
+        v["aria-describedby"] = A;
       }
-      return a.required && (u["aria-required"] = "true"), a.state === "error" && (u["aria-invalid"] = "true"), u;
-    }), h2 = (u, F) => {
+      return a.required && (v["aria-required"] = "true"), a.state === "error" && (v["aria-invalid"] = "true"), v;
+    }), c = (v, A) => {
       if (a.disabled) return;
-      let q;
-      if (F) {
-        if (a.maxSelections && x.value.length >= a.maxSelections) {
-          Y(`Maximum ${a.maxSelections} sélections autorisées`);
+      let _;
+      if (A) {
+        if (a.maxSelections && $.value.length >= a.maxSelections) {
+          Z(`Maximum ${a.maxSelections} sélections autorisées`);
           return;
         }
-        q = [...x.value, u];
+        _ = [...$.value, v];
       } else
-        q = x.value.filter((E) => E !== u);
-      x.value = q;
-      const d = a.options.find((E) => E.value === u), I = F ? "sélectionné" : "désélectionné";
-      Y(`${d == null ? void 0 : d.label} ${I}`);
-    }, _ = (u) => {
-      e("focus", u);
-    }, m = (u) => {
-      e("blur", u);
-    }, g = (u) => x.value.includes(u), M = (u) => u.disabled || a.disabled;
-    return (u, F) => (openBlock(), createElementBlock("div", Wa, [
-      createBaseVNode("fieldset", mergeProps({ class: p.value }, L.value), [
-        u.label ? (openBlock(), createElementBlock("legend", {
-          key: 0,
-          class: normalizeClass(["su-checkbox-group-label", {
-            "su-checkbox-group-label--required": u.required,
-            "su-checkbox-group-label--disabled": u.disabled
-          }])
-        }, [
-          createTextVNode(toDisplayString(u.label) + " ", 1),
-          u.required ? (openBlock(), createElementBlock("span", Ua, "*")) : createCommentVNode("", true)
-        ], 2)) : createCommentVNode("", true),
-        createBaseVNode("div", {
-          class: "su-checkbox-group-options",
-          style: normalizeStyle({ maxHeight: u.maxHeight || void 0, overflowY: u.maxHeight ? "auto" : void 0 })
-        }, [
-          u.$slots.before ? (openBlock(), createElementBlock("div", Ya, [
-            renderSlot(u.$slots, "before")
-          ])) : createCommentVNode("", true),
-          (openBlock(true), createElementBlock(Fragment, null, renderList(u.options, (q) => (openBlock(), createElementBlock("label", {
-            key: q.value,
-            class: normalizeClass($(q)),
-            for: `${w.value}-${q.value}`
+        _ = $.value.filter((z) => z !== v);
+      $.value = _;
+      const E = a.options.find((z) => z.value === v), B = A ? "sélectionné" : "désélectionné";
+      Z(`${E == null ? void 0 : E.label} ${B}`);
+    }, L = (v) => {
+      y("focus", v);
+    }, i = (v) => {
+      y("blur", v);
+    }, m = (v) => $.value.includes(v), T = (v) => v.disabled || a.disabled;
+    return (v, A) => (openBlock(), createBlock(se, {
+      fieldId: unref(h2),
+      label: v.label,
+      message: v.message,
+      state: v.state,
+      required: v.required,
+      disabled: v.disabled
+    }, {
+      default: withCtx(({ fieldId: _, messageId: E }) => [
+        createBaseVNode("fieldset", mergeProps({ class: g.value }, I.value, { "aria-describedby": E }), [
+          createBaseVNode("div", {
+            class: "su-checkbox-group-options",
+            style: normalizeStyle({ maxHeight: v.maxHeight || void 0, overflowY: v.maxHeight ? "auto" : void 0 })
           }, [
-            createBaseVNode("input", {
-              id: `${w.value}-${q.value}`,
-              type: "checkbox",
-              value: q.value,
-              checked: g(q.value),
-              disabled: M(q),
-              required: u.required && x.value.length === 0,
-              class: "su-checkbox-input",
-              onChange: (d) => h2(q.value, d.target.checked),
-              onFocus: _,
-              onBlur: m
-            }, null, 40, Ja),
-            createBaseVNode("div", {
-              class: normalizeClass(["su-checkbox-indicator", {
-                "su-checkbox-indicator--checked": g(q.value),
-                "su-checkbox-indicator--indeterminate": false
-              }])
+            v.$slots.before ? (openBlock(), createElementBlock("div", Na, [
+              renderSlot(v.$slots, "before")
+            ])) : createCommentVNode("", true),
+            (openBlock(true), createElementBlock(Fragment, null, renderList(v.options, (B) => (openBlock(), createElementBlock("label", {
+              key: B.value,
+              class: normalizeClass(k(B)),
+              for: `${_}-${B.value}`
             }, [
-              g(q.value) ? (openBlock(), createBlock(unref(me), {
-                key: 0,
-                class: "su-checkbox-check",
-                "aria-hidden": "true"
-              })) : createCommentVNode("", true)
-            ], 2),
-            createBaseVNode("div", Xa, [
-              q.icon ? (openBlock(), createBlock(resolveDynamicComponent(q.icon), {
-                key: 0,
-                class: "su-checkbox-icon",
-                "aria-hidden": "true"
-              })) : createCommentVNode("", true),
-              createBaseVNode("div", es, [
-                createBaseVNode("div", as, toDisplayString(q.label), 1)
+              createBaseVNode("input", {
+                id: `${_}-${B.value}`,
+                type: "checkbox",
+                value: B.value,
+                checked: m(B.value),
+                disabled: T(B),
+                required: v.required && $.value.length === 0,
+                class: "su-checkbox-input",
+                onChange: (z) => c(B.value, z.target.checked),
+                onFocus: L,
+                onBlur: i
+              }, null, 40, Ua),
+              createBaseVNode("div", {
+                class: normalizeClass(["su-checkbox-indicator", {
+                  "su-checkbox-indicator--checked": m(B.value),
+                  "su-checkbox-indicator--indeterminate": false
+                }])
+              }, [
+                m(B.value) ? (openBlock(), createBlock(unref(ge), {
+                  key: 0,
+                  class: "su-checkbox-check",
+                  "aria-hidden": "true"
+                })) : createCommentVNode("", true)
+              ], 2),
+              createBaseVNode("div", Ya, [
+                B.icon ? (openBlock(), createBlock(resolveDynamicComponent(B.icon), {
+                  key: 0,
+                  class: "su-checkbox-icon",
+                  "aria-hidden": "true"
+                })) : createCommentVNode("", true),
+                createBaseVNode("div", Qa, [
+                  createBaseVNode("div", Ja, toDisplayString(B.label), 1)
+                ])
               ])
-            ])
-          ], 10, Qa))), 128))
-        ], 4),
-        u.$slots.after ? (openBlock(), createElementBlock("div", ss, [
-          renderSlot(u.$slots, "after")
-        ])) : createCommentVNode("", true)
-      ], 16),
-      u.message ? (openBlock(), createElementBlock("div", {
-        key: 0,
-        id: k.value,
-        class: normalizeClass(["su-checkbox-group-message", `su-checkbox-group-message--${u.state}`]),
-        "aria-live": u.state === "error" ? "assertive" : "polite"
-      }, toDisplayString(u.message), 11, is)) : createCommentVNode("", true)
-    ]));
+            ], 10, Wa))), 128))
+          ], 4),
+          v.$slots.after ? (openBlock(), createElementBlock("div", Xa, [
+            renderSlot(v.$slots, "after")
+          ])) : createCommentVNode("", true)
+        ], 16, Za)
+      ]),
+      _: 3
+    }, 8, ["fieldId", "label", "message", "state", "required", "disabled"]));
   }
 });
-var ts = ["id", "tabindex"];
-var rs = { class: "su-switch-track" };
-var os = { class: "su-switch-thumb" };
-var ns = { class: "su-switch-indicator" };
-var us = {
+var as = ["id", "tabindex", "aria-describedby"];
+var ss = { class: "su-switch-track" };
+var ts = { class: "su-switch-thumb" };
+var ls = { class: "su-switch-indicator" };
+var is = {
   key: 0,
   class: "su-switch-icon su-switch-icon--check",
   viewBox: "0 0 16 16",
   "aria-hidden": "true"
 };
-var ds = {
+var rs = {
   key: 1,
   class: "su-switch-icon su-switch-icon--cross",
   viewBox: "0 0 16 16",
   "aria-hidden": "true"
 };
-var cs = ["id", "tabindex", "aria-describedby"];
-var fs = { class: "su-switch-track" };
-var ps = { class: "su-switch-thumb" };
-var vs = { class: "su-switch-indicator" };
-var hs = {
-  key: 0,
-  class: "su-switch-icon su-switch-icon--check",
-  viewBox: "0 0 16 16",
-  "aria-hidden": "true"
-};
-var bs = {
-  key: 1,
-  class: "su-switch-icon su-switch-icon--cross",
-  viewBox: "0 0 16 16",
-  "aria-hidden": "true"
-};
-var ys = defineComponent({
+var os = defineComponent({
   __name: "Switch",
-  props: {
-    value: { type: Boolean, default: false },
+  props: mergeModels({
     size: { default: "md" },
     state: { default: "default" },
     disabled: { type: Boolean, default: false },
@@ -1641,190 +1537,137 @@ var ys = defineComponent({
     ariaHidden: { type: Boolean },
     role: {},
     tabIndex: {}
-  },
-  emits: ["update:value", "change", "focus", "blur", "keydown"],
-  setup(y, { emit: n }) {
-    const a = y, e = n, v = inject("fieldId", ""), w = inject("messageId", ""), k = inject("isRequired", false), x = inject("isDisabled", false), p = inject("fieldState", "default"), $ = computed(() => p || a.state), L = computed(() => k || a.required), h2 = computed(() => x || a.disabled), _ = computed(() => [
+  }, {
+    modelValue: { type: Boolean, default: false },
+    modelModifiers: {}
+  }),
+  emits: mergeModels(["change", "focus", "blur", "keydown"], ["update:modelValue"]),
+  setup(u, { emit: r }) {
+    const a = u, e = useModel(u, "modelValue"), y = r, b = fe("switch"), h2 = computed(() => [
       "su-switch-container",
       `su-switch-container--${a.size}`,
-      `su-switch-container--${$.value}`,
+      `su-switch-container--${a.state}`,
       {
-        "su-switch-container--disabled": h2.value,
+        "su-switch-container--disabled": a.disabled,
         "su-switch-container--readonly": a.readonly,
         "su-switch-container--has-labels": a.leftLabel || a.rightLabel,
         "su-switch-container--centered": a.leftLabel && a.rightLabel
       }
-    ]), m = computed(() => [
+    ]), $ = computed(() => [
       "su-switch",
       `su-switch--${a.size}`,
-      `su-switch--${$.value}`,
+      `su-switch--${a.state}`,
       {
-        "su-switch--checked": a.value,
-        "su-switch--disabled": h2.value,
+        "su-switch--checked": e.value,
+        "su-switch--disabled": a.disabled,
         "su-switch--readonly": a.readonly
       }
     ]), g = computed(() => {
-      const d = {
+      const i = {
         role: "switch",
-        "aria-checked": a.value
+        "aria-checked": e.value
       };
-      a.ariaLabel && (d["aria-label"] = a.ariaLabel);
-      const I = [
-        a.ariaDescribedBy,
-        w
-      ].filter(Boolean);
-      return I.length > 0 && (d["aria-describedby"] = I.join(" ")), a.ariaInvalid !== void 0 && (d["aria-invalid"] = a.ariaInvalid), a.ariaRequired !== void 0 && (d["aria-required"] = a.ariaRequired), L.value && (d["aria-required"] = "true"), $.value === "error" && (d["aria-invalid"] = "true"), d;
-    }), M = () => {
-      if (h2.value || a.readonly) return;
-      const d = !a.value;
-      e("update:value", d), e("change", d);
-    }, u = (d) => {
-      (d.key === " " || d.key === "Enter") && (d.preventDefault(), M()), e("keydown", d);
-    }, F = (d) => {
-      e("focus", d);
-    }, q = (d) => {
-      e("blur", d);
+      return a.ariaLabel && (i["aria-label"] = a.ariaLabel), a.ariaInvalid !== void 0 && (i["aria-invalid"] = a.ariaInvalid), a.ariaRequired !== void 0 && (i["aria-required"] = a.ariaRequired), a.required && (i["aria-required"] = "true"), a.state === "error" && (i["aria-invalid"] = "true"), i;
+    }), k = () => {
+      if (a.disabled || a.readonly) return;
+      const i = !e.value;
+      e.value = i, y("change", i);
+    }, I = (i) => {
+      (i.key === " " || i.key === "Enter") && (i.preventDefault(), k()), y("keydown", i);
+    }, c = (i) => {
+      y("focus", i);
+    }, L = (i) => {
+      y("blur", i);
     };
-    return (d, I) => unref(v) ? (openBlock(), createElementBlock("div", {
-      key: 0,
-      class: normalizeClass(_.value)
-    }, [
-      d.leftLabel ? (openBlock(), createElementBlock("span", {
-        key: 0,
-        class: normalizeClass(["su-switch-side-label su-switch-side-label--left", {
-          "su-switch-side-label--active": !d.value,
-          "su-switch-side-label--disabled": h2.value
-        }])
-      }, toDisplayString(d.leftLabel), 3)) : createCommentVNode("", true),
-      createBaseVNode("div", mergeProps({
-        id: unref(v),
-        class: m.value,
-        tabindex: h2.value ? -1 : 0
-      }, g.value, {
-        onClick: M,
-        onKeydown: u,
-        onFocus: F,
-        onBlur: q
-      }), [
-        createBaseVNode("div", rs, [
-          createBaseVNode("div", os, [
-            createBaseVNode("div", ns, [
-              d.value ? (openBlock(), createElementBlock("svg", us, [...I[0] || (I[0] = [
-                createBaseVNode("path", { d: "M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" }, null, -1)
-              ])])) : (openBlock(), createElementBlock("svg", ds, [...I[1] || (I[1] = [
-                createBaseVNode("path", { d: "M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" }, null, -1)
-              ])]))
-            ])
-          ])
-        ])
-      ], 16, ts),
-      d.rightLabel ? (openBlock(), createElementBlock("span", {
-        key: 1,
-        class: normalizeClass(["su-switch-side-label su-switch-side-label--right", {
-          "su-switch-side-label--active": d.value,
-          "su-switch-side-label--disabled": h2.value
-        }])
-      }, toDisplayString(d.rightLabel), 3)) : createCommentVNode("", true)
-    ], 2)) : (openBlock(), createBlock(be, {
-      key: 1,
-      label: d.label,
-      message: d.message,
-      state: d.state,
-      required: d.required,
-      disabled: d.disabled,
-      ariaLabel: d.ariaLabel,
-      ariaDescribedBy: d.ariaDescribedBy
+    return (i, m) => (openBlock(), createBlock(se, {
+      fieldId: unref(b),
+      label: i.label,
+      message: i.message,
+      state: i.state,
+      required: i.required,
+      disabled: i.disabled
     }, {
-      default: withCtx(({ fieldId: E, messageId: J }) => [
+      default: withCtx(({ fieldId: T, messageId: v }) => [
         createBaseVNode("div", {
-          class: normalizeClass(_.value)
+          class: normalizeClass(h2.value)
         }, [
-          d.leftLabel ? (openBlock(), createElementBlock("span", {
+          i.leftLabel ? (openBlock(), createElementBlock("span", {
             key: 0,
             class: normalizeClass(["su-switch-side-label su-switch-side-label--left", {
-              "su-switch-side-label--active": !d.value,
-              "su-switch-side-label--disabled": d.disabled
+              "su-switch-side-label--active": !e.value,
+              "su-switch-side-label--disabled": i.disabled
             }])
-          }, toDisplayString(d.leftLabel), 3)) : createCommentVNode("", true),
+          }, toDisplayString(i.leftLabel), 3)) : createCommentVNode("", true),
           createBaseVNode("div", mergeProps({
-            id: E,
-            class: m.value,
-            tabindex: d.disabled ? -1 : 0,
-            "aria-describedby": J
+            id: T,
+            class: $.value,
+            tabindex: i.disabled ? -1 : 0,
+            "aria-describedby": v
           }, g.value, {
-            onClick: M,
-            onKeydown: u,
-            onFocus: F,
-            onBlur: q
+            onClick: k,
+            onKeydown: I,
+            onFocus: c,
+            onBlur: L
           }), [
-            createBaseVNode("div", fs, [
-              createBaseVNode("div", ps, [
-                createBaseVNode("div", vs, [
-                  d.value ? (openBlock(), createElementBlock("svg", hs, [...I[2] || (I[2] = [
+            createBaseVNode("div", ss, [
+              createBaseVNode("div", ts, [
+                createBaseVNode("div", ls, [
+                  e.value ? (openBlock(), createElementBlock("svg", is, [...m[0] || (m[0] = [
                     createBaseVNode("path", { d: "M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" }, null, -1)
-                  ])])) : (openBlock(), createElementBlock("svg", bs, [...I[3] || (I[3] = [
+                  ])])) : (openBlock(), createElementBlock("svg", rs, [...m[1] || (m[1] = [
                     createBaseVNode("path", { d: "M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" }, null, -1)
                   ])]))
                 ])
               ])
             ])
-          ], 16, cs),
-          d.rightLabel ? (openBlock(), createElementBlock("span", {
+          ], 16, as),
+          i.rightLabel ? (openBlock(), createElementBlock("span", {
             key: 1,
             class: normalizeClass(["su-switch-side-label su-switch-side-label--right", {
-              "su-switch-side-label--active": d.value,
-              "su-switch-side-label--disabled": d.disabled
+              "su-switch-side-label--active": e.value,
+              "su-switch-side-label--disabled": i.disabled
             }])
-          }, toDisplayString(d.rightLabel), 3)) : createCommentVNode("", true)
+          }, toDisplayString(i.rightLabel), 3)) : createCommentVNode("", true)
         ], 2)
       ]),
       _: 1
-    }, 8, ["label", "message", "state", "required", "disabled", "ariaLabel", "ariaDescribedBy"]));
+    }, 8, ["fieldId", "label", "message", "state", "required", "disabled"]));
   }
 });
-var ms = { class: "su-file-upload-wrapper" };
-var gs = ["for"];
-var ks = {
-  key: 0,
-  class: "su-indicator-required",
-  "aria-label": "requis"
-};
-var ws = ["id", "accept", "multiple", "disabled", "required"];
-var $s = ["tabindex", "aria-label"];
-var Bs = { class: "su-file-upload-text" };
-var xs = { class: "su-file-upload-primary-text" };
-var Ls = { class: "su-file-upload-secondary-text" };
-var _s = ["disabled"];
-var Cs = { key: 0 };
-var qs = { key: 0 };
-var Is = { key: 1 };
-var Ds = ["aria-label"];
-var zs = { class: "su-file-upload-item-preview" };
-var Rs = ["src", "alt"];
-var Fs = { class: "su-file-upload-item-info" };
-var Ss = { class: "su-file-upload-item-name" };
-var As = { class: "su-file-upload-item-details" };
-var Ms = { class: "su-file-upload-item-size" };
-var js = {
+var ns = ["id", "accept", "multiple", "disabled", "required", "aria-describedby"];
+var us = ["tabindex", "aria-label"];
+var ds = { class: "su-file-upload-text" };
+var cs = { class: "su-file-upload-primary-text" };
+var fs = { class: "su-file-upload-secondary-text" };
+var ps = ["disabled"];
+var hs = { key: 0 };
+var bs = { key: 0 };
+var vs = { key: 1 };
+var ms = ["aria-label"];
+var ys = { class: "su-file-upload-item-preview" };
+var gs = ["src", "alt"];
+var ks = { class: "su-file-upload-item-info" };
+var ws = { class: "su-file-upload-item-name" };
+var $s = { class: "su-file-upload-item-details" };
+var xs = { class: "su-file-upload-item-size" };
+var Bs = {
   key: 0,
   class: "su-file-upload-item-progress"
 };
-var Hs = {
+var _s = {
   key: 1,
   class: "su-file-upload-item-error"
 };
-var Ts = { class: "su-file-upload-item-status" };
-var Es = {
+var Ls = { class: "su-file-upload-item-status" };
+var Cs = {
   key: 2,
   class: "su-file-upload-spinner",
   "aria-hidden": "true"
 };
-var Ks = ["aria-label", "onClick"];
-var Ps = ["id", "aria-live"];
-var Os = defineComponent({
+var Is = ["aria-label", "onClick"];
+var qs = defineComponent({
   __name: "FileUpload",
-  props: {
-    value: { default: () => [] },
+  props: mergeModels({
     multiple: { type: Boolean, default: false },
     accept: {},
     maxSize: { default: 10 * 1024 * 1024 },
@@ -1849,308 +1692,299 @@ var Os = defineComponent({
     ariaHidden: { type: Boolean },
     role: {},
     tabIndex: {}
-  },
-  emits: ["update:value", "change", "upload", "remove", "error", "focus", "blur"],
-  setup(y, { expose: n, emit: a }) {
-    const e = y, v = a, w = useAttrs(), k = ref(), x = ref(), p = ref(false), $ = ref(0), L = computed(() => w.id || ce("file-upload")), h2 = computed(() => e.message ? `${L.value}-message` : void 0), _ = computed(() => Array.isArray(e.value) ? e.value : []), m = computed(() => [
+  }, {
+    modelValue: { default: () => [] },
+    modelModifiers: {}
+  }),
+  emits: mergeModels(["change", "upload", "remove", "error", "focus", "blur"], ["update:modelValue"]),
+  setup(u, { expose: r, emit: a }) {
+    const e = u, y = useModel(u, "modelValue"), b = a, h2 = useAttrs(), $ = ref(), g = ref(), k = ref(false), I = ref(0), c = fe("file-upload");
+    computed(() => h2.id || c);
+    const L = computed(() => Array.isArray(y.value) ? y.value : []), i = computed(() => [
       "su-file-upload-container",
       `su-file-upload-container--${e.size}`,
       `su-file-upload-container--${e.state}`,
       {
         "su-file-upload-container--disabled": e.disabled,
         "su-file-upload-container--readonly": e.readonly,
-        "su-file-upload-container--dragging": p.value,
-        "su-file-upload-container--has-files": _.value.length > 0
+        "su-file-upload-container--dragging": k.value,
+        "su-file-upload-container--has-files": L.value.length > 0
       }
-    ]), g = computed(() => [
+    ]), m = computed(() => [
       "su-file-upload-dropzone",
       `su-file-upload-dropzone--${e.size}`,
       `su-file-upload-dropzone--${e.state}`,
       {
         "su-file-upload-dropzone--disabled": e.disabled,
         "su-file-upload-dropzone--readonly": e.readonly,
-        "su-file-upload-dropzone--dragging": p.value
+        "su-file-upload-dropzone--dragging": k.value
       }
-    ]), M = computed(() => {
-      const i = {};
-      if (e.ariaLabel && (i["aria-label"] = e.ariaLabel), e.ariaDescribedBy || h2.value) {
-        const D = [e.ariaDescribedBy, h2.value].filter(Boolean).join(" ");
-        i["aria-describedby"] = D;
+    ]), T = computed(() => {
+      const t = {};
+      if (e.ariaLabel && (t["aria-label"] = e.ariaLabel), e.ariaDescribedBy) {
+        const q = [e.ariaDescribedBy].filter(Boolean).join(" ");
+        t["aria-describedby"] = q;
       }
-      return e.ariaInvalid !== void 0 && (i["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (i["aria-required"] = e.ariaRequired), e.required && (i["aria-required"] = "true"), e.state === "error" && (i["aria-invalid"] = "true"), i;
-    }), u = (i) => {
-      if (i === 0) return "0 B";
-      const D = 1024, C = ["B", "KB", "MB", "GB"], S = Math.floor(Math.log(i) / Math.log(D));
-      return parseFloat((i / Math.pow(D, S)).toFixed(1)) + " " + C[S];
-    }, F = (i) => i.type.startsWith("image/") ? aa : Je, q = (i) => i.type.startsWith("image/"), d = (i) => new Promise((D) => {
-      if (!q(i)) {
-        D("");
+      return e.ariaInvalid !== void 0 && (t["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (t["aria-required"] = e.ariaRequired), e.required && (t["aria-required"] = "true"), e.state === "error" && (t["aria-invalid"] = "true"), t;
+    }), v = (t) => {
+      if (t === 0) return "0 B";
+      const q = 1024, S = ["B", "KB", "MB", "GB"], F = Math.floor(Math.log(t) / Math.log(q));
+      return parseFloat((t / Math.pow(q, F)).toFixed(1)) + " " + S[F];
+    }, A = (t) => t.type.startsWith("image/") ? Je : Ue, _ = (t) => `${t}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, E = (t) => t.type.startsWith("image/"), B = (t) => new Promise((q) => {
+      if (!E(t)) {
+        q("");
         return;
       }
-      const C = new FileReader();
-      C.onload = (S) => {
-        var j;
-        return D(((j = S.target) == null ? void 0 : j.result) || "");
-      }, C.readAsDataURL(i);
-    }), I = (i) => e.maxSize && i.size > e.maxSize ? `Le fichier "${i.name}" est trop volumineux (${u(i.size)}). Taille maximale : ${u(e.maxSize)}` : e.accept && !e.accept.split(",").map((S) => S.trim()).some((S) => {
-      if (S.startsWith("."))
-        return i.name.toLowerCase().endsWith(S.toLowerCase());
-      if (S.includes("*")) {
-        const j = S.split("/")[0];
-        return i.type.startsWith(j);
+      const S = new FileReader();
+      S.onload = (F) => {
+        var x;
+        return q(((x = F.target) == null ? void 0 : x.result) || "");
+      }, S.readAsDataURL(t);
+    }), z = (t) => e.maxSize && t.size > e.maxSize ? `Le fichier "${t.name}" est trop volumineux (${v(t.size)}). Taille maximale : ${v(e.maxSize)}` : e.accept && !e.accept.split(",").map((F) => F.trim()).some((F) => {
+      if (F.startsWith("."))
+        return t.name.toLowerCase().endsWith(F.toLowerCase());
+      if (F.includes("*")) {
+        const x = F.split("/")[0];
+        return t.type.startsWith(x);
       }
-      return i.type === S;
-    }) ? `Le type de fichier "${i.type}" n'est pas accepté pour "${i.name}"` : null, E = async (i) => {
+      return t.type === F;
+    }) ? `Le type de fichier "${t.type}" n'est pas accepté pour "${t.name}"` : null, te = async (t) => {
       if (e.disabled || e.readonly) return;
-      const D = Array.from(i), C = _.value;
-      if (e.maxFiles && C.length + D.length > e.maxFiles) {
-        const j = `Nombre maximum de fichiers dépassé (${e.maxFiles})`;
-        v("error", j), Y(j, "assertive");
+      const q = Array.from(t), S = L.value;
+      if (e.maxFiles && S.length + q.length > e.maxFiles) {
+        const x = `Nombre maximum de fichiers dépassé (${e.maxFiles})`;
+        b("error", x), Z(x, "assertive");
         return;
       }
-      const S = [];
-      for (const j of D) {
-        const fe = I(j);
-        if (fe) {
-          v("error", fe, j), Y(fe, "assertive");
+      const F = [];
+      for (const x of q) {
+        const le = z(x);
+        if (le) {
+          b("error", le, x), Z(le, "assertive");
           continue;
         }
-        const t = {
-          id: ce("file"),
-          file: j,
-          name: j.name,
-          size: j.size,
-          type: j.type,
+        const l = {
+          id: _("file"),
+          file: x,
+          name: x.name,
+          size: x.size,
+          type: x.type,
           status: "pending"
         };
-        if (e.allowPreview && q(j))
+        if (e.allowPreview && E(x))
           try {
-            t.preview = await d(j);
-          } catch (z) {
-            console.warn("Erreur lors de la création de l'aperçu:", z);
+            l.preview = await B(x);
+          } catch (C) {
+            console.warn("Erreur lors de la création de l'aperçu:", C);
           }
-        S.push(t);
+        F.push(l);
       }
-      if (S.length > 0) {
-        const j = e.multiple ? [...C, ...S] : S;
-        v("update:value", j), v("change", j);
-        const fe = S.length === 1 ? `Fichier "${S[0].name}" ajouté` : `${S.length} fichiers ajoutés`;
-        Y(fe), S.forEach((t) => v("upload", t));
+      if (F.length > 0) {
+        const x = e.multiple ? [...S, ...F] : F;
+        y.value = x, b("change", x);
+        const le = F.length === 1 ? `Fichier "${F[0].name}" ajouté` : `${F.length} fichiers ajoutés`;
+        Z(le), F.forEach((l) => b("upload", l));
       }
-    }, J = (i) => {
+    }, ue = (t) => {
       if (e.disabled || e.readonly) return;
-      const D = _.value.filter((C) => C.id !== i.id);
-      v("update:value", D), v("change", D), v("remove", i), Y(`Fichier "${i.name}" supprimé`);
-    }, ee = (i) => {
-      const D = i.target;
-      D.files && D.files.length > 0 && E(D.files), D.value = "";
-    }, G = () => {
-      var i;
-      e.disabled || e.readonly || (i = k.value) == null || i.click();
-    }, ae = (i) => {
-      (i.key === "Enter" || i.key === " ") && (i.preventDefault(), G());
-    }, se = (i) => {
-      v("focus", i);
-    }, U = (i) => {
-      v("blur", i);
-    }, N = (i) => {
-      i.preventDefault(), i.stopPropagation(), !(e.disabled || e.readonly) && ($.value++, $.value === 1 && (p.value = true));
-    }, te = (i) => {
-      i.preventDefault(), i.stopPropagation(), !(e.disabled || e.readonly) && ($.value--, $.value === 0 && (p.value = false));
-    }, o = (i) => {
-      i.preventDefault(), i.stopPropagation(), !(e.disabled || e.readonly) && i.dataTransfer && (i.dataTransfer.dropEffect = "copy");
-    }, X = (i) => {
-      var C;
-      if (i.preventDefault(), i.stopPropagation(), e.disabled || e.readonly) return;
-      p.value = false, $.value = 0;
-      const D = (C = i.dataTransfer) == null ? void 0 : C.files;
-      D && D.length > 0 && E(D);
+      const q = L.value.filter((S) => S.id !== t.id);
+      y.value = q, b("change", q), b("remove", t), Z(`Fichier "${t.name}" supprimé`);
+    }, d = (t) => {
+      const q = t.target;
+      q.files && q.files.length > 0 && te(q.files), q.value = "";
+    }, Y = () => {
+      var t;
+      e.disabled || e.readonly || (t = $.value) == null || t.click();
+    }, de = (t) => {
+      (t.key === "Enter" || t.key === " ") && (t.preventDefault(), Y());
+    }, p = (t) => {
+      b("focus", t);
+    }, j = (t) => {
+      b("blur", t);
+    }, K = (t) => {
+      t.preventDefault(), t.stopPropagation(), !(e.disabled || e.readonly) && (I.value++, I.value === 1 && (k.value = true));
+    }, X = (t) => {
+      t.preventDefault(), t.stopPropagation(), !(e.disabled || e.readonly) && (I.value--, I.value === 0 && (k.value = false));
+    }, pe = (t) => {
+      t.preventDefault(), t.stopPropagation(), !(e.disabled || e.readonly) && t.dataTransfer && (t.dataTransfer.dropEffect = "copy");
+    }, ve = (t) => {
+      var S;
+      if (t.preventDefault(), t.stopPropagation(), e.disabled || e.readonly) return;
+      k.value = false, I.value = 0;
+      const q = (S = t.dataTransfer) == null ? void 0 : S.files;
+      q && q.length > 0 && te(q);
     };
-    return n({
+    return r({
       focus: () => {
-        var i;
-        (i = x.value) == null || i.focus();
+        var t;
+        (t = g.value) == null || t.focus();
       },
       clear: () => {
-        e.disabled || e.readonly || (v("update:value", []), v("change", []), Y("Tous les fichiers ont été supprimés"));
+        e.disabled || e.readonly || (y.value = [], b("change", []), Z("Tous les fichiers ont été supprimés"));
       },
-      fileInputRef: k,
-      dropZoneRef: x
-    }), (i, D) => (openBlock(), createElementBlock("div", ms, [
-      i.label ? (openBlock(), createElementBlock("label", {
-        key: 0,
-        for: L.value,
-        class: normalizeClass(["su-file-upload-label", {
-          "su-file-upload-label--required": i.required,
-          "su-file-upload-label--disabled": i.disabled
-        }])
-      }, [
-        createTextVNode(toDisplayString(i.label) + " ", 1),
-        i.required ? (openBlock(), createElementBlock("span", ks, "*")) : createCommentVNode("", true)
-      ], 10, gs)) : createCommentVNode("", true),
-      createBaseVNode("div", {
-        class: normalizeClass(m.value)
-      }, [
-        createBaseVNode("input", mergeProps({
-          ref_key: "fileInputRef",
-          ref: k,
-          id: L.value,
-          type: "file",
-          accept: i.accept,
-          multiple: i.multiple,
-          disabled: i.disabled,
-          required: i.required,
-          class: "su-file-upload-input"
-        }, M.value, {
-          onChange: ee,
-          onFocus: se,
-          onBlur: U
-        }), null, 16, ws),
+      fileInputRef: $,
+      dropZoneRef: g
+    }), (t, q) => (openBlock(), createBlock(se, {
+      fieldId: unref(c),
+      label: t.label,
+      message: t.message,
+      state: t.state,
+      required: t.required,
+      disabled: t.disabled
+    }, {
+      default: withCtx(({ fieldId: S, messageId: F }) => [
         createBaseVNode("div", {
-          ref_key: "dropZoneRef",
-          ref: x,
-          class: normalizeClass(g.value),
-          tabindex: i.disabled ? -1 : 0,
-          role: "button",
-          "aria-label": i.placeholder,
-          onClick: G,
-          onKeydown: ae,
-          onDragenter: N,
-          onDragleave: te,
-          onDragover: o,
-          onDrop: X
+          class: normalizeClass(i.value)
         }, [
-          createVNode(unref(Qe), {
-            class: normalizeClass(["su-file-upload-icon", { "su-file-upload-icon--dragging": p.value }]),
-            "aria-hidden": "true"
-          }, null, 8, ["class"]),
-          createBaseVNode("div", Bs, [
-            createBaseVNode("p", xs, toDisplayString(p.value ? i.dragText : i.placeholder), 1),
-            createBaseVNode("p", Ls, [
-              createBaseVNode("button", {
-                type: "button",
-                class: "su-file-upload-browse-button",
-                disabled: i.disabled || i.readonly,
-                onClick: withModifiers(G, ["stop"])
-              }, toDisplayString(i.browseText), 9, _s),
-              i.accept || i.maxSize ? (openBlock(), createElementBlock("span", Cs, [
-                i.accept ? (openBlock(), createElementBlock("span", qs, " • " + toDisplayString(i.accept), 1)) : createCommentVNode("", true),
-                i.maxSize ? (openBlock(), createElementBlock("span", Is, " • Max " + toDisplayString(u(i.maxSize)), 1)) : createCommentVNode("", true)
-              ])) : createCommentVNode("", true)
-            ])
-          ])
-        ], 42, $s),
-        i.showFileList && _.value.length > 0 ? (openBlock(), createElementBlock("div", {
-          key: 0,
-          class: "su-file-upload-list",
-          role: "list",
-          "aria-label": `${_.value.length} fichier(s) sélectionné(s)`
-        }, [
-          (openBlock(true), createElementBlock(Fragment, null, renderList(_.value, (C) => (openBlock(), createElementBlock("div", {
-            key: C.id,
-            class: normalizeClass(["su-file-upload-item", `su-file-upload-item--${C.status}`]),
-            role: "listitem"
+          createBaseVNode("input", mergeProps({
+            ref_key: "fileInputRef",
+            ref: $,
+            id: S,
+            type: "file",
+            accept: t.accept,
+            multiple: t.multiple,
+            disabled: t.disabled,
+            required: t.required,
+            "aria-describedby": F,
+            class: "su-file-upload-input"
+          }, T.value, {
+            onChange: d,
+            onFocus: p,
+            onBlur: j
+          }), null, 16, ns),
+          createBaseVNode("div", {
+            ref_key: "dropZoneRef",
+            ref: g,
+            class: normalizeClass(m.value),
+            tabindex: t.disabled ? -1 : 0,
+            role: "button",
+            "aria-label": t.placeholder,
+            onClick: Y,
+            onKeydown: de,
+            onDragenter: K,
+            onDragleave: X,
+            onDragover: pe,
+            onDrop: ve
           }, [
-            createBaseVNode("div", zs, [
-              C.preview ? (openBlock(), createElementBlock("img", {
-                key: 0,
-                src: C.preview,
-                alt: `Aperçu de ${C.name}`,
-                class: "su-file-upload-preview-image"
-              }, null, 8, Rs)) : (openBlock(), createBlock(resolveDynamicComponent(F(C.file)), {
-                key: 1,
-                class: "su-file-upload-item-icon",
-                "aria-hidden": "true"
-              }))
-            ]),
-            createBaseVNode("div", Fs, [
-              createBaseVNode("div", Ss, toDisplayString(C.name), 1),
-              createBaseVNode("div", As, [
-                createBaseVNode("span", Ms, toDisplayString(u(C.size)), 1),
-                C.status === "uploading" && C.progress !== void 0 ? (openBlock(), createElementBlock("span", js, toDisplayString(C.progress) + "% ", 1)) : createCommentVNode("", true),
-                C.error ? (openBlock(), createElementBlock("span", Hs, toDisplayString(C.error), 1)) : createCommentVNode("", true)
+            createVNode(unref(We), {
+              class: normalizeClass(["su-file-upload-icon", { "su-file-upload-icon--dragging": k.value }]),
+              "aria-hidden": "true"
+            }, null, 8, ["class"]),
+            createBaseVNode("div", ds, [
+              createBaseVNode("p", cs, toDisplayString(k.value ? t.dragText : t.placeholder), 1),
+              createBaseVNode("p", fs, [
+                createBaseVNode("button", {
+                  type: "button",
+                  class: "su-file-upload-browse-button",
+                  disabled: t.disabled || t.readonly,
+                  onClick: withModifiers(Y, ["stop"])
+                }, toDisplayString(t.browseText), 9, ps),
+                t.accept || t.maxSize ? (openBlock(), createElementBlock("span", hs, [
+                  t.accept ? (openBlock(), createElementBlock("span", bs, " • " + toDisplayString(t.accept), 1)) : createCommentVNode("", true),
+                  t.maxSize ? (openBlock(), createElementBlock("span", vs, " • Max " + toDisplayString(v(t.maxSize)), 1)) : createCommentVNode("", true)
+                ])) : createCommentVNode("", true)
               ])
-            ]),
-            createBaseVNode("div", Ts, [
-              C.status === "success" ? (openBlock(), createBlock(unref(Ue), {
-                key: 0,
-                class: "su-file-upload-status-icon su-file-upload-status-icon--success",
-                "aria-hidden": "true"
-              })) : C.status === "error" ? (openBlock(), createBlock(unref(Xe), {
-                key: 1,
-                class: "su-file-upload-status-icon su-file-upload-status-icon--error",
-                "aria-hidden": "true"
-              })) : C.status === "uploading" ? (openBlock(), createElementBlock("div", Es, [...D[0] || (D[0] = [
-                createBaseVNode("svg", {
-                  class: "su-spinner",
-                  viewBox: "0 0 24 24"
-                }, [
-                  createBaseVNode("circle", {
-                    cx: "12",
-                    cy: "12",
-                    r: "10",
-                    fill: "none",
-                    stroke: "currentColor",
-                    "stroke-width": "2"
-                  }),
-                  createBaseVNode("path", {
-                    d: "M12 2a10 10 0 0 1 10 10",
-                    fill: "none",
-                    stroke: "currentColor",
-                    "stroke-width": "2",
-                    "stroke-linecap": "round"
-                  })
-                ], -1)
-              ])])) : createCommentVNode("", true)
-            ]),
-            !i.disabled && !i.readonly ? (openBlock(), createElementBlock("button", {
-              key: 0,
-              type: "button",
-              class: "su-file-upload-remove-button",
-              "aria-label": `Supprimer ${C.name}`,
-              onClick: (S) => J(C)
+            ])
+          ], 42, us),
+          t.showFileList && L.value.length > 0 ? (openBlock(), createElementBlock("div", {
+            key: 0,
+            class: "su-file-upload-list",
+            role: "list",
+            "aria-label": `${L.value.length} fichier(s) sélectionné(s)`
+          }, [
+            (openBlock(true), createElementBlock(Fragment, null, renderList(L.value, (x) => (openBlock(), createElementBlock("div", {
+              key: x.id,
+              class: normalizeClass(["su-file-upload-item", `su-file-upload-item--${x.status}`]),
+              role: "listitem"
             }, [
-              createVNode(unref(ge), {
-                class: "su-file-upload-remove-icon",
-                "aria-hidden": "true"
-              })
-            ], 8, Ks)) : createCommentVNode("", true)
-          ], 2))), 128))
-        ], 8, Ds)) : createCommentVNode("", true)
-      ], 2),
-      i.message ? (openBlock(), createElementBlock("div", {
-        key: 1,
-        id: h2.value,
-        class: normalizeClass(["su-file-upload-message", `su-file-upload-message--${i.state}`]),
-        "aria-live": i.state === "error" ? "assertive" : "polite"
-      }, toDisplayString(i.message), 11, Ps)) : createCommentVNode("", true)
-    ]));
+              createBaseVNode("div", ys, [
+                x.preview ? (openBlock(), createElementBlock("img", {
+                  key: 0,
+                  src: x.preview,
+                  alt: `Aperçu de ${x.name}`,
+                  class: "su-file-upload-preview-image"
+                }, null, 8, gs)) : (openBlock(), createBlock(resolveDynamicComponent(A(x.file)), {
+                  key: 1,
+                  class: "su-file-upload-item-icon",
+                  "aria-hidden": "true"
+                }))
+              ]),
+              createBaseVNode("div", ks, [
+                createBaseVNode("div", ws, toDisplayString(x.name), 1),
+                createBaseVNode("div", $s, [
+                  createBaseVNode("span", xs, toDisplayString(v(x.size)), 1),
+                  x.status === "uploading" && x.progress !== void 0 ? (openBlock(), createElementBlock("span", Bs, toDisplayString(x.progress) + "% ", 1)) : createCommentVNode("", true),
+                  x.error ? (openBlock(), createElementBlock("span", _s, toDisplayString(x.error), 1)) : createCommentVNode("", true)
+                ])
+              ]),
+              createBaseVNode("div", Ls, [
+                x.status === "success" ? (openBlock(), createBlock(unref(Ze), {
+                  key: 0,
+                  class: "su-file-upload-status-icon su-file-upload-status-icon--success",
+                  "aria-hidden": "true"
+                })) : x.status === "error" ? (openBlock(), createBlock(unref(Ye), {
+                  key: 1,
+                  class: "su-file-upload-status-icon su-file-upload-status-icon--error",
+                  "aria-hidden": "true"
+                })) : x.status === "uploading" ? (openBlock(), createElementBlock("div", Cs, [...q[0] || (q[0] = [
+                  createBaseVNode("svg", {
+                    class: "su-spinner",
+                    viewBox: "0 0 24 24"
+                  }, [
+                    createBaseVNode("circle", {
+                      cx: "12",
+                      cy: "12",
+                      r: "10",
+                      fill: "none",
+                      stroke: "currentColor",
+                      "stroke-width": "2"
+                    }),
+                    createBaseVNode("path", {
+                      d: "M12 2a10 10 0 0 1 10 10",
+                      fill: "none",
+                      stroke: "currentColor",
+                      "stroke-width": "2",
+                      "stroke-linecap": "round"
+                    })
+                  ], -1)
+                ])])) : createCommentVNode("", true)
+              ]),
+              !t.disabled && !t.readonly ? (openBlock(), createElementBlock("button", {
+                key: 0,
+                type: "button",
+                class: "su-file-upload-remove-button",
+                "aria-label": `Supprimer ${x.name}`,
+                onClick: (le) => ue(x)
+              }, [
+                createVNode(unref(ke), {
+                  class: "su-file-upload-remove-icon",
+                  "aria-hidden": "true"
+                })
+              ], 8, Is)) : createCommentVNode("", true)
+            ], 2))), 128))
+          ], 8, ms)) : createCommentVNode("", true)
+        ], 2)
+      ]),
+      _: 1
+    }, 8, ["fieldId", "label", "message", "state", "required", "disabled"]));
   }
 });
-var Vs = ["id", "value", "placeholder", "disabled", "readonly", "required", "rows"];
-var Gs = {
+var Ds = ["id", "value", "placeholder", "disabled", "readonly", "required", "rows", "aria-describedby"];
+var zs = {
   key: 0,
   class: "su-textarea-footer"
 };
-var Zs = ["id", "aria-live"];
-var Ns = { class: "sr-only" };
-var Ws = ["id", "value", "placeholder", "disabled", "readonly", "required", "rows", "aria-describedby"];
-var Us = {
-  key: 0,
-  class: "su-textarea-footer"
-};
-var Ys = ["id", "aria-live"];
-var Qs = { class: "sr-only" };
-var Js = defineComponent({
+var Rs = ["id", "aria-live"];
+var Fs = { class: "sr-only" };
+var As = defineComponent({
   __name: "Textarea",
-  props: {
+  props: mergeModels({
     size: { default: "md" },
     state: { default: "default" },
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
     required: { type: Boolean, default: false },
     placeholder: {},
-    value: {},
     rows: { default: 3 },
     minRows: { default: 2 },
     maxRows: { default: 10 },
@@ -2170,188 +2004,150 @@ var Js = defineComponent({
     ariaHidden: { type: Boolean },
     role: {},
     tabIndex: {}
-  },
-  emits: ["update:value", "input", "change", "focus", "blur", "keydown", "keyup"],
-  setup(y, { expose: n, emit: a }) {
-    const e = y, v = a, w = ref(), k = inject("fieldId", ""), x = inject("messageId", ""), p = inject("isRequired", false), $ = inject("isDisabled", false), L = inject("fieldState", "default"), h2 = computed(() => L || e.state), _ = computed(() => p || e.required), m = computed(() => $ || e.disabled), g = computed(() => e.value || ""), M = computed(() => g.value.length), u = computed(() => e.maxLength ? e.maxLength - M.value : null), F = computed(() => e.maxLength ? u.value !== null && u.value <= e.maxLength * 0.1 : false), q = computed(() => e.maxLength ? u.value !== null && u.value < 0 : false), d = computed(() => [
+  }, {
+    modelValue: { default: "" },
+    modelModifiers: {}
+  }),
+  emits: mergeModels(["input", "change", "focus", "blur", "keydown", "keyup"], ["update:modelValue"]),
+  setup(u, { expose: r, emit: a }) {
+    const e = u, y = useModel(u, "modelValue"), b = a, h2 = ref(), $ = fe("textarea"), g = computed(() => y.value || ""), k = computed(() => g.value.length), I = computed(() => e.maxLength ? e.maxLength - k.value : null), c = computed(() => e.maxLength ? I.value !== null && I.value <= e.maxLength * 0.1 : false), L = computed(() => e.maxLength ? I.value !== null && I.value < 0 : false), i = computed(() => [
       "su-textarea-container",
       `su-textarea-container--${e.size}`,
-      `su-textarea-container--${h2.value}`,
+      `su-textarea-container--${e.state}`,
       {
-        "su-textarea-container--disabled": m.value,
+        "su-textarea-container--disabled": e.disabled,
         "su-textarea-container--readonly": e.readonly,
         "su-textarea-container--auto-resize": e.autoResize,
-        "su-textarea-container--over-limit": q.value
+        "su-textarea-container--over-limit": L.value
       }
-    ]), I = computed(() => [
+    ]), m = computed(() => [
       "su-textarea",
       `su-textarea--${e.size}`,
-      `su-textarea--${h2.value}`,
+      `su-textarea--${e.state}`,
       {
-        "su-textarea--disabled": m.value,
+        "su-textarea--disabled": e.disabled,
         "su-textarea--readonly": e.readonly,
         "su-textarea--auto-resize": e.autoResize,
-        "su-textarea--over-limit": q.value
+        "su-textarea--over-limit": L.value
       }
-    ]), E = computed(() => [
+    ]), T = computed(() => [
       "su-textarea-counter",
       {
-        "su-textarea-counter--near-limit": F.value,
-        "su-textarea-counter--over-limit": q.value
+        "su-textarea-counter--near-limit": c.value,
+        "su-textarea-counter--over-limit": L.value
       }
-    ]), J = computed(() => {
-      const f = {};
-      e.ariaLabel && (f["aria-label"] = e.ariaLabel);
-      const i = [
-        e.ariaDescribedBy,
-        x,
-        e.showCounter && e.maxLength ? `${k || "textarea"}-counter` : null
-      ].filter(Boolean);
-      return i.length > 0 && (f["aria-describedby"] = i.join(" ")), e.ariaInvalid !== void 0 && (f["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (f["aria-required"] = e.ariaRequired), _.value && (f["aria-required"] = "true"), (h2.value === "error" || q.value) && (f["aria-invalid"] = "true"), f;
-    }), ee = computed(() => {
-      const f = {};
-      return e.autocomplete && (f.autocomplete = e.autocomplete), e.maxLength && (f.maxlength = e.maxLength), e.spellcheck !== void 0 && (f.spellcheck = e.spellcheck), e.wrap && (f.wrap = e.wrap), f;
-    }), G = async () => {
-      if (!e.autoResize || !w.value) return;
+    ]), v = computed(() => {
+      const p = {};
+      return e.ariaLabel && (p["aria-label"] = e.ariaLabel), e.ariaInvalid !== void 0 && (p["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (p["aria-required"] = e.ariaRequired), e.required && (p["aria-required"] = "true"), (e.state === "error" || L.value) && (p["aria-invalid"] = "true"), p;
+    }), A = computed(() => {
+      const p = {};
+      return e.autocomplete && (p.autocomplete = e.autocomplete), e.maxLength && (p.maxlength = e.maxLength), e.spellcheck !== void 0 && (p.spellcheck = e.spellcheck), e.wrap && (p.wrap = e.wrap), p;
+    }), _ = async () => {
+      if (!e.autoResize || !h2.value) return;
       await nextTick();
-      const f = w.value, i = e.minRows ? e.minRows * 1.5 : 3 * 1.5, D = e.maxRows ? e.maxRows * 1.5 : 10 * 1.5;
-      f.style.height = "auto";
-      const C = f.scrollHeight, S = Math.max(i * 16, Math.min(D * 16, C));
-      f.style.height = `${S}px`;
-    }, ae = (f) => {
-      const i = f.target;
-      v("update:value", i.value), v("input", f), e.autoResize && G();
-    }, se = (f) => {
-      v("change", f);
-    }, U = (f) => {
-      v("focus", f);
-    }, N = (f) => {
-      v("blur", f);
-    }, te = (f) => {
-      v("keydown", f);
-    }, o = (f) => {
-      v("keyup", f);
+      const p = h2.value, j = e.minRows ? e.minRows * 1.5 : 3 * 1.5, K = e.maxRows ? e.maxRows * 1.5 : 10 * 1.5;
+      p.style.height = "auto";
+      const X = p.scrollHeight, pe = Math.max(j * 16, Math.min(K * 16, X));
+      p.style.height = `${pe}px`;
+    }, E = (p) => {
+      const j = p.target;
+      y.value = j.value, b("input", p), e.autoResize && _();
+    }, B = (p) => {
+      b("change", p);
+    }, z = (p) => {
+      b("focus", p);
+    }, te = (p) => {
+      b("blur", p);
+    }, ue = (p) => {
+      b("keydown", p);
+    }, d = (p) => {
+      b("keyup", p);
     };
-    return n({
+    return r({
       focus: () => {
-        var f;
-        (f = w.value) == null || f.focus();
+        var p;
+        (p = h2.value) == null || p.focus();
       },
       select: () => {
-        var f;
-        (f = w.value) == null || f.select();
+        var p;
+        (p = h2.value) == null || p.select();
       },
-      textareaRef: w
-    }), watch(() => e.value, () => {
-      e.autoResize && G();
-    }, { immediate: true }), watch(() => e.autoResize, (f) => {
-      f && G();
-    }), (f, i) => unref(k) ? (openBlock(), createElementBlock(Fragment, { key: 0 }, [
-      createBaseVNode("div", {
-        class: normalizeClass(d.value)
-      }, [
-        createBaseVNode("textarea", mergeProps({
-          ref_key: "textareaRef",
-          ref: w,
-          id: unref(k),
-          class: I.value,
-          value: f.value,
-          placeholder: f.placeholder,
-          disabled: m.value,
-          readonly: f.readonly,
-          required: _.value,
-          rows: f.autoResize ? f.minRows : f.rows
-        }, { ...ee.value, ...J.value }, {
-          onInput: ae,
-          onChange: se,
-          onFocus: U,
-          onBlur: N,
-          onKeydown: te,
-          onKeyup: o
-        }), null, 16, Vs)
-      ], 2),
-      f.showCounter && f.maxLength ? (openBlock(), createElementBlock("div", Gs, [
-        i[0] || (i[0] = createBaseVNode("div", { class: "su-textarea-footer-spacer" }, null, -1)),
-        createBaseVNode("div", {
-          id: `${unref(k)}-counter`,
-          class: normalizeClass(E.value),
-          "aria-live": F.value || q.value ? "polite" : "off"
-        }, [
-          createBaseVNode("span", Ns, toDisplayString(q.value ? "Limite de caractères dépassée" : "Caractères restants") + ": ", 1),
-          createTextVNode(" " + toDisplayString(M.value) + "/" + toDisplayString(f.maxLength), 1)
-        ], 10, Zs)
-      ])) : createCommentVNode("", true)
-    ], 64)) : (openBlock(), createBlock(be, {
-      key: 1,
-      label: f.label,
-      message: f.message,
-      state: f.state,
-      required: f.required,
-      disabled: f.disabled,
-      ariaLabel: f.ariaLabel,
-      ariaDescribedBy: f.ariaDescribedBy
+      textareaRef: h2
+    }), watch(y, () => {
+      e.autoResize && _();
+    }, { immediate: true }), watch(() => e.autoResize, (p) => {
+      p && _();
+    }), (p, j) => (openBlock(), createBlock(se, {
+      fieldId: unref($),
+      label: p.label,
+      message: p.message,
+      state: p.state,
+      required: p.required,
+      disabled: p.disabled
     }, {
-      default: withCtx(({ fieldId: D, messageId: C }) => [
-        createBaseVNode("div", {
-          class: normalizeClass(d.value)
-        }, [
-          createBaseVNode("textarea", mergeProps({
-            ref_key: "textareaRef",
-            ref: w,
-            id: D,
-            class: I.value,
-            value: f.value,
-            placeholder: f.placeholder,
-            disabled: f.disabled,
-            readonly: f.readonly,
-            required: f.required,
-            rows: f.autoResize ? f.minRows : f.rows,
-            "aria-describedby": C
-          }, { ...ee.value, ...J.value }, {
-            onInput: ae,
-            onChange: se,
-            onFocus: U,
-            onBlur: N,
-            onKeydown: te,
-            onKeyup: o
-          }), null, 16, Ws)
-        ], 2),
-        f.showCounter && f.maxLength ? (openBlock(), createElementBlock("div", Us, [
-          i[1] || (i[1] = createBaseVNode("div", { class: "su-textarea-footer-spacer" }, null, -1)),
+      default: withCtx(({ fieldId: K, messageId: X }) => [
+        createBaseVNode("div", null, [
           createBaseVNode("div", {
-            id: `${D}-counter`,
-            class: normalizeClass(E.value),
-            "aria-live": F.value || q.value ? "polite" : "off"
+            class: normalizeClass(i.value)
           }, [
-            createBaseVNode("span", Qs, toDisplayString(q.value ? "Limite de caractères dépassée" : "Caractères restants") + ": ", 1),
-            createTextVNode(" " + toDisplayString(M.value) + "/" + toDisplayString(f.maxLength), 1)
-          ], 10, Ys)
-        ])) : createCommentVNode("", true)
+            createBaseVNode("textarea", mergeProps({
+              ref_key: "textareaRef",
+              ref: h2,
+              id: K,
+              class: m.value,
+              value: y.value,
+              placeholder: p.placeholder,
+              disabled: p.disabled,
+              readonly: p.readonly,
+              required: p.required,
+              rows: p.autoResize ? p.minRows : p.rows,
+              "aria-describedby": X
+            }, { ...A.value, ...v.value }, {
+              onInput: E,
+              onChange: B,
+              onFocus: z,
+              onBlur: te,
+              onKeydown: ue,
+              onKeyup: d
+            }), null, 16, Ds)
+          ], 2),
+          p.showCounter && p.maxLength ? (openBlock(), createElementBlock("div", zs, [
+            j[0] || (j[0] = createBaseVNode("div", { class: "su-textarea-footer-spacer" }, null, -1)),
+            createBaseVNode("div", {
+              id: `${K}-counter`,
+              class: normalizeClass(T.value),
+              "aria-live": c.value || L.value ? "polite" : "off"
+            }, [
+              createBaseVNode("span", Fs, toDisplayString(L.value ? "Limite de caractères dépassée" : "Caractères restants") + ": ", 1),
+              createTextVNode(" " + toDisplayString(k.value) + "/" + toDisplayString(p.maxLength), 1)
+            ], 10, Rs)
+          ])) : createCommentVNode("", true)
+        ])
       ]),
       _: 1
-    }, 8, ["label", "message", "state", "required", "disabled", "ariaLabel", "ariaDescribedBy"]));
+    }, 8, ["fieldId", "label", "message", "state", "required", "disabled"]));
   }
 });
-var ai = {
-  install(y, n = {}) {
-    const a = n.prefix || "Su";
-    y.component(`${a}FormField`, be), y.component(`${a}Button`, Ce), y.component(`${a}ButtonsGroup`, Ne), y.component(`${a}Link`, qe), y.component(`${a}LinksGroup`, ia), y.component(`${a}Input`, na), y.component(`${a}SelectBox`, Aa), y.component(`${a}RadioGroup`, Na), y.component(`${a}CheckboxGroup`, ls), y.component(`${a}Switch`, ys), y.component(`${a}FileUpload`, Os), y.component(`${a}Textarea`, Js);
+var Vs = {
+  install(u, r = {}) {
+    const a = r.prefix || "Su";
+    u.component(`${a}FormField`, se), u.component(`${a}Button`, qe), u.component(`${a}ButtonsGroup`, je), u.component(`${a}Link`, De), u.component(`${a}LinksGroup`, ea), u.component(`${a}Input`, la), u.component(`${a}SelectBox`, Sa), u.component(`${a}RadioGroup`, Ga), u.component(`${a}CheckboxGroup`, es), u.component(`${a}Switch`, os), u.component(`${a}FileUpload`, qs), u.component(`${a}Textarea`, As);
   }
 };
 export {
-  Ce as Button,
-  Ne as ButtonsGroup,
-  ls as CheckboxGroup,
-  Os as FileUpload,
-  be as FormField,
-  na as Input,
-  qe as Link,
-  ia as LinksGroup,
-  Na as RadioGroup,
-  Aa as SelectBox,
-  ys as Switch,
-  Js as Textarea,
-  ei as accessibility,
-  ai as default
+  qe as Button,
+  je as ButtonsGroup,
+  es as CheckboxGroup,
+  qs as FileUpload,
+  se as FormField,
+  la as Input,
+  De as Link,
+  ea as LinksGroup,
+  Ga as RadioGroup,
+  Sa as SelectBox,
+  os as Switch,
+  As as Textarea,
+  Ms as accessibility,
+  Vs as default
 };
 //# sourceMappingURL=@surgeup_ds-vue.js.map

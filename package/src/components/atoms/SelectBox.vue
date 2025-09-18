@@ -1,15 +1,16 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, onMounted, onUnmounted, useAttrs } from 'vue'
+import { computed, ref, watch, nextTick, onMounted, onUnmounted, useAttrs, defineModel } from 'vue'
 import { ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon, CheckIcon } from '@heroicons/vue/24/outline'
 import type { SelectProps, SelectOption } from '@/types'
 import { generateId, trapFocus, announceToScreenReader } from '@/utils/accessibility'
+import FormField from './FormField.vue'
+import { useId } from '@/composables/useId'
 
-export interface Props extends SelectProps {}
+export interface Props extends Omit<SelectProps, 'value'> {}
 
 const props = withDefaults(defineProps<Props>(), {
   options: () => [],
   groups: () => [],
-  value: undefined,
   multiple: false,
   searchable: false,
   clearable: false,
@@ -30,8 +31,10 @@ const props = withDefaults(defineProps<Props>(), {
   maxSelectedItems: undefined
 })
 
+// Utilisation de defineModel pour v-model
+const modelValue = defineModel<string | number | (string | number)[] | undefined>()
+
 const emit = defineEmits<{
-  'update:value': [value: string | number | (string | number)[] | undefined]
   change: [value: string | number | (string | number)[] | undefined]
   open: []
   close: []
@@ -55,7 +58,7 @@ const focusedIndex = ref(-1)
 const cleanupFocusTrap = ref<(() => void) | null>(null)
 
 // IDs pour l'accessibilité
-const selectId = computed(() => attrs.id as string || generateId('select'))
+const selectId = computed(() => attrs.id as string || fieldId)
 const listboxId = computed(() => `${selectId.value}-listbox`)
 
 // Normalisation des options
@@ -100,12 +103,12 @@ const groupedOptions = computed(() => {
 const selectedValue = computed({
   get() {
     if (props.multiple) {
-      return Array.isArray(props.value) ? props.value : (props.value !== undefined && props.value !== null ? [props.value] : [])
+      return Array.isArray(modelValue.value) ? modelValue.value : (modelValue.value !== undefined && modelValue.value !== null ? [modelValue.value] : [])
     }
-    return props.value
+    return modelValue.value
   },
   set(newValue) {
-    emit('update:value', newValue)
+    modelValue.value = newValue
     emit('change', newValue)
   }
 })
@@ -414,37 +417,32 @@ onUnmounted(() => {
 })
 
 // Watchers
-watch(() => props.value, () => {
+watch(modelValue, () => {
   // Réinitialiser l'index de focus quand la valeur change
   focusedIndex.value = -1
 })
 </script>
 
 <template>
-  <div class="su-select-wrapper" :dir="dir">
-    <!-- Label -->
-    <label 
-      v-if="label" 
-      :for="selectId" 
-      class="su-select-label"
-      :class="{
-        'su-select-label--required': required,
-        'su-select-label--disabled': disabled
-      }"
-    >
-      {{ label }}
-      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
-    </label>
-
-    <!-- Container principal -->
-    <div 
-      ref="selectRef"
-      :class="containerClasses"
-    >
+  <FormField
+    :fieldId="fieldId"
+    :label="label"
+    :message="message"
+    :state="state"
+    :required="required"
+    :disabled="disabled"
+  >
+    <template #default="{ fieldId: id, messageId }">
+      <div class="su-select-wrapper" :dir="dir">
+        <!-- Container principal -->
+        <div 
+          ref="selectRef"
+          :class="containerClasses"
+        >
       <!-- Trigger -->
       <div
         ref="inputRef"
-        :id="selectId"
+        :id="id"
         :class="triggerClasses"
         :tabindex="disabled ? -1 : 0"
         v-bind="ariaAttributes"
@@ -641,19 +639,10 @@ watch(() => props.value, () => {
           </div>
         </div>
       </Transition>
-    </div>
-
-    <!-- Message d'aide/erreur/succès -->
-    <div 
-      v-if="message" 
-      :id="messageId"
-      class="su-select-message"
-      :class="`su-select-message--${state}`"
-      :aria-live="state === 'error' ? 'assertive' : 'polite'"
-    >
-      {{ message }}
-    </div>
-  </div>
+        </div>
+      </div>
+    </template>
+  </FormField>
 </template>
 
 <style lang="scss">

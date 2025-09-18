@@ -72,7 +72,7 @@ export const Default: Story = {
 export const WithValue: Story = {
   args: {
     label: 'Mode sombre',
-    value: true,
+    modelValue: true,
     message: 'Interface en mode sombre'
   }
 }
@@ -109,21 +109,21 @@ export const States: Story = {
           label="État d'erreur"
           rightLabel="Erreur"
           message="Une erreur s'est produite"
-          :value="true"
+          :modelValue="true"
         />
         <Switch 
           state="success"
           label="État de succès"
           rightLabel="Succès"
           message="Configuration sauvegardée !"
-          :value="true"
+          :modelValue="true"
         />
         <Switch 
           state="warning"
           label="État d'avertissement"
           rightLabel="Attention"
           message="Cette action nécessite une confirmation"
-          :value="true"
+          :modelValue="true"
         />
       </div>
     `
@@ -160,7 +160,7 @@ export const Disabled: Story = {
     label: 'Switch désactivé',
     rightLabel: 'Désactivé',
     disabled: true,
-    value: true,
+    modelValue: true,
     message: 'Ce switch est désactivé'
   }
 }
@@ -170,7 +170,7 @@ export const Readonly: Story = {
     label: 'Switch en lecture seule',
     rightLabel: 'Lecture seule',
     readonly: true,
-    value: false,
+    modelValue: false,
     message: 'Cette valeur ne peut pas être modifiée'
   }
 }

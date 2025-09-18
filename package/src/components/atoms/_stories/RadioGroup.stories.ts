@@ -136,7 +136,7 @@ export const WithValue: Story = {
     options: basicOptions,
     label: 'Avec valeur pré-sélectionnée',
     name: 'preselected-radio',
-    value: 'option2'
+    modelValue: 'option2'
   }
 }
 
@@ -217,7 +217,7 @@ export const States: Story = {
           label="État de succès"
           name="success-state"
           message="Sélection valide !"
-          value="option1"
+          modelValue="option1"
         />
       </div>
     `
@@ -259,7 +259,7 @@ export const Disabled: Story = {
     disabled: true,
     label: 'Groupe désactivé',
     name: 'disabled-radio',
-    value: 'option1'
+    modelValue: 'option1'
   }
 }
 
@@ -285,9 +285,9 @@ export const WithSlots: Story = {
         { value: 'pro', label: 'Plan Pro', description: '19€/mois - Fonctionnalités avancées' },
         { value: 'enterprise', label: 'Plan Enterprise', description: '49€/mois - Solution complète' }
       ]
-      const selectedPlan = ref('')
+      const modelValue = ref('')
       
-      return { plans, selectedPlan }
+      return { plans, modelValue }
     },
     template: `
       <div style="width: 500px;">
@@ -296,7 +296,7 @@ export const WithSlots: Story = {
           displayType="block-card"
           label="Choisissez votre plan"
           name="plan-with-slots"
-          v-model:value="selectedPlan"
+          v-model="modelValue"
         >
           <template #before>
             <div style="padding: 0.75rem; background-color: #dbeafe; border-radius: 0.375rem; margin-bottom: 0.75rem;">

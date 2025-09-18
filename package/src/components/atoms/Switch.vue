@@ -1,13 +1,12 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, defineModel } from 'vue'
 import FormField from './FormField.vue'
 import { useId } from '@/composables/useId'
 import type { SwitchProps } from '@/types'
 
-export interface Props extends SwitchProps {}
+export interface Props extends Omit<SwitchProps, 'value'> {}
 
 const props = withDefaults(defineProps<Props>(), {
-  value: false,
   size: 'md',
   state: 'default',
   disabled: false,
@@ -15,8 +14,10 @@ const props = withDefaults(defineProps<Props>(), {
   required: false
 })
 
+// Utilisation de defineModel pour v-model
+const modelValue = defineModel<boolean>({ default: false })
+
 const emit = defineEmits<{
-  'update:value': [value: boolean]
   change: [value: boolean]
   focus: [event: FocusEvent]
   blur: [event: FocusEvent]
@@ -43,7 +44,7 @@ const switchClasses = computed(() => [
   `su-switch--${props.size}`,
   `su-switch--${props.state}`,
   {
-    'su-switch--checked': props.value,
+    'su-switch--checked': modelValue.value,
     'su-switch--disabled': props.disabled,
     'su-switch--readonly': props.readonly
   }
@@ -53,7 +54,7 @@ const switchClasses = computed(() => [
 const ariaAttributes = computed(() => {
   const attrs: Record<string, any> = {
     role: 'switch',
-    'aria-checked': props.value
+    'aria-checked': modelValue.value
   }
   
   if (props.ariaLabel) attrs['aria-label'] = props.ariaLabel
@@ -69,8 +70,8 @@ const ariaAttributes = computed(() => {
 const handleToggle = () => {
   if (props.disabled || props.readonly) return
   
-  const newValue = !props.value
-  emit('update:value', newValue)
+  const newValue = !modelValue.value
+  modelValue.value = newValue
   emit('change', newValue)
 }
 
@@ -107,7 +108,7 @@ const handleBlur = (event: FocusEvent) => {
           v-if="leftLabel" 
           class="su-switch-side-label su-switch-side-label--left"
           :class="{
-            'su-switch-side-label--active': !value,
+            'su-switch-side-label--active': !modelValue,
             'su-switch-side-label--disabled': disabled
           }"
         >
@@ -133,7 +134,7 @@ const handleBlur = (event: FocusEvent) => {
               <!-- Indicateur visuel optionnel -->
               <div class="su-switch-indicator">
                 <svg 
-                  v-if="value" 
+                  v-if="modelValue" 
                   class="su-switch-icon su-switch-icon--check" 
                   viewBox="0 0 16 16"
                   aria-hidden="true"
@@ -158,7 +159,7 @@ const handleBlur = (event: FocusEvent) => {
           v-if="rightLabel" 
           class="su-switch-side-label su-switch-side-label--right"
           :class="{
-            'su-switch-side-label--active': value,
+            'su-switch-side-label--active': modelValue,
             'su-switch-side-label--disabled': disabled
           }"
         >

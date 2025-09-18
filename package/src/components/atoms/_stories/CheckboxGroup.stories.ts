@@ -123,11 +123,11 @@ const createInteractiveStory = (args: any): Story => ({
     components: { CheckboxGroup },
     setup() {
       // On crée une ref locale pour stocker la valeur, initialisée avec la valeur des args
-      const value = ref(renderArgs.value);
-      return { args: renderArgs, value };
+      const modelValue = ref(renderArgs.modelValue);
+      return { args: renderArgs, modelValue };
     },
     // On utilise v-model pour lier la ref locale au composant
-    template: '<CheckboxGroup v-bind="args" v-model:value="value" @update:value="args[\'onUpdate:value\']" />',
+    template: '<CheckboxGroup v-bind="args" v-model="modelValue" @change="args[\'onUpdate:value\']" />',
   }),
   args,
 });
@@ -135,20 +135,20 @@ const createInteractiveStory = (args: any): Story => ({
 export const Default = createInteractiveStory({
   options: basicOptions,
   label: 'Sélection multiple',
-  value: []
+  modelValue: []
 })
 
 export const WithValue = createInteractiveStory({
   options: basicOptions,
   label: 'Avec valeurs pré-sélectionnées',
-  value: ['option1', 'option3']
+  modelValue: ['option1', 'option3']
 })
 
 export const BlockCard = createInteractiveStory({
   options: techOptions,
   displayType: 'block-card',
   label: 'Technologies',
-  value: ['vue']
+  modelValue: ['vue']
 })
 
 export const InlineCard = createInteractiveStory({
@@ -160,23 +160,23 @@ export const InlineCard = createInteractiveStory({
   displayType: 'inline-card',
   direction: 'horizontal',
   label: 'Notifications',
-  value: ['email', 'push']
+  modelValue: ['email', 'push']
 })
 
 export const WithIcons: Story = {
   render: (args) => ({
     components: { CheckboxGroup },
     setup() {
-      const value = ref(args.value);
-      return { args, permissionOptions, value }
+      const modelValue = ref(args.modelValue);
+      return { args, permissionOptions, modelValue }
     },
-    template: '<CheckboxGroup v-bind="args" :options="permissionOptions" v-model:value="value" @update:value="args[\'onUpdate:value\']" />'
+    template: '<CheckboxGroup v-bind="args" :options="permissionOptions" v-model="modelValue" @change="args[\'onUpdate:value\']" />'
   }),
   args: {
     options: permissionOptions, // Nécessaire pour que les controls Storybook fonctionnent
     displayType: 'block-card',
     label: 'Permissions',
-    value: ['read']
+    modelValue: ['read']
   },
 }
 
@@ -191,7 +191,7 @@ export const MaxSelections = createInteractiveStory({
   maxSelections: 2,
   label: 'Compétences principales (2 max)',
   message: 'Sélectionnez maximum 2 compétences',
-  value: ['skill1']
+  modelValue: ['skill1']
 })
 
 export const ScrollableList = createInteractiveStory({
@@ -199,7 +199,7 @@ export const ScrollableList = createInteractiveStory({
   maxHeight: '150px',
   label: 'Compétences (avec scroll)',
   message: 'Liste avec hauteur limitée et scroll automatique',
-  value: ['skill3', 'skill7']
+  modelValue: ['skill3', 'skill7']
 })
 
 export const Horizontal = createInteractiveStory({
@@ -212,7 +212,7 @@ export const Horizontal = createInteractiveStory({
   ],
   direction: 'horizontal',
   label: 'Jours de travail',
-  value: ['monday', 'tuesday', 'friday']
+  modelValue: ['monday', 'tuesday', 'friday']
 })
 
 export const States: Story = {
@@ -240,7 +240,7 @@ export const States: Story = {
           state="success"
           label="État de succès"
           message="Sélection valide !"
-          :value="['option1']"
+          :modelValue="['option1']"
         />
       </div>
     `
@@ -268,7 +268,7 @@ export const Disabled: Story = {
     options: basicOptions,
     disabled: true,
     label: 'Groupe désactivé',
-    value: ['option1']
+    modelValue: ['option1']
   }
 }
 
@@ -280,7 +280,7 @@ export const Required = createInteractiveStory({
   required: true,
   label: 'Acceptation',
   message: 'Veuillez accepter les conditions',
-  value: []
+  modelValue: []
 })
 
 export const WithSlots: Story = {
@@ -293,24 +293,24 @@ export const WithSlots: Story = {
         { value: 'api', label: 'Accès API' },
         { value: 'support', label: 'Support prioritaire' }
       ]
-      const selectedFeatures = ref([])
+      const modelValue = ref([])
       
       const selectAll = () => {
-        selectedFeatures.value = features.map(f => f.value)
+        modelValue.value = features.map(f => f.value)
       }
       
       const selectNone = () => {
-        selectedFeatures.value = []
+        modelValue.value = []
       }
       
-      return { features, selectedFeatures, selectAll, selectNone }
+      return { features, modelValue, selectAll, selectNone }
     },
     template: `
       <div style="width: 400px;">
         <CheckboxGroup 
           :options="features"
           label="Fonctionnalités"
-          v-model:value="selectedFeatures"
+          v-model="modelValue"
         >
           <template #before>
             <div style="padding: 0.75rem; background-color: #f3f4f6; border-radius: 0.375rem; margin-bottom: 0.75rem;">

@@ -344,7 +344,7 @@ import {
 
 | Event | Type | Description |
 |-------|------|-------------|
-| `@update:value` | `(value: string \| number) => void` | Émis lors du changement de valeur |
+| `@update:modelValue` | `(value: string \| number) => void` | Émis lors du changement de valeur (v-model) |
 | `@input` | `(event: Event) => void` | Émis lors de la saisie |
 | `@change` | `(event: Event) => void` | Émis lors du changement |
 | `@focus` | `(event: FocusEvent) => void` | Émis lors du focus |
@@ -388,7 +388,7 @@ Le composant Input respecte les normes WCAG 2.1 AA et les bonnes pratiques W3C :
   placeholder="nom@exemple.com"
   message="Utilisé pour la connexion et les notifications"
   autocomplete="email"
-  v-model:value="email"
+  v-model="email"
 />
 
 <!-- Input avec gestion d'erreur -->
@@ -400,7 +400,7 @@ Le composant Input respecte les normes WCAG 2.1 AA et les bonnes pratiques W3C :
   :message="hasError ? 'Le mot de passe doit contenir au moins 8 caractères' : undefined"
   :minLength="8"
   autocomplete="new-password"
-  v-model:value="password"
+  v-model="password"
 />
 
 <!-- Input avec préfixe et validation numérique -->
@@ -411,7 +411,7 @@ Le composant Input respecte les normes WCAG 2.1 AA et les bonnes pratiques W3C :
   :min="0"
   :max="120"
   message="Votre âge en années"
-  v-model:value="age"
+  v-model="age"
 />
 ```
 
@@ -479,7 +479,7 @@ const validateForm = () => {
       :message="errors.password"
       :minLength="8"
       autocomplete="current-password"
-      v-model:value="password"
+      v-model="password"
     />
   </form>
 </template>
@@ -513,7 +513,7 @@ const formattedPrice = computed({
     :min="0"
     textAlign="right"
     helpText="Prix en euros, TVA incluse"
-    v-model:value="formattedPrice"
+    v-model="formattedPrice"
   />
 </template>
 ```

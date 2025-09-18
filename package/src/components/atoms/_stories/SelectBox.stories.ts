@@ -151,11 +151,11 @@ const createInteractiveStory = (args: any): Story => ({
   render: (args) => ({
     components: { SelectBox },
     setup() {
-      const value = ref(args.value);
-      return { args, value };
+      const modelValue = ref(args.modelValue);
+      return { args, modelValue };
     },
     // On utilise v-model pour lier la ref locale au composant
-    template: '<SelectBox v-bind="args" v-model:value="value" @update:value="args[\'onUpdate:value\']" />',
+    template: '<SelectBox v-bind="args" v-model="modelValue" @change="args[\'onUpdate:value\']" />',
   }),
   args,
 });
@@ -170,7 +170,7 @@ export const WithValue: Story = createInteractiveStory({
   options: basicOptions,
   label: 'Avec valeur pré-sélectionnée',
   placeholder: 'Choisissez une option...',
-  value: 'option2'
+  modelValue: 'option2'
 })
 
 export const Multiple: Story = createInteractiveStory({
@@ -272,7 +272,7 @@ export const Disabled: Story = {
     options: basicOptions,
     disabled: true,
     label: 'SelectBox désactivé',
-    value: 'option1'
+    modelValue: 'option1'
   }
 }
 
@@ -281,7 +281,7 @@ export const Readonly: Story = {
     options: basicOptions,
     readonly: true,
     label: 'SelectBox en lecture seule',
-    value: 'option2'
+    modelValue: 'option2'
   }
 }
 
@@ -289,12 +289,12 @@ export const Required: Story = {
   render: (args) => ({
     components: { SelectBox },
     setup() {
-      const value = ref(args.value)
+      const modelValue = ref(args.modelValue)
       const options = [
         { value: undefined, label: 'Option with undefined value' },
         ...basicOptions
       ]
-      return { value, options }
+      return { modelValue, options }
     },
     template: `
       <div style="width: 300px;">
@@ -303,9 +303,9 @@ export const Required: Story = {
           required
           placeholder="Sélection obligatoire" 
           :options="options" 
-          :state="value ? 'default' : 'error'" 
-          :message="value ? 'Sélection valide !' : 'Ce champ est requis'"
-          v-model:value="value"
+          :state="modelValue ? 'default' : 'error'" 
+          :message="modelValue ? 'Sélection valide !' : 'Ce champ est requis'"
+          v-model="modelValue"
         />
       </div>
     `

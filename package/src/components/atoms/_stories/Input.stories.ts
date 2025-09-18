@@ -92,7 +92,7 @@ export const Default: Story = {
 export const WithValue: Story = {
   args: {
     label: 'Avec valeur',
-    value: 'Valeur pré-remplie',
+    modelValue: 'Valeur pré-remplie',
     placeholder: 'Entrez du texte...'
   }
 }
@@ -221,7 +221,7 @@ export const Disabled: Story = {
   args: {
     label: 'Input désactivé',
     disabled: true,
-    value: 'Valeur désactivée'
+    modelValue: 'Valeur désactivée'
   }
 }
 
@@ -229,7 +229,7 @@ export const Readonly: Story = {
   args: {
     label: 'Input en lecture seule',
     readonly: true,
-    value: 'Valeur en lecture seule'
+    modelValue: 'Valeur en lecture seule'
   }
 }
 

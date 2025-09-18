@@ -1,9 +1,13 @@
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue'
+import { computed, useAttrs, defineModel } from 'vue'
 import type { RadioGroupProps } from '@/types'
-import { generateId } from '@/utils/accessibility'
+import { useId } from '@/composables/useId'
+import FormField from './FormField.vue'
 
-export interface Props extends RadioGroupProps {}
+// Définition du modèle en premier
+const modelValue = defineModel<string | number>('modelValue')
+
+export interface Props extends Omit<RadioGroupProps, 'value'> {}
 
 const props = withDefaults(defineProps<Props>(), {
   options: () => [],
@@ -17,7 +21,6 @@ const props = withDefaults(defineProps<Props>(), {
 })
 
 const emit = defineEmits<{
-  'update:value': [value: string | number]
   change: [value: string | number]
   focus: [event: FocusEvent]
   blur: [event: FocusEvent]
@@ -26,9 +29,9 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 
 // Génération d'IDs uniques
-const groupId = computed(() => attrs.id as string || generateId('radio-group'))
-const messageId = computed(() => props.message ? `${groupId.value}-message` : undefined)
-const radioName = computed(() => props.name || groupId.value)
+const fieldId = useId('radio-group')
+const groupId = computed(() => attrs.id as string || fieldId)
+const radioName = computed(() => props.name || fieldId)
 
 // Classes CSS
 const groupClasses = computed(() => [
@@ -49,7 +52,7 @@ const getOptionClasses = (option: any) => [
   `su-radio-option--${props.state}`,
   `su-radio-option--${props.displayType}`,
   {
-    'su-radio-option--selected': props.value === option.value,
+    'su-radio-option--selected': modelValue.value === option.value,
     'su-radio-option--disabled': option.disabled || props.disabled
   }
 ]
@@ -61,8 +64,8 @@ const ariaAttributes = computed(() => {
   }
   
   if (props.ariaLabel) attrs['aria-label'] = props.ariaLabel
-  if (props.ariaDescribedBy || messageId.value) {
-    const describedBy = [props.ariaDescribedBy, messageId.value].filter(Boolean).join(' ')
+  if (props.ariaDescribedBy) {
+    const describedBy = [props.ariaDescribedBy].filter(Boolean).join(' ')
     attrs['aria-describedby'] = describedBy
   }
   if (props.required) attrs['aria-required'] = 'true'
@@ -75,7 +78,7 @@ const ariaAttributes = computed(() => {
 const handleChange = (value: string | number) => {
   if (props.disabled) return
   
-  emit('update:value', value)
+  modelValue.value = value
   emit('change', value)
 }
 
@@ -89,101 +92,87 @@ const handleBlur = (event: FocusEvent) => {
 </script>
 
 <template>
-  <div class="su-radio-group-wrapper">
-    <!-- Label -->
-    <fieldset 
-      :class="groupClasses"
-      v-bind="ariaAttributes"
-    >
-      <legend 
-        v-if="label" 
-        class="su-radio-group-label"
-        :class="{
-          'su-radio-group-label--required': required,
-          'su-radio-group-label--disabled': disabled
-        }"
+  <FormField
+    :fieldId="fieldId"
+    :label="label"
+    :message="message"
+    :state="state"
+    :required="required"
+    :disabled="disabled"
+  >
+    <template #default="{ fieldId: id, messageId }">
+      <fieldset 
+        :class="groupClasses"
+        v-bind="ariaAttributes"
+        :aria-describedby="messageId"
       >
-        {{ label }}
-        <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
-      </legend>
-
-      <!-- Options -->
-      <div 
-        class="su-radio-group-options"
-        :style="{ maxHeight: maxHeight || undefined, overflowY: maxHeight ? 'auto' : undefined }"
-      >
-      <!-- Slot before: contenu entre le label et les options -->
-      <div v-if="$slots.before" class="su-radio-group-before">
-        <slot name="before" />
-      </div>
-
-        <label
-          v-for="option in options"
-          :key="option.value"
-          :class="getOptionClasses(option)"
-          :for="`${groupId}-${option.value}`"
+        <!-- Options -->
+        <div 
+          class="su-radio-group-options"
+          :style="{ maxHeight: maxHeight || undefined, overflowY: maxHeight ? 'auto' : undefined }"
         >
-          <!-- Input radio caché -->
-          <input
-            :id="`${groupId}-${option.value}`"
-            type="radio"
-            :name="radioName"
-            :value="option.value"
-            :checked="value === option.value"
-            :disabled="option.disabled || disabled"
-            :required="required"
-            class="su-radio-input"
-            @change="handleChange(option.value)"
-            @focus="handleFocus"
-            @blur="handleBlur"
-          />
-
-          <!-- Indicateur radio personnalisé -->
-          <div class="su-radio-indicator">
-            <div class="su-radio-dot"></div>
+          <!-- Slot before: contenu entre le label et les options -->
+          <div v-if="$slots.before" class="su-radio-group-before">
+            <slot name="before" />
           </div>
 
-          <!-- Contenu de l'option -->
-          <div class="su-radio-content">
-            <!-- Icône -->
-            <component 
-              v-if="option.icon" 
-              :is="option.icon" 
-              class="su-radio-icon"
-              aria-hidden="true"
+          <label
+            v-for="option in options"
+            :key="option.value"
+            :class="getOptionClasses(option)"
+            :for="`${id}-${option.value}`"
+          >
+            <!-- Input radio caché -->
+            <input
+              :id="`${id}-${option.value}`"
+              type="radio"
+              :name="radioName"
+              :value="option.value"
+              :checked="modelValue === option.value"
+              :disabled="option.disabled || disabled"
+              :required="required"
+              class="su-radio-input"
+              @change="handleChange(option.value)"
+              @focus="handleFocus"
+              @blur="handleBlur"
             />
-            
-            <!-- Texte -->
-            <div class="su-radio-text">
-              <div class="su-radio-label">{{ option.label }}</div>
-              <div 
-                v-if="option.description" 
-                class="su-radio-description"
-              >
-                {{ option.description }}
+
+            <!-- Indicateur radio personnalisé -->
+            <div class="su-radio-indicator">
+              <div class="su-radio-dot"></div>
+            </div>
+
+            <!-- Contenu de l'option -->
+            <div class="su-radio-content">
+              <!-- Icône -->
+              <component 
+                v-if="option.icon" 
+                :is="option.icon" 
+                class="su-radio-icon"
+                aria-hidden="true"
+              />
+              
+              <!-- Texte -->
+              <div class="su-radio-text">
+                <div class="su-radio-label">{{ option.label }}</div>
+                <div 
+                  v-if="option.description" 
+                  class="su-radio-description"
+                >
+                  {{ option.description }}
+                </div>
               </div>
             </div>
-          </div>
-        </label>
-      </div>
+          </label>
+        </div>
 
-      <!-- Slot after: contenu entre les options et le message -->
-      <div v-if="$slots.after" class="su-radio-group-after">
-        <slot name="after" />
-      </div>
-    </fieldset>
-
-    <!-- Message -->
-    <div 
-      v-if="message" 
-      :id="messageId"
-      class="su-radio-group-message"
-      :class="`su-radio-group-message--${state}`"
-      :aria-live="state === 'error' ? 'assertive' : 'polite'"
-    >
-      {{ message }}
-    </div>
-  </div>
+        <!-- Slot after: contenu entre les options et le message -->
+        <div v-if="$slots.after" class="su-radio-group-after">
+          <slot name="after" />
+        </div>
+      </fieldset>
+    </template>
+  </FormField>
 </template>
 
 <style lang="scss">

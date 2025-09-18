@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, defineModel } from 'vue'
 import FormField from './FormField.vue'
 import { useId } from '@/composables/useId'
 import type { InputProps } from '@/types'
 
-export interface Props extends InputProps {}
+export interface Props extends Omit<InputProps, 'value'> {}
 
 const props = withDefaults(defineProps<Props>(), {
   type: 'text',
@@ -17,8 +17,10 @@ const props = withDefaults(defineProps<Props>(), {
   dir: 'auto'
 })
 
+// Utilisation de defineModel pour v-model
+const modelValue = defineModel<string | number>({ default: '' })
+
 const emit = defineEmits<{
-  'update:value': [value: string | number]
   input: [event: Event]
   change: [event: Event]
   focus: [event: FocusEvent]
@@ -92,8 +94,7 @@ const nativeAttributes = computed(() => {
 // Gestionnaires d'événements
 const handleInput = (event: Event) => {
   const target = event.target as HTMLInputElement
-  const value = props.type === 'number' ? Number(target.value) : target.value
-  emit('update:value', value)
+  modelValue.value = props.type === 'number' ? Number(target.value) : target.value
   emit('input', event)
 }
 
@@ -189,7 +190,7 @@ defineExpose({
           :id="id"
           :class="inputClasses"
           :type="type"
-          :value="value"
+          :value="modelValue"
           :placeholder="placeholder"
           :disabled="disabled"
           :readonly="readonly"

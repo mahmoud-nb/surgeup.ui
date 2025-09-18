@@ -29,7 +29,7 @@ const description = ref('')
     label="Description"
     placeholder="Entrez votre description..."
     message="Décrivez votre projet en quelques phrases"
-    v-model:value="description"
+    v-model="description"
   />
 </template>
 ```
@@ -63,7 +63,7 @@ const comment = ref('')
     :maxLength="200"
     :showCounter="true"
     message="Partagez votre avis sur ce produit"
-    v-model:value="comment"
+    v-model="comment"
   />
 </template>
 ```
@@ -99,7 +99,7 @@ const message = ref('')
     :minRows="2"
     :maxRows="8"
     message="La hauteur s'ajuste automatiquement au contenu"
-    v-model:value="message"
+    v-model="message"
   />
 </template>
 ```
@@ -330,7 +330,7 @@ const tweet = ref('')
 
 | Event | Type | Description |
 |-------|------|-------------|
-| `@update:value` | `(value: string) => void` | Émis lors du changement de valeur |
+| `@update:modelValue` | `(value: string) => void` | Émis lors du changement de valeur (v-model) |
 | `@input` | `(event: Event) => void` | Émis lors de la saisie |
 | `@change` | `(event: Event) => void` | Émis lors du changement |
 | `@focus` | `(event: FocusEvent) => void` | Émis lors du focus |
@@ -376,7 +376,7 @@ Le composant Textarea respecte les normes WCAG 2.1 AA :
   placeholder="Décrivez votre projet..."
   message="Minimum 50 caractères recommandés"
   autocomplete="off"
-  v-model:value="description"
+  v-model="description"
 />
 
 <!-- Textarea avec gestion d'erreur -->
@@ -386,7 +386,7 @@ Le composant Textarea respecte les normes WCAG 2.1 AA :
   :showCounter="true"
   :state="hasError ? 'error' : 'default'"
   :message="hasError ? 'Le commentaire ne peut pas être vide' : 'Partagez votre avis'"
-  v-model:value="comment"
+  v-model="comment"
 />
 
 <!-- Textarea auto-resize avec limites -->
@@ -398,7 +398,7 @@ Le composant Textarea respecte les normes WCAG 2.1 AA :
   :maxLength="2000"
   :showCounter="true"
   placeholder="Rédigez votre message..."
-  v-model:value="message"
+  v-model="message"
 />
 ```
 
@@ -489,7 +489,7 @@ const messageState = computed(() => {
       :state="messageState"
       :message="message.length < 20 && message.length > 0 ? 'Minimum 20 caractères' : 'Décrivez votre demande en détail'"
       placeholder="Décrivez votre demande..."
-      v-model:value="message"
+      v-model="message"
     />
     
     <button 

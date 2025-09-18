@@ -1,14 +1,15 @@
 <script setup lang="ts">
-import { computed, useAttrs } from 'vue'
+import { computed, useAttrs, defineModel } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 import type { CheckboxGroupProps } from '@/types'
-import { generateId, announceToScreenReader } from '@/utils/accessibility'
+import { announceToScreenReader } from '@/utils/accessibility'
+import FormField from './FormField.vue'
+import { useId } from '@/composables/useId'
 
-export interface Props extends CheckboxGroupProps {}
+export interface Props extends Omit<CheckboxGroupProps, 'value'> {}
 
 const props = withDefaults(defineProps<Props>(), {
   options: () => [],
-  value: () => [],
   size: 'md',
   state: 'default',
   disabled: false,
@@ -17,8 +18,10 @@ const props = withDefaults(defineProps<Props>(), {
   direction: 'vertical'
 })
 
+// Utilisation de defineModel pour v-model
+const modelValue = defineModel<(string | number)[]>({ default: () => [] })
+
 const emit = defineEmits<{
-  'update:value': [value: (string | number)[]]
   change: [value: (string | number)[]]
   focus: [event: FocusEvent]
   blur: [event: FocusEvent]
@@ -27,16 +30,16 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 
 // Génération d'IDs uniques
-const groupId = computed(() => attrs.id as string || generateId('checkbox-group'))
-const messageId = computed(() => props.message ? `${groupId.value}-message` : undefined)
+const fieldId = useId('checkbox-group')
+const groupId = computed(() => attrs.id as string || fieldId)
 
 // Valeur normalisée
 const selectedValues = computed({
   get() {
-    return Array.isArray(props.value) ? props.value : []
+    return Array.isArray(modelValue.value) ? modelValue.value : []
   },
   set(newValue: (string | number)[]) {
-    emit('update:value', newValue)
+    modelValue.value = newValue
     emit('change', newValue)
   }
 })
@@ -72,8 +75,8 @@ const ariaAttributes = computed(() => {
   }
   
   if (props.ariaLabel) attrs['aria-label'] = props.ariaLabel
-  if (props.ariaDescribedBy || messageId.value) {
-    const describedBy = [props.ariaDescribedBy, messageId.value].filter(Boolean).join(' ')
+  if (props.ariaDescribedBy) {
+    const describedBy = [props.ariaDescribedBy].filter(Boolean).join(' ')
     attrs['aria-describedby'] = describedBy
   }
   if (props.required) attrs['aria-required'] = 'true'
@@ -125,104 +128,90 @@ const isDisabled = (option: any) => {
 </script>
 
 <template>
-  <div class="su-checkbox-group-wrapper">
-    <!-- Label -->
-    <fieldset 
-      :class="groupClasses"
-      v-bind="ariaAttributes"
-    >
-      <legend 
-        v-if="label" 
-        class="su-checkbox-group-label"
-        :class="{
-          'su-checkbox-group-label--required': required,
-          'su-checkbox-group-label--disabled': disabled
-        }"
+  <FormField
+    :fieldId="fieldId"
+    :label="label"
+    :message="message"
+    :state="state"
+    :required="required"
+    :disabled="disabled"
+  >
+    <template #default="{ fieldId: id, messageId }">
+      <fieldset 
+        :class="groupClasses"
+        v-bind="ariaAttributes"
+        :aria-describedby="messageId"
       >
-        {{ label }}
-        <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
-      </legend>
-
-      <!-- Options -->
-      <div 
-        class="su-checkbox-group-options"
-        :style="{ maxHeight: maxHeight || undefined, overflowY: maxHeight ? 'auto' : undefined }"
-      >
-      <!-- Slot before: contenu entre le label et les options -->
-      <div v-if="$slots.before" class="su-checkbox-group-before">
-        <slot name="before" />
-      </div>
-
-        <label
-          v-for="option in options"
-          :key="option.value"
-          :class="getOptionClasses(option)"
-          :for="`${groupId}-${option.value}`"
+        <!-- Options -->
+        <div 
+          class="su-checkbox-group-options"
+          :style="{ maxHeight: maxHeight || undefined, overflowY: maxHeight ? 'auto' : undefined }"
         >
-          <!-- Input checkbox caché -->
-          <input
-            :id="`${groupId}-${option.value}`"
-            type="checkbox"
-            :value="option.value"
-            :checked="isChecked(option.value)"
-            :disabled="isDisabled(option)"
-            :required="required && selectedValues.length === 0"
-            class="su-checkbox-input"
-            @change="handleChange(option.value, ($event.target as HTMLInputElement).checked)"
-            @focus="handleFocus"
-            @blur="handleBlur"
-          />
+          <!-- Slot before: contenu entre le label et les options -->
+          <div v-if="$slots.before" class="su-checkbox-group-before">
+            <slot name="before" />
+          </div>
 
-          <!-- Indicateur checkbox personnalisé -->
-          <div 
-            class="su-checkbox-indicator"
-            :class="{
-              'su-checkbox-indicator--checked': isChecked(option.value),
-              'su-checkbox-indicator--indeterminate': false
-            }"
+          <label
+            v-for="option in options"
+            :key="option.value"
+            :class="getOptionClasses(option)"
+            :for="`${id}-${option.value}`"
           >
-            <CheckIcon 
-              v-if="isChecked(option.value)"
-              class="su-checkbox-check" 
-              aria-hidden="true"
+            <!-- Input checkbox caché -->
+            <input
+              :id="`${id}-${option.value}`"
+              type="checkbox"
+              :value="option.value"
+              :checked="isChecked(option.value)"
+              :disabled="isDisabled(option)"
+              :required="required && selectedValues.length === 0"
+              class="su-checkbox-input"
+              @change="handleChange(option.value, ($event.target as HTMLInputElement).checked)"
+              @focus="handleFocus"
+              @blur="handleBlur"
             />
-          </div>
 
-          <!-- Contenu de l'option -->
-          <div class="su-checkbox-content">
-            <!-- Icône -->
-            <component 
-              v-if="option.icon" 
-              :is="option.icon" 
-              class="su-checkbox-icon"
-              aria-hidden="true"
-            />
-            
-            <!-- Texte -->
-            <div class="su-checkbox-text">
-              <div class="su-checkbox-label">{{ option.label }}</div>
+            <!-- Indicateur checkbox personnalisé -->
+            <div 
+              class="su-checkbox-indicator"
+              :class="{
+                'su-checkbox-indicator--checked': isChecked(option.value),
+                'su-checkbox-indicator--indeterminate': false
+              }"
+            >
+              <CheckIcon 
+                v-if="isChecked(option.value)"
+                class="su-checkbox-check" 
+                aria-hidden="true"
+              />
             </div>
-          </div>
-        </label>
-      </div>
 
-      <!-- Slot after: contenu entre les options et le message -->
-      <div v-if="$slots.after" class="su-checkbox-group-after">
-        <slot name="after" />
-      </div>
-    </fieldset>
+            <!-- Contenu de l'option -->
+            <div class="su-checkbox-content">
+              <!-- Icône -->
+              <component 
+                v-if="option.icon" 
+                :is="option.icon" 
+                class="su-checkbox-icon"
+                aria-hidden="true"
+              />
+              
+              <!-- Texte -->
+              <div class="su-checkbox-text">
+                <div class="su-checkbox-label">{{ option.label }}</div>
+              </div>
+            </div>
+          </label>
+        </div>
 
-    <!-- Message -->
-    <div 
-      v-if="message" 
-      :id="messageId"
-      class="su-checkbox-group-message"
-      :class="`su-checkbox-group-message--${state}`"
-      :aria-live="state === 'error' ? 'assertive' : 'polite'"
-    >
-      {{ message }}
-    </div>
-  </div>
+        <!-- Slot after: contenu entre les options et le message -->
+        <div v-if="$slots.after" class="su-checkbox-group-after">
+          <slot name="after" />
+        </div>
+      </fieldset>
+    </template>
+  </FormField>
 </template>
 
 <style lang="scss">

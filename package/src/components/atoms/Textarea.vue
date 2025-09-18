@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, useAttrs } from 'vue'
+import { computed, ref, watch, nextTick, defineModel } from 'vue'
+import FormField from './FormField.vue'
+import { useId } from '@/composables/useId'
 import type { TextareaProps } from '@/types'
-import { generateId } from '@/utils/accessibility'
 
-export interface Props extends TextareaProps {}
+export interface Props extends Omit<TextareaProps, 'value'> {}
 
 const props = withDefaults(defineProps<Props>(), {
   size: 'md',
@@ -20,8 +21,10 @@ const props = withDefaults(defineProps<Props>(), {
   wrap: 'soft'
 })
 
+// Utilisation de defineModel pour v-model
+const modelValue = defineModel<string>({ default: '' })
+
 const emit = defineEmits<{
-  'update:value': [value: string]
   input: [event: Event]
   change: [event: Event]
   focus: [event: FocusEvent]
@@ -30,16 +33,11 @@ const emit = defineEmits<{
   keyup: [event: KeyboardEvent]
 }>()
 
-const attrs = useAttrs()
 const textareaRef = ref<HTMLTextAreaElement>()
-
-// Génération d'IDs uniques pour l'accessibilité
-const textareaId = computed(() => attrs.id as string || generateId('textarea'))
-const messageId = computed(() => props.message ? `${textareaId.value}-message` : undefined)
-const counterId = computed(() => props.showCounter && props.maxLength ? `${textareaId.value}-counter` : undefined)
+const fieldId = useId('textarea')
 
 // Valeur normalisée
-const currentValue = computed(() => props.value || '')
+const currentValue = computed(() => modelValue.value || '')
 
 // Compteur de caractères
 const characterCount = computed(() => currentValue.value.length)
@@ -96,17 +94,6 @@ const ariaAttributes = computed(() => {
   const attrs: Record<string, any> = {}
   
   if (props.ariaLabel) attrs['aria-label'] = props.ariaLabel
-  
-  const describedByIds = [
-    props.ariaDescribedBy,
-    messageId.value,
-    counterId.value
-  ].filter(Boolean)
-  
-  if (describedByIds.length > 0) {
-    attrs['aria-describedby'] = describedByIds.join(' ')
-  }
-  
   if (props.ariaInvalid !== undefined) attrs['aria-invalid'] = props.ariaInvalid
   if (props.ariaRequired !== undefined) attrs['aria-required'] = props.ariaRequired
   if (props.required) attrs['aria-required'] = 'true'
@@ -134,23 +121,19 @@ const adjustHeight = async () => {
   await nextTick()
   
   const textarea = textareaRef.value
-  const minHeight = props.minRows ? props.minRows * 1.5 : 3 * 1.5 // 1.5rem par ligne
+  const minHeight = props.minRows ? props.minRows * 1.5 : 3 * 1.5
   const maxHeight = props.maxRows ? props.maxRows * 1.5 : 10 * 1.5
   
-  // Réinitialiser la hauteur pour calculer la hauteur du contenu
   textarea.style.height = 'auto'
-  
-  // Calculer la nouvelle hauteur
   const scrollHeight = textarea.scrollHeight
   const newHeight = Math.max(minHeight * 16, Math.min(maxHeight * 16, scrollHeight))
-  
   textarea.style.height = `${newHeight}px`
 }
 
 // Gestionnaires d'événements
 const handleInput = (event: Event) => {
   const target = event.target as HTMLTextAreaElement
-  emit('update:value', target.value)
+  modelValue.value = target.value
   emit('input', event)
   
   if (props.autoResize) {
@@ -194,7 +177,7 @@ defineExpose({
 })
 
 // Watchers
-watch(() => props.value, () => {
+watch(modelValue, () => {
   if (props.autoResize) {
     adjustHeight()
   }
@@ -208,86 +191,63 @@ watch(() => props.autoResize, (newValue) => {
 </script>
 
 <template>
-  <div class="su-textarea-wrapper">
-    <!-- Label -->
-    <label 
-      v-if="label" 
-      :for="textareaId" 
-      class="su-textarea-label"
-      :class="{
-        'su-textarea-label--required': required,
-        'su-textarea-label--disabled': disabled
-      }"
-    >
-      {{ label }}
-      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
-    </label>
+  <FormField
+    :fieldId="fieldId"
+    :label="label"
+    :message="message"
+    :state="state"
+    :required="required"
+    :disabled="disabled"
+  >
+    <template #default="{ fieldId: id, messageId }">
+      <div>
+        <div :class="containerClasses">
+          <textarea
+            ref="textareaRef"
+            :id="id"
+            :class="textareaClasses"
+            :value="modelValue"
+            :placeholder="placeholder"
+            :disabled="disabled"
+            :readonly="readonly"
+            :required="required"
+            :rows="autoResize ? minRows : rows"
+            :aria-describedby="messageId"
+            v-bind="{ ...nativeAttributes, ...ariaAttributes }"
+            @input="handleInput"
+            @change="handleChange"
+            @focus="handleFocus"
+            @blur="handleBlur"
+            @keydown="handleKeydown"
+            @keyup="handleKeyup"
+          />
+        </div>
 
-    <!-- Container du textarea -->
-    <div :class="containerClasses">
-      <textarea
-        ref="textareaRef"
-        :id="textareaId"
-        :class="textareaClasses"
-        :value="value"
-        :placeholder="placeholder"
-        :disabled="disabled"
-        :readonly="readonly"
-        :required="required"
-        :rows="autoResize ? minRows : rows"
-        v-bind="{ ...nativeAttributes, ...ariaAttributes }"
-        @input="handleInput"
-        @change="handleChange"
-        @focus="handleFocus"
-        @blur="handleBlur"
-        @keydown="handleKeydown"
-        @keyup="handleKeyup"
-      />
-    </div>
-
-    <!-- Footer avec message et compteur -->
-    <div 
-      v-if="message || (showCounter && maxLength)" 
-      class="su-textarea-footer"
-    >
-      <!-- Message d'aide/erreur/succès -->
-      <div 
-        v-if="message" 
-        :id="messageId"
-        class="su-textarea-message"
-        :class="`su-textarea-message--${state}`"
-        :aria-live="state === 'error' ? 'assertive' : 'polite'"
-      >
-        {{ message }}
+        <!-- Footer avec compteur (si nécessaire) -->
+        <div 
+          v-if="showCounter && maxLength" 
+          class="su-textarea-footer"
+        >
+          <div class="su-textarea-footer-spacer"></div>
+          <div 
+            :id="`${id}-counter`"
+            :class="counterClasses"
+            :aria-live="isNearLimit || isOverLimit ? 'polite' : 'off'"
+          >
+            <span class="sr-only">
+              {{ isOverLimit ? 'Limite de caractères dépassée' : 'Caractères restants' }}:
+            </span>
+            {{ characterCount }}/{{ maxLength }}
+          </div>
+        </div>
       </div>
-
-      <!-- Compteur de caractères -->
-      <div 
-        v-if="showCounter && maxLength" 
-        :id="counterId"
-        :class="counterClasses"
-        :aria-live="isNearLimit || isOverLimit ? 'polite' : 'off'"
-      >
-        <span class="sr-only">
-          {{ isOverLimit ? 'Limite de caractères dépassée' : 'Caractères restants' }}:
-        </span>
-        {{ characterCount }}/{{ maxLength }}
-      </div>
-    </div>
-  </div>
+    </template>
+  </FormField>
 </template>
 
 <style lang="scss">
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
-
-.su-textarea-wrapper {
-  @include su-form-field-wrapper;
-}
-
-.su-textarea-label {
-  @include su-form-field-label;
-}
 
 .su-textarea-container {
   @include su-form-field-container;
@@ -328,9 +288,9 @@ watch(() => props.autoResize, (newValue) => {
 }
 
 .su-textarea {
-  @include su-form-field-element;
-  width: 100%;
   resize: vertical;
+  width: 100%;
+  @include su-form-field-element;
   
   &--disabled {
     resize: none;
@@ -356,10 +316,10 @@ watch(() => props.autoResize, (newValue) => {
   align-items: flex-start;
   gap: 1rem;
   min-height: 1.25rem;
+  margin-top: 0.375rem;
 }
 
-.su-textarea-message {
-  @include su-form-field-message;
+.su-textarea-footer-spacer {
   flex: 1;
 }
 

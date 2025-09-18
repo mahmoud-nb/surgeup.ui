@@ -27,7 +27,7 @@ const notifications = ref(false)
   <SuSwitch 
     label="Notifications"
     message="Activer les notifications push"
-    v-model:value="notifications"
+    v-model="notifications"
   />
 </template>
 ```
@@ -53,7 +53,7 @@ const notifications = ref(false)
     label="Mode sombre"
     rightLabel="Activé"
     message="Basculer vers le thème sombre"
-    v-model:value="darkMode"
+    v-model="darkMode"
   />
 </template>
 ```
@@ -81,7 +81,7 @@ const notifications = ref(false)
     leftLabel="Privé"
     rightLabel="Public"
     message="Contrôler qui peut voir votre profil"
-    v-model:value="isPublic"
+    v-model="isPublic"
   />
 </template>
 ```
@@ -262,7 +262,7 @@ const notifications = ref(false)
 
 | Event | Type | Description |
 |-------|------|-------------|
-| `@update:value` | `(value: boolean) => void` | Émis lors du changement d'état |
+| `@update:modelValue` | `(value: boolean) => void` | Émis lors du changement d'état (v-model) |
 | `@change` | `(value: boolean) => void` | Émis lors du changement |
 | `@focus` | `(event: FocusEvent) => void` | Émis lors du focus |
 | `@blur` | `(event: FocusEvent) => void` | Émis lors de la perte de focus |
@@ -316,7 +316,7 @@ Le composant Switch respecte les normes WCAG 2.1 AA et les bonnes pratiques W3C 
   :required="true"
   message="Recevoir des notifications en temps réel"
   ariaLabel="Activer les notifications push"
-  v-model:value="pushNotifications"
+  v-model="pushNotifications"
 />
 
 <!-- Switch avec gestion d'erreur -->
@@ -326,7 +326,7 @@ Le composant Switch respecte les normes WCAG 2.1 AA et les bonnes pratiques W3C 
   rightLabel="Activée"
   :state="hasError ? 'error' : 'default'"
   :message="hasError ? 'Erreur de synchronisation' : 'Synchronisation automatique des données'"
-  v-model:value="syncEnabled"
+  v-model="syncEnabled"
 />
 
 <!-- Switch avec validation -->
@@ -336,7 +336,7 @@ Le composant Switch respecte les normes WCAG 2.1 AA et les bonnes pratiques W3C 
   :required="true"
   :state="!termsAccepted ? 'error' : 'success'"
   :message="!termsAccepted ? 'Vous devez accepter les conditions' : 'Conditions acceptées'"
-  v-model:value="termsAccepted"
+  v-model="termsAccepted"
 />
 ```
 
@@ -376,13 +376,13 @@ const settings = ref({
         leftLabel="Clair"
         rightLabel="Sombre"
         message="Basculer entre les thèmes clair et sombre"
-        v-model:value="settings.darkMode"
+        v-model="settings.darkMode"
       />
       <SuSwitch 
         label="Sauvegarde automatique"
         rightLabel="Activée"
         message="Sauvegarder automatiquement vos modifications"
-        v-model:value="settings.autoSave"
+        v-model="settings.autoSave"
       />
     </div>
     
@@ -393,7 +393,7 @@ const settings = ref({
         leftLabel="Privé"
         rightLabel="Public"
         message="Contrôler la visibilité de votre profil"
-        v-model:value="settings.publicProfile"
+        v-model="settings.publicProfile"
       />
     </div>
     
@@ -403,13 +403,13 @@ const settings = ref({
         label="Notifications push"
         rightLabel="Activées"
         message="Recevoir des notifications en temps réel"
-        v-model:value="settings.notifications"
+        v-model="settings.notifications"
       />
       <SuSwitch 
         label="Mises à jour par email"
         rightLabel="Activées"
         message="Recevoir les nouveautés par email"
-        v-model:value="settings.emailUpdates"
+        v-model="settings.emailUpdates"
       />
     </div>
   </div>

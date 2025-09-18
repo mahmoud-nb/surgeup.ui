@@ -1,13 +1,14 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs } from 'vue'
+import { computed, ref, useAttrs, defineModel } from 'vue'
 import { CloudArrowUpIcon, DocumentIcon, PhotoIcon, XMarkIcon, CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/vue/24/outline'
 import type { FileUploadProps, UploadedFile } from '@/types'
-import { generateId, announceToScreenReader } from '@/utils/accessibility'
+import { announceToScreenReader } from '@/utils/accessibility'
+import FormField from './FormField.vue'
+import { useId } from '@/composables/useId'
 
-export interface Props extends FileUploadProps {}
+export interface Props extends Omit<FileUploadProps, 'value'> {}
 
 const props = withDefaults(defineProps<Props>(), {
-  value: () => [],
   multiple: false,
   maxSize: 10 * 1024 * 1024, // 10MB
   maxFiles: 5,
@@ -23,8 +24,10 @@ const props = withDefaults(defineProps<Props>(), {
   showFileList: true
 })
 
+// Utilisation de defineModel pour v-model
+const modelValue = defineModel<UploadedFile[]>({ default: () => [] })
+
 const emit = defineEmits<{
-  'update:value': [value: UploadedFile[]]
   change: [files: UploadedFile[]]
   upload: [file: UploadedFile]
   remove: [file: UploadedFile]
@@ -40,13 +43,13 @@ const fileInputRef = ref<HTMLInputElement>()
 const dropZoneRef = ref<HTMLDivElement>()
 const isDragging = ref(false)
 const dragCounter = ref(0)
+const fieldId = useId('file-upload')
 
 // IDs pour l'accessibilité
-const uploadId = computed(() => attrs.id as string || generateId('file-upload'))
-const messageId = computed(() => props.message ? `${uploadId.value}-message` : undefined)
+const uploadId = computed(() => attrs.id as string || fieldId)
 
 // Valeur normalisée
-const uploadedFiles = computed(() => Array.isArray(props.value) ? props.value : [])
+const uploadedFiles = computed(() => Array.isArray(modelValue.value) ? modelValue.value : [])
 
 // Classes CSS
 const containerClasses = computed(() => [
@@ -77,8 +80,8 @@ const ariaAttributes = computed(() => {
   const attrs: Record<string, any> = {}
   
   if (props.ariaLabel) attrs['aria-label'] = props.ariaLabel
-  if (props.ariaDescribedBy || messageId.value) {
-    const describedBy = [props.ariaDescribedBy, messageId.value].filter(Boolean).join(' ')
+  if (props.ariaDescribedBy) {
+    const describedBy = [props.ariaDescribedBy].filter(Boolean).join(' ')
     attrs['aria-describedby'] = describedBy
   }
   if (props.ariaInvalid !== undefined) attrs['aria-invalid'] = props.ariaInvalid
@@ -101,6 +104,10 @@ const formatFileSize = (bytes: number): string => {
 const getFileIcon = (file: File) => {
   if (file.type.startsWith('image/')) return PhotoIcon
   return DocumentIcon
+}
+
+const generateId = (prefix: string): string => {
+  return `${prefix}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
 }
 
 const isImageFile = (file: File): boolean => {
@@ -198,7 +205,7 @@ const processFiles = async (files: FileList | File[]) => {
   
   if (newFiles.length > 0) {
     const updatedFiles = props.multiple ? [...currentFiles, ...newFiles] : newFiles
-    emit('update:value', updatedFiles)
+    modelValue.value = updatedFiles
     emit('change', updatedFiles)
     
     // Annoncer le succès
@@ -216,7 +223,7 @@ const removeFile = (fileToRemove: UploadedFile) => {
   if (props.disabled || props.readonly) return
   
   const updatedFiles = uploadedFiles.value.filter(file => file.id !== fileToRemove.id)
-  emit('update:value', updatedFiles)
+  modelValue.value = updatedFiles
   emit('change', updatedFiles)
   emit('remove', fileToRemove)
   
@@ -311,7 +318,7 @@ const focus = () => {
 
 const clear = () => {
   if (props.disabled || props.readonly) return
-  emit('update:value', [])
+  modelValue.value = []
   emit('change', [])
   announceToScreenReader('Tous les fichiers ont été supprimés')
 }
@@ -325,173 +332,157 @@ defineExpose({
 </script>
 
 <template>
-  <div class="su-file-upload-wrapper">
-    <!-- Label -->
-    <label 
-      v-if="label" 
-      :for="uploadId" 
-      class="su-file-upload-label"
-      :class="{
-        'su-file-upload-label--required': required,
-        'su-file-upload-label--disabled': disabled
-      }"
-    >
-      {{ label }}
-      <span v-if="required" class="su-indicator-required" aria-label="requis">*</span>
-    </label>
-
-    <!-- Container principal -->
-    <div :class="containerClasses">
-      <!-- Input file caché -->
-      <input
-        ref="fileInputRef"
-        :id="uploadId"
-        type="file"
-        :accept="accept"
-        :multiple="multiple"
-        :disabled="disabled"
-        :required="required"
-        class="su-file-upload-input"
-        v-bind="ariaAttributes"
-        @change="handleFileSelect"
-        @focus="handleFocus"
-        @blur="handleBlur"
-      />
-
-      <!-- Zone de drop -->
-      <div
-        ref="dropZoneRef"
-        :class="dropZoneClasses"
-        :tabindex="disabled ? -1 : 0"
-        role="button"
-        :aria-label="placeholder"
-        @click="handleBrowseClick"
-        @keydown="handleKeydown"
-        @dragenter="handleDragEnter"
-        @dragleave="handleDragLeave"
-        @dragover="handleDragOver"
-        @drop="handleDrop"
-      >
-        <!-- Icône -->
-        <CloudArrowUpIcon 
-          class="su-file-upload-icon"
-          :class="{ 'su-file-upload-icon--dragging': isDragging }"
-          aria-hidden="true"
+  <FormField
+    :fieldId="fieldId"
+    :label="label"
+    :message="message"
+    :state="state"
+    :required="required"
+    :disabled="disabled"
+  >
+    <template #default="{ fieldId: id, messageId }">
+      <div :class="containerClasses">
+        <!-- Input file caché -->
+        <input
+          ref="fileInputRef"
+          :id="id"
+          type="file"
+          :accept="accept"
+          :multiple="multiple"
+          :disabled="disabled"
+          :required="required"
+          :aria-describedby="messageId"
+          class="su-file-upload-input"
+          v-bind="ariaAttributes"
+          @change="handleFileSelect"
+          @focus="handleFocus"
+          @blur="handleBlur"
         />
 
-        <!-- Texte principal -->
-        <div class="su-file-upload-text">
-          <p class="su-file-upload-primary-text">
-            {{ isDragging ? dragText : placeholder }}
-          </p>
-          <p class="su-file-upload-secondary-text">
-            <button
-              type="button"
-              class="su-file-upload-browse-button"
-              :disabled="disabled || readonly"
-              @click.stop="handleBrowseClick"
-            >
-              {{ browseText }}
-            </button>
-            <span v-if="accept || maxSize">
-              <span v-if="accept"> • {{ accept }}</span>
-              <span v-if="maxSize"> • Max {{ formatFileSize(maxSize) }}</span>
-            </span>
-          </p>
-        </div>
-      </div>
-
-      <!-- Liste des fichiers -->
-      <div 
-        v-if="showFileList && uploadedFiles.length > 0" 
-        class="su-file-upload-list"
-        role="list"
-        :aria-label="`${uploadedFiles.length} fichier(s) sélectionné(s)`"
-      >
+        <!-- Zone de drop -->
         <div
-          v-for="file in uploadedFiles"
-          :key="file.id"
-          class="su-file-upload-item"
-          :class="`su-file-upload-item--${file.status}`"
-          role="listitem"
+          ref="dropZoneRef"
+          :class="dropZoneClasses"
+          :tabindex="disabled ? -1 : 0"
+          role="button"
+          :aria-label="placeholder"
+          @click="handleBrowseClick"
+          @keydown="handleKeydown"
+          @dragenter="handleDragEnter"
+          @dragleave="handleDragLeave"
+          @dragover="handleDragOver"
+          @drop="handleDrop"
         >
-          <!-- Aperçu ou icône -->
-          <div class="su-file-upload-item-preview">
-            <img
-              v-if="file.preview"
-              :src="file.preview"
-              :alt="`Aperçu de ${file.name}`"
-              class="su-file-upload-preview-image"
-            />
-            <component
-              v-else
-              :is="getFileIcon(file.file)"
-              class="su-file-upload-item-icon"
-              aria-hidden="true"
-            />
-          </div>
+          <!-- Icône -->
+          <CloudArrowUpIcon 
+            class="su-file-upload-icon"
+            :class="{ 'su-file-upload-icon--dragging': isDragging }"
+            aria-hidden="true"
+          />
 
-          <!-- Informations du fichier -->
-          <div class="su-file-upload-item-info">
-            <div class="su-file-upload-item-name">{{ file.name }}</div>
-            <div class="su-file-upload-item-details">
-              <span class="su-file-upload-item-size">{{ formatFileSize(file.size) }}</span>
-              <span v-if="file.status === 'uploading' && file.progress !== undefined" class="su-file-upload-item-progress">
-                {{ file.progress }}%
+          <!-- Texte principal -->
+          <div class="su-file-upload-text">
+            <p class="su-file-upload-primary-text">
+              {{ isDragging ? dragText : placeholder }}
+            </p>
+            <p class="su-file-upload-secondary-text">
+              <button
+                type="button"
+                class="su-file-upload-browse-button"
+                :disabled="disabled || readonly"
+                @click.stop="handleBrowseClick"
+              >
+                {{ browseText }}
+              </button>
+              <span v-if="accept || maxSize">
+                <span v-if="accept"> • {{ accept }}</span>
+                <span v-if="maxSize"> • Max {{ formatFileSize(maxSize) }}</span>
               </span>
-              <span v-if="file.error" class="su-file-upload-item-error">{{ file.error }}</span>
-            </div>
+            </p>
           </div>
+        </div>
 
-          <!-- Statut -->
-          <div class="su-file-upload-item-status">
-            <CheckCircleIcon 
-              v-if="file.status === 'success'"
-              class="su-file-upload-status-icon su-file-upload-status-icon--success"
-              aria-hidden="true"
-            />
-            <ExclamationCircleIcon 
-              v-else-if="file.status === 'error'"
-              class="su-file-upload-status-icon su-file-upload-status-icon--error"
-              aria-hidden="true"
-            />
-            <div 
-              v-else-if="file.status === 'uploading'"
-              class="su-file-upload-spinner"
-              aria-hidden="true"
-            >
-              <svg class="su-spinner" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 2a10 10 0 0 1 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-            </div>
-          </div>
-
-          <!-- Bouton de suppression -->
-          <button
-            v-if="!disabled && !readonly"
-            type="button"
-            class="su-file-upload-remove-button"
-            :aria-label="`Supprimer ${file.name}`"
-            @click="removeFile(file)"
+        <!-- Liste des fichiers -->
+        <div 
+          v-if="showFileList && uploadedFiles.length > 0" 
+          class="su-file-upload-list"
+          role="list"
+          :aria-label="`${uploadedFiles.length} fichier(s) sélectionné(s)`"
+        >
+          <div
+            v-for="file in uploadedFiles"
+            :key="file.id"
+            class="su-file-upload-item"
+            :class="`su-file-upload-item--${file.status}`"
+            role="listitem"
           >
-            <XMarkIcon class="su-file-upload-remove-icon" aria-hidden="true" />
-          </button>
+            <!-- Aperçu ou icône -->
+            <div class="su-file-upload-item-preview">
+              <img
+                v-if="file.preview"
+                :src="file.preview"
+                :alt="`Aperçu de ${file.name}`"
+                class="su-file-upload-preview-image"
+              />
+              <component
+                v-else
+                :is="getFileIcon(file.file)"
+                class="su-file-upload-item-icon"
+                aria-hidden="true"
+              />
+            </div>
+
+            <!-- Informations du fichier -->
+            <div class="su-file-upload-item-info">
+              <div class="su-file-upload-item-name">{{ file.name }}</div>
+              <div class="su-file-upload-item-details">
+                <span class="su-file-upload-item-size">{{ formatFileSize(file.size) }}</span>
+                <span v-if="file.status === 'uploading' && file.progress !== undefined" class="su-file-upload-item-progress">
+                  {{ file.progress }}%
+                </span>
+                <span v-if="file.error" class="su-file-upload-item-error">{{ file.error }}</span>
+              </div>
+            </div>
+
+            <!-- Statut -->
+            <div class="su-file-upload-item-status">
+              <CheckCircleIcon 
+                v-if="file.status === 'success'"
+                class="su-file-upload-status-icon su-file-upload-status-icon--success"
+                aria-hidden="true"
+              />
+              <ExclamationCircleIcon 
+                v-else-if="file.status === 'error'"
+                class="su-file-upload-status-icon su-file-upload-status-icon--error"
+                aria-hidden="true"
+              />
+              <div 
+                v-else-if="file.status === 'uploading'"
+                class="su-file-upload-spinner"
+                aria-hidden="true"
+              >
+                <svg class="su-spinner" viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+                  <path d="M12 2a10 10 0 0 1 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Bouton de suppression -->
+            <button
+              v-if="!disabled && !readonly"
+              type="button"
+              class="su-file-upload-remove-button"
+              :aria-label="`Supprimer ${file.name}`"
+              @click="removeFile(file)"
+            >
+              <XMarkIcon class="su-file-upload-remove-icon" aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-
-    <!-- Message -->
-    <div 
-      v-if="message" 
-      :id="messageId"
-      class="su-file-upload-message"
-      :class="`su-file-upload-message--${state}`"
-      :aria-live="state === 'error' ? 'assertive' : 'polite'"
-    >
-      {{ message }}
-    </div>
-  </div>
+    </template>
+  </FormField>
 </template>
 
 <style lang="scss">

@@ -93,7 +93,7 @@ export const Default: Story = {
 export const WithValue: Story = {
   args: {
     label: 'Commentaire',
-    value: 'Ceci est un commentaire pré-rempli dans le textarea.',
+    modelValue: 'Ceci est un commentaire pré-rempli dans le textarea.',
     placeholder: 'Votre commentaire...'
   }
 }
@@ -147,21 +147,21 @@ export const States: Story = {
           label="État d'erreur"
           placeholder="Entrez du texte"
           message="Ce champ contient une erreur"
-          value="Texte avec erreur"
+          modelValue="Texte avec erreur"
         />
         <Textarea 
           state="success"
           label="État de succès"
           placeholder="Entrez du texte"
           message="Contenu valide !"
-          value="Texte validé avec succès"
+          modelValue="Texte validé avec succès"
         />
         <Textarea 
           state="warning"
           label="État d'avertissement"
           placeholder="Entrez du texte"
           message="Attention au contenu"
-          value="Texte nécessitant attention"
+          modelValue="Texte nécessitant attention"
         />
       </div>
     `
@@ -200,7 +200,7 @@ export const Disabled: Story = {
   args: {
     label: 'Textarea désactivé',
     disabled: true,
-    value: 'Ce contenu est désactivé',
+    modelValue: 'Ce contenu est désactivé',
     message: 'Ce champ est temporairement indisponible'
   }
 }
@@ -209,7 +209,7 @@ export const Readonly: Story = {
   args: {
     label: 'Textarea en lecture seule',
     readonly: true,
-    value: 'Ce contenu ne peut pas être modifié',
+    modelValue: 'Ce contenu ne peut pas être modifié',
     message: 'Consultation uniquement'
   }
 }
