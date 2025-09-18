@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, defineModel } from 'vue'
+import { computed, ref, defineModel, useId, useAttrs } from 'vue'
 import FormField from './FormField.vue'
-import { useId } from '@/composables/useId'
 import type { InputProps } from '@/types'
 
 export interface Props extends Omit<InputProps, 'value'> {}
@@ -33,8 +32,15 @@ const emit = defineEmits<{
   'suffix-icon-click': [event: MouseEvent]
 }>()
 
+const attrs = useAttrs()
 const inputRef = ref<HTMLInputElement>()
-const fieldId = useId('input')
+const fieldId = 'input-' + useId()
+
+// Détection des écouteurs d'événements pour l'accessibilité conditionnelle
+const hasPrefixClickListener = computed(() => typeof attrs.onPrefixClick === 'function')
+const hasPrefixIconClickListener = computed(() => typeof attrs.onPrefixIconClick === 'function')
+const hasSuffixClickListener = computed(() => typeof attrs.onSuffixClick === 'function')
+const hasSuffixIconClickListener = computed(() => typeof attrs.onSuffixIconClick === 'function')
 
 // Classes CSS
 const containerClasses = computed(() => [
@@ -119,24 +125,24 @@ const handleKeyup = (event: KeyboardEvent) => {
 }
 
 // Gestionnaires d'événements pour prefix et suffix
-const handlePrefixClick = (event: MouseEvent) => {
+const handlePrefixClick = (event: MouseEvent | KeyboardEvent) => {
   if (props.disabled || props.readonly) return
-  emit('prefix-click', event)
+  emit('prefix-click', event as MouseEvent)
 }
 
-const handlePrefixIconClick = (event: MouseEvent) => {
+const handlePrefixIconClick = (event: MouseEvent | KeyboardEvent) => {
   if (props.disabled || props.readonly) return
-  emit('prefix-icon-click', event)
+  emit('prefix-icon-click', event as MouseEvent)
 }
 
-const handleSuffixClick = (event: MouseEvent) => {
+const handleSuffixClick = (event: MouseEvent | KeyboardEvent) => {
   if (props.disabled || props.readonly) return
-  emit('suffix-click', event)
+  emit('suffix-click', event as MouseEvent)
 }
 
-const handleSuffixIconClick = (event: MouseEvent) => {
+const handleSuffixIconClick = (event: MouseEvent | KeyboardEvent) => {
   if (props.disabled || props.readonly) return
-  emit('suffix-icon-click', event)
+  emit('suffix-icon-click', event as MouseEvent)
 }
 
 // Méthodes exposées
@@ -169,8 +175,12 @@ defineExpose({
         <!-- Préfixe icône -->
         <div 
           v-if="prefixIcon" 
-          class="su-input-prefix su-input-prefix--icon su-input-prefix--clickable"
+          class="su-input-prefix su-input-prefix--icon"
+          :class="{ 'su-input-prefix--clickable': hasPrefixIconClickListener }"
+          :tabindex="hasPrefixIconClickListener && !disabled && !readonly ? 0 : -1"
           @click="handlePrefixIconClick"
+          @keydown.enter.prevent="handlePrefixIconClick"
+          @keydown.space.prevent="handlePrefixIconClick"
         >
           <component :is="prefixIcon" class="su-input-icon" aria-hidden="true" />
         </div>
@@ -178,8 +188,12 @@ defineExpose({
         <!-- Préfixe texte -->
         <div 
           v-else-if="prefix" 
-          class="su-input-prefix su-input-prefix--text su-input-prefix--clickable"
+          class="su-input-prefix su-input-prefix--text"
+          :class="{ 'su-input-prefix--clickable': hasPrefixClickListener }"
+          :tabindex="hasPrefixClickListener && !disabled && !readonly ? 0 : -1"
           @click="handlePrefixClick"
+          @keydown.enter.prevent="handlePrefixClick"
+          @keydown.space.prevent="handlePrefixClick"
         >
           {{ prefix }}
         </div>
@@ -208,8 +222,12 @@ defineExpose({
         <!-- Suffixe texte -->
         <div 
           v-if="suffix" 
-          class="su-input-suffix su-input-suffix--text su-input-suffix--clickable"
+          class="su-input-suffix su-input-suffix--text"
+          :class="{ 'su-input-suffix--clickable': hasSuffixClickListener }"
+          :tabindex="hasSuffixClickListener && !disabled && !readonly ? 0 : -1"
           @click="handleSuffixClick"
+          @keydown.enter.prevent="handleSuffixClick"
+          @keydown.space.prevent="handleSuffixClick"
         >
           {{ suffix }}
         </div>
@@ -217,8 +235,12 @@ defineExpose({
         <!-- Suffixe icône -->
         <div 
           v-else-if="suffixIcon" 
-          class="su-input-suffix su-input-suffix--icon su-input-suffix--clickable"
+          class="su-input-suffix su-input-suffix--icon"
+          :class="{ 'su-input-suffix--clickable': hasSuffixIconClickListener }"
+          :tabindex="hasSuffixIconClickListener && !disabled && !readonly ? 0 : -1"
           @click="handleSuffixIconClick"
+          @keydown.enter.prevent="handleSuffixIconClick"
+          @keydown.space.prevent="handleSuffixIconClick"
         >
           <component :is="suffixIcon" class="su-input-icon" aria-hidden="true" />
         </div>

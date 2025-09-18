@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, defineModel } from 'vue'
+import { computed, ref, watch, nextTick, defineModel, useId } from 'vue'
 import FormField from './FormField.vue'
-import { useId } from '@/composables/useId'
 import type { TextareaProps } from '@/types'
 
 export interface Props extends Omit<TextareaProps, 'value'> {}
@@ -34,7 +33,7 @@ const emit = defineEmits<{
 }>()
 
 const textareaRef = ref<HTMLTextAreaElement>()
-const fieldId = useId('textarea')
+const fieldId = 'textarea-' + useId()
 
 // Valeur normalisée
 const currentValue = computed(() => modelValue.value || '')

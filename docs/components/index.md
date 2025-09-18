@@ -2,6 +2,14 @@
 
 Cette section contient la documentation de tous les composants disponibles dans le SurgeUp Design System.
 
+## Affichage
+
+*Composants d'affichage à venir...*
+
+## Formulaires
+
+- [Input](/components/input) - Composant input avec plusieurs variantes
+
 ## Actions
 
 - [Button](/components/button) - Composant bouton avec plusieurs variantes
@@ -12,11 +20,3 @@ Cette section contient la documentation de tous les composants disponibles dans 
 ## Navigation
 
 *Composants de navigation à venir...*
-
-## Formulaires
-
-*Composants de formulaire à venir...*
-
-## Affichage
-
-*Composants d'affichage à venir...*

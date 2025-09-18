@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, watch, nextTick, onMounted, onUnmounted, useAttrs, defineModel } from 'vue'
+import { computed, ref, watch, nextTick, onMounted, onUnmounted, useAttrs, defineModel, useId } from 'vue'
 import { ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon, CheckIcon } from '@heroicons/vue/24/outline'
 import type { SelectProps, SelectOption } from '@/types'
-import { generateId, trapFocus, announceToScreenReader } from '@/utils/accessibility'
+import { trapFocus, announceToScreenReader } from '@/utils/accessibility'
 import FormField from './FormField.vue'
-import { useId } from '@/composables/useId'
 
 export interface Props extends Omit<SelectProps, 'value'> {}
 
@@ -44,6 +43,7 @@ const emit = defineEmits<{
 }>()
 
 const attrs = useAttrs()
+const fieldId = 'selectbox-' + useId()
 
 // Refs
 const selectRef = ref<HTMLDivElement>()
@@ -170,9 +170,6 @@ const triggerClasses = computed(() => [
   }
 ])
 
-// Message à afficher selon l'état
-const messageId = computed(() => props.message ? `${selectId.value}-message` : undefined)
-
 // Attributs ARIA
 const ariaAttributes = computed(() => {
   const attrs: Record<string, any> = {
@@ -183,10 +180,6 @@ const ariaAttributes = computed(() => {
   }
   
   if (props.ariaLabel) attrs['aria-label'] = props.ariaLabel
-  if (props.ariaDescribedBy || messageId.value) {
-    const describedBy = [props.ariaDescribedBy, messageId.value].filter(Boolean).join(' ')
-    attrs['aria-describedby'] = describedBy
-  }
   if (props.ariaInvalid !== undefined) attrs['aria-invalid'] = props.ariaInvalid
   if (props.ariaRequired !== undefined) attrs['aria-required'] = props.ariaRequired
   if (props.required) attrs['aria-required'] = 'true'
@@ -446,6 +439,7 @@ watch(modelValue, () => {
         :class="triggerClasses"
         :tabindex="disabled ? -1 : 0"
         v-bind="ariaAttributes"
+        :aria-describedby="messageId"
         @click="toggleDropdown"
         @keydown="handleKeydown"
         @focus="handleFocus"
@@ -533,7 +527,6 @@ watch(modelValue, () => {
           ref="dropdownRef"
           :id="listboxId"
           class="su-select-dropdown"
-          :style="{ maxHeight: maxHeight }"
           role="listbox"
           :aria-multiselectable="multiple"
         >
@@ -554,7 +547,7 @@ watch(modelValue, () => {
           </div>
 
           <!-- Options -->
-          <div class="su-select-options">
+          <div class="su-select-options" :style="{ maxHeight: maxHeight }" >
             <template v-if="filteredOptions.length > 0">
               <template v-for="(groupOptions, groupName) in groupedOptions" :key="groupName">
                 <!-- Groupe header -->
@@ -649,32 +642,6 @@ watch(modelValue, () => {
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
-.su-select-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
-.su-select-label {
-  display: block;
-  font-size: $font-size-sm;
-  font-weight: 500;
-  color: $text-primary;
-  line-height: $line-height-tight;
-  
-  &--required {
-    .su-select-required {
-      color: $error-500;
-      margin-left: 0.125rem;
-    }
-  }
-  
-  &--disabled {
-    color: $text-tertiary;
-    cursor: not-allowed;
-  }
-}
-
 .su-select-container {
   position: relative;
   
@@ -720,6 +687,7 @@ watch(modelValue, () => {
   border-radius: $border-radius-md;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
   
   &:focus {
     outline: none;

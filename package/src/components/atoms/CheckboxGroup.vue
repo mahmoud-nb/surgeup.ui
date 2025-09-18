@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, useAttrs, defineModel } from 'vue'
+import { computed, useAttrs, defineModel, useId } from 'vue'
 import { CheckIcon } from '@heroicons/vue/24/outline'
 import type { CheckboxGroupProps } from '@/types'
 import { announceToScreenReader } from '@/utils/accessibility'
 import FormField from './FormField.vue'
-import { useId } from '@/composables/useId'
 
 export interface Props extends Omit<CheckboxGroupProps, 'value'> {}
 
@@ -30,7 +29,7 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 
 // Génération d'IDs uniques
-const fieldId = useId('checkbox-group')
+const fieldId = 'checkbox-group-' + useId()
 const groupId = computed(() => attrs.id as string || fieldId)
 
 // Valeur normalisée

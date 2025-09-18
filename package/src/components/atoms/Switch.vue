@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { computed, defineModel } from 'vue'
+import { computed, defineModel, useId } from 'vue'
 import FormField from './FormField.vue'
-import { useId } from '@/composables/useId'
 import type { SwitchProps } from '@/types'
 
 export interface Props extends Omit<SwitchProps, 'value'> {}
@@ -24,7 +23,7 @@ const emit = defineEmits<{
   keydown: [event: KeyboardEvent]
 }>()
 
-const fieldId = useId('switch')
+const fieldId = 'switch-' + useId()
 
 // Classes CSS
 const containerClasses = computed(() => [

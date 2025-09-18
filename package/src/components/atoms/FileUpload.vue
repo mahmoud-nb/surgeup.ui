@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, useAttrs, defineModel } from 'vue'
+import { computed, ref, useAttrs, defineModel, useId } from 'vue'
 import { CloudArrowUpIcon, DocumentIcon, PhotoIcon, XMarkIcon, CheckCircleIcon, ExclamationCircleIcon } from '@heroicons/vue/24/outline'
 import type { FileUploadProps, UploadedFile } from '@/types'
 import { announceToScreenReader } from '@/utils/accessibility'
 import FormField from './FormField.vue'
-import { useId } from '@/composables/useId'
 
 export interface Props extends Omit<FileUploadProps, 'value'> {}
 
@@ -43,7 +42,7 @@ const fileInputRef = ref<HTMLInputElement>()
 const dropZoneRef = ref<HTMLDivElement>()
 const isDragging = ref(false)
 const dragCounter = ref(0)
-const fieldId = useId('file-upload')
+const fieldId = 'file-upload-' + useId()
 
 // IDs pour l'accessibilité
 const uploadId = computed(() => attrs.id as string || fieldId)
@@ -386,14 +385,7 @@ defineExpose({
               {{ isDragging ? dragText : placeholder }}
             </p>
             <p class="su-file-upload-secondary-text">
-              <button
-                type="button"
-                class="su-file-upload-browse-button"
-                :disabled="disabled || readonly"
-                @click.stop="handleBrowseClick"
-              >
-                {{ browseText }}
-              </button>
+              {{ browseText }}
               <span v-if="accept || maxSize">
                 <span v-if="accept"> • {{ accept }}</span>
                 <span v-if="maxSize"> • Max {{ formatFileSize(maxSize) }}</span>
@@ -488,32 +480,6 @@ defineExpose({
 <style lang="scss">
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
-
-.su-file-upload-wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-
-.su-file-upload-label {
-  display: block;
-  font-size: $font-size-sm;
-  font-weight: 500;
-  color: $text-primary;
-  line-height: $line-height-tight;
-  
-  &--required {
-    .su-file-upload-required {
-      color: $error-500;
-      margin-left: 0.125rem;
-    }
-  }
-  
-  &--disabled {
-    color: $text-tertiary;
-    cursor: not-allowed;
-  }
-}
 
 .su-file-upload-container {
   display: flex;
@@ -685,25 +651,6 @@ defineExpose({
   font-size: $font-size-sm;
   color: $text-secondary;
   margin: 0;
-}
-
-.su-file-upload-browse-button {
-  color: $primary-600;
-  font-weight: 500;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-decoration: underline;
-  
-  &:hover:not(:disabled) {
-    color: $primary-700;
-  }
-  
-  &:disabled {
-    color: $text-tertiary;
-    cursor: not-allowed;
-    text-decoration: none;
-  }
 }
 
 .su-file-upload-list {
@@ -897,14 +844,6 @@ defineExpose({
 
 // Mode sombre
 @media (prefers-color-scheme: dark) {
-  .su-file-upload-label {
-    color: $text-primary-dark;
-    
-    &--disabled {
-      color: $text-tertiary-dark;
-    }
-  }
-  
   .su-file-upload-dropzone {
     background-color: $gray-800;
     border-color: $gray-600;
