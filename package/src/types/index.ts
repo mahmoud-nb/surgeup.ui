@@ -23,6 +23,9 @@ export type TextareaState = 'default' | 'error' | 'success' | 'warning'
 export type LinkVariant = 'default' | 'primary' | 'secondary' | 'muted'
 export type LinkSize = 'sm' | 'md' | 'lg'
 export type LinkUnderline = 'always' | 'hover' | 'never'
+export type SliderSize = 'sm' | 'md' | 'lg'
+export type SliderState = 'default' | 'error' | 'success' | 'warning'
+export type SliderOrientation = 'horizontal' | 'vertical'
 
 export interface SelectOption {
   value: string | number
@@ -250,6 +253,31 @@ export interface LinksGroupProps extends AccessibilityProps {
   variant?: LinkVariant
   underline?: LinkUnderline
   direction?: 'horizontal' | 'vertical'
+}
+
+export interface SliderProps extends AccessibilityProps {
+  value?: number | [number, number]
+  min?: number
+  max?: number
+  step?: number
+  size?: SliderSize
+  state?: SliderState
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
+  orientation?: SliderOrientation
+  tooltip?: 'none' | 'top' | 'bottom'
+  marks?: number[]
+  showValue?: boolean
+  showTicks?: boolean
+  showLabels?: boolean
+  formatValue?: (value: number) => string
+  label?: string
+  message?: string
+  ariaInvalid?: boolean
+  ariaRequired?: boolean
+  ariaValueText?: string
+  dir?: 'ltr' | 'rtl' | 'auto'
 }
 
 // Types pour l'accessibilité

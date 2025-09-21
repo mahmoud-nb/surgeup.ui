@@ -37,7 +37,8 @@ export default defineConfig({
               { text: 'CheckboxGroup', link: '/components/checkboxgroup' },
               { text: 'Switch', link: '/components/switch' },
               { text: 'FileUpload', link: '/components/fileupload' },
-              { text: 'Textarea', link: '/components/textarea' }
+              { text: 'Textarea', link: '/components/textarea' },
+              { text: 'Slider', link: '/components/slider' }
             ]
           }
         ]
@@ -75,7 +76,8 @@ export default defineConfig({
               { text: 'CheckboxGroup', link: '/en/components/checkboxgroup' },
               { text: 'Switch', link: '/en/components/switch' },
               { text: 'FileUpload', link: '/en/components/fileupload' },
-              { text: 'Textarea', link: '/en/components/textarea' }
+              { text: 'Textarea', link: '/en/components/textarea' },
+              { text: 'Slider', link: '/en/components/slider' }
             ]
           }
         ]

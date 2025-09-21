@@ -9,6 +9,10 @@ Cette section contient la documentation de tous les composants disponibles dans 
 ## Formulaires
 
 - [Input](/components/input) - Composant input avec plusieurs variantes
+- [Switch](/components/switch) - Composant switch pour les actions de basculement
+- [FileUpload](/components/fileupload) - Composant upload de fichiers avec drag & drop
+- [Textarea](/components/textarea) - Composant textarea avec compteur et auto-resize
+- [Slider](/components/slider) - Composant slider pour les valeurs numériques
 
 ## Actions
 

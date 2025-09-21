@@ -11,9 +11,10 @@ import CheckboxGroup from './components/atoms/CheckboxGroup.vue'
 import Switch from './components/atoms/Switch.vue'
 import FileUpload from './components/atoms/FileUpload.vue'
 import Textarea from './components/atoms/Textarea.vue'
+import Slider from './components/atoms/Slider.vue'
 import * as accessibility from './utils/accessibility'
 
-export { FormField, Button, ButtonsGroup, Link, LinksGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea }
+export { FormField, Button, ButtonsGroup, Link, LinksGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -36,6 +37,7 @@ export default {
     app.component(`${prefix}Switch`, Switch)
     app.component(`${prefix}FileUpload`, FileUpload)
     app.component(`${prefix}Textarea`, Textarea)
+    app.component(`${prefix}Slider`, Slider)
   }
 }
 
