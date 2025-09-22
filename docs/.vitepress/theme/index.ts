@@ -11,6 +11,7 @@ import {
   HeartIcon,
   ShareIcon,
   ArrowDownTrayIcon,
+  ArrowTopRightOnSquareIcon,
   XMarkIcon,
   CheckIcon,
   ExclamationTriangleIcon,
@@ -22,7 +23,9 @@ import {
   StarIcon,
   BuildingOfficeIcon,
   GlobeAltIcon,
-  FlagIcon
+  FlagIcon,
+  HomeIcon,
+  CogIcon
 } from '@heroicons/vue/24/outline'
 
 export default {
@@ -37,6 +40,7 @@ export default {
     app.component('HeartIcon', HeartIcon)
     app.component('ShareIcon', ShareIcon)
     app.component('ArrowDownTrayIcon', ArrowDownTrayIcon)
+    app.component('ArrowTopRightOnSquareIcon', ArrowTopRightOnSquareIcon)
     app.component('XMarkIcon', XMarkIcon)
     app.component('CheckIcon', CheckIcon)
     app.component('ExclamationTriangleIcon', ExclamationTriangleIcon)
@@ -49,5 +53,7 @@ export default {
     app.component('BuildingOfficeIcon', BuildingOfficeIcon)
     app.component('GlobeAltIcon', GlobeAltIcon)
     app.component('FlagIcon', FlagIcon)
+    app.component('HomeIcon', HomeIcon)
+    app.component('CogIcon', CogIcon)
   }
 }

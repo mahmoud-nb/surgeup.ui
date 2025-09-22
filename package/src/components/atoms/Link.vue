@@ -78,9 +78,6 @@ const linkAttributes = computed(() => {
 // Classes CSS
 const linkClasses = computed(() => [
   'su-link',
-  `su-link--${props.variant}`,
-  `su-link--${props.size}`,
-  `su-link--underline-${props.underline}`,
   {
     'su-link--disabled': props.disabled,
     'su-link--external': isExternalLink.value,
@@ -307,6 +304,14 @@ if (props.icon && props.iconDisplay === 'only' && !props.ariaLabel) {
   }
 
   // Soulignement
+  &--default-underline {
+    text-decoration: none;
+    
+    &:hover:not(&--disabled) {
+      text-decoration: underline;
+    }
+  }
+  
   &--underline-always {
     text-decoration: underline;
   }

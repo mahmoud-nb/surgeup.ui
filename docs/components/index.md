@@ -14,6 +14,10 @@ Cette section contient la documentation de tous les composants disponibles dans 
 - [Textarea](/components/textarea) - Composant textarea avec compteur et auto-resize
 - [Slider](/components/slider) - Composant slider pour les valeurs numériques
 
+## Organisation
+
+- [FormFields](/components/formfields) - Groupe de champs de formulaire avec espacement contrôlé
+
 ## Actions
 
 - [Button](/components/button) - Composant bouton avec plusieurs variantes

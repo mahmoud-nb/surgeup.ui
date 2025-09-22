@@ -1,7 +1,8 @@
 import type { Component } from 'vue'
 
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost'
-export type ButtonSize = 'sm' | 'md' | 'lg'
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'default'
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'default'
+export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'default'
 export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'time' | 'datetime-local' | 'month' | 'week'
 export type InputSize = 'sm' | 'md' | 'lg'
 export type InputState = 'default' | 'error' | 'success' | 'warning'
@@ -22,10 +23,11 @@ export type TextareaSize = 'sm' | 'md' | 'lg'
 export type TextareaState = 'default' | 'error' | 'success' | 'warning'
 export type LinkVariant = 'default' | 'primary' | 'secondary' | 'muted'
 export type LinkSize = 'sm' | 'md' | 'lg'
-export type LinkUnderline = 'always' | 'hover' | 'never'
+export type LinkUnderline = 'default' | 'always' | 'hover' | 'never'
 export type SliderSize = 'sm' | 'md' | 'lg'
 export type SliderState = 'default' | 'error' | 'success' | 'warning'
 export type SliderOrientation = 'horizontal' | 'vertical'
+export type FormFieldSize = 'sm' | 'md' | 'lg'
 
 export interface SelectOption {
   value: string | number
@@ -44,6 +46,7 @@ export interface SelectGroup {
 export interface ButtonProps extends AccessibilityProps {
   variant?: ButtonVariant
   size?: ButtonSize
+  radius?: ButtonRadius
   disabled?: boolean
   loading?: boolean
   block?: boolean
@@ -69,6 +72,15 @@ export interface InputProps extends AccessibilityProps {
   placeholder?: string
   value?: string | number
   prefix?: string
+  buttonRadius?: Exclude<ButtonRadius, 'default'>
+  buttonVariant?: Exclude<ButtonVariant, 'default'>
+  buttonSize?: Exclude<ButtonSize, 'default'>
+  linkVariant?: Exclude<LinkVariant, 'default'>
+  linkSize?: Exclude<LinkSize, 'default'>
+  linkUnderline?: Exclude<LinkUnderline, 'default'>
+  buttonRadius?: Exclude<ButtonRadius, 'default'>
+  buttonVariant?: Exclude<ButtonVariant, 'default'>
+  buttonSize?: Exclude<ButtonSize, 'default'>
   suffix?: string
   prefixIcon?: Component
   suffixIcon?: Component
@@ -278,6 +290,13 @@ export interface SliderProps extends AccessibilityProps {
   ariaRequired?: boolean
   ariaValueText?: string
   dir?: 'ltr' | 'rtl' | 'auto'
+}
+
+export interface FormFieldsProps extends AccessibilityProps {
+  gap?: 'sm' | 'md' | 'lg' | 'xl'
+  sectionGap?: 'sm' | 'md' | 'lg' | 'xl'
+  size?: FormFieldSize
+  direction?: 'horizontal' | 'vertical'
 }
 
 // Types pour l'accessibilité

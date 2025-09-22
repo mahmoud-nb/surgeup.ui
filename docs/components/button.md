@@ -10,15 +10,19 @@ Composant bouton flexible avec plusieurs variantes, tailles et états. Supporte 
   <div class="demo-section">
     <h4>Boutons avec icônes</h4>
     <div class="demo-buttons">
-      <SuButton variant="primary" :icon="PlusIcon" iconDisplay="left">Ajouter</SuButton>
-      <SuButton variant="secondary" :icon="ArrowRightIcon" iconDisplay="right">Suivant</SuButton>
-      <SuButton variant="outline" :icon="HeartIcon" iconDisplay="only" aria-label="Aimer" />
-      <SuButton variant="ghost" :icon="TrashIcon" iconDisplay="only" aria-label="Supprimer" />
+      <SuButton variant="primary" :icon="'PlusIcon'" iconDisplay="left">Ajouter</SuButton>
+      <SuButton variant="secondary" :icon="'ArrowRightIcon'" iconDisplay="right">Suivant</SuButton>
+      <SuButton variant="outline" :icon="'HeartIcon'" iconDisplay="only" aria-label="Aimer" />
+      <SuButton variant="ghost" :icon="'TrashIcon'" iconDisplay="only" aria-label="Supprimer" />
     </div>
   </div>
 </div>
 
 ```vue
+<script setup>
+import { PlusIcon, ArrowRightIcon, HeartIcon, TrashIcon } from '@heroicons/vue/24/outline'
+</script>
+
 <template>
   <!-- Icône avant le texte -->
   <SuButton variant="primary" :icon="PlusIcon" iconDisplay="left">
@@ -101,6 +105,33 @@ Composant bouton flexible avec plusieurs variantes, tailles et états. Supporte 
 </template>
 ```
 
+### Rayons de bordure
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Rayons de bordure disponibles</h4>
+    <div class="demo-buttons">
+      <SuButton radius="none">None</SuButton>
+      <SuButton radius="sm">Small</SuButton>
+      <SuButton radius="md">Medium</SuButton>
+      <SuButton radius="lg">Large</SuButton>
+      <SuButton radius="xl">Extra Large</SuButton>
+      <SuButton radius="default">Default</SuButton>
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuButton radius="none">None</SuButton>
+  <SuButton radius="sm">Small</SuButton>
+  <SuButton radius="md">Medium</SuButton>
+  <SuButton radius="lg">Large</SuButton>
+  <SuButton radius="xl">Extra Large</SuButton>
+  <SuButton radius="default">Default</SuButton>
+</template>
+```
+
 ### Pleine largeur
 
 <div class="component-demo">
@@ -149,8 +180,9 @@ Composant bouton flexible avec plusieurs variantes, tailles et états. Supporte 
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost'` | `'primary'` | Variante visuelle du bouton |
-| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du bouton |
+| `variant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost' \| 'default'` | `'default'` | Variante visuelle du bouton |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'default'` | `'default'` | Taille du bouton |
+| `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'default'` | `'default'` | Rayon de bordure du bouton |
 | `disabled` | `boolean` | `false` | Désactive le bouton |
 | `loading` | `boolean` | `false` | Affiche un spinner de chargement |
 | `block` | `boolean` | `false` | Prend toute la largeur disponible |
@@ -339,3 +371,46 @@ const handleSubmit = async () => {
   </form>
 </template>
 ```
+
+## Configuration globale
+
+Vous pouvez configurer les valeurs par défaut des boutons lors de l'installation du design system :
+
+```js
+// main.js
+import { createApp } from 'vue'
+import SurgeUpDS from '@surgeup/ds-vue'
+import '@surgeup/ds-vue/style.css'
+
+const app = createApp(App)
+
+// Configuration des valeurs par défaut
+app.use(SurgeUpDS, {
+  buttonRadius: 'lg',     // Tous les boutons auront un rayon large par défaut
+  buttonVariant: 'outline', // Tous les boutons seront outline par défaut
+  buttonSize: 'lg'        // Tous les boutons seront grands par défaut
+})
+```
+
+### Utilisation avec configuration globale
+
+```vue
+<template>
+  <!-- Ces boutons utiliseront les valeurs configurées globalement -->
+  <SuButton>Bouton avec config globale</SuButton>
+  <SuButton variant="default" size="default" radius="default">Même chose explicitement</SuButton>
+  
+  <!-- Ces boutons surchargent la configuration globale -->
+  <SuButton variant="primary">Variante spécifique</SuButton>
+  <SuButton size="sm">Taille spécifique</SuButton>
+  <SuButton radius="none">Radius spécifique</SuButton>
+</template>
+```
+
+### Options de configuration disponibles
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `buttonRadius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | Rayon de bordure par défaut |
+| `buttonVariant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost'` | Variante par défaut |
+| `buttonSize` | `'sm' \| 'md' \| 'lg'` | Taille par défaut |

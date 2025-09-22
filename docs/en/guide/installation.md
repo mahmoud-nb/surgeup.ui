@@ -70,7 +70,17 @@ const app = createApp(App)
 
 // Customize component prefix
 app.use(SurgeUpDS, {
-  prefix: 'My' // Components will be MyButton, MyInput, etc.
+  prefix: 'My', // Components will be MyButton, MyInput, etc.
+  
+  // Global button configuration
+  buttonRadius: 'lg',     // Large radius by default
+  buttonVariant: 'outline', // Outline variant by default
+  buttonSize: 'lg',       // Large size by default
+  
+  // Global link configuration
+  linkVariant: 'primary', // Primary variant by default
+  linkSize: 'lg',         // Large size by default
+  linkUnderline: 'never'  // Never underlined by default
 })
 ```
 

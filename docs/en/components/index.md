@@ -14,6 +14,10 @@ This section contains the documentation for all components available in the Surg
 - [Textarea](/en/components/textarea) - Textarea component with counter and auto-resize
 - [Slider](/en/components/slider) - Slider component for numeric values
 
+## Organization
+
+- [FormFields](/en/components/formfields) - Form field group with controlled spacing
+
 ## Actions
 
 - [Button](/en/components/button) - Button component with multiple variants

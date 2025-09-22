@@ -220,6 +220,49 @@ Pour les liens externes, le composant ajoute automatiquement :
 <SuLink href="https://vuejs.org" target="_blank" rel="noopener noreferrer">Vue.js</SuLink>
 ```
 
+## Configuration globale
+
+Vous pouvez configurer les valeurs par défaut des liens lors de l'installation du design system :
+
+```js
+// main.js
+import { createApp } from 'vue'
+import SurgeUpDS from '@surgeup/ds-vue'
+import '@surgeup/ds-vue/style.css'
+
+const app = createApp(App)
+
+// Configuration des valeurs par défaut
+app.use(SurgeUpDS, {
+  linkVariant: 'primary',  // Tous les liens seront primary par défaut
+  linkSize: 'lg',         // Tous les liens seront grands par défaut
+  linkUnderline: 'never'  // Tous les liens ne seront jamais soulignés par défaut
+})
+```
+
+### Utilisation avec configuration globale
+
+```vue
+<template>
+  <!-- Ces liens utiliseront les valeurs configurées globalement -->
+  <SuLink href="/page">Lien avec config globale</SuLink>
+  <SuLink variant="default" size="default" underline="default" href="/page">Même chose explicitement</SuLink>
+  
+  <!-- Ces liens surchargent la configuration globale -->
+  <SuLink variant="secondary" href="/page">Variante spécifique</SuLink>
+  <SuLink size="sm" href="/page">Taille spécifique</SuLink>
+  <SuLink underline="always" href="/page">Soulignement spécifique</SuLink>
+</template>
+```
+
+### Options de configuration disponibles
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `linkVariant` | `'default' \| 'primary' \| 'secondary' \| 'muted'` | Variante par défaut |
+| `linkSize` | `'sm' \| 'md' \| 'lg'` | Taille par défaut |
+| `linkUnderline` | `'always' \| 'hover' \| 'never'` | Soulignement par défaut |
+
 ## Accessibilité
 
 Le composant Link respecte les normes WCAG 2.1 AA :

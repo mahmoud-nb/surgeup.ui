@@ -19,6 +19,10 @@ Flexible button component with multiple variants, sizes and states. Supports key
 </div>
 
 ```vue
+<script setup>
+import { PlusIcon, ArrowRightIcon, HeartIcon, TrashIcon } from '@heroicons/vue/24/outline'
+</script>
+
 <template>
   <!-- Icon before text -->
   <SuButton variant="primary" :icon="PlusIcon" iconDisplay="left">
@@ -316,3 +320,46 @@ const handleSubmit = async () => {
   </form>
 </template>
 ```
+
+## Global configuration
+
+You can configure default button values when installing the design system:
+
+```js
+// main.js
+import { createApp } from 'vue'
+import SurgeUpDS from '@surgeup/ds-vue'
+import '@surgeup/ds-vue/style.css'
+
+const app = createApp(App)
+
+// Configure default values
+app.use(SurgeUpDS, {
+  buttonRadius: 'lg',     // All buttons will have large radius by default
+  buttonVariant: 'outline', // All buttons will be outline by default
+  buttonSize: 'lg'        // All buttons will be large by default
+})
+```
+
+### Usage with global configuration
+
+```vue
+<template>
+  <!-- These buttons will use globally configured values -->
+  <SuButton>Button with global config</SuButton>
+  <SuButton variant="default" size="default" radius="default">Same thing explicitly</SuButton>
+  
+  <!-- These buttons override global configuration -->
+  <SuButton variant="primary">Specific variant</SuButton>
+  <SuButton size="sm">Specific size</SuButton>
+  <SuButton radius="none">Specific radius</SuButton>
+</template>
+```
+
+### Available configuration options
+
+| Option | Type | Description |
+|--------|------|-------------|
+| `buttonRadius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | Default border radius |
+| `buttonVariant` | `'primary' \| 'secondary' \| 'outline' \| 'ghost'` | Default variant |
+| `buttonSize` | `'sm' \| 'md' \| 'lg'` | Default size |

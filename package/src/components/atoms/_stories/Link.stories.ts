@@ -40,7 +40,6 @@ const meta: Meta<typeof Link> = {
     },
     underline: {
       control: { type: 'select' },
-      options: ['always', 'hover', 'never'],
       description: 'Comportement du soulignement'
     },
     disabled: {
@@ -199,6 +198,46 @@ export const ExternalLinks: Story = {
         <Link href="https://vuejs.org" external>Documentation Vue.js</Link>
         <Link href="https://github.com/vuejs/vue" external variant="secondary">Code source Vue</Link>
         <Link href="mailto:contact@example.com" external variant="muted">Nous contacter</Link>
+      </div>
+    `
+  })
+}
+
+export const DefaultConfigurations: Story = {
+  render: () => ({
+    components: { Link },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;">
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Utilisation des valeurs par défaut</h4>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <Link variant="default" size="default" underline="default" href="#">Tout par défaut</Link>
+            <Link size="default" underline="default" href="#">Variante explicite</Link>
+            <Link variant="default" underline="default" href="#">Taille explicite</Link>
+            <Link variant="default" size="default" href="#">Soulignement explicite</Link>
+          </div>
+        </div>
+      </div>
+    `
+  })
+}
+
+export const GlobalConfiguration: Story = {
+  render: () => ({
+    components: { Link },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;">
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Configuration globale simulée</h4>
+          <p style="font-size: 0.875rem; color: #6b7280; margin-bottom: 1rem;">
+            Ces liens utilisent les valeurs configurées globalement lors de l'installation
+          </p>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <Link href="#">Lien avec config globale</Link>
+            <Link variant="default" size="default" underline="default" href="#">Même chose explicitement</Link>
+            <Link variant="primary" href="#">Variante surchargée</Link>
+          </div>
+        </div>
       </div>
     `
   })

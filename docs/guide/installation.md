@@ -70,7 +70,17 @@ const app = createApp(App)
 
 // Personnaliser le préfixe des composants
 app.use(SurgeUpDS, {
-  prefix: 'My' // Les composants seront MyButton, MyInput, etc.
+  prefix: 'My', // Les composants seront MyButton, MyInput, etc.
+  
+  // Configuration globale des boutons
+  buttonRadius: 'lg',     // Rayon large par défaut
+  buttonVariant: 'outline', // Variante outline par défaut
+  buttonSize: 'lg',       // Taille large par défaut
+  
+  // Configuration globale des liens
+  linkVariant: 'primary', // Variante primary par défaut
+  linkSize: 'lg',         // Taille large par défaut
+  linkUnderline: 'never'  // Jamais souligné par défaut
 })
 ```
 

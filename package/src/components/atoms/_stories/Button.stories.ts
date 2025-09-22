@@ -17,13 +17,18 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'outline', 'ghost'],
+      options: ['primary', 'secondary', 'outline', 'ghost', 'default'],
       description: 'Variante visuelle du bouton'
     },
     size: {
       control: { type: 'select' },
-      options: ['sm', 'md', 'lg'],
+      options: ['sm', 'md', 'lg', 'default'],
       description: 'Taille du bouton'
+    },
+    radius: {
+      control: { type: 'select' },
+      options: ['none', 'sm', 'md', 'lg', 'xl', 'default'],
+      description: 'Rayon de bordure du bouton'
     },
     disabled: {
       control: 'boolean',
@@ -104,6 +109,55 @@ export const Ghost: Story = {
   })
 }
 
+export const Default: Story = {
+  args: {
+    variant: 'default'
+  },
+  render: (args) => ({
+    components: { Button },
+    setup() {
+      return { args }
+    },
+    template: '<Button v-bind="args">Default Button</Button>'
+  })
+}
+
+export const RadiusVariations: Story = {
+  render: () => ({
+    components: { Button },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;">
+        <div style="display: flex; gap: 1rem; align-items: center;">
+          <Button radius="none">None</Button>
+          <Button radius="sm">Small</Button>
+          <Button radius="md">Medium</Button>
+          <Button radius="lg">Large</Button>
+          <Button radius="xl">Extra Large</Button>
+          <Button radius="default">Default</Button>
+        </div>
+      </div>
+    `
+  })
+}
+
+export const DefaultConfigurations: Story = {
+  render: () => ({
+    components: { Button },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 1rem; align-items: flex-start;">
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Utilisation des valeurs par défaut</h4>
+          <div style="display: flex; gap: 1rem; align-items: center;">
+            <Button variant="default" size="default" radius="default">Tout par défaut</Button>
+            <Button size="default" radius="default">Variante explicite</Button>
+            <Button variant="default" radius="default">Taille explicite</Button>
+            <Button variant="default" size="default">Radius explicite</Button>
+          </div>
+        </div>
+      </div>
+    `
+  })
+}
 export const WithIconBefore: Story = {
   args: {
     variant: 'primary',
