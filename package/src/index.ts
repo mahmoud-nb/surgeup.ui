@@ -13,10 +13,11 @@ import FileUpload from './components/atoms/FileUpload.vue'
 import Textarea from './components/atoms/Textarea.vue'
 import Slider from './components/atoms/Slider.vue'
 import FormFields from './components/molecules/FormFields.vue'
+import FloatButton from './components/molecules/FloatButton.vue'
 import * as accessibility from './utils/accessibility'
 import { ButtonRadius, ButtonSize, ButtonVariant, LinkSize, LinkUnderline, LinkVariant } from './types'
 
-export { FormField, Button, ButtonsGroup, Link, LinksGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields }
+export { FormField, Button, ButtonsGroup, Link, LinksGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields, FloatButton }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -180,6 +181,7 @@ export default {
     app.component(`${prefix}Textarea`, Textarea)
     app.component(`${prefix}Slider`, Slider)
     app.component(`${prefix}FormFields`, FormFields)
+    app.component(`${prefix}FloatButton`, FloatButton)
   }
 }
 

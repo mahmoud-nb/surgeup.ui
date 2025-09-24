@@ -39,7 +39,8 @@ export default defineConfig({
               { text: 'FileUpload', link: '/components/fileupload' },
               { text: 'Textarea', link: '/components/textarea' },
               { text: 'Range', link: '/components/range' },
-              { text: 'FormFields', link: '/components/formfields' }
+              { text: 'FormFields', link: '/components/formfields' },
+              { text: 'FloatButton', link: '/components/floatbutton' }
             ]
           }
         ]
@@ -79,7 +80,8 @@ export default defineConfig({
               { text: 'FileUpload', link: '/en/components/fileupload' },
               { text: 'Textarea', link: '/en/components/textarea' },
               { text: 'Slider', link: '/en/components/slider' },
-              { text: 'FormFields', link: '/en/components/formfields' }
+              { text: 'FormFields', link: '/en/components/formfields' },
+              { text: 'FloatButton', link: '/en/components/floatbutton' }
             ]
           }
         ]

@@ -75,6 +75,7 @@ app.mount('#app')
 - **ButtonsGroup** - Organize buttons with controlled spacing
 - **LinksGroup** - Organize links with controlled spacing
 - **FormFields** - Organize form fields with sections and responsive layout
+- **FloatButton** - Floating action button with slots and positioning
 
 ## 🎯 Component Examples
 
@@ -303,6 +304,7 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 - `SuButtonsGroup` - Organize buttons with spacing control
 - `SuLinksGroup` - Organize links with spacing control
 - `SuFormFields` - Organize form fields with sections
+- `SuFloatButton` - Floating action button with positioning and slots
 
 ### Utility Components
 - `SuFormField` - Base form field wrapper with label and message

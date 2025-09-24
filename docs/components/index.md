@@ -17,6 +17,7 @@ Cette section contient la documentation de tous les composants disponibles dans 
 ## Organisation
 
 - [FormFields](/components/formfields) - Groupe de champs de formulaire avec espacement contrôlé
+- [FloatButton](/components/floatbutton) - Bouton flottant positionné dans les coins de l'écran
 
 ## Actions
 

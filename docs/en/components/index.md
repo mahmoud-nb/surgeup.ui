@@ -17,6 +17,7 @@ This section contains the documentation for all components available in the Surg
 ## Organization
 
 - [FormFields](/en/components/formfields) - Form field group with controlled spacing
+- [FloatButton](/en/components/floatbutton) - Floating button positioned in screen corners
 
 ## Actions
 

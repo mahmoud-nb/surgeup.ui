@@ -110,6 +110,31 @@ $line-height-relaxed: 1.625;
 
 // Variables CSS pour la configuration globale des composants
 :root {
+  // Button variant configurations
+  --su-button-variant-primary-bg: #{$primary-600};
+  --su-button-variant-primary-color: white;
+  --su-button-variant-primary-border: transparent;
+  --su-button-variant-primary-hover-bg: #{$primary-700};
+  --su-button-variant-primary-hover-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+  
+  --su-button-variant-secondary-bg: #{$gray-100};
+  --su-button-variant-secondary-color: #{$gray-900};
+  --su-button-variant-secondary-border: #{$gray-200};
+  --su-button-variant-secondary-hover-bg: #{$gray-200};
+  --su-button-variant-secondary-hover-border: #{$gray-300};
+  --su-button-variant-secondary-hover-shadow: 0 4px 12px rgba(107, 114, 128, 0.15);
+  
+  --su-button-variant-outline-bg: transparent;
+  --su-button-variant-outline-color: #{$primary-600};
+  --su-button-variant-outline-border: #{$primary-200};
+  --su-button-variant-outline-hover-bg: #{$primary-50};
+  --su-button-variant-outline-hover-border: #{$primary-300};
+  
+  --su-button-variant-ghost-bg: transparent;
+  --su-button-variant-ghost-color: #{$primary-600};
+  --su-button-variant-ghost-border: transparent;
+  --su-button-variant-ghost-hover-bg: #{$primary-50};
+  
   // Border radius values
   --su-border-radius-none: 0;
   --su-border-radius-sm: #{$border-radius-sm};
@@ -190,29 +215,4 @@ $line-height-relaxed: 1.625;
   --su-link-size-lg-icon-size: 1.25rem;
   --su-link-size-lg-icon-only-padding: 0.5rem;
   --su-link-size-lg-icon-only-size: 2.5rem;
-  
-  // Button variant configurations
-  --su-button-variant-primary-bg: #{$primary-600};
-  --su-button-variant-primary-color: white;
-  --su-button-variant-primary-border: transparent;
-  --su-button-variant-primary-hover-bg: #{$primary-700};
-  --su-button-variant-primary-hover-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-  
-  --su-button-variant-secondary-bg: #{$gray-100};
-  --su-button-variant-secondary-color: #{$gray-900};
-  --su-button-variant-secondary-border: #{$gray-200};
-  --su-button-variant-secondary-hover-bg: #{$gray-200};
-  --su-button-variant-secondary-hover-border: #{$gray-300};
-  --su-button-variant-secondary-hover-shadow: 0 4px 12px rgba(107, 114, 128, 0.15);
-  
-  --su-button-variant-outline-bg: transparent;
-  --su-button-variant-outline-color: #{$primary-600};
-  --su-button-variant-outline-border: #{$primary-200};
-  --su-button-variant-outline-hover-bg: #{$primary-50};
-  --su-button-variant-outline-hover-border: #{$primary-300};
-  
-  --su-button-variant-ghost-bg: transparent;
-  --su-button-variant-ghost-color: #{$primary-600};
-  --su-button-variant-ghost-border: transparent;
-  --su-button-variant-ghost-hover-bg: #{$primary-50};
 }

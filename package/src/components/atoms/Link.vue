@@ -78,6 +78,9 @@ const linkAttributes = computed(() => {
 // Classes CSS
 const linkClasses = computed(() => [
   'su-link',
+  `su-link--${props.variant}`,
+  `su-link--${props.size}`,
+  `su-link--underline-${props.underline}`,
   {
     'su-link--disabled': props.disabled,
     'su-link--external': isExternalLink.value,

@@ -28,6 +28,8 @@ export type SliderSize = 'sm' | 'md' | 'lg'
 export type SliderState = 'default' | 'error' | 'success' | 'warning'
 export type SliderOrientation = 'horizontal' | 'vertical'
 export type FormFieldSize = 'sm' | 'md' | 'lg'
+export type FloatButtonPosition = 'left' | 'right'
+export type FloatButtonSize = 'sm' | 'md' | 'lg'
 
 export interface SelectOption {
   value: string | number
@@ -72,9 +74,6 @@ export interface InputProps extends AccessibilityProps {
   placeholder?: string
   value?: string | number
   prefix?: string
-  buttonRadius?: Exclude<ButtonRadius, 'default'>
-  buttonVariant?: Exclude<ButtonVariant, 'default'>
-  buttonSize?: Exclude<ButtonSize, 'default'>
   linkVariant?: Exclude<LinkVariant, 'default'>
   linkSize?: Exclude<LinkSize, 'default'>
   linkUnderline?: Exclude<LinkUnderline, 'default'>
@@ -265,6 +264,30 @@ export interface LinksGroupProps extends AccessibilityProps {
   variant?: LinkVariant
   underline?: LinkUnderline
   direction?: 'horizontal' | 'vertical'
+}
+
+export interface FloatButtonOffset {
+  x?: number
+  y?: number
+}
+
+export interface FloatButtonProps extends AccessibilityProps {
+  position?: FloatButtonPosition
+  offset?: FloatButtonOffset
+  size?: FloatButtonSize
+  icon?: Component
+  label?: string
+  href?: string
+  target?: '_blank' | '_self' | '_parent' | '_top'
+  rel?: string
+  badge?: string
+  variant?: ButtonVariant
+  disabled?: boolean
+  loading?: boolean
+  zIndex?: number
+  hideOnScroll?: boolean
+  showTooltip?: boolean
+  tooltipPosition?: 'top' | 'bottom' | 'left' | 'right'
 }
 
 export interface SliderProps extends AccessibilityProps {
