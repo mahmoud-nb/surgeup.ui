@@ -277,7 +277,7 @@ defineExpose({
   border-radius: $border-radius-lg;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
   padding: 0.5rem;
-
+  
   // Animation d'apparition
   animation: slideUp 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   
@@ -545,8 +545,6 @@ defineExpose({
 // Responsive
 @media (max-width: 768px) {
   .su-float-button-container {
-    bottom: 16px !important;
-    
     // Ajustement automatique des offsets sur mobile
     &--right {
       right: 16px !important;
@@ -555,6 +553,8 @@ defineExpose({
     &--left {
       left: 16px !important;
     }
+    
+    bottom: 16px !important;
   }
   
   .su-float-button-slot {

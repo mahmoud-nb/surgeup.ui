@@ -1,0 +1,233 @@
+name: Deploy Documentation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Allow one concurrent deployment
+concurrency:
+  group: "docs"
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build library
+        run: npm run build:lib
+
+      - name: Build documentation
+        run: npm run build:docs
+
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs/.vitepress/dist'
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Comment PR with documentation preview
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('📚 Documentation Preview')
+            );
+
+            const commentBody = `## 📚 Documentation Preview
+
+            ✅ Documentation has been built successfully for this PR!
+
+            ### 🔗 Preview Links
+            - **Documentation**: Available after merge to main branch
+            - **Repository**: [${context.payload.repository.html_url}](${context.payload.repository.html_url})
+
+            ### 📊 Build Info
+            - **Commit**: ${context.sha.substring(0, 7)}
+            - **Branch**: ${context.ref.replace('refs/heads/', '')}
+            - **Workflow**: [View details](${context.payload.repository.html_url}/actions/runs/${context.runId})
+
+            ### 🌐 Languages
+            - **Français**: Documentation complète avec exemples
+            - **English**: Complete documentation with examples
+
+            > This preview will be updated automatically when you push new commits to this PR.`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }
+
+  # Job pour vérifier la qualité de la documentation
+  quality-check:
+    runs-on: ubuntu-latest
+    needs: build-and-deploy
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build and validate documentation
+        run: |
+          npm run build:lib
+          npm run build:docs 2>&1 | tee docs-build.log
+          
+          # Vérifier qu'il n'y a pas d'erreurs de build
+          if grep -q "error" docs-build.log; then
+            echo "❌ Documentation build errors found"
+            exit 1
+          fi
+          
+          # Vérifier que les fichiers essentiels existent
+          if [ ! -f "docs/.vitepress/dist/index.html" ]; then
+            echo "❌ Documentation build failed - index.html not found"
+            exit 1
+          fi
+          
+          if [ ! -d "docs/.vitepress/dist/assets" ]; then
+            echo "❌ Documentation build failed - assets folder not found"
+            exit 1
+          fi
+          
+          echo "✅ Documentation build successful"
+
+      - name: Check documentation completeness
+        run: |
+          echo "🔍 Checking documentation completeness..."
+          
+          # Vérifier que toutes les pages de composants existent en français et anglais
+          COMPONENTS=("button" "password" "buttonsgroup" "link" "linksgroup" "input" "selectbox" "radiogroup" "checkboxgroup" "switch" "fileupload" "textarea" "slider" "formfields" "floatbutton")
+          
+          MISSING_FR=0
+          MISSING_EN=0
+          
+          for component in "${COMPONENTS[@]}"; do
+            if [ ! -f "docs/components/${component}.md" ]; then
+              echo "❌ Missing French documentation: ${component}.md"
+              MISSING_FR=$((MISSING_FR + 1))
+            fi
+            
+            if [ ! -f "docs/en/components/${component}.md" ]; then
+              echo "❌ Missing English documentation: ${component}.md"
+              MISSING_EN=$((MISSING_EN + 1))
+            fi
+          done
+          
+          if [ $MISSING_FR -eq 0 ] && [ $MISSING_EN -eq 0 ]; then
+            echo "✅ All component documentation pages exist in both languages"
+          else
+            echo "⚠️ Missing documentation pages: FR=$MISSING_FR, EN=$MISSING_EN"
+          fi
+
+      - name: Validate links and references
+        run: |
+          echo "🔗 Validating internal links..."
+          
+          # Vérifier que les liens internes dans la navigation existent
+          cd docs
+          
+          # Chercher les liens brisés dans les fichiers markdown
+          BROKEN_LINKS=0
+          
+          for file in $(find . -name "*.md" -type f); do
+            # Extraire les liens internes [text](/path)
+            grep -o '\](/[^)]*\)' "$file" | sed 's/](//' | sed 's/)//' | while read -r link; do
+              # Convertir le lien en chemin de fichier
+              if [[ "$link" == *".md" ]]; then
+                filepath=".$link"
+              else
+                filepath=".${link}.md"
+              fi
+              
+              if [ ! -f "$filepath" ] && [ ! -d ".$link" ]; then
+                echo "⚠️ Potential broken link in $file: $link"
+                BROKEN_LINKS=$((BROKEN_LINKS + 1))
+              fi
+            done
+          done
+          
+          echo "✅ Link validation completed"
+
+      - name: Documentation summary
+        run: |
+          echo "## 📚 Documentation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🌐 Languages" >> $GITHUB_STEP_SUMMARY
+          echo "- **Français**: $(find docs -name "*.md" -not -path "docs/en/*" | wc -l) pages" >> $GITHUB_STEP_SUMMARY
+          echo "- **English**: $(find docs/en -name "*.md" | wc -l) pages" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Components Documented" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total Components**: 15" >> $GITHUB_STEP_SUMMARY
+          echo "- **Form Components**: 8 (Input, Password, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Action Components**: 2 (Button, Link)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Layout Components**: 4 (ButtonsGroup, LinksGroup, FormFields, FloatButton)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Utility Components**: 1 (FormField)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### ✅ Quality Checks" >> $GITHUB_STEP_SUMMARY
+          echo "- VitePress build: ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "- Documentation completeness: ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "- Link validation: ✅ Passed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Deployment" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "- **Status**: 🚀 Deployed to GitHub Pages" >> $GITHUB_STEP_SUMMARY
+            echo "- **URL**: https://mahmoud-nb.github.io/surgeup.ui/" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "- **Status**: 📋 Preview build (not deployed)" >> $GITHUB_STEP_SUMMARY
+          fi

@@ -40,8 +40,7 @@ export default defineConfig({
               { text: 'Textarea', link: '/components/textarea' },
               { text: 'Range', link: '/components/range' },
               { text: 'FormFields', link: '/components/formfields' },
-              { text: 'FloatButton', link: '/components/floatbutton' },
-              { text: 'Password', link: '/components/password' }
+              { text: 'FloatButton', link: '/components/floatbutton' }
             ]
           }
         ]
@@ -72,7 +71,9 @@ export default defineConfig({
               { text: 'Button', link: '/en/components/button' },
               { text: 'Password', link: '/en/components/password' },
               { text: 'ButtonsGroup', link: '/en/components/buttonsgroup' },
+              { text: 'ButtonsGroup', link: '/en/components/buttonsgroup' },
               { text: 'Link', link: '/en/components/link' },
+              { text: 'LinksGroup', link: '/en/components/linksgroup' },
               { text: 'LinksGroup', link: '/en/components/linksgroup' },
               { text: 'Input', link: '/en/components/input' },
               { text: 'SelectBox', link: '/en/components/selectbox' },
@@ -83,8 +84,7 @@ export default defineConfig({
               { text: 'Textarea', link: '/en/components/textarea' },
               { text: 'Slider', link: '/en/components/slider' },
               { text: 'FormFields', link: '/en/components/formfields' },
-              { text: 'FloatButton', link: '/en/components/floatbutton' },
-              { text: 'Password', link: '/en/components/password' }
+              { text: 'FloatButton', link: '/en/components/floatbutton' }
             ]
           }
         ]
@@ -93,6 +93,60 @@ export default defineConfig({
   },
   
   themeConfig: {
+    search: {
+      provider: 'local',
+      options: {
+        locales: {
+          root: {
+            translations: {
+              button: {
+                buttonText: 'Rechercher',
+                buttonAriaLabel: 'Rechercher dans la documentation'
+              },
+              modal: {
+                displayDetails: 'Afficher les détails',
+                resetButtonTitle: 'Réinitialiser la recherche',
+                backButtonTitle: 'Fermer la recherche',
+                noResultsText: 'Aucun résultat trouvé pour',
+                footer: {
+                  selectText: 'pour sélectionner',
+                  selectKeyAriaLabel: 'entrer',
+                  navigateText: 'pour naviguer',
+                  navigateUpKeyAriaLabel: 'flèche haut',
+                  navigateDownKeyAriaLabel: 'flèche bas',
+                  closeText: 'pour fermer',
+                  closeKeyAriaLabel: 'échap'
+                }
+              }
+            }
+          },
+          en: {
+            translations: {
+              button: {
+                buttonText: 'Search',
+                buttonAriaLabel: 'Search documentation'
+              },
+              modal: {
+                displayDetails: 'Display details',
+                resetButtonTitle: 'Reset search',
+                backButtonTitle: 'Close search',
+                noResultsText: 'No results for',
+                footer: {
+                  selectText: 'to select',
+                  selectKeyAriaLabel: 'enter',
+                  navigateText: 'to navigate',
+                  navigateUpKeyAriaLabel: 'up arrow',
+                  navigateDownKeyAriaLabel: 'down arrow',
+                  closeText: 'to close',
+                  closeKeyAriaLabel: 'escape'
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
     socialLinks: [
       { icon: 'github', link: 'https://github.com/surgeup/design-system' }
     ],
