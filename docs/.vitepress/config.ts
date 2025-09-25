@@ -40,7 +40,8 @@ export default defineConfig({
               { text: 'Textarea', link: '/components/textarea' },
               { text: 'Range', link: '/components/range' },
               { text: 'FormFields', link: '/components/formfields' },
-              { text: 'FloatButton', link: '/components/floatbutton' }
+              { text: 'FloatButton', link: '/components/floatbutton' },
+              { text: 'Password', link: '/components/password' }
             ]
           }
         ]
@@ -69,6 +70,7 @@ export default defineConfig({
             text: 'Components',
             items: [
               { text: 'Button', link: '/en/components/button' },
+              { text: 'Password', link: '/en/components/password' },
               { text: 'ButtonsGroup', link: '/en/components/buttonsgroup' },
               { text: 'Link', link: '/en/components/link' },
               { text: 'LinksGroup', link: '/en/components/linksgroup' },
@@ -81,7 +83,8 @@ export default defineConfig({
               { text: 'Textarea', link: '/en/components/textarea' },
               { text: 'Slider', link: '/en/components/slider' },
               { text: 'FormFields', link: '/en/components/formfields' },
-              { text: 'FloatButton', link: '/en/components/floatbutton' }
+              { text: 'FloatButton', link: '/en/components/floatbutton' },
+              { text: 'Password', link: '/en/components/password' }
             ]
           }
         ]

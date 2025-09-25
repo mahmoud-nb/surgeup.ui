@@ -288,6 +288,7 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 ### Form Components
 - `SuInput` - Text inputs with prefixes, suffixes, and validation
+- `SuPassword` - Password inputs with strength validation and visibility toggle
 - `SuTextarea` - Auto-resizing textarea with character counter
 - `SuSelectBox` - Custom select with search and multiple selection
 - `SuRadioGroup` - Radio button groups with card styles

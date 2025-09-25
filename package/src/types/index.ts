@@ -31,6 +31,34 @@ export type FormFieldSize = 'sm' | 'md' | 'lg'
 export type FloatButtonPosition = 'left' | 'right'
 export type FloatButtonSize = 'sm' | 'md' | 'lg'
 
+export interface PasswordRules {
+  minLength?: number
+  minUppercase?: number
+  minLowercase?: number
+  minDigits?: number
+  minSpecialChars?: number
+}
+
+export interface PasswordValidation {
+  isValid: boolean
+  score: number // 0-100
+  satisfied: string[]
+  unsatisfied: string[]
+  details: {
+    length: { required: number; current: number; satisfied: boolean }
+    uppercase: { required: number; current: number; satisfied: boolean }
+    lowercase: { required: number; current: number; satisfied: boolean }
+    digits: { required: number; current: number; satisfied: boolean }
+    specialChars: { required: number; current: number; satisfied: boolean }
+  }
+}
+
+export interface PasswordProps extends Omit<InputProps, 'type' | 'suffixIcon'> {
+  rules?: PasswordRules
+  showProgress?: boolean
+  showToggle?: boolean
+}
+
 export interface SelectOption {
   value: string | number
   label: string

@@ -1,6 +1,7 @@
 import type { App } from 'vue'
 import FormField from './components/atoms/FormField.vue'
 import Button from './components/atoms/Button.vue'
+import Password from './components/atoms/Password.vue'
 import ButtonsGroup from './components/molecules/ButtonsGroup.vue'
 import Link from './components/atoms/Link.vue'
 import LinksGroup from './components/molecules/LinksGroup.vue'
@@ -15,9 +16,9 @@ import Slider from './components/atoms/Slider.vue'
 import FormFields from './components/molecules/FormFields.vue'
 import FloatButton from './components/molecules/FloatButton.vue'
 import * as accessibility from './utils/accessibility'
-import { ButtonRadius, ButtonSize, ButtonVariant, LinkSize, LinkUnderline, LinkVariant } from './types'
+import { ButtonRadius, ButtonSize, ButtonVariant, LinkSize, LinkUnderline, LinkVariant, PasswordRules } from './types'
 
-export { FormField, Button, ButtonsGroup, Link, LinksGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields, FloatButton }
+export { FormField, Button, Password, ButtonsGroup, Link, LinksGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields, FloatButton }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -169,6 +170,7 @@ export default {
     
     app.component(`${prefix}FormField`, FormField)
     app.component(`${prefix}Button`, Button)
+    app.component(`${prefix}Password`, Password)
     app.component(`${prefix}ButtonsGroup`, ButtonsGroup)
     app.component(`${prefix}Link`, Link)
     app.component(`${prefix}LinksGroup`, LinksGroup)

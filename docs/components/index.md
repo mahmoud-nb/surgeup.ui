@@ -9,6 +9,7 @@ Cette section contient la documentation de tous les composants disponibles dans 
 ## Formulaires
 
 - [Input](/components/input) - Composant input avec plusieurs variantes
+- [Password](/components/password) - Composant password avec validation et barre de progression
 - [Switch](/components/switch) - Composant switch pour les actions de basculement
 - [FileUpload](/components/fileupload) - Composant upload de fichiers avec drag & drop
 - [Textarea](/components/textarea) - Composant textarea avec compteur et auto-resize
