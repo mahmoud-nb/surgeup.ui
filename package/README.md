@@ -77,6 +77,9 @@ app.mount('#app')
 - **FormFields** - Organize form fields with sections and responsive layout
 - **FloatButton** - Floating action button with slots and positioning
 
+### Display Components
+- **Dialog** - Versatile modal and drawer component
+
 ## 🎯 Component Examples
 
 ### Button with Icon

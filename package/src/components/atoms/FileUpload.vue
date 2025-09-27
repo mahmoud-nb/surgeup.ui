@@ -9,6 +9,7 @@ export interface Props extends Omit<FileUploadProps, 'value'> {}
 
 const props = withDefaults(defineProps<Props>(), {
   multiple: false,
+  variant: 'default',
   maxSize: 10 * 1024 * 1024, // 10MB
   maxFiles: 5,
   size: 'md',
@@ -20,7 +21,9 @@ const props = withDefaults(defineProps<Props>(), {
   dragText: 'Relâchez pour déposer les fichiers',
   browseText: 'Parcourir',
   allowPreview: true,
-  showFileList: true
+  showFileList: true,
+  showProgress: false,
+  loading: false
 })
 
 // Utilisation de defineModel pour v-model
@@ -53,6 +56,7 @@ const uploadedFiles = computed(() => Array.isArray(modelValue.value) ? modelValu
 // Classes CSS
 const containerClasses = computed(() => [
   'su-file-upload-container',
+  `su-file-upload-container--${props.variant}`,
   `su-file-upload-container--${props.size}`,
   `su-file-upload-container--${props.state}`,
   {
@@ -65,6 +69,7 @@ const containerClasses = computed(() => [
 
 const dropZoneClasses = computed(() => [
   'su-file-upload-dropzone',
+  `su-file-upload-dropzone--${props.variant}`,
   `su-file-upload-dropzone--${props.size}`,
   `su-file-upload-dropzone--${props.state}`,
   {
@@ -365,6 +370,7 @@ defineExpose({
           :tabindex="disabled ? -1 : 0"
           role="button"
           :aria-label="placeholder"
+          :aria-busy="loading"
           @click="handleBrowseClick"
           @keydown="handleKeydown"
           @dragenter="handleDragEnter"
@@ -378,14 +384,26 @@ defineExpose({
             :class="{ 'su-file-upload-icon--dragging': isDragging }"
             aria-hidden="true"
           />
+          
+          <!-- Spinner de chargement -->
+          <div 
+            v-if="loading" 
+            class="su-file-upload-loading"
+            aria-hidden="true"
+          >
+            <svg class="su-spinner" viewBox="0 0 24 24">
+              <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/>
+              <path d="M12 2a10 10 0 0 1 10 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
 
           <!-- Texte principal -->
           <div class="su-file-upload-text">
             <p class="su-file-upload-primary-text">
-              {{ isDragging ? dragText : placeholder }}
+              {{ loading ? 'Chargement...' : (isDragging ? dragText : placeholder) }}
             </p>
             <p class="su-file-upload-secondary-text">
-              {{ browseText }}
+              {{ loading ? 'Veuillez patienter' : browseText }}
               <span v-if="accept || maxSize">
                 <span v-if="accept"> • {{ accept }}</span>
                 <span v-if="maxSize"> • Max {{ formatFileSize(maxSize) }}</span>
@@ -470,6 +488,22 @@ defineExpose({
             >
               <XMarkIcon class="su-file-upload-remove-icon" aria-hidden="true" />
             </button>
+            
+            <!-- Barre de progression -->
+            <div 
+              v-else-if="file.status === 'uploading' && showProgress"
+              class="su-file-upload-progress-bar"
+              role="progressbar"
+              :aria-valuenow="file.progress || 0"
+              aria-valuemin="0"
+              aria-valuemax="100"
+              :aria-label="`Upload de ${file.name}: ${file.progress || 0}%`"
+            >
+              <div 
+                class="su-file-upload-progress-fill"
+                :style="{ width: `${file.progress || 0}%` }"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -634,6 +668,38 @@ defineExpose({
     color: $primary-600;
     transform: scale(1.1);
   }
+}
+
+.su-file-upload-loading {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  .su-spinner {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: $primary-600;
+    animation: spin 1s linear infinite;
+  }
+}
+
+.su-file-upload-progress-bar {
+  width: 100%;
+  height: 0.25rem;
+  background-color: $gray-200;
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.su-file-upload-progress-fill {
+  height: 100%;
+  background-color: $primary-500;
+  border-radius: inherit;
+  transition: width 0.3s ease;
 }
 
 .su-file-upload-text {

@@ -4,7 +4,8 @@ This section contains the documentation for all components available in the Surg
 
 ## Display
 
-*Display components coming soon...*
+- [Image](/en/components/image) - Image component with ratios, multiple sources and lazy loading
+- [Dialog](/en/components/dialog) - Versatile modal/drawer component
 
 ## Forms
 
@@ -19,6 +20,9 @@ This section contains the documentation for all components available in the Surg
 
 - [FormFields](/en/components/formfields) - Form field group with controlled spacing
 - [FloatButton](/en/components/floatbutton) - Floating button positioned in screen corners
+
+## Display
+- [Dialog](/en/components/dialog) - Versatile modal/drawer component
 
 ## Actions
 

@@ -17,11 +17,14 @@ export type CheckboxState = 'default' | 'error' | 'success' | 'warning'
 export type CheckboxDisplayType = 'default' | 'inline-card' | 'block-card'
 export type SwitchSize = 'sm' | 'md' | 'lg'
 export type SwitchState = 'default' | 'error' | 'success' | 'warning'
+export type SwitchLabelPosition = 'outside' | 'inside'
 export type FileUploadSize = 'sm' | 'md' | 'lg'
 export type FileUploadState = 'default' | 'error' | 'success' | 'warning'
+export type FileUploadVariant = 'default' | 'dashed' | 'solid' | 'minimal'
 export type TextareaSize = 'sm' | 'md' | 'lg'
 export type TextareaState = 'default' | 'error' | 'success' | 'warning'
 export type LinkVariant = 'default' | 'primary' | 'secondary' | 'muted'
+export type DialogDisplay = 'center' | 'left' | 'right' | 'top' | 'bottom' | 'full'
 export type LinkSize = 'sm' | 'md' | 'lg'
 export type LinkUnderline = 'default' | 'always' | 'hover' | 'never'
 export type SliderSize = 'sm' | 'md' | 'lg'
@@ -30,6 +33,10 @@ export type SliderOrientation = 'horizontal' | 'vertical'
 export type FormFieldSize = 'sm' | 'md' | 'lg'
 export type FloatButtonPosition = 'left' | 'right'
 export type FloatButtonSize = 'sm' | 'md' | 'lg'
+export type ImageRatio = 'auto' | '16/9' | '4/3' | '1/1' | number
+export type ImageFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
+export type ImagePosition = 'center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+export type LinksGroupSeparator = 'none' | 'dot' | 'slash' | 'pipe' | 'arrow'
 
 export interface PasswordRules {
   minLength?: number
@@ -202,6 +209,9 @@ export interface CheckboxGroupProps extends AccessibilityProps {
 
 export interface SwitchProps extends AccessibilityProps {
   value?: boolean
+  leftIcon?: Component
+  rightIcon?: Component
+  labelPosition?: SwitchLabelPosition
   size?: SwitchSize
   state?: SwitchState
   disabled?: boolean
@@ -229,6 +239,7 @@ export interface UploadedFile {
 
 export interface FileUploadProps extends AccessibilityProps {
   value?: UploadedFile[]
+  variant?: FileUploadVariant
   multiple?: boolean
   accept?: string
   maxSize?: number
@@ -247,6 +258,8 @@ export interface FileUploadProps extends AccessibilityProps {
   showFileList?: boolean
   ariaInvalid?: boolean
   ariaRequired?: boolean
+  showProgress?: boolean
+  loading?: boolean
 }
 
 export interface TextareaProps extends AccessibilityProps {
@@ -288,10 +301,33 @@ export interface LinkProps extends AccessibilityProps {
 
 export interface LinksGroupProps extends AccessibilityProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
+  separator?: LinksGroupSeparator
   size?: LinkSize
   variant?: LinkVariant
   underline?: LinkUnderline
   direction?: 'horizontal' | 'vertical'
+}
+
+export interface ImageSource {
+  srcset: string
+  type?: string
+  media?: string
+}
+
+export interface ImageProps extends AccessibilityProps {
+  src: string
+  alt: string
+  fallback?: string
+  sources?: ImageSource[]
+  ratio?: ImageRatio
+  fit?: ImageFit
+  position?: ImagePosition
+  lazy?: boolean
+  loading?: 'eager' | 'lazy'
+  width?: string | number
+  height?: string | number
+  placeholder?: boolean
+  placeholderColor?: string
 }
 
 export interface FloatButtonOffset {
@@ -350,6 +386,19 @@ export interface FormFieldsProps extends AccessibilityProps {
   direction?: 'horizontal' | 'vertical'
 }
 
+// Types pour le composant Dialog
+export interface DialogProps extends AccessibilityProps {
+  modelValue?: boolean
+  display?: DialogDisplay
+  title?: string
+  description?: string
+  closeOnOverlayClick?: boolean
+  closeOnEscape?: boolean
+  width?: string
+  height?: string
+  zIndex?: number
+  disableScroll?: boolean
+}
 // Types pour l'accessibilité
 export interface AccessibilityProps {
   ariaLabel?: string

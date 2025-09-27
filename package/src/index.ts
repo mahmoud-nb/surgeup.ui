@@ -13,12 +13,15 @@ import Switch from './components/atoms/Switch.vue'
 import FileUpload from './components/atoms/FileUpload.vue'
 import Textarea from './components/atoms/Textarea.vue'
 import Slider from './components/atoms/Slider.vue'
+import Dialog from './components/molecules/Dialog.vue'
 import FormFields from './components/molecules/FormFields.vue'
 import FloatButton from './components/molecules/FloatButton.vue'
+import Image from './components/atoms/Image.vue'
 import * as accessibility from './utils/accessibility'
-import { ButtonRadius, ButtonSize, ButtonVariant, LinkSize, LinkUnderline, LinkVariant, PasswordRules } from './types'
+import { ButtonRadius, ButtonSize, ButtonVariant, LinkSize, LinkUnderline, LinkVariant, DialogDisplay } from './types'
 
 export { FormField, Button, Password, ButtonsGroup, Link, LinksGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields, FloatButton }
+export { Image, Dialog }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -31,6 +34,7 @@ export interface SurgeUpDSOptions {
   linkVariant?: Exclude<LinkVariant, 'default'>
   linkSize?: Exclude<LinkSize, 'default'>
   linkUnderline?: Exclude<LinkUnderline, 'default'>
+  dialogDisplay?: Exclude<DialogDisplay, 'center'>
 }
 
 export default {
@@ -184,6 +188,8 @@ export default {
     app.component(`${prefix}Slider`, Slider)
     app.component(`${prefix}FormFields`, FormFields)
     app.component(`${prefix}FloatButton`, FloatButton)
+    app.component(`${prefix}Dialog`, Dialog)
+    app.component(`${prefix}Image`, Image)
   }
 }
 

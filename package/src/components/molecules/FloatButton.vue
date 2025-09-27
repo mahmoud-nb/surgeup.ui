@@ -545,6 +545,8 @@ defineExpose({
 // Responsive
 @media (max-width: 768px) {
   .su-float-button-container {
+    bottom: 16px !important;
+  
     // Ajustement automatique des offsets sur mobile
     &--right {
       right: 16px !important;
@@ -553,8 +555,6 @@ defineExpose({
     &--left {
       left: 16px !important;
     }
-    
-    bottom: 16px !important;
   }
   
   .su-float-button-slot {

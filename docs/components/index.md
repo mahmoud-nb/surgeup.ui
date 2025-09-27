@@ -4,7 +4,8 @@ Cette section contient la documentation de tous les composants disponibles dans 
 
 ## Affichage
 
-*Composants d'affichage à venir...*
+- [Image](/components/image) - Composant image avec ratios, sources multiples et lazy loading
+- [Dialog](/components/dialog) - Composant modale/tiroir polyvalent
 
 ## Formulaires
 
@@ -19,6 +20,9 @@ Cette section contient la documentation de tous les composants disponibles dans 
 
 - [FormFields](/components/formfields) - Groupe de champs de formulaire avec espacement contrôlé
 - [FloatButton](/components/floatbutton) - Bouton flottant positionné dans les coins de l'écran
+
+## Affichage
+- [Dialog](/components/dialog) - Composant modale/tiroir polyvalent
 
 ## Actions
 

@@ -360,5 +360,9 @@ const handleBlur = (event: FocusEvent) => {
   &--cross {
     color: $gray-400;
   }
+  
+  &--custom {
+    color: currentColor;
+  }
 }
 </style>

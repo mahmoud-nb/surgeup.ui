@@ -182,6 +182,16 @@ const ariaAttributes = computed(() => {
   }
 }
 
+.su-links-group-separator {
+  color: $text-tertiary;
+  font-weight: 500;
+  user-select: none;
+  
+  .su-links-group--vertical & {
+    display: none; // Masquer les séparateurs en mode vertical
+  }
+}
+
 // Mode sombre
 @media (prefers-color-scheme: dark) {
   .su-links-group--connected {
