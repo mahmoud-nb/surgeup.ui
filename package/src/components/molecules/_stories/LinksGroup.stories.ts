@@ -48,6 +48,11 @@ const meta: Meta<typeof LinksGroup> = {
     role: {
       control: 'text',
       description: 'Rôle ARIA personnalisé'
+    },
+    separator: {
+      control: { type: 'select' },
+      options: ['none', 'dot', 'slash', 'pipe', 'arrow'],
+      description: 'Séparateur entre les liens'
     }
   }
 }
@@ -319,6 +324,51 @@ export const CombinedProps: Story = {
           <LinksGroup gap="md" size="lg" variant="secondary">
             <Link href="/docs" :icon="DocumentIcon" iconDisplay="left">Documentation</Link>
             <Link href="/help" :icon="QuestionMarkCircleIcon" iconDisplay="left">Aide</Link>
+          </LinksGroup>
+        </div>
+      </div>
+    `
+  })
+}
+
+export const WithSeparators: Story = {
+  render: () => ({
+    components: { LinksGroup, Link },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 2rem; align-items: flex-start;">
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Séparateur point (•)</h4>
+          <LinksGroup separator="dot" variant="muted">
+            <Link href="/home">Accueil</Link>
+            <Link href="/about">À propos</Link>
+            <Link href="/contact">Contact</Link>
+          </LinksGroup>
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Séparateur slash (/)</h4>
+          <LinksGroup separator="slash" variant="secondary">
+            <Link href="/">Accueil</Link>
+            <Link href="/products">Produits</Link>
+            <Link href="/products/laptops">Ordinateurs portables</Link>
+          </LinksGroup>
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Séparateur pipe (|)</h4>
+          <LinksGroup separator="pipe" variant="primary">
+            <Link href="/privacy">Confidentialité</Link>
+            <Link href="/terms">Conditions</Link>
+            <Link href="/cookies">Cookies</Link>
+          </LinksGroup>
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Séparateur flèche (→)</h4>
+          <LinksGroup separator="arrow" variant="default">
+            <Link href="/step1">Étape 1</Link>
+            <Link href="/step2">Étape 2</Link>
+            <Link href="/step3">Étape 3</Link>
           </LinksGroup>
         </div>
       </div>

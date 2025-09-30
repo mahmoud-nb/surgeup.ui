@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
+import { CheckIcon, XMarkIcon, SunIcon, MoonIcon } from '@heroicons/vue/24/outline'
 import Switch from '../Switch.vue'
 
 const meta: Meta<typeof Switch> = {
@@ -55,6 +56,19 @@ const meta: Meta<typeof Switch> = {
     message: {
       control: 'text',
       description: 'Message affiché'
+    },
+    leftIcon: {
+      control: false,
+      description: 'Icône affichée à gauche'
+    },
+    rightIcon: {
+      control: false,
+      description: 'Icône affichée à droite'
+    },
+    labelPosition: {
+      control: { type: 'select' },
+      options: ['outside', 'inside'],
+      description: 'Position des labels'
     }
   }
 }
@@ -182,6 +196,67 @@ export const Required: Story = {
     required: true,
     message: 'Ce paramètre est obligatoire'
   }
+}
+
+export const WithCustomIcons: Story = {
+  render: () => ({
+    components: { Switch },
+    setup() {
+      return { SunIcon, MoonIcon }
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 2rem; width: 400px;">
+        <Switch 
+          label="Mode sombre avec icônes"
+          :leftIcon="SunIcon"
+          :rightIcon="MoonIcon"
+          message="Basculer entre les thèmes"
+        />
+        <Switch 
+          label="Notifications avec icônes"
+          :leftIcon="XMarkIcon"
+          :rightIcon="CheckIcon"
+          message="Activer/désactiver les notifications"
+        />
+      </div>
+    `
+  })
+}
+
+export const LabelPositions: Story = {
+  render: () => ({
+    components: { Switch },
+    setup() {
+      return { SunIcon, MoonIcon }
+    },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 2rem; width: 400px;">
+        <div>
+          <h4 style="margin-bottom: 1rem;">Labels à l'extérieur (défaut)</h4>
+          <Switch 
+            label="Mode sombre"
+            leftLabel="Clair"
+            rightLabel="Sombre"
+            labelPosition="outside"
+            :leftIcon="SunIcon"
+            :rightIcon="MoonIcon"
+          />
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom: 1rem;">Labels à l'intérieur</h4>
+          <Switch 
+            label="Mode sombre"
+            leftLabel="Clair"
+            rightLabel="Sombre"
+            labelPosition="inside"
+            :leftIcon="SunIcon"
+            :rightIcon="MoonIcon"
+          />
+        </div>
+      </div>
+    `
+  })
 }
 
 export const SettingsPanel: Story = {

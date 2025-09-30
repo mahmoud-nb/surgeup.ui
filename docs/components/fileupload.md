@@ -223,6 +223,99 @@ const images = ref([])
 </template>
 ```
 
+### Variantes
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Variantes visuelles</h4>
+    <div class="demo-inputs">
+      <SuFileUpload 
+        variant="default"
+        label="Default"
+        placeholder="Style par défaut"
+      />
+      <SuFileUpload 
+        variant="dashed"
+        label="Dashed"
+        placeholder="Style avec bordures pointillées"
+      />
+      <SuFileUpload 
+        variant="solid"
+        label="Solid"
+        placeholder="Style avec bordures pleines"
+      />
+      <SuFileUpload 
+        variant="minimal"
+        label="Minimal"
+        placeholder="Style minimaliste"
+      />
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuFileUpload variant="default" label="Default" />
+  <SuFileUpload variant="dashed" label="Dashed" />
+  <SuFileUpload variant="solid" label="Solid" />
+  <SuFileUpload variant="minimal" label="Minimal" />
+</template>
+```
+
+### Avec progression
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Upload avec barre de progression</h4>
+    <div class="demo-inputs">
+      <SuFileUpload 
+        label="Upload avec progression"
+        placeholder="Téléchargez vos fichiers"
+        message="La progression sera affichée pour chaque fichier"
+        :multiple="true"
+        :showProgress="true"
+      />
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuFileUpload 
+    label="Upload avec progression"
+    :multiple="true"
+    :showProgress="true"
+    message="Progression affichée pour chaque fichier"
+  />
+</template>
+```
+
+### État de chargement
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Upload en chargement</h4>
+    <div class="demo-inputs">
+      <SuFileUpload 
+        label="Upload en chargement"
+        placeholder="Chargement en cours..."
+        :loading="true"
+        message="Préparation de l'upload"
+      />
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuFileUpload 
+    label="Upload en chargement"
+    :loading="true"
+    message="Préparation de l'upload"
+  />
+</template>
+```
+
 ### États disabled et readonly
 
 <div class="component-demo">

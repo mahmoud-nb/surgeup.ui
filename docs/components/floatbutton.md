@@ -13,7 +13,7 @@ Composant FloatButton pour placer un bouton flottant dans le coin de l'écran av
       <div style="position: relative; height: 200px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Aperçu du bouton flottant</p>
         <SuFloatButton 
-          :icon="PlusIcon"
+          :icon="'PlusIcon'"
           label="Ajouter un élément"
           position="right"
           :offset="{ x: 16, y: 16 }"
@@ -31,7 +31,7 @@ import { PlusIcon } from '@heroicons/vue/24/outline'
 
 <template>
   <SuFloatButton 
-    :icon="PlusIcon"
+    :icon="'PlusIcon'"
     label="Ajouter un élément"
     position="right"
   />
@@ -47,7 +47,7 @@ import { PlusIcon } from '@heroicons/vue/24/outline'
       <div style="position: relative; height: 200px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Bouton avec badge "3"</p>
         <SuFloatButton 
-          :icon="ChatBubbleLeftIcon"
+          :icon="'ChatBubbleLeftIcon'"
           label="Messages"
           badge="3"
           position="right"
@@ -66,7 +66,7 @@ import { ChatBubbleLeftIcon } from '@heroicons/vue/24/outline'
 
 <template>
   <SuFloatButton 
-    :icon="ChatBubbleLeftIcon"
+    :icon="'ChatBubbleLeftIcon'"
     label="Messages"
     badge="3"
     position="right"
@@ -88,6 +88,7 @@ import { ChatBubbleLeftIcon } from '@heroicons/vue/24/outline'
           href="https://help.example.com"
           target="_blank"
           position="left"
+          tooltip-position="right"
           :offset="{ x: 16, y: 16 }"
           style="position: absolute;"
         />
@@ -103,11 +104,12 @@ import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
 
 <template>
   <SuFloatButton 
-    :icon="QuestionMarkCircleIcon"
+    :icon="'QuestionMarkCircleIcon'"
     label="Centre d'aide"
     href="https://help.example.com"
     target="_blank"
     position="left"
+    tooltip-position="right"
   />
 </template>
 ```
@@ -121,16 +123,16 @@ import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
       <div style="position: relative; height: 300px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Bouton principal avec actions secondaires</p>
         <SuFloatButton 
-          :icon="PlusIcon"
+          :icon="'PlusIcon'"
           label="Actions rapides"
           position="right"
           :offset="{ x: 16, y: 16 }"
           style="position: absolute;"
         >
           <SuButtonsGroup gap="sm" variant="secondary" size="sm">
-            <SuButton :icon="CogIcon" iconDisplay="only" aria-label="Paramètres" />
-            <SuButton :icon="HeartIcon" iconDisplay="only" aria-label="Favoris" />
-            <SuButton :icon="ShareIcon" iconDisplay="only" aria-label="Partager" />
+            <SuButton :icon="'CogIcon'" iconDisplay="only" aria-label="Paramètres" />
+            <SuButton :icon="'HeartIcon'" iconDisplay="only" aria-label="Favoris" />
+            <SuButton :icon="'ShareIcon'" iconDisplay="only" aria-label="Partager" />
           </SuButtonsGroup>
         </SuFloatButton>
       </div>
@@ -145,14 +147,14 @@ import { PlusIcon, CogIcon, HeartIcon, ShareIcon } from '@heroicons/vue/24/outli
 
 <template>
   <SuFloatButton 
-    :icon="PlusIcon"
+    :icon="'PlusIcon'"
     label="Actions rapides"
     position="right"
   >
     <SuButtonsGroup gap="sm" variant="secondary" size="sm">
-      <SuButton :icon="CogIcon" iconDisplay="only" aria-label="Paramètres" />
-      <SuButton :icon="HeartIcon" iconDisplay="only" aria-label="Favoris" />
-      <SuButton :icon="ShareIcon" iconDisplay="only" aria-label="Partager" />
+      <SuButton :icon="'CogIcon'" iconDisplay="only" aria-label="Paramètres" />
+      <SuButton :icon="'HeartIcon'" iconDisplay="only" aria-label="Favoris" />
+      <SuButton :icon="'ShareIcon'" iconDisplay="only" aria-label="Partager" />
     </SuButtonsGroup>
   </SuFloatButton>
 </template>
@@ -167,17 +169,18 @@ import { PlusIcon, CogIcon, HeartIcon, ShareIcon } from '@heroicons/vue/24/outli
       <div style="position: relative; height: 350px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Bouton d'aide avec liens de support</p>
         <SuFloatButton 
-          :icon="QuestionMarkCircleIcon"
+          :icon="'QuestionMarkCircleIcon'"
           label="Besoin d'aide ?"
           position="left"
+          tooltip-position="right"
           :offset="{ x: 16, y: 16 }"
           style="position: absolute;"
         >
           <SuLinksGroup gap="sm" variant="secondary" size="sm">
-            <SuLink href="/help" :icon="QuestionMarkCircleIcon" iconDisplay="left">Centre d'aide</SuLink>
-            <SuLink href="tel:+33123456789" :icon="PhoneIcon" iconDisplay="left">Téléphone</SuLink>
-            <SuLink href="mailto:support@example.com" :icon="EnvelopeIcon" iconDisplay="left">Email</SuLink>
-            <SuLink href="/chat" :icon="ChatBubbleLeftIcon" iconDisplay="left">Chat</SuLink>
+            <SuLink href="/help" :icon="'QuestionMarkCircleIcon'" iconDisplay="left">Centre d'aide</SuLink>
+            <SuLink href="tel:+33123456789" :icon="'PhoneIcon'" iconDisplay="left">Téléphone</SuLink>
+            <SuLink href="mailto:support@example.com" :icon="'EnvelopeIcon'" iconDisplay="left">Email</SuLink>
+            <SuLink href="/chat" :icon="'ChatBubbleLeftIcon'" iconDisplay="left">Chat</SuLink>
           </SuLinksGroup>
         </SuFloatButton>
       </div>
@@ -192,15 +195,16 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
 
 <template>
   <SuFloatButton 
-    :icon="QuestionMarkCircleIcon"
+    :icon="'QuestionMarkCircleIcon'"
     label="Besoin d'aide ?"
     position="left"
+    tooltip-position="right"
   >
     <SuLinksGroup gap="sm" variant="secondary" size="sm">
-      <SuLink href="/help" :icon="QuestionMarkCircleIcon" iconDisplay="left">Centre d'aide</SuLink>
-      <SuLink href="tel:+33123456789" :icon="PhoneIcon" iconDisplay="left">Téléphone</SuLink>
-      <SuLink href="mailto:support@example.com" :icon="EnvelopeIcon" iconDisplay="left">Email</SuLink>
-      <SuLink href="/chat" :icon="ChatBubbleLeftIcon" iconDisplay="left">Chat</SuLink>
+      <SuLink href="/help" :icon="'QuestionMarkCircleIcon'" iconDisplay="left">Centre d'aide</SuLink>
+      <SuLink href="tel:+33123456789" :icon="'PhoneIcon'" iconDisplay="left">Téléphone</SuLink>
+      <SuLink href="mailto:support@example.com" :icon="'EnvelopeIcon'" iconDisplay="left">Email</SuLink>
+      <SuLink href="/chat" :icon="'ChatBubbleLeftIcon'" iconDisplay="left">Chat</SuLink>
     </SuLinksGroup>
   </SuFloatButton>
 </template>
@@ -215,16 +219,17 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
       <div style="position: relative; height: 200px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Boutons dans les deux coins</p>
         <SuFloatButton 
-          :icon="PlusIcon"
+          :icon="'PlusIcon'"
           label="Droite"
           position="right"
           :offset="{ x: 16, y: 16 }"
           style="position: absolute;"
         />
         <SuFloatButton 
-          :icon="CogIcon"
+          :icon="'CogIcon'"
           label="Gauche"
           position="left"
+          tooltip-position="right"
           variant="secondary"
           :offset="{ x: 16, y: 16 }"
           style="position: absolute;"
@@ -238,16 +243,17 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
 <template>
   <!-- Bouton à droite -->
   <SuFloatButton 
-    :icon="PlusIcon"
+    :icon="'PlusIcon'"
     label="Ajouter"
     position="right"
   />
   
   <!-- Bouton à gauche -->
   <SuFloatButton 
-    :icon="CogIcon"
+    :icon="'CogIcon'"
     label="Paramètres"
     position="left"
+    tooltip-position="right"
     variant="secondary"
   />
 </template>
@@ -262,7 +268,7 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
       <div style="position: relative; height: 200px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Différentes tailles</p>
         <SuFloatButton 
-          :icon="PlusIcon"
+          :icon="'PlusIcon'"
           label="Small"
           size="sm"
           position="right"
@@ -270,7 +276,7 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
           style="position: absolute;"
         />
         <SuFloatButton 
-          :icon="CogIcon"
+          :icon="'CogIcon'"
           label="Medium"
           size="md"
           position="right"
@@ -278,7 +284,7 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
           style="position: absolute;"
         />
         <SuFloatButton 
-          :icon="HeartIcon"
+          :icon="'HeartIcon'"
           label="Large"
           size="lg"
           position="right"
@@ -292,9 +298,9 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
 
 ```vue
 <template>
-  <SuFloatButton size="sm" :icon="PlusIcon" label="Small" />
-  <SuFloatButton size="md" :icon="CogIcon" label="Medium" />
-  <SuFloatButton size="lg" :icon="HeartIcon" label="Large" />
+  <SuFloatButton size="sm" :icon="'PlusIcon'" label="Small" />
+  <SuFloatButton size="md" :icon="'CogIcon'" label="Medium" />
+  <SuFloatButton size="lg" :icon="'HeartIcon'" label="Large" />
 </template>
 ```
 
@@ -307,7 +313,7 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
       <div style="position: relative; height: 200px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Bouton avec offset personnalisé</p>
         <SuFloatButton 
-          :icon="PlusIcon"
+          :icon="'PlusIcon'"
           label="Position personnalisée"
           position="right"
           :offset="{ x: 60, y: 60 }"
@@ -321,7 +327,7 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
 ```vue
 <template>
   <SuFloatButton 
-    :icon="PlusIcon"
+    :icon="'PlusIcon'"
     label="Position personnalisée"
     position="right"
     :offset="{ x: 60, y: 60 }"
@@ -428,45 +434,48 @@ Le composant FloatButton respecte les normes WCAG 2.1 AA :
 ### 🎯 Bonnes pratiques
 
 ```vue
-<!-- Bouton flottant avec label accessible -->
-<SuFloatButton 
-  :icon="PlusIcon"
-  label="Ajouter un nouvel élément"
-  position="right"
-/>
+<template>
+  <!-- Bouton flottant avec label accessible -->
+  <SuFloatButton 
+    :icon="'PlusIcon'"
+    label="Ajouter un nouvel élément"
+    position="right"
+  />
 
-<!-- Lien externe avec sécurité -->
-<SuFloatButton 
-  :icon="QuestionMarkCircleIcon"
-  label="Ouvrir le centre d'aide"
-  href="https://help.example.com"
-  target="_blank"
-  position="left"
-/>
+  <!-- Lien externe avec sécurité -->
+  <SuFloatButton 
+    :icon="'QuestionMarkCircleIcon'"
+    label="Ouvrir le centre d'aide"
+    href="https://help.example.com"
+    target="_blank"
+    position="left"
+    tooltip-position="right"
+  />
 
-<!-- Avec badge et description -->
-<SuFloatButton 
-  :icon="ChatBubbleLeftIcon"
-  label="Messages non lus"
-  badge="5"
-  aria-describedby="messages-help"
-/>
-<div id="messages-help" class="sr-only">
-  Vous avez 5 messages non lus
-</div>
+  <!-- Avec badge et description -->
+  <SuFloatButton 
+    :icon="'ChatBubbleLeftIcon'"
+    label="Messages non lus"
+    badge="5"
+    aria-describedby="messages-help"
+  />
+  <div id="messages-help" class="sr-only">
+    Vous avez 5 messages non lus
+  </div>
 
-<!-- Avec slot et rôle approprié -->
-<SuFloatButton 
-  :icon="CogIcon"
-  label="Menu d'actions"
-  role="button"
-  aria-haspopup="true"
->
-  <ButtonsGroup role="menu" aria-label="Actions rapides">
-    <Button role="menuitem">Action 1</Button>
-    <Button role="menuitem">Action 2</Button>
-  </ButtonsGroup>
-</SuFloatButton>
+  <!-- Avec slot et rôle approprié -->
+  <SuFloatButton 
+    :icon="'CogIcon'"
+    label="Menu d'actions"
+    role="button"
+    aria-haspopup="true"
+  >
+    <ButtonsGroup role="menu" aria-label="Actions rapides">
+	    <Button role="menuitem">Action 1</Button>
+	    <Button role="menuitem">Action 2</Button>
+    </ButtonsGroup>
+  </SuFloatButton>
+</template>
 ```
 
 ## Navigation au clavier
@@ -497,20 +506,20 @@ const handleChatClick = () => {
 
 <template>
   <SuFloatButton 
-    :icon="ChatBubbleLeftIcon"
+    :icon="'ChatBubbleLeftIcon'"
     label="Support client"
     :badge="unreadMessages.toString()"
     position="right"
     @click="handleChatClick"
   >
     <LinksGroup gap="sm" variant="muted" size="sm">
-      <Link href="/help" :icon="QuestionMarkCircleIcon" iconDisplay="left">
+      <Link href="/help" :icon="'QuestionMarkCircleIcon'" iconDisplay="left">
         Centre d'aide
       </Link>
-      <Link href="tel:+33123456789" :icon="PhoneIcon" iconDisplay="left">
+      <Link href="tel:+33123456789" :icon="'PhoneIcon'" iconDisplay="left">
         Téléphone
       </Link>
-      <Link href="mailto:support@example.com" :icon="EnvelopeIcon" iconDisplay="left">
+      <Link href="mailto:support@example.com" :icon="'EnvelopeIcon'" iconDisplay="left">
         Email
       </Link>
     </LinksGroup>
@@ -539,7 +548,7 @@ const handleAction = (action: string) => {
 
 <template>
   <SuFloatButton 
-    :icon="PlusIcon"
+    :icon="'PlusIcon'"
     label="Actions rapides"
     position="right"
     :aria-expanded="showActions"
@@ -554,19 +563,19 @@ const handleAction = (action: string) => {
       aria-label="Actions rapides"
     >
       <Button 
-        :icon="CogIcon" 
+        :icon="'CogIcon'" 
         iconDisplay="only" 
         aria-label="Paramètres"
         @click="handleAction('settings')"
       />
       <Button 
-        :icon="HeartIcon" 
+        :icon="'HeartIcon'" 
         iconDisplay="only" 
         aria-label="Ajouter aux favoris"
         @click="handleAction('favorite')"
       />
       <Button 
-        :icon="ShareIcon" 
+        :icon="'ShareIcon'" 
         iconDisplay="only" 
         aria-label="Partager"
         @click="handleAction('share')"
@@ -676,7 +685,7 @@ const unreadTickets = ref(2)
 
 <template>
   <SuFloatButton 
-    :icon="ChatBubbleLeftIcon"
+    :icon="'ChatBubbleLeftIcon'"
     label="Support client"
     :badge="unreadTickets > 0 ? unreadTickets.toString() : undefined"
     position="left"

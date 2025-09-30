@@ -13,7 +13,7 @@ FloatButton component for placing a floating button in the screen corner with su
       <div style="position: relative; height: 200px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Floating button preview</p>
         <SuFloatButton 
-          :icon="PlusIcon"
+          :icon="'PlusIcon'"
           label="Add an element"
           position="right"
           :offset="{ x: 16, y: 16 }"
@@ -31,7 +31,7 @@ import { PlusIcon } from '@heroicons/vue/24/outline'
 
 <template>
   <SuFloatButton 
-    :icon="PlusIcon"
+    :icon="'PlusIcon'"
     label="Add an element"
     position="right"
   />
@@ -47,7 +47,7 @@ import { PlusIcon } from '@heroicons/vue/24/outline'
       <div style="position: relative; height: 200px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Button with badge "3"</p>
         <SuFloatButton 
-          :icon="ChatBubbleLeftIcon"
+          :icon="'ChatBubbleLeftIcon'"
           label="Messages"
           badge="3"
           position="right"
@@ -66,7 +66,7 @@ import { ChatBubbleLeftIcon } from '@heroicons/vue/24/outline'
 
 <template>
   <SuFloatButton 
-    :icon="ChatBubbleLeftIcon"
+    :icon="'ChatBubbleLeftIcon'"
     label="Messages"
     badge="3"
     position="right"
@@ -83,7 +83,7 @@ import { ChatBubbleLeftIcon } from '@heroicons/vue/24/outline'
       <div style="position: relative; height: 200px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Link to external help</p>
         <SuFloatButton 
-          :icon="QuestionMarkCircleIcon"
+          :icon="'QuestionMarkCircleIcon'"
           label="Help center"
           href="https://help.example.com"
           target="_blank"
@@ -103,7 +103,7 @@ import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
 
 <template>
   <SuFloatButton 
-    :icon="QuestionMarkCircleIcon"
+    :icon="'QuestionMarkCircleIcon'"
     label="Help center"
     href="https://help.example.com"
     target="_blank"
@@ -121,16 +121,16 @@ import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
       <div style="position: relative; height: 300px; background-color: #f3f4f6; border-radius: 0.5rem; overflow: hidden;">
         <p style="padding: 1rem; margin: 0;">Main button with secondary actions</p>
         <SuFloatButton 
-          :icon="PlusIcon"
+          :icon="'PlusIcon'"
           label="Quick actions"
           position="right"
           :offset="{ x: 16, y: 16 }"
           style="position: absolute;"
         >
           <SuButtonsGroup gap="sm" variant="secondary" size="sm">
-            <SuButton :icon="CogIcon" iconDisplay="only" aria-label="Settings" />
-            <SuButton :icon="HeartIcon" iconDisplay="only" aria-label="Favorites" />
-            <SuButton :icon="ShareIcon" iconDisplay="only" aria-label="Share" />
+            <SuButton :icon="'CogIcon'" iconDisplay="only" aria-label="Settings" />
+            <SuButton :icon="'HeartIcon'" iconDisplay="only" aria-label="Favorites" />
+            <SuButton :icon="'ShareIcon'" iconDisplay="only" aria-label="Share" />
           </SuButtonsGroup>
         </SuFloatButton>
       </div>
@@ -145,14 +145,14 @@ import { PlusIcon, CogIcon, HeartIcon, ShareIcon } from '@heroicons/vue/24/outli
 
 <template>
   <SuFloatButton 
-    :icon="PlusIcon"
+    :icon="'PlusIcon'"
     label="Quick actions"
     position="right"
   >
     <SuButtonsGroup gap="sm" variant="secondary" size="sm">
-      <SuButton :icon="CogIcon" iconDisplay="only" aria-label="Settings" />
-      <SuButton :icon="HeartIcon" iconDisplay="only" aria-label="Favorites" />
-      <SuButton :icon="ShareIcon" iconDisplay="only" aria-label="Share" />
+      <SuButton :icon="'CogIcon'" iconDisplay="only" aria-label="Settings" />
+      <SuButton :icon="'HeartIcon'" iconDisplay="only" aria-label="Favorites" />
+      <SuButton :icon="'ShareIcon'" iconDisplay="only" aria-label="Share" />
     </SuButtonsGroup>
   </SuFloatButton>
 </template>
@@ -248,45 +248,47 @@ The FloatButton component follows WCAG 2.1 AA standards:
 ### 🎯 Best practices
 
 ```vue
-<!-- Floating button with accessible label -->
-<SuFloatButton 
-  :icon="PlusIcon"
-  label="Add a new element"
-  position="right"
-/>
+<template>
+  <!-- Floating button with accessible label -->
+  <SuFloatButton 
+    :icon="'PlusIcon'"
+    label="Add a new element"
+    position="right"
+  />
 
-<!-- External link with security -->
-<SuFloatButton 
-  :icon="QuestionMarkCircleIcon"
-  label="Open help center"
-  href="https://help.example.com"
-  target="_blank"
-  position="left"
-/>
+  <!-- External link with security -->
+  <SuFloatButton 
+    :icon="'QuestionMarkCircleIcon'"
+    label="Open help center"
+    href="https://help.example.com"
+    target="_blank"
+    position="left"
+  />
 
-<!-- With badge and description -->
-<SuFloatButton 
-  :icon="ChatBubbleLeftIcon"
-  label="Unread messages"
-  badge="5"
-  aria-describedby="messages-help"
-/>
-<div id="messages-help" class="sr-only">
-  You have 5 unread messages
-</div>
+  <!-- With badge and description -->
+  <SuFloatButton 
+    :icon="'ChatBubbleLeftIcon'"
+    label="Unread messages"
+    badge="5"
+    aria-describedby="messages-help"
+  />
+  <div id="messages-help" class="sr-only">
+    You have 5 unread messages
+  </div>
 
-<!-- With slot and appropriate role -->
-<SuFloatButton 
-  :icon="CogIcon"
-  label="Action menu"
-  role="button"
-  aria-haspopup="true"
->
-  <ButtonsGroup role="menu" aria-label="Quick actions">
-    <Button role="menuitem">Action 1</Button>
-    <Button role="menuitem">Action 2</Button>
-  </ButtonsGroup>
-</SuFloatButton>
+  <!-- With slot and appropriate role -->
+  <SuFloatButton 
+    :icon="'CogIcon'"
+    label="Action menu"
+    role="button"
+    aria-haspopup="true"
+  >
+    <ButtonsGroup role="menu" aria-label="Quick actions">
+      <Button role="menuitem">Action 1</Button>
+      <Button role="menuitem">Action 2</Button>
+    </ButtonsGroup>
+  </SuFloatButton>
+</template>
 ```
 
 ## Keyboard navigation

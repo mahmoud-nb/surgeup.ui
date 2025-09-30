@@ -37,6 +37,10 @@ export type ImageRatio = 'auto' | '16/9' | '4/3' | '1/1' | number
 export type ImageFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
 export type ImagePosition = 'center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
 export type LinksGroupSeparator = 'none' | 'dot' | 'slash' | 'pipe' | 'arrow'
+export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
+export type AvatarVariant = 'circle' | 'rounded' | 'square'
+export type AvatarStatus = 'online' | 'offline' | 'busy' | 'away' | 'none'
+
 
 export interface PasswordRules {
   minLength?: number
@@ -328,6 +332,29 @@ export interface ImageProps extends AccessibilityProps {
   height?: string | number
   placeholder?: boolean
   placeholderColor?: string
+}
+
+export interface AvatarProps extends AccessibilityProps {
+  src?: string
+  alt?: string
+  fallback?: string
+  name?: string
+  size?: AvatarSize
+  variant?: AvatarVariant
+  status?: AvatarStatus
+  badge?: string | number
+  badgeColor?: string
+  loading?: boolean
+  clickable?: boolean
+}
+
+export interface AvatarsGroupProps extends AccessibilityProps {
+  avatars: AvatarProps[]
+  size?: AvatarSize
+  variant?: AvatarVariant
+  max?: number
+  spacing?: 'none' | 'sm' | 'md' | 'lg'
+  clickable?: boolean
 }
 
 export interface FloatButtonOffset {

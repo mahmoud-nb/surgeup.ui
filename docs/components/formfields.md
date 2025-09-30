@@ -300,14 +300,12 @@ const options = [
             </p>
           </div>
         </template>
-
         <SuInput 
           label="Nom complet"
           placeholder="Entrez votre nom complet"
           :prefixIcon="UserIcon"
           required
         />
-        
         <SuInput 
           type="email"
           label="Adresse email"
@@ -315,7 +313,6 @@ const options = [
           :prefixIcon="AtSymbolIcon"
           required
         />
-        
         <SuInput 
           type="password"
           label="Mot de passe"
@@ -323,14 +320,12 @@ const options = [
           :prefixIcon="LockClosedIcon"
           required
         />
-        
         <SuSwitch 
           label="Conditions d'utilisation"
           rightLabel="J'accepte"
           message="Vous devez accepter les conditions d'utilisation"
           required
         />
-
         <template #footer>
           <div style="display: flex; gap: 1rem; justify-content: space-between; align-items: center; padding: 1.5rem; background-color: #f8fafc; border-radius: 0.5rem; border: 1px solid #e2e8f0;">
             <p style="margin: 0; font-size: 0.875rem; color: #64748b;">

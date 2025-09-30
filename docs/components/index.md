@@ -5,6 +5,8 @@ Cette section contient la documentation de tous les composants disponibles dans 
 ## Affichage
 
 - [Image](/components/image) - Composant image avec ratios, sources multiples et lazy loading
+- [Avatar](/components/avatar) - Composant avatar avec initiales, statut et badges
+- [AvatarsGroup](/components/avatarsgroup) - Groupe d'avatars avec gestion du surplus
 - [Dialog](/components/dialog) - Composant modale/tiroir polyvalent
 
 ## Formulaires

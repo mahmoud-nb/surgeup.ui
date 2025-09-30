@@ -213,6 +213,73 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
 </template>
 ```
 
+### Séparateurs
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Différents séparateurs</h4>
+    <div class="demo-buttons-vertical">
+      <div>
+        <p><strong>Séparateur point (•)</strong></p>
+        <SuLinksGroup separator="dot" variant="muted">
+          <SuLink href="/home">Accueil</SuLink>
+          <SuLink href="/about">À propos</SuLink>
+          <SuLink href="/contact">Contact</SuLink>
+        </SuLinksGroup>
+      </div>
+      <div>
+        <p><strong>Séparateur slash (/)</strong></p>
+        <SuLinksGroup separator="slash" variant="secondary">
+          <SuLink href="/">Accueil</SuLink>
+          <SuLink href="/products">Produits</SuLink>
+          <SuLink href="/products/laptops">Ordinateurs portables</SuLink>
+        </SuLinksGroup>
+      </div>
+      <div>
+        <p><strong>Séparateur pipe (|)</strong></p>
+        <SuLinksGroup separator="pipe" variant="primary">
+          <SuLink href="/privacy">Confidentialité</SuLink>
+          <SuLink href="/terms">Conditions</SuLink>
+          <SuLink href="/cookies">Cookies</SuLink>
+        </SuLinksGroup>
+      </div>
+      <div>
+        <p><strong>Séparateur flèche (→)</strong></p>
+        <SuLinksGroup separator="arrow" variant="default">
+          <SuLink href="/step1">Étape 1</SuLink>
+          <SuLink href="/step2">Étape 2</SuLink>
+          <SuLink href="/step3">Étape 3</SuLink>
+        </SuLinksGroup>
+      </div>
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <!-- Breadcrumb avec slash -->
+  <SuLinksGroup separator="slash" variant="muted" size="sm">
+    <SuLink href="/">Accueil</SuLink>
+    <SuLink href="/products">Produits</SuLink>
+    <SuLink href="/products/laptops">Ordinateurs portables</SuLink>
+  </SuLinksGroup>
+  
+  <!-- Navigation avec points -->
+  <SuLinksGroup separator="dot" variant="secondary">
+    <SuLink href="/home">Accueil</SuLink>
+    <SuLink href="/about">À propos</SuLink>
+    <SuLink href="/contact">Contact</SuLink>
+  </SuLinksGroup>
+  
+  <!-- Étapes avec flèches -->
+  <SuLinksGroup separator="arrow" variant="primary">
+    <SuLink href="/step1">Étape 1</SuLink>
+    <SuLink href="/step2">Étape 2</SuLink>
+    <SuLink href="/step3">Étape 3</SuLink>
+  </SuLinksGroup>
+</template>
+```
+
 ### Direction verticale
 
 <div class="component-demo">

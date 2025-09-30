@@ -28,6 +28,8 @@ export default defineConfig({
             text: 'Composants',
             items: [
               { text: 'Image', link: '/components/image' },
+              { text: 'Avatar', link: '/components/avatar' },
+              { text: 'AvatarsGroup', link: '/components/avatarsgroup' },
               { text: 'Dialog', link: '/components/dialog' },
               { text: 'Button', link: '/components/button' },
               { text: 'ButtonsGroup', link: '/components/buttonsgroup' },
@@ -72,6 +74,8 @@ export default defineConfig({
             text: 'Components',
             items: [
               { text: 'Image', link: '/en/components/image' },
+              { text: 'Avatar', link: '/en/components/avatar' },
+              { text: 'AvatarsGroup', link: '/en/components/avatarsgroup' },
               { text: 'Dialog', link: '/en/components/dialog' },
               { text: 'Button', link: '/en/components/button' },
               { text: 'Password', link: '/en/components/password' },

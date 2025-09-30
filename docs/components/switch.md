@@ -289,6 +289,84 @@ Le composant Switch adapte automatiquement le positionnement selon les labels fo
 <SuSwitch label="Visibilité" leftLabel="Privé" rightLabel="Public" />
 ```
 
+### Icônes personnalisées
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Switch avec icônes personnalisées</h4>
+    <div class="demo-inputs">
+      <SuSwitch 
+        label="Mode sombre"
+        leftLabel="Clair"
+        rightLabel="Sombre"
+        :leftIcon="SunIcon"
+        :rightIcon="MoonIcon"
+        message="Basculer entre les thèmes"
+      />
+    </div>
+  </div>
+</div>
+
+```vue
+<script setup>
+import { SunIcon, MoonIcon } from '@heroicons/vue/24/outline'
+</script>
+
+<template>
+  <SuSwitch 
+    label="Mode sombre"
+    leftLabel="Clair"
+    rightLabel="Sombre"
+    :leftIcon="SunIcon"
+    :rightIcon="MoonIcon"
+    message="Basculer entre les thèmes"
+  />
+</template>
+```
+
+### Position des labels
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Labels à l'extérieur vs à l'intérieur</h4>
+    <div class="demo-inputs">
+      <SuSwitch 
+        label="Labels à l'extérieur (défaut)"
+        leftLabel="OFF"
+        rightLabel="ON"
+        labelPosition="outside"
+        message="Labels positionnés à côté du switch"
+      />
+      <SuSwitch 
+        label="Labels à l'intérieur"
+        leftLabel="OFF"
+        rightLabel="ON"
+        labelPosition="inside"
+        message="Labels intégrés dans le switch"
+      />
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <!-- Labels à l'extérieur (défaut) -->
+  <SuSwitch 
+    label="Mode sombre"
+    leftLabel="Clair"
+    rightLabel="Sombre"
+    labelPosition="outside"
+  />
+  
+  <!-- Labels à l'intérieur -->
+  <SuSwitch 
+    label="Mode sombre"
+    leftLabel="OFF"
+    rightLabel="ON"
+    labelPosition="inside"
+  />
+```
+
 ## Accessibilité
 
 Le composant Switch respecte les normes WCAG 2.1 AA et les bonnes pratiques W3C :

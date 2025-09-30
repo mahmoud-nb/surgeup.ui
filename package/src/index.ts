@@ -17,11 +17,14 @@ import Dialog from './components/molecules/Dialog.vue'
 import FormFields from './components/molecules/FormFields.vue'
 import FloatButton from './components/molecules/FloatButton.vue'
 import Image from './components/atoms/Image.vue'
+import Avatar from './components/atoms/Avatar.vue'
+import AvatarsGroup from './components/molecules/AvatarsGroup.vue'
 import * as accessibility from './utils/accessibility'
 import { ButtonRadius, ButtonSize, ButtonVariant, LinkSize, LinkUnderline, LinkVariant, DialogDisplay } from './types'
 
-export { FormField, Button, Password, ButtonsGroup, Link, LinksGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields, FloatButton }
-export { Image, Dialog }
+export { FormField, Button, Password, ButtonsGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields }
+export { Link, LinksGroup, FloatButton, Dialog }
+export { Image, Avatar, AvatarsGroup }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -190,6 +193,8 @@ export default {
     app.component(`${prefix}FloatButton`, FloatButton)
     app.component(`${prefix}Dialog`, Dialog)
     app.component(`${prefix}Image`, Image)
+    app.component(`${prefix}Avatar`, Avatar)
+    app.component(`${prefix}AvatarsGroup`, AvatarsGroup)
   }
 }
 

@@ -10,7 +10,7 @@ Composant Image avec support des ratios d'aspect, sources multiples, lazy loadin
   <div class="demo-section">
     <h4>Image simple</h4>
     <div class="demo-inputs">
-      <SuImage 
+      <SuImage  
         src="https://images.pexels.com/photos/417074/pexels-photo-417074.jpeg?auto=compress&cs=tinysrgb&w=400"
         alt="Paysage naturel"
         width="400"

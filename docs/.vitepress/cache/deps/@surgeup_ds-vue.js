@@ -483,8 +483,8 @@ var Se = defineComponent({
       const h2 = {};
       return e.autocomplete && (h2.autocomplete = e.autocomplete), e.min !== void 0 && (h2.min = e.min), e.max !== void 0 && (h2.max = e.max), e.step !== void 0 && (h2.step = e.step), e.minLength !== void 0 && (h2.minlength = e.minLength), e.maxLength !== void 0 && (h2.maxlength = e.maxLength), e.pattern && (h2.pattern = e.pattern), h2;
     }), F = (h2) => {
-      const U = h2.target;
-      m.value = e.type === "number" ? Number(U.value) : U.value, o("input", h2);
+      const G = h2.target;
+      m.value = e.type === "number" ? Number(G.value) : G.value, o("input", h2);
     }, b = (h2) => {
       o("change", h2);
     }, u = (h2) => {
@@ -514,7 +514,7 @@ var Se = defineComponent({
         (h2 = C.value) == null || h2.select();
       },
       inputRef: C
-    }), (h2, U) => (openBlock(), createBlock(ye, {
+    }), (h2, G) => (openBlock(), createBlock(ye, {
       fieldId: d.value,
       label: h2.label,
       message: h2.message,
@@ -710,7 +710,7 @@ var La = defineComponent({
       Object.entries(ae).forEach(([fe, ge]) => {
         ge.required > 0 && (ge.satisfied ? se.push(fe) : x.push(fe));
       });
-      const h2 = Object.values(ae).filter((fe) => fe.required > 0).length, U = se.length, re = h2 > 0 ? Math.round(U / h2 * 100) : 100;
+      const h2 = Object.values(ae).filter((fe) => fe.required > 0).length, G = se.length, re = h2 > 0 ? Math.round(G / h2 * 100) : 100;
       return {
         isValid: x.length === 0 && u.length > 0,
         score: re,
@@ -1062,8 +1062,8 @@ var Oa = {
   class: "su-select-display"
 };
 var ja = { class: "su-select-display-text" };
-var Ua = { class: "su-select-actions" };
-var Ga = {
+var Ga = { class: "su-select-actions" };
+var Ua = {
   key: 0,
   class: "su-select-spinner"
 };
@@ -1218,7 +1218,7 @@ var Pe = defineComponent({
       B.value = t;
       const $ = e.multiple && B.value.includes(f.value) ? "désélectionné" : "sélectionné";
       oe(`${f.label} ${$}`), !e.multiple && e.closeOnSelect && x();
-    }, U = (f) => {
+    }, G = (f) => {
       f.stopPropagation();
       const t = e.multiple ? [] : void 0;
       B.value = t, oe("Sélection effacée");
@@ -1352,8 +1352,8 @@ var Pe = defineComponent({
                     createBaseVNode("span", ja, toDisplayString(N.value), 1)
                   ]))
                 ]),
-                createBaseVNode("div", Ua, [
-                  f.loading ? (openBlock(), createElementBlock("div", Ga, [...t[0] || (t[0] = [
+                createBaseVNode("div", Ga, [
+                  f.loading ? (openBlock(), createElementBlock("div", Ua, [...t[0] || (t[0] = [
                     createBaseVNode("svg", {
                       class: "su-spinner",
                       viewBox: "0 0 24 24",
@@ -1380,7 +1380,7 @@ var Pe = defineComponent({
                     type: "button",
                     class: "su-select-clear",
                     "aria-label": "Effacer la sélection",
-                    onClick: U
+                    onClick: G
                   }, [
                     createVNode(unref(ze), { class: "su-select-clear-icon" })
                   ])) : createCommentVNode("", true),
@@ -1440,8 +1440,8 @@ var Pe = defineComponent({
                           role: "option",
                           "aria-selected": f.multiple ? B.value.includes(j.value) : B.value === j.value,
                           "aria-disabled": j.disabled,
-                          onClick: (Ue) => h2(j),
-                          onMouseenter: (Ue) => M.value = b.value.indexOf(j)
+                          onClick: (Ge) => h2(j),
+                          onMouseenter: (Ge) => M.value = b.value.indexOf(j)
                         }, [
                           f.multiple ? (openBlock(), createElementBlock("div", Ja, [
                             createBaseVNode("div", {
@@ -1949,8 +1949,8 @@ var js = {
   key: 1,
   class: "su-file-upload-item-error"
 };
-var Us = { class: "su-file-upload-item-status" };
-var Gs = {
+var Gs = { class: "su-file-upload-item-status" };
+var Us = {
   key: 2,
   class: "su-file-upload-spinner",
   "aria-hidden": "true"
@@ -2023,18 +2023,18 @@ var Ke = defineComponent({
       return e.ariaInvalid !== void 0 && (c["aria-invalid"] = e.ariaInvalid), e.ariaRequired !== void 0 && (c["aria-required"] = e.ariaRequired), e.required && (c["aria-required"] = "true"), e.state === "error" && (c["aria-invalid"] = "true"), c;
     }), g = (c) => {
       if (c === 0) return "0 B";
-      const P = 1024, G = ["B", "KB", "MB", "GB"], O = Math.floor(Math.log(c) / Math.log(P));
-      return parseFloat((c / Math.pow(P, O)).toFixed(1)) + " " + G[O];
+      const P = 1024, U = ["B", "KB", "MB", "GB"], O = Math.floor(Math.log(c) / Math.log(P));
+      return parseFloat((c / Math.pow(P, O)).toFixed(1)) + " " + U[O];
     }, F = (c) => c.type.startsWith("image/") ? ua : la, b = (c) => `${c}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`, u = (c) => c.type.startsWith("image/"), B = (c) => new Promise((P) => {
       if (!u(c)) {
         P("");
         return;
       }
-      const G = new FileReader();
-      G.onload = (O) => {
+      const U = new FileReader();
+      U.onload = (O) => {
         var V;
         return P(((V = O.target) == null ? void 0 : V.result) || "");
-      }, G.readAsDataURL(c);
+      }, U.readAsDataURL(c);
     }), y = (c) => e.maxSize && c.size > e.maxSize ? `Le fichier "${c.name}" est trop volumineux (${g(c.size)}). Taille maximale : ${g(e.maxSize)}` : e.accept && !e.accept.split(",").map((O) => O.trim()).some((O) => {
       if (O.startsWith("."))
         return c.name.toLowerCase().endsWith(O.toLowerCase());
@@ -2045,8 +2045,8 @@ var Ke = defineComponent({
       return c.type === O;
     }) ? `Le type de fichier "${c.type}" n'est pas accepté pour "${c.name}"` : null, N = async (c) => {
       if (e.disabled || e.readonly) return;
-      const P = Array.from(c), G = L.value;
-      if (e.maxFiles && G.length + P.length > e.maxFiles) {
+      const P = Array.from(c), U = L.value;
+      if (e.maxFiles && U.length + P.length > e.maxFiles) {
         const V = `Nombre maximum de fichiers dépassé (${e.maxFiles})`;
         o("error", V), oe(V, "assertive");
         return;
@@ -2075,14 +2075,14 @@ var Ke = defineComponent({
         O.push(t);
       }
       if (O.length > 0) {
-        const V = e.multiple ? [...G, ...O] : O;
+        const V = e.multiple ? [...U, ...O] : O;
         m.value = V, o("change", V);
         const f = O.length === 1 ? `Fichier "${O[0].name}" ajouté` : `${O.length} fichiers ajoutés`;
         oe(f), O.forEach((t) => o("upload", t));
       }
     }, le = (c) => {
       if (e.disabled || e.readonly) return;
-      const P = L.value.filter((G) => G.id !== c.id);
+      const P = L.value.filter((U) => U.id !== c.id);
       m.value = P, o("change", P), o("remove", c), oe(`Fichier "${c.name}" supprimé`);
     }, ie = (c) => {
       const P = c.target;
@@ -2098,15 +2098,15 @@ var Ke = defineComponent({
       o("blur", c);
     }, h2 = (c) => {
       c.preventDefault(), c.stopPropagation(), !(e.disabled || e.readonly) && (D.value++, D.value === 1 && (d.value = true));
-    }, U = (c) => {
+    }, G = (c) => {
       c.preventDefault(), c.stopPropagation(), !(e.disabled || e.readonly) && (D.value--, D.value === 0 && (d.value = false));
     }, re = (c) => {
       c.preventDefault(), c.stopPropagation(), !(e.disabled || e.readonly) && c.dataTransfer && (c.dataTransfer.dropEffect = "copy");
     }, pe = (c) => {
-      var G;
+      var U;
       if (c.preventDefault(), c.stopPropagation(), e.disabled || e.readonly) return;
       d.value = false, D.value = 0;
-      const P = (G = c.dataTransfer) == null ? void 0 : G.files;
+      const P = (U = c.dataTransfer) == null ? void 0 : U.files;
       P && P.length > 0 && N(P);
     };
     return l({
@@ -2127,14 +2127,14 @@ var Ke = defineComponent({
       required: c.required,
       disabled: c.disabled
     }, {
-      default: withCtx(({ fieldId: G, messageId: O }) => [
+      default: withCtx(({ fieldId: U, messageId: O }) => [
         createBaseVNode("div", {
           class: normalizeClass(M.value)
         }, [
           createBaseVNode("input", mergeProps({
             ref_key: "fileInputRef",
             ref: C,
-            id: G,
+            id: U,
             type: "file",
             accept: c.accept,
             multiple: c.multiple,
@@ -2158,7 +2158,7 @@ var Ke = defineComponent({
             onClick: Q,
             onKeydown: ae,
             onDragenter: h2,
-            onDragleave: U,
+            onDragleave: G,
             onDragover: re,
             onDrop: pe
           }, [
@@ -2230,7 +2230,7 @@ var Ke = defineComponent({
                   V.error ? (openBlock(), createElementBlock("span", js, toDisplayString(V.error), 1)) : createCommentVNode("", true)
                 ])
               ]),
-              createBaseVNode("div", Us, [
+              createBaseVNode("div", Gs, [
                 V.status === "success" ? (openBlock(), createBlock(unref(aa), {
                   key: 0,
                   class: "su-file-upload-status-icon su-file-upload-status-icon--success",
@@ -2239,7 +2239,7 @@ var Ke = defineComponent({
                   key: 1,
                   class: "su-file-upload-status-icon su-file-upload-status-icon--error",
                   "aria-hidden": "true"
-                })) : V.status === "uploading" ? (openBlock(), createElementBlock("div", Gs, [...P[1] || (P[1] = [
+                })) : V.status === "uploading" ? (openBlock(), createElementBlock("div", Us, [...P[1] || (P[1] = [
                   createBaseVNode("svg", {
                     class: "su-spinner",
                     viewBox: "0 0 24 24"
@@ -2371,9 +2371,9 @@ var Oe = defineComponent({
     }), u = async () => {
       if (!e.autoResize || !C.value) return;
       await nextTick();
-      const x = C.value, h2 = e.minRows ? e.minRows * 1.5 : 3 * 1.5, U = e.maxRows ? e.maxRows * 1.5 : 10 * 1.5;
+      const x = C.value, h2 = e.minRows ? e.minRows * 1.5 : 3 * 1.5, G = e.maxRows ? e.maxRows * 1.5 : 10 * 1.5;
       x.style.height = "auto";
-      const re = x.scrollHeight, pe = Math.max(h2 * 16, Math.min(U * 16, re));
+      const re = x.scrollHeight, pe = Math.max(h2 * 16, Math.min(G * 16, re));
       x.style.height = `${pe}px`;
     }, B = (x) => {
       const h2 = x.target;
@@ -2411,7 +2411,7 @@ var Oe = defineComponent({
       required: x.required,
       disabled: x.disabled
     }, {
-      default: withCtx(({ fieldId: U, messageId: re }) => [
+      default: withCtx(({ fieldId: G, messageId: re }) => [
         createBaseVNode("div", null, [
           createBaseVNode("div", {
             class: normalizeClass(p.value)
@@ -2419,7 +2419,7 @@ var Oe = defineComponent({
             createBaseVNode("textarea", mergeProps({
               ref_key: "textareaRef",
               ref: C,
-              id: U,
+              id: G,
               class: A.value,
               value: m.value,
               placeholder: x.placeholder,
@@ -2440,7 +2440,7 @@ var Oe = defineComponent({
           x.showCounter && x.maxLength ? (openBlock(), createElementBlock("div", Ys, [
             h2[0] || (h2[0] = createBaseVNode("div", { class: "su-textarea-footer-spacer" }, null, -1)),
             createBaseVNode("div", {
-              id: `${U}-counter`,
+              id: `${G}-counter`,
               class: normalizeClass(g.value),
               "aria-live": L.value || M.value ? "polite" : "off"
             }, [
@@ -2592,7 +2592,7 @@ var je = defineComponent({
       e.orientation === "horizontal" ? (T = (t - S.left) / S.width, e.dir === "rtl" && (T = 1 - T)) : T = 1 - ($ - S.top) / S.height, T = Math.max(0, Math.min(1, T));
       const q = e.min + T * (e.max - e.min);
       return x(se(q));
-    }, U = (t, $ = "min") => {
+    }, G = (t, $ = "min") => {
       if (e.disabled || e.readonly) return;
       const S = se(x(t));
       if (g.value) {
@@ -2607,7 +2607,7 @@ var je = defineComponent({
       t.preventDefault(), w.value = true, _.value = $;
       const S = (q) => {
         const J = h2(q.clientX, q.clientY);
-        U(J, $);
+        G(J, $);
       }, T = () => {
         w.value = false, _.value = null, document.removeEventListener("mousemove", S), document.removeEventListener("mouseup", T);
       };
@@ -2617,9 +2617,9 @@ var je = defineComponent({
       const $ = h2(t.clientX, t.clientY);
       if (g.value) {
         const [S, T] = F.value, q = Math.abs($ - S), J = Math.abs($ - T), j = q <= J ? "min" : "max";
-        U($, j);
+        G($, j);
       } else
-        U($);
+        G($);
     }, fe = (t, $ = "min") => {
       if (e.disabled || e.readonly) return;
       const S = $ === "min" ? b.value : u.value;
@@ -2649,14 +2649,14 @@ var je = defineComponent({
         default:
           return;
       }
-      U(T, $), o("keydown", t);
+      G(T, $), o("keydown", t);
     }, ge = (t, $ = "min") => {
       e.tooltip !== "none" && ($ === "min" ? L.value = true : M.value = true), o("focus", t);
     }, c = (t, $ = "min") => {
       e.tooltip !== "none" && ($ === "min" ? L.value = false : M.value = false), o("blur", t);
     }, P = (t = "min") => {
       e.tooltip !== "none" && !e.disabled && (t === "min" ? L.value = true : M.value = true);
-    }, G = (t = "min") => {
+    }, U = (t = "min") => {
       e.tooltip !== "none" && (t === "min" ? L.value = false : M.value = false);
     }, O = computed(() => {
       if (!e.showTicks) return [];
@@ -2760,7 +2760,7 @@ var je = defineComponent({
                   onFocus: $[2] || ($[2] = (q) => ge(q, "min")),
                   onBlur: $[3] || ($[3] = (q) => c(q, "min")),
                   onMouseenter: $[4] || ($[4] = (q) => P("min")),
-                  onMouseleave: $[5] || ($[5] = (q) => G("min"))
+                  onMouseleave: $[5] || ($[5] = (q) => U("min"))
                 }), [
                   $[14] || ($[14] = createBaseVNode("div", { class: "su-slider-thumb-handle" }, null, -1)),
                   t.tooltip !== "none" && (L.value || w.value && _.value === "min") ? (openBlock(), createElementBlock("div", {
@@ -2784,7 +2784,7 @@ var je = defineComponent({
                   onFocus: $[8] || ($[8] = (q) => ge(q, "max")),
                   onBlur: $[9] || ($[9] = (q) => c(q, "max")),
                   onMouseenter: $[10] || ($[10] = (q) => P("max")),
-                  onMouseleave: $[11] || ($[11] = (q) => G("max"))
+                  onMouseleave: $[11] || ($[11] = (q) => U("max"))
                 }), [
                   $[15] || ($[15] = createBaseVNode("div", { class: "su-slider-thumb-handle" }, null, -1)),
                   t.tooltip !== "none" && (M.value || w.value && _.value === "max") ? (openBlock(), createElementBlock("div", {
@@ -3371,7 +3371,7 @@ var Ht = {
       }[l.linkSize];
       o && (e.style.setProperty("--su-link-size-md-font-size", `var(--su-link-size-${o}-font-size)`), e.style.setProperty("--su-link-size-md-line-height", `var(--su-link-size-${o}-line-height)`), e.style.setProperty("--su-link-size-md-padding", `var(--su-link-size-${o}-padding)`), e.style.setProperty("--su-link-size-md-icon-size", `var(--su-link-size-${o}-icon-size)`), e.style.setProperty("--su-link-size-md-icon-only-padding", `var(--su-link-size-${o}-icon-only-padding)`), e.style.setProperty("--su-link-size-md-icon-only-size", `var(--su-link-size-${o}-icon-only-size)`));
     }
-    l.linkUnderline && e.style.setProperty("--su-link-default-underline", l.linkUnderline), v.component(`${a}FormField`, ye), v.component(`${a}Button`, Ve), v.component(`${a}Password`, La), v.component(`${a}ButtonsGroup`, Ca), v.component(`${a}Link`, Re), v.component(`${a}LinksGroup`, Ia), v.component(`${a}Input`, Se), v.component(`${a}SelectBox`, Pe), v.component(`${a}RadioGroup`, Ee), v.component(`${a}CheckboxGroup`, Te), v.component(`${a}Switch`, He), v.component(`${a}FileUpload`, Ke), v.component(`${a}Textarea`, Oe), v.component(`${a}Slider`, je), v.component(`${a}FormFields`, zt), v.component(`${a}FloatButton`, qt), v.component(`${a}Dialog`, Bt), v.component(`${a}Image`, Pt);
+    l.linkUnderline && e.style.setProperty("--su-link-default-underline", l.linkUnderline), v.component(`${a}FormField`, ye), v.component(`${a}Button`, Ve), v.component(`${a}Password`, La), v.component(`${a}ButtonsGroup`, Ca), v.component(`${a}Link`, Re), v.component(`${a}LinksGroup`, Ia), v.component(`${a}Input`, Se), v.component(`${a}SelectBox`, Pe), v.component(`${a}RadioGroup`, Ee), v.component(`${a}CheckboxGroup`, Te), v.component(`${a}Switch`, He), v.component(`${a}FileUpload`, Ke), v.component(`${a}Textarea`, Oe), v.component(`${a}Slider`, je), v.component(`${a}FormFields`, zt), v.component(`${a}FloatButton`, qt), v.component(`${a}Dialog`, Bt), v.component(`${a}Image`, Pt), v.component(`${a}Avatar`, Avatar), v.component(`${a}AvatarsGroup`, AvatarsGroup);
   }
 };
 export {

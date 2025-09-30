@@ -75,6 +75,19 @@ const meta: Meta<typeof FileUpload> = {
     showFileList: {
       control: 'boolean',
       description: 'Afficher la liste des fichiers'
+    },
+    variant: {
+      control: { type: 'select' },
+      options: ['default', 'dashed', 'solid', 'minimal'],
+      description: 'Variante visuelle'
+    },
+    loading: {
+      control: 'boolean',
+      description: 'État de chargement'
+    },
+    showProgress: {
+      control: 'boolean',
+      description: 'Afficher la barre de progression'
     }
   }
 }
@@ -213,6 +226,77 @@ export const Required: Story = {
     required: true,
     placeholder: 'Fichiers obligatoires',
     message: 'Au moins un fichier doit être téléchargé'
+  }
+}
+
+export const Variants: Story = {
+  render: () => ({
+    components: { FileUpload },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 2rem; width: 400px;">
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Default</h4>
+          <FileUpload 
+            variant="default"
+            label="Upload default"
+            placeholder="Style par défaut"
+          />
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Dashed</h4>
+          <FileUpload 
+            variant="dashed"
+            label="Upload dashed"
+            placeholder="Style avec bordures pointillées"
+          />
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Solid</h4>
+          <FileUpload 
+            variant="solid"
+            label="Upload solid"
+            placeholder="Style avec bordures pleines"
+          />
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom: 0.5rem;">Minimal</h4>
+          <FileUpload 
+            variant="minimal"
+            label="Upload minimal"
+            placeholder="Style minimaliste"
+          />
+        </div>
+      </div>
+    `
+  })
+}
+
+export const WithProgress: Story = {
+  render: () => ({
+    components: { FileUpload },
+    template: `
+      <div style="width: 400px;">
+        <FileUpload 
+          label="Upload avec progression"
+          placeholder="Téléchargez vos fichiers"
+          message="La progression sera affichée pour chaque fichier"
+          :multiple="true"
+          :showProgress="true"
+        />
+      </div>
+    `
+  })
+}
+
+export const Loading: Story = {
+  args: {
+    label: 'Upload en chargement',
+    placeholder: 'Chargement en cours...',
+    loading: true,
+    message: 'Préparation de l\'upload'
   }
 }
 
