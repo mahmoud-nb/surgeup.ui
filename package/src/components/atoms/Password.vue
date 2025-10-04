@@ -186,9 +186,9 @@ watch(validation, (newValidation) => {
 }, { immediate: true })
 
 // Calcul du label du bouton toggle
-const toggleLabel = computed(() => {
-  return isVisible.value ? 'Masquer le mot de passe' : 'Afficher le mot de passe'
-})
+// const toggleLabel = computed(() => {
+//   return isVisible.value ? 'Masquer le mot de passe' : 'Afficher le mot de passe'
+// })
 </script>
 
 <template>

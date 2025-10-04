@@ -1,0 +1,326 @@
+name: Monorepo Deployment (Docs & Storybook)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Permet l'annulation des déploiements concurrents
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # ------------------------------------------------
+  # JOB 1: Préparation (Installation et Build de la Librairie)
+  # ------------------------------------------------
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies (ci)
+        run: npm ci
+
+      - name: Build Vue Library
+        run: npm run build:lib
+        
+      # CRITICAL: Sauvegarde de tous les fichiers nécessaires pour les builds suivants
+      - name: Upload Workspace Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: workspace-artifacts
+          # Inclus le code source, node_modules (si nécessaire, mais souvent ignoré) et les builds
+          path: |
+            .
+            !node_modules
+            !package/storybook-static
+            !docs/.vitepress/dist
+
+  # ------------------------------------------------
+  # JOB 2: Contrôle Qualité (Quality Check)
+  # ------------------------------------------------
+  quality-check:
+    needs: setup # Dépend du job setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: workspace-artifacts
+          path: .
+          
+      - name: Install dependencies (re-run ci)
+        # Nécessaire pour les outils de linting qui pourraient ne pas être dans l'artefact
+        run: npm ci
+
+      - name: Build and Validate Documentation
+        run: |
+          echo "## 📚 Démarrage des contrôles de qualité" >> $GITHUB_STEP_SUMMARY
+          
+          # Construction complète (librairie déjà dans l'artefact)
+          npm run build:docs 2>&1 | tee docs-build.log
+          npm run build-storybook 2>&1 | tee storybook-build.log
+          
+          echo "### 📦 Vérification de la Librairie Vue" >> $GITHUB_STEP_SUMMARY
+          
+          # Vérification des erreurs TypeScript dans le build:lib (si votre build:lib fait le linting)
+          if grep -q "error TS" docs-build.log; then
+            echo "❌ Erreurs TypeScript trouvées dans la librairie (build:lib)." >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo "✅ Librairie Vue OK" >> $GITHUB_STEP_SUMMARY
+
+          echo "### 📄 Vérification de la Documentation VitePress" >> $GITHUB_STEP_SUMMARY
+          
+          # Vérifier les fichiers de build docs
+          if [ ! -f "docs/.vitepress/dist/index.html" ]; then
+            echo "❌ Le build de la documentation a échoué (index.html manquant)." >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo "✅ Build Docs OK" >> $GITHUB_STEP_SUMMARY
+          
+          echo "### 📖 Vérification de Storybook" >> $GITHUB_STEP_SUMMARY
+          # Vérifier les fichiers de build Storybook
+          if [ ! -f "package/storybook-static/index.html" ]; then
+            echo "❌ Le build de Storybook a échoué (index.html manquant)." >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
+          echo "✅ Build Storybook OK" >> $GITHUB_STEP_SUMMARY
+
+
+  # ------------------------------------------------
+  # JOB 3: Déploiement de la Documentation (Racine)
+  # ------------------------------------------------
+  deploy-docs:
+    needs: [setup, quality-check] # Dépend du setup ET du quality-check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      # Télécharge l'artefact (inclut le code, node_modules et build:lib)
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: workspace-artifacts
+          path: .
+          
+      - name: Build Documentation (VitePress)
+        # Exécute la construction de la documentation (doit être fait à nouveau ici car non dans l'artefact initial)
+        run: npm run build:docs
+
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v4
+        # with:
+          # Déploie à la racine
+          # static_site_root: './docs/.vitepress/dist' 
+
+      - name: Upload Docs Artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './docs/.vitepress/dist'
+          name: vitepress-docs # Nom par défaut pour la racine
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Comment PR with documentation preview
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('📚 Documentation Preview')
+            );
+
+            const commentBody = `## 📚 Documentation Preview
+
+            ✅ Documentation has been built successfully for this PR!
+
+            ### 🔗 Preview Links
+            - **Documentation**: Available after merge to main branch
+            - **Repository**: [${context.payload.repository.html_url}](${context.payload.repository.html_url})
+
+            ### 📊 Build Info
+            - **Commit**: ${context.sha.substring(0, 7)}
+            - **Branch**: ${context.ref.replace('refs/heads/', '')}
+            - **Workflow**: [View details](${context.payload.repository.html_url}/actions/runs/${context.runId})
+
+            ### 🌐 Languages
+            - **Français**: Documentation complète avec exemples
+            - **English**: Complete documentation with examples
+
+            > This preview will be updated automatically when you push new commits to this PR.`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }
+
+  # ------------------------------------------------
+  # JOB 4: Déploiement de Storybook (Sous-dossier /storybook/)
+  # ------------------------------------------------
+  deploy-storybook:
+    needs: [setup, quality-check] # Dépend du setup ET du quality-check
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: workspace-artifacts
+          path: .
+
+      - name: Build Storybook
+        # Exécute la construction de Storybook
+        run: npm run build-storybook
+
+      - name: Setup Pages
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v4
+        # with:
+          # Déploiement dans un sous-répertoire
+          # static_site_root: './package/storybook-static' 
+
+      - name: Upload Storybook Artifact
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './package/storybook-static'
+          name: storybook # CRITICAL: Nom de l'artefact = nom du sous-dossier (storybook/)
+
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Comment PR with Storybook preview
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('📚 Storybook Preview')
+            );
+
+            const commentBody = `## 📚 Storybook Preview
+
+            ✅ Storybook has been built successfully for this PR!
+
+            ### 🔗 Preview Links
+            - **Storybook**: Available after merge to main branch
+            - **Documentation**: Check the docs folder for component documentation
+
+            ### 📊 Build Info
+            - **Commit**: ${context.sha.substring(0, 7)}
+            - **Branch**: ${context.ref.replace('refs/heads/', '')}
+            - **Workflow**: [View details](${context.payload.repository.html_url}/actions/runs/${context.runId})
+
+            > This preview will be updated automatically when you push new commits to this PR.`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }
+
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+
+            const botComment = comments.find(comment => 
+              comment.user.type === 'Bot' && 
+              comment.body.includes('📚 Storybook Preview')
+            );
+
+            const commentBody = `## 📚 Storybook Preview
+
+            ✅ Storybook has been built successfully for this PR!
+
+            ### 🔗 Preview Links
+            - **Storybook**: Available after merge to main branch
+            - **Documentation**: Check the docs folder for component documentation
+
+            ### 📊 Build Info
+            - **Commit**: ${context.sha.substring(0, 7)}
+            - **Branch**: ${context.ref.replace('refs/heads/', '')}
+            - **Workflow**: [View details](${context.payload.repository.html_url}/actions/runs/${context.runId})
+
+            > This preview will be updated automatically when you push new commits to this PR.`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: commentBody
+              });
+            }

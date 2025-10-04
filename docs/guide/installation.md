@@ -3,7 +3,7 @@
 ## 📚 Ressources
 
 - **Documentation** : Guide complet avec exemples
-- **[Storybook](http://localhost:6006)** : Exemples interactifs et playground des composants
+- **[Storybook](/surgeup.ui/storybook/)** : Exemples interactifs et playground des composants
 
 ## Prérequis
 
