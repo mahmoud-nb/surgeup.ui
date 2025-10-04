@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watch, onMounted, onUnmounted, nextTick, useAttrs, useId } from 'vue'
 import type { DialogProps } from '@/types'
-import { trapFocus } from '@/utils/accessibility'
+import { trapFocus } from '../../utils/accessibility'
 
 export interface Props extends DialogProps {}
 

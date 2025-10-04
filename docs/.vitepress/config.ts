@@ -1,6 +1,9 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  // FIX: Ajoutez la Base URL correspondant au nom de votre repository GitHub
+  // base: '/surgeup.ui/',
+  
   title: 'SurgeUp Design System',
   description: 'Bibliothèque de composants Vue.js 3 moderne',
   
@@ -14,6 +17,7 @@ export default defineConfig({
         nav: [
           { text: 'Accueil', link: '/' },
           { text: 'Composants', link: '/components/' },
+          // Le lien Storybook doit aussi être corrigé une fois déployé
           { text: 'Storybook', link: 'http://localhost:6006', target: '_blank' }
         ],
         sidebar: [

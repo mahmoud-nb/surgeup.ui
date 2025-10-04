@@ -30,9 +30,15 @@ import {
 
 export default {
   extends: DefaultTheme,
-  enhanceApp({ app }) {
+  async enhanceApp({ app }) {
     app.use(SurgeUpDS)
-    
+
+    app.component('SuImage', (await import('../../../package/src/components/atoms/Image.vue')).default)
+    app.component('SuAvatar', (await import('../../../package/src/components/atoms/Avatar.vue')).default)
+    app.component('SuAvatarsGroup', (await import('../../../package/src/components/molecules/AvatarsGroup.vue')).default)
+    app.component('SuDialog', (await import('../../../package/src/components/molecules/Dialog.vue')).default)
+
+
     // Enregistrement global des icônes courantes
     app.component('PlusIcon', PlusIcon)
     app.component('TrashIcon', TrashIcon)

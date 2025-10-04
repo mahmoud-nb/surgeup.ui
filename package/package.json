@@ -20,7 +20,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build --output-dir storybook-static --base /storybook/"
   },
   "peerDependencies": {
     "vue": "^3.3.0"
