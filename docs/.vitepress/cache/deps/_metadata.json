@@ -1,0 +1,64 @@
+{
+  "hash": "d48bbe45",
+  "configHash": "09cd1d44",
+  "lockfileHash": "5f59f4ae",
+  "browserHash": "bada875b",
+  "optimized": {
+    "vue": {
+      "src": "../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
+      "file": "vue.js",
+      "fileHash": "7721dd18",
+      "needsInterop": false
+    },
+    "vitepress > @vue/devtools-api": {
+      "src": "../../../../node_modules/@vue/devtools-api/dist/index.js",
+      "file": "vitepress___@vue_devtools-api.js",
+      "fileHash": "9592e685",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/core": {
+      "src": "../../../../node_modules/@vueuse/core/index.mjs",
+      "file": "vitepress___@vueuse_core.js",
+      "fileHash": "403d056c",
+      "needsInterop": false
+    },
+    "@heroicons/vue/24/outline": {
+      "src": "../../../../node_modules/@heroicons/vue/24/outline/esm/index.js",
+      "file": "@heroicons_vue_24_outline.js",
+      "fileHash": "a47e1edd",
+      "needsInterop": false
+    },
+    "@surgeup/ds-vue": {
+      "src": "../../../../package/dist/index.es.js",
+      "file": "@surgeup_ds-vue.js",
+      "fileHash": "d00a714d",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/integrations/useFocusTrap": {
+      "src": "../../../../node_modules/@vueuse/integrations/useFocusTrap.mjs",
+      "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
+      "fileHash": "9c703eda",
+      "needsInterop": false
+    },
+    "vitepress > mark.js/src/vanilla.js": {
+      "src": "../../../../node_modules/mark.js/src/vanilla.js",
+      "file": "vitepress___mark__js_src_vanilla__js.js",
+      "fileHash": "3cbc6bda",
+      "needsInterop": false
+    },
+    "vitepress > minisearch": {
+      "src": "../../../../node_modules/minisearch/dist/es/index.js",
+      "file": "vitepress___minisearch.js",
+      "fileHash": "4e526a9b",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-4ORK6ILF": {
+      "file": "chunk-4ORK6ILF.js"
+    },
+    "chunk-FJMVHDE5": {
+      "file": "chunk-FJMVHDE5.js"
+    }
+  }
+}
