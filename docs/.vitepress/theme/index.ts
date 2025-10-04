@@ -31,7 +31,7 @@ import {
 
 export default {
   extends: DefaultTheme,
-  async enhanceApp({ app }) {
+  async enhanceApp({ app }: { app: import('vue').App }) {
     if (inBrowser) {
       app.use(SurgeUpDS)
 

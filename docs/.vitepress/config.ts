@@ -28,25 +28,40 @@ export default defineConfig({
           {
             text: 'Composants',
             items: [
-              { text: 'Image', link: '/components/image' },
-              { text: 'Avatar', link: '/components/avatar' },
-              { text: 'AvatarsGroup', link: '/components/avatarsgroup' },
-              { text: 'Dialog', link: '/components/dialog' },
-              { text: 'Button', link: '/components/button' },
-              { text: 'ButtonsGroup', link: '/components/buttonsgroup' },
-              { text: 'Link', link: '/components/link' },
-              { text: 'LinksGroup', link: '/components/linksgroup' },
-              { text: 'Input', link: '/components/input' },
-              { text: 'SelectBox', link: '/components/selectbox' },
-              { text: 'RadioGroup', link: '/components/radiogroup' },
-              { text: 'CheckboxGroup', link: '/components/checkboxgroup' },
-              { text: 'Switch', link: '/components/switch' },
-              { text: 'FileUpload', link: '/components/fileupload' },
-              { text: 'Textarea', link: '/components/textarea' },
-              { text: 'Range', link: '/components/range' },
-              { text: 'FormFields', link: '/components/formfields' },
-              { text: 'FloatButton', link: '/components/floatbutton' },
-              { text: 'Dialog', link: '/components/dialog' }
+              { 
+                text: '# Affichage', 
+                items: [
+                  { text: 'Image', link: '/components/image' },
+                  { text: 'Avatar', link: '/components/avatar' },
+                  { text: 'AvatarsGroup', link: '/components/avatarsgroup' },
+                  { text: 'Dialog', link: '/components/dialog' }
+                ]
+              },
+              {
+                text: '# Formulaires', 
+                items: [
+                  { text: 'Input', link: '/components/input' },
+                  { text: 'SelectBox', link: '/components/selectbox' },
+                  { text: 'RadioGroup', link: '/components/radiogroup' },
+                  { text: 'CheckboxGroup', link: '/components/checkboxgroup' },
+                  { text: 'Textarea', link: '/components/textarea' },
+                  { text: 'FileUpload', link: '/components/fileupload' },
+                  { text: 'Range', link: '/components/range' },
+                  { text: 'Switch', link: '/components/switch' },
+                  { text: 'Password', link: '/components/password' },
+                  { text: 'FormFields', link: '/components/formfields' },
+                ]
+              },
+              {
+                text: '# Actions',
+                items: [
+                  { text: 'Button', link: '/components/button' },
+                  { text: 'ButtonGroup', link: '/components/buttongroup' },
+                  { text: 'Link', link: '/components/link' },
+                  { text: 'LinkGroup', link: '/components/linkgroup' },           
+                  { text: 'FloatButton', link: '/components/floatbutton' }
+                ]
+              }
             ]
           }
         ]
@@ -74,28 +89,40 @@ export default defineConfig({
           {
             text: 'Components',
             items: [
-              { text: 'Image', link: '/en/components/image' },
-              { text: 'Avatar', link: '/en/components/avatar' },
-              { text: 'AvatarsGroup', link: '/en/components/avatarsgroup' },
-              { text: 'Dialog', link: '/en/components/dialog' },
-              { text: 'Button', link: '/en/components/button' },
-              { text: 'Password', link: '/en/components/password' },
-              { text: 'ButtonsGroup', link: '/en/components/buttonsgroup' },
-              { text: 'ButtonsGroup', link: '/en/components/buttonsgroup' },
-              { text: 'Link', link: '/en/components/link' },
-              { text: 'LinksGroup', link: '/en/components/linksgroup' },
-              { text: 'LinksGroup', link: '/en/components/linksgroup' },
-              { text: 'Input', link: '/en/components/input' },
-              { text: 'SelectBox', link: '/en/components/selectbox' },
-              { text: 'RadioGroup', link: '/en/components/radiogroup' },
-              { text: 'CheckboxGroup', link: '/en/components/checkboxgroup' },
-              { text: 'Switch', link: '/en/components/switch' },
-              { text: 'FileUpload', link: '/en/components/fileupload' },
-              { text: 'Textarea', link: '/en/components/textarea' },
-              { text: 'Slider', link: '/en/components/slider' },
-              { text: 'FormFields', link: '/en/components/formfields' },
-              { text: 'FloatButton', link: '/en/components/floatbutton' },
-              { text: 'Dialog', link: '/en/components/dialog' }
+              { 
+                text: '# Display', 
+                items: [
+                  { text: 'Image', link: '/en/components/image' },
+                  { text: 'Avatar', link: '/en/components/avatar' },
+                  { text: 'AvatarsGroup', link: '/en/components/avatarsgroup' },
+                  { text: 'Dialog', link: '/en/components/dialog' }
+                ]
+              },
+              {
+                text: '# Forms', 
+                items: [
+                  { text: 'Input', link: '/en/components/input' },
+                  { text: 'SelectBox', link: '/en/components/selectbox' },
+                  { text: 'RadioGroup', link: '/en/components/radiogroup' },
+                  { text: 'CheckboxGroup', link: '/en/components/checkboxgroup' },
+                  { text: 'Textarea', link: '/en/components/textarea' },
+                  { text: 'FileUpload', link: '/en/components/fileupload' },
+                  { text: 'Range', link: '/en/components/range' },
+                  { text: 'Switch', link: '/en/components/switch' },
+                  { text: 'Password', link: '/en/components/password' },
+                  { text: 'FormFields', link: '/en/components/formfields' },
+                ]
+              },
+              {
+                text: '# Actions',
+                items: [
+                  { text: 'Button', link: '/en/components/button' },
+                  { text: 'ButtonGroup', link: '/en/components/buttongroup' },
+                  { text: 'Link', link: '/en/components/link' },
+                  { text: 'LinkGroup', link: '/en/components/linkgroup' },           
+                  { text: 'FloatButton', link: '/en/components/floatbutton' }
+                ]
+              }
             ]
           }
         ]
