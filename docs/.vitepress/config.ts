@@ -1,6 +1,8 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
+  base: '/surgeup.ui/',
+  
   title: 'SurgeUp Design System',
   description: 'Bibliothèque de composants Vue.js 3 moderne',
   

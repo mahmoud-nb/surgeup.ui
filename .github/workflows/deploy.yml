@@ -1,4 +1,4 @@
-name: Monorepo Deployment (Docs & Storybook)
+name: Monorepo Deploy to GitHub Pages (Docs & Storybook)
 
 on:
   push:
