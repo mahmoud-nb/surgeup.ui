@@ -5,7 +5,7 @@ Bibliothèque de composants Vue.js 3 avec Composition API, conçue pour créer d
 ## 📖 Documentation et exemples
 
 - **[Documentation complète](/)** - Guide d'utilisation et API des composants
-- **[Storybook](/surgeup.ui/storybook/)** - Exemples interactifs et tests des composants
+- **[Storybook](https://mahmoud-nb.github.io/surgeup.ui/storybook/)** - Exemples interactifs et tests des composants
 
 ## ✨ Fonctionnalités
 
@@ -42,6 +42,24 @@ import '@surgeup/ds-vue/style.css'
     <h3>Button</h3>
     <p>Composant bouton avec plusieurs variantes et tailles</p>
     <a href="/components/button">Voir la documentation →</a>
+  </div>
+  
+  <div class="component-card">
+    <h3>Input</h3>
+    <p>Composant input avec préfixes, suffixes et validation</p>
+    <a href="/components/input">Voir la documentation →</a>
+  </div>
+  
+  <div class="component-card">
+    <h3>SelectBox</h3>
+    <p>Composant select avec recherche et sélection multiple</p>
+    <a href="/components/selectbox">Voir la documentation →</a>
+  </div>
+  
+  <div class="component-card">
+    <h3>Dialog</h3>
+    <p>Composant modal et tiroir polyvalent</p>
+    <a href="/components/dialog">Voir la documentation →</a>
   </div>
 </div>
 

@@ -17,7 +17,7 @@ export default defineConfig({
           { text: 'Accueil', link: '/' },
           { text: 'Composants', link: '/components/' },
           // Le lien Storybook doit aussi être corrigé une fois déployé
-          { text: 'Storybook', link: '/surgeup.ui/storybook/', target: '_blank' }
+          { text: 'Storybook', link: 'https://mahmoud-nb.github.io/surgeup.ui/storybook/', target: '_blank' }
         ],
         sidebar: [
           {
@@ -50,7 +50,6 @@ export default defineConfig({
                   { text: 'FileUpload', link: '/components/fileupload' },
                   { text: 'Range', link: '/components/range' },
                   { text: 'Switch', link: '/components/switch' },
-                  { text: 'Password', link: '/components/password' },
                   { text: 'FormFields', link: '/components/formfields' },
                 ]
               },
@@ -78,7 +77,7 @@ export default defineConfig({
         nav: [
           { text: 'Home', link: '/en/' },
           { text: 'Components', link: '/en/components/' },
-          { text: 'Storybook', link: '/surgeup.ui/storybook/', target: '_blank' }
+          { text: 'Storybook', link: 'https://mahmoud-nb.github.io/surgeup.ui/storybook/', target: '_blank' }
         ],
         sidebar: [
           {
@@ -111,7 +110,6 @@ export default defineConfig({
                   { text: 'FileUpload', link: '/en/components/fileupload' },
                   { text: 'Range', link: '/en/components/range' },
                   { text: 'Switch', link: '/en/components/switch' },
-                  { text: 'Password', link: '/en/components/password' },
                   { text: 'FormFields', link: '/en/components/formfields' },
                 ]
               },

@@ -98,52 +98,7 @@ const strictRules = {
         placeholder="Entrez votre mot de passe"
         showProgress
         required
-      >
-        <template #default="{ validation, details }">
-          <div style="margin-top: 0.75rem; padding: 0.75rem; background-color: #f8fafc; border-radius: 0.375rem; border: 1px solid #e2e8f0;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-              <span style="font-weight: 600; font-size: 0.875rem;" :style="{ color: validation.isValid ? '#059669' : '#dc2626' }">
-                {{ validation.isValid ? '✓ Mot de passe valide' : '⚠ Critères non respectés' }}
-              </span>
-              <span style="font-size: 0.75rem; color: #6b7280;">
-                Force : {{ validation.score }}%
-              </span>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem; font-size: 0.75rem;">
-              <div style="display: flex; align-items: center; gap: 0.25rem;">
-                <span :style="{ color: details.length.satisfied ? '#059669' : '#dc2626', fontWeight: '600' }">
-                  {{ details.length.satisfied ? '✓' : '✗' }}
-                </span>
-                <span>{{ details.length.current }}/{{ details.length.required }} caractères</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.25rem;">
-                <span :style="{ color: details.uppercase.satisfied ? '#059669' : '#dc2626', fontWeight: '600' }">
-                  {{ details.uppercase.satisfied ? '✓' : '✗' }}
-                </span>
-                <span>{{ details.uppercase.current }}/{{ details.uppercase.required }} majuscules</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.25rem;">
-                <span :style="{ color: details.lowercase.satisfied ? '#059669' : '#dc2626', fontWeight: '600' }">
-                  {{ details.lowercase.satisfied ? '✓' : '✗' }}
-                </span>
-                <span>{{ details.lowercase.current }}/{{ details.lowercase.required }} minuscules</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.25rem;">
-                <span :style="{ color: details.digits.satisfied ? '#059669' : '#dc2626', fontWeight: '600' }">
-                  {{ details.digits.satisfied ? '✓' : '✗' }}
-                </span>
-                <span>{{ details.digits.current }}/{{ details.digits.required }} chiffres</span>
-              </div>
-              <div style="display: flex; align-items: center; gap: 0.25rem;">
-                <span :style="{ color: details.specialChars.satisfied ? '#059669' : '#dc2626', fontWeight: '600' }">
-                  {{ details.specialChars.satisfied ? '✓' : '✗' }}
-                </span>
-                <span>{{ details.specialChars.current }}/{{ details.specialChars.required }} spéciaux</span>
-              </div>
-            </div>
-          </div>
-        </template>
-      </SuPassword>
+      />
     </div>
   </div>                                          
 </div>
@@ -165,28 +120,7 @@ const handleValidation = (validation) => {
     required
     v-model="password"
     @validation="handleValidation"
-  >
-    <template #default="{ validation, details }">
-      <div class="password-feedback">
-        <div class="validation-header">
-          <span :class="validation.isValid ? 'valid' : 'invalid'">
-            {{ validation.isValid ? '✓ Valide' : '⚠ Invalide' }}
-          </span>
-          <span class="score">Force : {{ validation.score }}%</span>
-        </div>
-        
-        <div class="criteria-grid">
-          <div class="criterion">
-            <span :class="details.length.satisfied ? 'satisfied' : 'unsatisfied'">
-              {{ details.length.satisfied ? '✓' : '✗' }}
-            </span>
-            <span>{{ details.length.current }}/{{ details.length.required }} caractères</span>
-          </div>
-          <!-- Autres critères... -->
-        </div>
-      </div>
-    </template>
-  </SuPassword>
+  />
 </template>
 ```
 
@@ -565,22 +499,7 @@ Le composant Password respecte les normes WCAG 2.1 AA :
   autocomplete="new-password"
   v-model="password"
   @validation="handlePasswordValidation"
->
-  <template #default="{ validation, details }">
-    <div class="password-requirements">
-      <h4>Critères requis :</h4>
-      <ul>
-        <li :class="details.length.satisfied ? 'satisfied' : 'unsatisfied'">
-          Au moins {{ details.length.required }} caractères
-        </li>
-        <li :class="details.uppercase.satisfied ? 'satisfied' : 'unsatisfied'">
-          Au moins {{ details.uppercase.required }} majuscule
-        </li>
-        <!-- Autres critères... -->
-      </ul>
-    </div>
-  </template>
-</SuPassword>
+/>
 
 <!-- Confirmation de mot de passe -->
 <SuPassword 
@@ -632,31 +551,7 @@ const handlePasswordValidation = (validation) => {
       autocomplete="new-password"
       v-model="password"
       @validation="handlePasswordValidation"
-    >
-      <template #default="{ validation, details }">
-        <div v-if="password" class="password-criteria">
-          <h4>Critères de sécurité :</h4>
-          <div class="criteria-list">
-            <div class="criterion" :class="details.length.satisfied ? 'satisfied' : 'unsatisfied'">
-              <span class="criterion-icon">{{ details.length.satisfied ? '✓' : '✗' }}</span>
-              <span>{{ details.length.required }} caractères minimum</span>
-            </div>
-            <div class="criterion" :class="details.uppercase.satisfied ? 'satisfied' : 'unsatisfied'">
-              <span class="criterion-icon">{{ details.uppercase.satisfied ? '✓' : '✗' }}</span>
-              <span>{{ details.uppercase.required }} majuscule minimum</span>
-            </div>
-            <div class="criterion" :class="details.digits.satisfied ? 'satisfied' : 'unsatisfied'">
-              <span class="criterion-icon">{{ details.digits.satisfied ? '✓' : '✗' }}</span>
-              <span>{{ details.digits.required }} chiffre minimum</span>
-            </div>
-            <div class="criterion" :class="details.specialChars.satisfied ? 'satisfied' : 'unsatisfied'">
-              <span class="criterion-icon">{{ details.specialChars.satisfied ? '✓' : '✗' }}</span>
-              <span>{{ details.specialChars.required }} caractère spécial minimum</span>
-            </div>
-          </div>
-        </div>
-      </template>
-    </SuPassword>
+    />
     
     <SuPassword 
       label="Confirmer le mot de passe"
@@ -789,39 +684,7 @@ const handleNewPasswordValidation = (validation) => {
       autocomplete="new-password"
       v-model="newPassword"
       @validation="handleNewPasswordValidation"
-    >
-      <template #default="{ validation }">
-        <div v-if="newPassword" class="password-feedback">
-          <div class="feedback-header">
-            <span :class="validation.isValid ? 'valid' : 'invalid'">
-              {{ validation.isValid ? '✓ Mot de passe sécurisé' : '⚠ Améliorations nécessaires' }}
-            </span>
-            <span class="score">{{ validation.score }}% de force</span>
-          </div>
-          
-          <div v-if="!validation.isValid" class="improvements">
-            <p>Pour améliorer la sécurité :</p>
-            <ul>
-              <li v-if="validation.unsatisfied.includes('length')">
-                Ajoutez plus de caractères
-              </li>
-              <li v-if="validation.unsatisfied.includes('uppercase')">
-                Ajoutez des lettres majuscules
-              </li>
-              <li v-if="validation.unsatisfied.includes('lowercase')">
-                Ajoutez des lettres minuscules
-              </li>
-              <li v-if="validation.unsatisfied.includes('digits')">
-                Ajoutez des chiffres
-              </li>
-              <li v-if="validation.unsatisfied.includes('specialChars')">
-                Ajoutez des caractères spéciaux (!@#$%^&*)
-              </li>
-            </ul>
-          </div>
-        </div>
-      </template>
-    </SuPassword>
+    />
     
     <SuPassword 
       label="Confirmer le nouveau mot de passe"

@@ -235,22 +235,7 @@ The Password component follows WCAG 2.1 AA standards:
   autocomplete="new-password"
   v-model="password"
   @validation="handlePasswordValidation"
->
-  <template #default="{ validation, details }">
-    <div class="password-requirements">
-      <h4>Required criteria:</h4>
-      <ul>
-        <li :class="details.length.satisfied ? 'satisfied' : 'unsatisfied'">
-          At least {{ details.length.required }} characters
-        </li>
-        <li :class="details.uppercase.satisfied ? 'satisfied' : 'unsatisfied'">
-          At least {{ details.uppercase.required }} uppercase letter
-        </li>
-        <!-- Other criteria... -->
-      </ul>
-    </div>
-  </template>
-</SuPassword>
+/>
 
 <!-- Password confirmation -->
 <SuPassword 

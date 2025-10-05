@@ -1,29 +1,32 @@
-import type { StorybookConfig } from '@storybook/vue3-vite';
+import type { StorybookConfig } from '@storybook/vue3-vite'
 
-import { join, dirname } from "path"
-
-/**
-* This function is used to resolve the absolute path of a package.
-* It is needed in projects that use Yarn PnP or are set up within a monorepo.
-*/
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')))
-}
 const config: StorybookConfig = {
-  "stories": [
-    "../src/**/*.mdx",
-    "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
+  stories: [
+    '../src/components/**/_stories/*.stories.@(js|jsx|mjs|ts|tsx)'
   ],
-  "addons": [
-    getAbsolutePath('@chromatic-com/storybook'),
-    getAbsolutePath('@storybook/addon-docs'),
-    getAbsolutePath('@storybook/addon-onboarding'),
-    getAbsolutePath("@storybook/addon-a11y"),
-    getAbsolutePath("@storybook/addon-vitest")
+  addons: [
+    '@storybook/addon-links',
+    '@storybook/addon-essentials',
+    '@storybook/addon-interactions',
+    '@storybook/addon-a11y',
+    '@storybook/addon-docs'
   ],
-  "framework": {
-    "name": getAbsolutePath('@storybook/vue3-vite'),
-    "options": {}
+  framework: {
+    name: '@storybook/vue3-vite',
+    options: {}
+  },
+  typescript: {
+    check: false,
+    reactDocgen: false
+  },
+  viteFinal: async (config) => {
+    config.resolve = config.resolve || {}
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@': new URL('../src', import.meta.url).pathname
+    }
+    return config
   }
-};
-export default config;
+}
+
+export default config
