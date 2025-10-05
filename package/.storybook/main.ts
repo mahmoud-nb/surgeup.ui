@@ -15,6 +15,10 @@ const config: StorybookConfig = {
     name: '@storybook/vue3-vite',
     options: {}
   },
+  managerHead: (head) => `
+    ${head}
+    <base href="/surgeup.ui/storybook/">
+  `,
   typescript: {
     check: false,
     reactDocgen: false
