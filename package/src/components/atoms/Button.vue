@@ -214,6 +214,10 @@ const ariaAttributes = computed(() => {
   &--radius-xl {
     border-radius: var(--su-border-radius-xl);
   }
+
+  &--radius-full {
+    border-radius: var(--su-border-radius-full);
+  }
   
   &--default-radius {
     border-radius: var(--su-button-default-radius);

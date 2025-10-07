@@ -2,7 +2,7 @@ import type { Component } from 'vue'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'default'
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'default'
-export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'default'
+export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'default'
 export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'time' | 'datetime-local' | 'month' | 'week'
 export type InputSize = 'sm' | 'md' | 'lg'
 export type InputState = 'default' | 'error' | 'success' | 'warning'

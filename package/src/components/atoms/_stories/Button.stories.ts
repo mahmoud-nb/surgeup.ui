@@ -27,7 +27,7 @@ const meta: Meta<typeof Button> = {
     },
     radius: {
       control: { type: 'select' },
-      options: ['none', 'sm', 'md', 'lg', 'xl', 'default'],
+      options: ['none', 'sm', 'md', 'lg', 'xl', 'full', 'default'],
       description: 'Rayon de bordure du bouton'
     },
     disabled: {
@@ -122,6 +122,20 @@ export const Default: Story = {
   })
 }
 
+export const Variants: Story = {
+  render: () => ({
+    components: { Button },
+    template: `
+      <div style="display: flex; gap: 1rem; align-items: center;">
+        <Button variant="primary">Primary</Button>
+        <Button variant="secondary">Secondary</Button>
+        <Button variant="outline">Outline</Button>
+        <Button variant="ghost">Ghost</Button>
+      </div>
+    `
+  })
+}
+
 export const RadiusVariations: Story = {
   render: () => ({
     components: { Button },
@@ -133,6 +147,7 @@ export const RadiusVariations: Story = {
           <Button radius="md">Medium</Button>
           <Button radius="lg">Large</Button>
           <Button radius="xl">Extra Large</Button>
+          <Button radius="full">Full</Button>
           <Button radius="default">Default</Button>
         </div>
       </div>
@@ -242,7 +257,7 @@ export const Block: Story = {
     setup() {
       return { args }
     },
-    template: '<Button v-bind="args">Block Button</Button>'
+    template: '<div style="width: 320px;"><Button v-bind="args">Block Button</Button></div>'
   })
 }
 
@@ -254,20 +269,6 @@ export const Sizes: Story = {
         <Button size="sm">Small</Button>
         <Button size="md">Medium</Button>
         <Button size="lg">Large</Button>
-      </div>
-    `
-  })
-}
-
-export const Variants: Story = {
-  render: () => ({
-    components: { Button },
-    template: `
-      <div style="display: flex; gap: 1rem; align-items: center;">
-        <Button variant="primary">Primary</Button>
-        <Button variant="secondary">Secondary</Button>
-        <Button variant="outline">Outline</Button>
-        <Button variant="ghost">Ghost</Button>
       </div>
     `
   })
