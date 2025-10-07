@@ -365,8 +365,6 @@ defineExpose({
   display: flex;
   align-items: center;
   color: $text-secondary;
-  background-color: $gray-50;
-  border-right: 1px solid $gray-200;
   white-space: nowrap;
   
   &--text {
@@ -395,11 +393,6 @@ defineExpose({
   }
 }
 
-.su-input-suffix {
-  border-right: none;
-  border-left: 1px solid $gray-200;
-}
-
 .su-input-prefix {
   border-top-left-radius: $border-radius-md;
   border-bottom-left-radius: $border-radius-md;
@@ -414,8 +407,6 @@ defineExpose({
 @media (prefers-color-scheme: dark) {
   .su-input-prefix,
   .su-input-suffix {
-    background-color: $gray-900;
-    border-color: $gray-600;
     color: $text-secondary-dark;
     
     &--clickable:hover:not(.su-input-container--disabled):not(.su-input-container--readonly) {
