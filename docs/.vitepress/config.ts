@@ -50,6 +50,7 @@ export default defineConfig({
                   { text: 'FileUpload', link: '/components/fileupload' },
                   { text: 'Range', link: '/components/range' },
                   { text: 'Switch', link: '/components/switch' },
+                  { text: 'Password', link: '/components/password' },
                   { text: 'FormFields', link: '/components/formfields' },
                 ]
               },
@@ -110,6 +111,7 @@ export default defineConfig({
                   { text: 'FileUpload', link: '/en/components/fileupload' },
                   { text: 'Range', link: '/en/components/range' },
                   { text: 'Switch', link: '/en/components/switch' },
+                  { text: 'Password', link: '/en/components/password' },
                   { text: 'FormFields', link: '/en/components/formfields' },
                 ]
               },

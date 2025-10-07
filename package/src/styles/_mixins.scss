@@ -2,12 +2,6 @@
 
 // Mixins et classes communes pour les composants
 
-// Classes génériques réutilisables
-.su-indicator-required {
-  color: $error-500;
-  margin-left: 0.125rem;
-}
-
 .sr-only {
   position: absolute;
   width: 1px;
@@ -18,6 +12,12 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+// Classes génériques réutilisables
+.su-indicator-required {
+  color: $error-500;
+  margin-left: 0.125rem;
 }
 
 // Mixin pour les wrappers de champs de formulaire
@@ -70,6 +70,15 @@
   }
 }
 
+@mixin su-form-field-state($color) {
+  border-color: $color;
+
+  &:focus-within {
+    border-color: $color;
+    box-shadow: 0 0 0 3px rgba($color, 0.1);
+  }
+}
+
 // Mixin pour les containers d'input
 @mixin su-form-field-container {
   position: relative;
@@ -83,33 +92,10 @@
     box-shadow: 0 0 0 3px rgba($primary-500, 0.1);
   }
   
-  // États
-  &--error {
-    border-color: $error-500;
-    
-    &:focus-within {
-      border-color: $error-500;
-      box-shadow: 0 0 0 3px rgba($error-500, 0.1);
-    }
-  }
-  
-  &--success {
-    border-color: $success-500;
-    
-    &:focus-within {
-      border-color: $success-500;
-      box-shadow: 0 0 0 3px rgba($success-500, 0.1);
-    }
-  }
-  
-  &--warning {
-    border-color: $warning-500;
-    
-    &:focus-within {
-      border-color: $warning-500;
-      box-shadow: 0 0 0 3px rgba($warning-500, 0.1);
-    }
-  }
+  // Variations d’état
+  &--error    { @include su-form-field-state($error-500); }
+  &--success  { @include su-form-field-state($success-500); }
+  &--warning  { @include su-form-field-state($warning-500); }
   
   &--disabled {
     background-color: $gray-50;
