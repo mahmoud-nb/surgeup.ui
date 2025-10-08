@@ -1,11 +1,11 @@
-# SurgeUp Design System
+# SurgeUI Design System
 
 Modern Vue.js 3 component library with Composition API, designed to create modern and consistent interfaces.
 
 ## 📖 Documentation and examples
 
 - **[Complete Documentation](/)** - Usage guide and component API
-- **[Storybook](https://mahmoud-nb.github.io/surgeup.ui/storybook/)** - Interactive examples and component testing
+- **[Storybook](https://mahmoud-nb.github.io/surge.ui/storybook/)** - Interactive examples and component testing
 
 ## ✨ Features
 
@@ -19,13 +19,13 @@ Modern Vue.js 3 component library with Composition API, designed to create moder
 ## 🚀 Quick Installation
 
 ```bash
-npm install @surgeup/ds-vue
+npm install @surgeui/ds-vue
 ```
 
 ```vue
 <script setup>
-import { SuButton } from '@surgeup/ds-vue'
-import '@surgeup/ds-vue/style.css'
+import { SuButton } from '@surgeui/ds-vue'
+import '@surgeui/ds-vue/style.css'
 </script>
 
 <template>

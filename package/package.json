@@ -1,5 +1,5 @@
 {
-  "name": "@surgeup/ds-vue",
+  "name": "@surgeui/ds-vue",
   "version": "1.0.0",
   "type": "module",
   "main": "./dist/index.umd.js",

@@ -1,5 +1,5 @@
 {
-  "name": "@surgeup/ds-docs",
+  "name": "@surgeui/ds-docs",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
-    "@surgeup/ds-vue": "file:../package"
+    "@surgeui/ds-vue": "file:../package"
   },
   "devDependencies": {
     "vitepress": "^1.3.4",

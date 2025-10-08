@@ -1,23 +1,23 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: '/surgeup.ui/',
+  base: '/surge.ui/',
   
-  title: 'SurgeUp Design System',
+  title: '⚡SurgeUI Design System',
   description: 'Bibliothèque de composants Vue.js 3 moderne',
   
   locales: {
     root: {
       label: 'Français',
       lang: 'fr',
-      title: 'SurgeUp Design System',
+      title: '⚡SurgeUI Design System',
       description: 'Bibliothèque de composants Vue.js 3 moderne',
       themeConfig: {
         nav: [
           { text: 'Accueil', link: '/' },
           { text: 'Composants', link: '/components/' },
           // Le lien Storybook doit aussi être corrigé une fois déployé
-          { text: 'Storybook', link: 'https://mahmoud-nb.github.io/surgeup.ui/storybook/', target: '_blank' }
+          { text: 'Storybook', link: 'https://mahmoud-nb.github.io/surge.ui/storybook/', target: '_blank' }
         ],
         sidebar: [
           {
@@ -72,13 +72,13 @@ export default defineConfig({
     en: {
       label: 'English',
       lang: 'en',
-      title: 'SurgeUp Design System',
+      title: '⚡SurgeUI Design System',
       description: 'Modern Vue.js 3 component library',
       themeConfig: {
         nav: [
           { text: 'Home', link: '/en/' },
           { text: 'Components', link: '/en/components/' },
-          { text: 'Storybook', link: 'https://mahmoud-nb.github.io/surgeup.ui/storybook/', target: '_blank' }
+          { text: 'Storybook', link: 'https://mahmoud-nb.github.io/surge.ui/storybook/', target: '_blank' }
         ],
         sidebar: [
           {
@@ -201,7 +201,7 @@ export default defineConfig({
 
   vite: {
     optimizeDeps: {
-      include: ['@heroicons/vue/24/outline', '@surgeup/ds-vue']
+      include: ['@heroicons/vue/24/outline', '@surgeui/ds-vue']
     }
   },
 

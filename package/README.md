@@ -23,15 +23,15 @@ A modern Vue.js 3 component library with Composition API, designed to create bea
 ### Installation
 
 ```bash
-npm install @surgeup/ds-vue
+npm install @surgeui/ds-vue
 ```
 
 ### Basic Usage
 
 ```vue
 <script setup>
-import { SuButton } from '@surgeup/ds-vue'
-import '@surgeup/ds-vue/style.css'
+import { SuButton } from '@surgeui/ds-vue'
+import '@surgeui/ds-vue/style.css'
 </script>
 
 <template>
@@ -46,8 +46,8 @@ import '@surgeup/ds-vue/style.css'
 ```js
 // main.js
 import { createApp } from 'vue'
-import SurgeUpDS from '@surgeup/ds-vue'
-import '@surgeup/ds-vue/style.css'
+import SurgeUpDS from '@surgeui/ds-vue'
+import '@surgeui/ds-vue/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -285,7 +285,7 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 - [Documentation](https://surgeup-ds.netlify.app)
 - [Storybook](https://surgeup-ds-storybook.netlify.app)
 - [GitHub Repository](https://github.com/surgeup/design-system)
-- [npm Package](https://www.npmjs.com/package/@surgeup/ds-vue)
+- [npm Package](https://www.npmjs.com/package/@surgeui/ds-vue)
 
 ## 🏷️ Component List
 

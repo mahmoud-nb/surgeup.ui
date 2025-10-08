@@ -379,8 +379,8 @@ Vous pouvez configurer les valeurs par défaut des boutons lors de l'installatio
 ```js
 // main.js
 import { createApp } from 'vue'
-import SurgeUpDS from '@surgeup/ds-vue'
-import '@surgeup/ds-vue/style.css'
+import SurgeUpDS from '@surgeui/ds-vue'
+import '@surgeui/ds-vue/style.css'
 
 const app = createApp(App)
 

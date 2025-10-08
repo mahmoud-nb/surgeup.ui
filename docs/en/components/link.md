@@ -11,8 +11,8 @@ You can configure default link values when installing the design system:
 ```js
 // main.js
 import { createApp } from 'vue'
-import SurgeUpDS from '@surgeup/ds-vue'
-import '@surgeup/ds-vue/style.css'
+import SurgeUpDS from '@surgeui/ds-vue'
+import '@surgeui/ds-vue/style.css'
 
 const app = createApp(App)
 

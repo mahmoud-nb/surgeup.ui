@@ -3,7 +3,7 @@
 ## 📚 Ressources
 
 - **Documentation** : Guide complet avec exemples
-- **[Storybook](/surgeup.ui/storybook/)** : Exemples interactifs et playground des composants
+- **[Storybook](/surge.ui/storybook/)** : Exemples interactifs et playground des composants
 
 ## Prérequis
 
@@ -13,19 +13,19 @@
 ## Installation via npm
 
 ```bash
-npm install @surgeup/ds-vue
+npm install @surgeui/ds-vue
 ```
 
 ## Installation via yarn
 
 ```bash
-yarn add @surgeup/ds-vue
+yarn add @surgeui/ds-vue
 ```
 
 ## Installation via pnpm
 
 ```bash
-pnpm add @surgeup/ds-vue
+pnpm add @surgeui/ds-vue
 ```
 
 ## Configuration
@@ -35,8 +35,8 @@ pnpm add @surgeup/ds-vue
 ```js
 // main.js
 import { createApp } from 'vue'
-import SurgeUpDS from '@surgeup/ds-vue'
-import '@surgeup/ds-vue/style.css'
+import SurgeUpDS from '@surgeui/ds-vue'
+import '@surgeui/ds-vue/style.css'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -48,8 +48,8 @@ app.mount('#app')
 
 ```vue
 <script setup>
-import { SuButton } from '@surgeup/ds-vue'
-import '@surgeup/ds-vue/style.css'
+import { SuButton } from '@surgeui/ds-vue'
+import '@surgeui/ds-vue/style.css'
 </script>
 
 <template>
@@ -64,7 +64,7 @@ import '@surgeup/ds-vue/style.css'
 ```js
 // main.js
 import { createApp } from 'vue'
-import SurgeUpDS from '@surgeup/ds-vue'
+import SurgeUpDS from '@surgeui/ds-vue'
 
 const app = createApp(App)
 
@@ -90,8 +90,8 @@ Le design system inclut des types TypeScript complets. Aucune configuration supp
 
 ```vue
 <script setup lang="ts">
-import { SuButton } from '@surgeup/ds-vue'
-import type { ButtonVariant } from '@surgeup/ds-vue'
+import { SuButton } from '@surgeui/ds-vue'
+import type { ButtonVariant } from '@surgeui/ds-vue'
 
 const variant: ButtonVariant = 'primary'
 </script>

@@ -1,7 +1,7 @@
 import DefaultTheme from 'vitepress/theme'
 import { inBrowser } from 'vitepress'
-import SurgeUpDS from '@surgeup/ds-vue'
-import '@surgeup/ds-vue/style.css'
+import SurgeUpDS from '@surgeui/ds-vue'
+import '@surgeui/ds-vue/style.css'
 import './custom.css'
 
 // Import global des icônes Heroicons les plus courantes

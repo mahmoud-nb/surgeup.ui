@@ -27,7 +27,7 @@ Composant Dialog polyvalent pour afficher des modales (centrées) ou des tiroirs
 ```vue
 <script setup>
 import { ref } from 'vue'
-import { Dialog, Button } from '@surgeup/ds-vue'
+import { Dialog, Button } from '@surgeui/ds-vue'
 
 const showCenterModal = ref(false)
 </script>
@@ -73,7 +73,7 @@ const showCenterModal = ref(false)
 ```vue
 <script setup>
 import { ref } from 'vue'
-import { SuDialog, SuButton, SuLinksGroup, SuLink } from '@surgeup/ds-vue'
+import { SuDialog, SuButton, SuLinksGroup, SuLink } from '@surgeui/ds-vue'
 
 const showLeftDrawer = ref(false)
 </script>
@@ -120,7 +120,7 @@ const showLeftDrawer = ref(false)
 ```vue
 <script setup>
 import { ref } from 'vue'
-import { SuDialog, SuButton } from '@surgeup/ds-vue'
+import { SuDialog, SuButton } from '@surgeui/ds-vue'
 
 const showRightDrawer = ref(false)
 </script>
@@ -162,7 +162,7 @@ const showRightDrawer = ref(false)
 ```vue
 <script setup>
 import { ref } from 'vue'
-import { SuDialog, SuButton } from '@surgeup/ds-vue'
+import { SuDialog, SuButton } from '@surgeui/ds-vue'
 
 const showTopDrawer = ref(false)
 </script>
@@ -206,7 +206,7 @@ const showTopDrawer = ref(false)
 ```vue
 <script setup>
 import { ref } from 'vue'
-import { SuDialog, SuButton, SuButtonsGroup } from '@surgeup/ds-vue'
+import { SuDialog, SuButton, SuButtonsGroup } from '@surgeui/ds-vue'
 
 const showBottomDrawer = ref(false)
 </script>
@@ -257,7 +257,7 @@ const showBottomDrawer = ref(false)
 ```vue
 <script setup>
 import { ref } from 'vue'
-import { SuDialog, SuButton, SuFormFields, SuInput, SuPassword, SuTextarea, SuFileUpload } from '@surgeup/ds-vue'
+import { SuDialog, SuButton, SuFormFields, SuInput, SuPassword, SuTextarea, SuFileUpload } from '@surgeui/ds-vue'
 
 const showFullScreen = ref(false)
 </script>

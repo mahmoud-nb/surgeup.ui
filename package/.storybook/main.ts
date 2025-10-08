@@ -17,7 +17,7 @@ const config: StorybookConfig = {
   },
   managerHead: (head) => `
     ${head}
-    <base href="/surgeup.ui/storybook/">
+    <base href="/surge.ui/storybook/">
   `,
   typescript: {
     check: false,

@@ -227,8 +227,8 @@ Vous pouvez configurer les valeurs par défaut des liens lors de l'installation 
 ```js
 // main.js
 import { createApp } from 'vue'
-import SurgeUpDS from '@surgeup/ds-vue'
-import '@surgeup/ds-vue/style.css'
+import SurgeUpDS from '@surgeui/ds-vue'
+import '@surgeui/ds-vue/style.css'
 
 const app = createApp(App)
 
