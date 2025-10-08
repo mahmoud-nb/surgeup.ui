@@ -372,6 +372,7 @@ import { HomeIcon, UserIcon, CogIcon } from '@heroicons/vue/24/outline'
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `gap` | `'sm' \| 'md' \| 'lg' \| 'none'` | `'md'` | Espacement entre les liens |
+| `separator` | `'none' \| 'dot' \| 'slash' \| 'pipe' \| 'arrow'` | `'none'` | Séparateur entre les liens |
 | `size` | `'sm' \| 'md' \| 'lg'` | `undefined` | Taille forcée pour tous les liens |
 | `variant` | `'default' \| 'primary' \| 'secondary' \| 'muted'` | `undefined` | Variante forcée pour tous les liens |
 | `underline` | `'always' \| 'hover' \| 'never'` | `undefined` | Soulignement forcé pour tous les liens |
@@ -390,6 +391,38 @@ import { HomeIcon, UserIcon, CogIcon } from '@heroicons/vue/24/outline'
 | Slot | Description |
 |------|-------------|
 | `default` | Liens à afficher dans le groupe |
+
+## Séparateurs
+
+Les séparateurs permettent d'ajouter des caractères entre les liens pour améliorer la lisibilité :
+
+### 🎯 Types de séparateurs
+
+- **`none`** : Aucun séparateur (défaut)
+- **`dot`** : Point médian (•)
+- **`slash`** : Barre oblique (/)
+- **`pipe`** : Barre verticale (|)
+- **`arrow`** : Flèche droite (→)
+
+```vue
+<!-- Breadcrumb avec slash -->
+<SuLinksGroup separator="slash" variant="muted">
+  <SuLink href="/">Accueil</SuLink>
+  <SuLink href="/products">Produits</SuLink>
+  <SuLink href="/products/laptops">Ordinateurs portables</SuLink>
+</SuLinksGroup>
+
+<!-- Navigation avec points -->
+<SuLinksGroup separator="dot" variant="secondary">
+  <SuLink href="/home">Accueil</SuLink>
+  <SuLink href="/about">À propos</SuLink>
+  <SuLink href="/contact">Contact</SuLink>
+</SuLinksGroup>
+```
+
+### 📱 Comportement responsive
+
+Les séparateurs sont automatiquement masqués en mode vertical pour éviter l'encombrement visuel.
 
 ## Comportement des props
 
@@ -477,6 +510,7 @@ Le composant LinksGroup respecte les normes WCAG 2.1 AA :
   gap="sm" 
   variant="muted"
   size="sm"
+  separator="slash"
   role="navigation" 
   aria-label="Fil d'ariane"
 >
@@ -486,7 +520,7 @@ Le composant LinksGroup respecte les normes WCAG 2.1 AA :
 </SuLinksGroup>
 
 <!-- Footer links -->
-<SuLinksGroup gap="md" variant="secondary" aria-label="Liens du footer">
+<SuLinksGroup gap="md" separator="dot" variant="secondary" aria-label="Liens du footer">
   <SuLink href="/privacy">Confidentialité</SuLink>
   <SuLink href="/terms">Conditions</SuLink>
   <SuLink href="/contact">Contact</SuLink>

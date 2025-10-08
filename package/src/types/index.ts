@@ -40,6 +40,8 @@ export type LinksGroupSeparator = 'none' | 'dot' | 'slash' | 'pipe' | 'arrow'
 export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
 export type AvatarVariant = 'circle' | 'rounded' | 'square'
 export type AvatarStatus = 'online' | 'offline' | 'busy' | 'away' | 'none'
+export type DropdownTrigger = 'click' | 'hover'
+export type DropdownPlacement = 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end' | 'left-start' | 'left-end' | 'right-start' | 'right-end'
 
 
 export interface PasswordRules {
@@ -64,6 +66,17 @@ export interface PasswordValidation {
   }
 }
 
+export interface DropdownOption {
+  value: string | number
+  label: string
+  href?: string
+  target?: '_blank' | '_self' | '_parent' | '_top'
+  rel?: string
+  disabled?: boolean
+  icon?: Component
+  description?: string
+  separator?: boolean
+}
 export interface PasswordProps extends Omit<InputProps, 'type' | 'suffixIcon'> {
   rules?: PasswordRules
   showProgress?: boolean
@@ -103,6 +116,20 @@ export interface ButtonsGroupProps extends AccessibilityProps {
   variant?: ButtonVariant
 }
 
+export interface DropdownProps extends AccessibilityProps {
+  options: DropdownOption[]
+  trigger?: DropdownTrigger
+  placement?: DropdownPlacement
+  size?: ButtonSize
+  variant?: ButtonVariant
+  disabled?: boolean
+  loading?: boolean
+  icon?: Component
+  iconDisplay?: 'left' | 'right' | 'only'
+  label?: string
+  closeOnSelect?: boolean
+  maxHeight?: string
+}
 export interface InputProps extends AccessibilityProps {
   type?: InputType
   size?: InputSize
@@ -305,6 +332,7 @@ export interface LinkProps extends AccessibilityProps {
 
 export interface LinksGroupProps extends AccessibilityProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
+  separator?: LinksGroupSeparator
   separator?: LinksGroupSeparator
   size?: LinkSize
   variant?: LinkVariant

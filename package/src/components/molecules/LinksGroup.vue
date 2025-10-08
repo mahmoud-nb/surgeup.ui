@@ -4,6 +4,7 @@ import Link from '../atoms/Link.vue'
 
 export interface LinksGroupProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
+  separator?: 'none' | 'dot' | 'slash' | 'pipe' | 'arrow'
   size?: 'sm' | 'md' | 'lg'
   variant?: 'default' | 'primary' | 'secondary' | 'muted'
   underline?: 'always' | 'hover' | 'never'
@@ -15,6 +16,7 @@ export interface LinksGroupProps {
 
 const props = withDefaults(defineProps<LinksGroupProps>(), {
   gap: 'md',
+  separator: 'none',
   direction: 'horizontal'
 })
 
@@ -28,10 +30,21 @@ const containerClasses = computed(() => [
   `su-links-group--gap-${props.gap}`,
   `su-links-group--${props.direction}`,
   {
-    'su-links-group--connected': props.gap === 'none'
+    'su-links-group--connected': props.gap === 'none',
+    'su-links-group--with-separator': props.separator !== 'none'
   }
 ])
 
+// Fonction pour obtenir le caractère de séparation
+const getSeparatorChar = (separator: string): string => {
+  switch (separator) {
+    case 'dot': return '•'
+    case 'slash': return '/'
+    case 'pipe': return '|'
+    case 'arrow': return '→'
+    default: return ''
+  }
+}
 // Traitement des liens du slot avec propagation des props
 const processedLinks = computed(() => {
   if (!slots?.default) return []
@@ -79,6 +92,30 @@ const processedLinks = computed(() => {
   return processedChildren
 })
 
+// Création des éléments avec séparateurs
+const elementsWithSeparators = computed(() => {
+  if (props.separator === 'none' || props.direction === 'vertical') {
+    return processedLinks.value
+  }
+  
+  const elements = []
+  const separatorChar = getSeparatorChar(props.separator)
+  
+  processedLinks.value.forEach((link, index) => {
+    elements.push(link)
+    
+    // Ajouter un séparateur sauf après le dernier élément
+    if (index < processedLinks.value.length - 1) {
+      elements.push(h('span', {
+        key: `separator-${index}`,
+        class: 'su-links-group-separator',
+        'aria-hidden': 'true'
+      }, separatorChar))
+    }
+  })
+  
+  return elements
+})
 // Attributs ARIA pour l'accessibilité
 const ariaAttributes = computed(() => {
   const attrs: Record<string, any> = {}
@@ -97,9 +134,9 @@ const ariaAttributes = computed(() => {
     v-bind="ariaAttributes"
   >
     <component 
-      v-for="(link, index) in processedLinks" 
+      v-for="(element, index) in elementsWithSeparators" 
       :key="index"
-      :is="link"
+      :is="element"
     />
   </div>
 </template>
@@ -124,6 +161,17 @@ const ariaAttributes = computed(() => {
   
   &--horizontal {
     flex-direction: row;
+  }
+  
+  // Avec séparateurs
+  &--with-separator {
+    align-items: center;
+    
+    &.su-links-group--vertical {
+      .su-links-group-separator {
+        display: none; // Masquer les séparateurs en mode vertical
+      }
+    }
   }
   
   // Style connecté pour gap='none'
@@ -186,6 +234,11 @@ const ariaAttributes = computed(() => {
   color: $text-tertiary;
   font-weight: 500;
   user-select: none;
+  font-size: 0.875em;
+  
+  .su-links-group--vertical & {
+    display: none; // Masquer les séparateurs en mode vertical
+  }
   
   .su-links-group--vertical & {
     display: none; // Masquer les séparateurs en mode vertical
@@ -212,6 +265,10 @@ const ariaAttributes = computed(() => {
         background-color: rgba($primary-400, 0.2);
       }
     }
+  }
+  
+  .su-links-group-separator {
+    color: $text-tertiary-dark;
   }
 }
 </style>

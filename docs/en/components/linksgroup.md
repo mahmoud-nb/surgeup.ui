@@ -247,16 +247,112 @@ LinksGroup component for organizing and aligning links with controlled spacing. 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
 | `gap` | `'sm' \| 'md' \| 'lg' \| 'none'` | `'md'` | Spacing between links |
+| `separator` | `'none' \| 'dot' \| 'slash' \| 'pipe' \| 'arrow'` | `'none'` | Separator between links |
 | `size` | `'sm' \| 'md' \| 'lg'` | `undefined` | Forced size for all links |
 | `variant` | `'default' \| 'primary' \| 'secondary' \| 'muted'` | `undefined` | Forced variant for all links |
 | `underline` | `'always' \| 'hover' \| 'never'` | `undefined` | Forced underline for all links |
 | `direction` | `'horizontal' \| 'vertical'` | `'horizontal'` | Group direction |
+
+### Accessibility attributes
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `ariaLabel` | `string` | `undefined` | Accessible label for the group |
+| `ariaDescribedBy` | `string` | `undefined` | ID of the description element |
+| `role` | `string` | `undefined` | Custom ARIA role (e.g. 'navigation', 'group') |
 
 ### Slots
 
 | Slot | Description |
 |------|-------------|
 | `default` | Links to display in the group |
+
+## Separators
+
+Separators allow adding characters between links to improve readability:
+
+### 🎯 Separator types
+
+- **`none`** : No separator (default)
+- **`dot`** : Middle dot (•)
+- **`slash`** : Forward slash (/)
+- **`pipe`** : Vertical bar (|)
+- **`arrow`** : Right arrow (→)
+
+```vue
+<!-- Breadcrumb with slash -->
+<SuLinksGroup separator="slash" variant="muted">
+  <SuLink href="/">Home</SuLink>
+  <SuLink href="/products">Products</SuLink>
+  <SuLink href="/products/laptops">Laptops</SuLink>
+</SuLinksGroup>
+
+<!-- Navigation with dots -->
+<SuLinksGroup separator="dot" variant="secondary">
+  <SuLink href="/home">Home</SuLink>
+  <SuLink href="/about">About</SuLink>
+  <SuLink href="/contact">Contact</SuLink>
+</SuLinksGroup>
+```
+
+### 📱 Responsive behavior
+
+Separators are automatically hidden in vertical mode to avoid visual clutter.
+
+## Prop behavior
+
+### 🔄 Automatic propagation
+
+When `size`, `variant` or `underline` are defined on `LinksGroup`, they **override** the props of child links automatically:
+
+```vue
+<!-- All links will have 'lg' size, 'primary' variant and 'never' underline -->
+<SuLinksGroup size="lg" variant="primary" underline="never">
+  <SuLink size="sm" variant="muted" underline="always" href="/link1">Link 1</SuLink>  <!-- Becomes lg + primary + never -->
+  <SuLink href="/link2">Link 2</SuLink>                                              <!-- Becomes lg + primary + never -->
+  <SuLink variant="secondary" href="/link3">Link 3</SuLink>                          <!-- Becomes lg + primary + never -->
+</SuLinksGroup>
+```
+
+### 🎯 Content validation
+
+The component automatically checks that only `Link` components are passed in the slot:
+
+- ✅ **Link components**: Processed and styled normally
+- ⚠️ **Other components**: Warning in console and element ignored
+- ✅ **Comments/text**: Silently ignored (normal Vue behavior)
+
+## Spacing and borders
+
+### 📏 Gap values
+
+- `gap="sm"` : 0.25rem (4px)
+- `gap="md"` : 0.5rem (8px) - **default**
+- `gap="lg"` : 0.75rem (12px)
+- `gap="none"` : 0px with connected borders
+
+### 🔗 Gap "none" - Connected links
+
+When `gap="none"`, links are visually connected:
+
+- **Overlapping borders**: `margin-left: -1px` to avoid double borders
+- **Adapted border-radius**:
+  - First link: left corners rounded only
+  - Middle links: no rounded corners
+  - Last link: right corners rounded only
+  - Single link: all corners rounded
+- **Smart z-index**: Focus, hover and active have higher z-index
+
+## Direction
+
+### 📐 Horizontal vs Vertical
+
+- **Horizontal** (default): Links aligned in row
+- **Vertical**: Links stacked in column
+
+For `gap="none"` in vertical mode:
+- Margins become `margin-top: -1px`
+- Border-radius adapts (top/bottom instead of left/right)
 
 ## Accessibility
 
@@ -289,6 +385,7 @@ The LinksGroup component follows WCAG 2.1 AA standards:
   gap="sm" 
   variant="muted"
   size="sm"
+  separator="slash"
   role="navigation" 
   aria-label="Breadcrumb"
 >
@@ -298,7 +395,7 @@ The LinksGroup component follows WCAG 2.1 AA standards:
 </SuLinksGroup>
 
 <!-- Footer links -->
-<SuLinksGroup gap="md" variant="secondary" aria-label="Footer links">
+<SuLinksGroup gap="md" separator="dot" variant="secondary" aria-label="Footer links">
   <SuLink href="/privacy">Privacy</SuLink>
   <SuLink href="/terms">Terms</SuLink>
   <SuLink href="/contact">Contact</SuLink>
