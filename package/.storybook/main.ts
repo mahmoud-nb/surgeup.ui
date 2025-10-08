@@ -17,18 +17,22 @@ const config: StorybookConfig = {
   },
   managerHead: (head) => `
     ${head}
-    <base href="/surge.ui/storybook/">
+    ${process.env.NODE_ENV === 'production' ? '<base href="/surge.ui/storybook/">' : ''}
   `,
   typescript: {
     check: false,
     reactDocgen: false
   },
-  viteFinal: async (config) => {
+  viteFinal: async (config, { configType }) => {
     config.resolve = config.resolve || {}
     config.resolve.alias = {
       ...config.resolve.alias,
       '@': new URL('../src', import.meta.url).pathname
     }
+
+    // ✅ Définir le bon "base" selon le mode (local ou build)
+    config.base = configType === 'PRODUCTION' ? '/surge.ui/storybook/' : '/'
+
     return config
   }
 }
