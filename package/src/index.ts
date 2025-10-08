@@ -19,11 +19,12 @@ import FloatButton from './components/molecules/FloatButton.vue'
 import Image from './components/atoms/Image.vue'
 import Avatar from './components/atoms/Avatar.vue'
 import AvatarsGroup from './components/molecules/AvatarsGroup.vue'
+import Dropdown from './components/molecules/Dropdown.vue'
 import * as accessibility from './utils/accessibility'
 import { ButtonRadius, ButtonSize, ButtonVariant, LinkSize, LinkUnderline, LinkVariant, DialogDisplay } from './types'
 
 export { FormField, Button, Password, ButtonsGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields }
-export { Link, LinksGroup, FloatButton, Dialog }
+export { Link, LinksGroup, FloatButton, Dialog, Dropdown }
 export { Image, Avatar, AvatarsGroup }
 export { accessibility }
 
@@ -192,6 +193,7 @@ export default {
     app.component(`${prefix}FormFields`, FormFields)
     app.component(`${prefix}FloatButton`, FloatButton)
     app.component(`${prefix}Dialog`, Dialog)
+    app.component(`${prefix}Dropdown`, Dropdown)
     app.component(`${prefix}Image`, Image)
     app.component(`${prefix}Avatar`, Avatar)
     app.component(`${prefix}AvatarsGroup`, AvatarsGroup)

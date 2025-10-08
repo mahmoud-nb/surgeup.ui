@@ -24,6 +24,7 @@ Cette section contient la documentation de tous les composants disponibles dans 
 - [ButtonsGroup](/components/buttonsgroup) - Groupe de boutons avec espacement contrôlé
 - [Link](/components/link) - Composant lien avec support des icônes et variantes
 - [LinksGroup](/components/linksgroup) - Groupe de liens avec espacement contrôlé
+- [Dropdown](/components/dropdown) - Composant dropdown avec options et liens
 
 ## Organisation
 

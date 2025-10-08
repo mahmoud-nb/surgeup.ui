@@ -26,7 +26,8 @@ import {
   GlobeAltIcon,
   FlagIcon,
   HomeIcon,
-  CogIcon
+  CogIcon,
+  ArrowUturnLeftIcon
 } from '@heroicons/vue/24/outline'
 
 export default {
@@ -57,6 +58,7 @@ export default {
       app.component('FlagIcon', FlagIcon)
       app.component('HomeIcon', HomeIcon)
       app.component('CogIcon', CogIcon)
+      app.component('ArrowUturnLeftIcon', ArrowUturnLeftIcon)
     }
   }
 }

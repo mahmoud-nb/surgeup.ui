@@ -24,6 +24,7 @@ This section contains the documentation for all components available in the Surg
 - [ButtonsGroup](/en/components/buttonsgroup) - Button group with controlled spacing
 - [Link](/en/components/link) - Link component with icon support and variants
 - [LinksGroup](/en/components/linksgroup) - Link group with controlled spacing
+- [Dropdown](/en/components/dropdown) - Dropdown component with options and links
 
 ## Organization
 

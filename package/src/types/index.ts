@@ -333,7 +333,6 @@ export interface LinkProps extends AccessibilityProps {
 export interface LinksGroupProps extends AccessibilityProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
   separator?: LinksGroupSeparator
-  separator?: LinksGroupSeparator
   size?: LinkSize
   variant?: LinkVariant
   underline?: LinkUnderline

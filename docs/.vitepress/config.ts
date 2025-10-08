@@ -58,10 +58,11 @@ export default defineConfig({
                 text: '# Actions',
                 items: [
                   { text: 'Button', link: '/components/button' },
-                  { text: 'ButtonGroup', link: '/components/buttongroup' },
+                  { text: 'ButtonGroup', link: '/components/buttonsgroup' },
                   { text: 'Link', link: '/components/link' },
-                  { text: 'LinkGroup', link: '/components/linkgroup' },           
-                  { text: 'FloatButton', link: '/components/floatbutton' }
+                  { text: 'LinkGroup', link: '/components/linksgroup' },           
+                  { text: 'FloatButton', link: '/components/floatbutton' },
+                  { text: 'Dropdown', link: '/components/dropdown' }
                 ]
               }
             ]
@@ -119,10 +120,11 @@ export default defineConfig({
                 text: '# Actions',
                 items: [
                   { text: 'Button', link: '/en/components/button' },
-                  { text: 'ButtonGroup', link: '/en/components/buttongroup' },
+                  { text: 'ButtonGroup', link: '/en/components/buttonsgroup' },
                   { text: 'Link', link: '/en/components/link' },
-                  { text: 'LinkGroup', link: '/en/components/linkgroup' },           
-                  { text: 'FloatButton', link: '/en/components/floatbutton' }
+                  { text: 'LinkGroup', link: '/en/components/linksgroup' },           
+                  { text: 'FloatButton', link: '/en/components/floatbutton' },
+                  { text: 'Dropdown', link: '/en/components/dropdown' }
                 ]
               }
             ]
