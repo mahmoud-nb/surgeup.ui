@@ -284,7 +284,7 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 
 - [Documentation](https://surgeup-ds.netlify.app)
 - [Storybook](https://surgeup-ds-storybook.netlify.app)
-- [GitHub Repository](https://github.com/surgeup/design-system)
+- [GitHub Repository](https://github.com/mahmoud-nb/surge.ui)
 - [npm Package](https://www.npmjs.com/package/@surgeui/ds-vue)
 
 ## 🏷️ Component List

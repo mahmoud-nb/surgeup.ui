@@ -190,7 +190,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/surgeup/design-system' }
+      { icon: 'github', link: 'https://github.com/mahmoud-nb/surge.ui' }
     ],
 
     footer: {
