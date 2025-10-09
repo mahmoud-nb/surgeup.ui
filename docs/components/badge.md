@@ -1,0 +1,686 @@
+# Badge
+
+Composant Badge moderne et minimaliste pour afficher des informations courtes, des statuts ou des notifications. Support des icônes, variantes dot et accessibilité complète selon les normes W3C.
+
+## Exemples d'utilisation
+
+### Badge de base
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Badge simple</h4>
+    <div class="demo-buttons">
+      <SuBadge>Badge par défaut</SuBadge>
+      <SuBadge variant="primary">Primary</SuBadge>
+      <SuBadge variant="success">Success</SuBadge>
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuBadge>Badge par défaut</SuBadge>
+  <SuBadge variant="primary">Primary</SuBadge>
+  <SuBadge variant="success">Success</SuBadge>
+</template>
+```
+
+### Variantes
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Variantes disponibles</h4>
+    <div class="demo-buttons">
+      <SuBadge variant="default">Default</SuBadge>
+      <SuBadge variant="primary">Primary</SuBadge>
+      <SuBadge variant="secondary">Secondary</SuBadge>
+      <SuBadge variant="success">Success</SuBadge>
+      <SuBadge variant="warning">Warning</SuBadge>
+      <SuBadge variant="error">Error</SuBadge>
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuBadge variant="default">Default</SuBadge>
+  <SuBadge variant="primary">Primary</SuBadge>
+  <SuBadge variant="secondary">Secondary</SuBadge>
+  <SuBadge variant="success">Success</SuBadge>
+  <SuBadge variant="warning">Warning</SuBadge>
+  <SuBadge variant="error">Error</SuBadge>
+</template>
+```
+
+### Tailles
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Tailles disponibles</h4>
+    <div class="demo-buttons">
+      <SuBadge size="sm">Small</SuBadge>
+      <SuBadge size="md">Medium</SuBadge>
+      <SuBadge size="lg">Large</SuBadge>
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuBadge size="sm">Small</SuBadge>
+  <SuBadge size="md">Medium</SuBadge>
+  <SuBadge size="lg">Large</SuBadge>
+</template>
+```
+
+### Rayons de bordure
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Rayons de bordure disponibles</h4>
+    <div class="demo-buttons">
+      <SuBadge radius="none">None</SuBadge>
+      <SuBadge radius="sm">Small</SuBadge>
+      <SuBadge radius="md">Medium</SuBadge>
+      <SuBadge radius="lg">Large</SuBadge>
+      <SuBadge radius="xl">Extra Large</SuBadge>
+      <SuBadge radius="full">Full</SuBadge>
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuBadge radius="none">None</SuBadge>
+  <SuBadge radius="sm">Small</SuBadge>
+  <SuBadge radius="md">Medium</SuBadge>
+  <SuBadge radius="lg">Large</SuBadge>
+  <SuBadge radius="xl">Extra Large</SuBadge>
+  <SuBadge radius="full">Full</SuBadge>
+</template>
+```
+
+### Avec icônes
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Badges avec icônes</h4>
+    <div class="demo-buttons">
+      <SuBadge variant="success" icon="CheckIcon" iconDisplay="left">Validé</SuBadge>
+      <SuBadge variant="error" icon="XMarkIcon" iconDisplay="left">Erreur</SuBadge>
+      <SuBadge variant="warning" icon="ExclamationTriangleIcon" iconDisplay="left">Attention</SuBadge>
+      <SuBadge variant="primary" icon="StarIcon" iconDisplay="right">Premium</SuBadge>
+    </div>
+  </div>
+</div>
+
+```vue
+<script setup>
+import { CheckIcon, XMarkIcon, ExclamationTriangleIcon, StarIcon } from '@heroicons/vue/24/outline'
+</script>
+
+<template>
+  <SuBadge variant="success" icon="CheckIcon" iconDisplay="left">Validé</SuBadge>
+  <SuBadge variant="error" icon="XMarkIcon" iconDisplay="left">Erreur</SuBadge>
+  <SuBadge variant="warning" icon="ExclamationTriangleIcon" iconDisplay="left">Attention</SuBadge>
+  <SuBadge variant="primary" icon="StarIcon" iconDisplay="right">Premium</SuBadge>
+</template>
+```
+
+### Icônes seules
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Badges avec icônes uniquement</h4>
+    <div class="demo-buttons">
+      <SuBadge variant="success" icon="CheckIcon" iconDisplay="only" aria-label="Validé" />
+      <SuBadge variant="error" icon="XMarkIcon" iconDisplay="only" aria-label="Erreur" />
+      <SuBadge variant="warning" icon="ExclamationTriangleIcon" iconDisplay="only" aria-label="Attention" />
+      <SuBadge variant="primary" icon="StarIcon" iconDisplay="only" aria-label="Premium" />
+    </div>
+  </div>
+</div>
+
+```vue
+<script setup>
+import { CheckIcon, XMarkIcon, ExclamationTriangleIcon, StarIcon } from '@heroicons/vue/24/outline'
+</script>
+
+<template>
+  <!-- Icônes seules (OBLIGATOIRE: aria-label) -->
+  <SuBadge variant="success" icon="CheckIcon" iconDisplay="only" aria-label="Validé" />
+  <SuBadge variant="error" icon="XMarkIcon" iconDisplay="only" aria-label="Erreur" />
+  <SuBadge variant="warning" icon="ExclamationTriangleIcon" iconDisplay="only" aria-label="Attention" />
+  <SuBadge variant="primary" icon="StarIcon" iconDisplay="only" aria-label="Premium" />
+</template>
+```
+
+### Variante dot
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Dots simples</h4>
+    <div class="demo-buttons">
+      <SuBadge variant="dot" />
+      <SuBadge variant="dot" backgroundColor="#10b981" />
+      <SuBadge variant="dot" backgroundColor="#f59e0b" />
+      <SuBadge variant="dot" backgroundColor="#ef4444" />
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <!-- Dot simple -->
+  <SuBadge variant="dot" />
+  
+  <!-- Dots avec couleurs personnalisées -->
+  <SuBadge variant="dot" backgroundColor="#10b981" />
+  <SuBadge variant="dot" backgroundColor="#f59e0b" />
+  <SuBadge variant="dot" backgroundColor="#ef4444" />
+</template>
+```
+
+### Dots avec texte
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Dots avec texte</h4>
+    <div class="demo-buttons-vertical">
+      <SuBadge variant="dot" dotText="En ligne" backgroundColor="#10b981" />
+      <SuBadge variant="dot" dotText="Absent" backgroundColor="#f59e0b" />
+      <SuBadge variant="dot" dotText="Occupé" backgroundColor="#ef4444" />
+      <SuBadge variant="dot" dotText="Hors ligne" backgroundColor="#6b7280" />
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuBadge variant="dot" dotText="En ligne" backgroundColor="#10b981" />
+  <SuBadge variant="dot" dotText="Absent" backgroundColor="#f59e0b" />
+  <SuBadge variant="dot" dotText="Occupé" backgroundColor="#ef4444" />
+  <SuBadge variant="dot" dotText="Hors ligne" backgroundColor="#6b7280" />
+</template>
+```
+
+### Couleurs personnalisées
+
+<div class="component-demo">
+  <div class="demo-section">
+    <h4>Couleurs personnalisées</h4>
+    <div class="demo-buttons">
+      <SuBadge backgroundColor="#8b5cf6" color="white">Violet</SuBadge>
+      <SuBadge backgroundColor="#ec4899" color="white">Rose</SuBadge>
+      <SuBadge backgroundColor="#06b6d4" color="white">Cyan</SuBadge>
+      <SuBadge backgroundColor="#84cc16" color="white">Lime</SuBadge>
+    </div>
+  </div>
+</div>
+
+```vue
+<template>
+  <SuBadge backgroundColor="#8b5cf6" color="white">Violet</SuBadge>
+  <SuBadge backgroundColor="#ec4899" color="white">Rose</SuBadge>
+  <SuBadge backgroundColor="#06b6d4" color="white">Cyan</SuBadge>
+  <SuBadge backgroundColor="#84cc16" color="white">Lime</SuBadge>
+</template>
+```
+
+## API
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `variant` | `'default' \| 'primary' \| 'secondary' \| 'success' \| 'warning' \| 'error' \| 'dot'` | `'default'` | Variante visuelle du badge |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Taille du badge |
+| `radius` | `'none' \| 'sm' \| 'md' \| 'lg' \| 'xl' \| 'full'` | `'md'` | Rayon de bordure du badge |
+| `icon` | `Component` | `undefined` | Icône à afficher |
+| `iconDisplay` | `'left' \| 'right' \| 'only'` | `'left'` | Position de l'icône |
+| `dotText` | `string` | `undefined` | Texte affiché à côté du dot (variante dot uniquement) |
+| `color` | `string` | `undefined` | Couleur personnalisée du texte |
+| `backgroundColor` | `string` | `undefined` | Couleur personnalisée de l'arrière-plan |
+
+### Attributs d'accessibilité
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `ariaLabel` | `string` | `undefined` | Label accessible |
+| `ariaDescribedBy` | `string` | `undefined` | ID de l'élément de description |
+| `ariaHidden` | `boolean` | `undefined` | Masquer aux lecteurs d'écran |
+| `role` | `string` | `undefined` | Rôle ARIA personnalisé |
+
+### Slots
+
+| Slot | Description |
+|------|-------------|
+| `default` | Contenu du badge |
+
+## Variante dot
+
+La variante `dot` est spéciale et offre deux modes d'affichage :
+
+### 🔴 Dot simple
+
+Un simple point coloré, idéal pour les indicateurs de statut :
+
+```vue
+<!-- Dot par défaut -->
+<SuBadge variant="dot" />
+
+<!-- Dot avec couleur personnalisée -->
+<SuBadge variant="dot" backgroundColor="#10b981" />
+```
+
+### 🔴 Dot avec texte
+
+Un point coloré suivi d'un texte, parfait pour les statuts avec description :
+
+```vue
+<!-- Avec prop dotText -->
+<SuBadge variant="dot" dotText="En ligne" backgroundColor="#10b981" />
+
+<!-- Avec slot -->
+<SuBadge variant="dot" backgroundColor="#f59e0b">
+  Absent depuis 5 min
+</SuBadge>
+```
+
+## Accessibilité
+
+Le composant Badge respecte les normes WCAG 2.1 AA :
+
+### ✅ Fonctionnalités d'accessibilité
+
+- **Contraste des couleurs** : Ratios de contraste conformes WCAG AA (4.5:1 minimum)
+- **Attributs ARIA** : Support complet des attributs ARIA
+- **Icônes accessibles** : Icônes marquées avec `aria-hidden="true"`
+- **Labels appropriés** : Support d'`aria-label` pour les badges informatifs
+- **Mode sombre** : Contraste adapté automatiquement
+- **Contraste élevé** : Support de `prefers-contrast: high`
+- **Couleurs personnalisées** : Calcul automatique du contraste pour les couleurs custom
+
+### 🎯 Bonnes pratiques
+
+```vue
+<!-- Badge avec icône seule (OBLIGATOIRE: aria-label) -->
+<SuBadge variant="success" icon="CheckIcon" iconDisplay="only" aria-label="Statut validé" />
+
+<!-- Badge informatif -->
+<SuBadge variant="primary" aria-label="Utilisateur premium">Premium</SuBadge>
+
+<!-- Badge décoratif (masqué aux lecteurs d'écran) -->
+<SuBadge variant="dot" backgroundColor="#10b981" aria-hidden="true" />
+
+<!-- Badge avec description -->
+<SuBadge variant="warning" aria-describedby="warning-description">
+  Attention
+</SuBadge>
+<div id="warning-description">Cette action nécessite une confirmation</div>
+```
+
+## Exemples d'usage
+
+### États de commande
+
+```vue
+<script setup>
+import { CheckIcon, ClockIcon, XMarkIcon, TruckIcon } from '@heroicons/vue/24/outline'
+</script>
+
+<template>
+  <div class="order-status">
+    <SuBadge variant="success" icon="CheckIcon" iconDisplay="left" radius="full">
+      Livré
+    </SuBadge>
+    <SuBadge variant="warning" icon="TruckIcon" iconDisplay="left" radius="full">
+      En transit
+    </SuBadge>
+    <SuBadge variant="default" icon="ClockIcon" iconDisplay="left" radius="full">
+      En préparation
+    </SuBadge>
+    <SuBadge variant="error" icon="XMarkIcon" iconDisplay="left" radius="full">
+      Annulé
+    </SuBadge>
+  </div>
+</template>
+```
+
+### Notifications
+
+```vue
+<template>
+  <div class="notifications">
+    <!-- Compteurs de notifications -->
+    <div class="notification-item">
+      <span>Messages</span>
+      <SuBadge variant="error" radius="full" size="sm">3</SuBadge>
+    </div>
+    
+    <div class="notification-item">
+      <span>Notifications</span>
+      <SuBadge variant="warning" radius="full" size="sm">12</SuBadge>
+    </div>
+    
+    <div class="notification-item">
+      <span>Mises à jour</span>
+      <SuBadge variant="success" radius="full" size="sm">99+</SuBadge>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.notification-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+</style>
+```
+
+### Statuts utilisateur
+
+```vue
+<template>
+  <div class="user-list">
+    <div class="user-item">
+      <div class="user-info">
+        <div class="user-avatar">JD</div>
+        <span>John Doe</span>
+      </div>
+      <div class="user-status">
+        <SuBadge variant="dot" dotText="En ligne" backgroundColor="#10b981" />
+        <SuBadge variant="primary" size="sm" icon="StarIcon" iconDisplay="only" aria-label="Utilisateur premium" />
+      </div>
+    </div>
+    
+    <div class="user-item">
+      <div class="user-info">
+        <div class="user-avatar">MD</div>
+        <span>Marie Dupont</span>
+      </div>
+      <div class="user-status">
+        <SuBadge variant="dot" dotText="Absent" backgroundColor="#f59e0b" />
+        <SuBadge variant="secondary" size="sm">Admin</SuBadge>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  margin-bottom: 0.75rem;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.user-avatar {
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: #3b82f6;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+}
+
+.user-status {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+</style>
+```
+
+### Étiquettes de produit
+
+```vue
+<template>
+  <div class="product-card">
+    <div class="product-header">
+      <h3>MacBook Pro</h3>
+      <SuBadge variant="success" size="sm" radius="full">En stock</SuBadge>
+    </div>
+    
+    <p class="product-description">
+      Ordinateur portable haute performance
+    </p>
+    
+    <div class="product-tags">
+      <SuBadge variant="primary" size="sm" radius="full">Nouveau</SuBadge>
+      <SuBadge variant="warning" size="sm" radius="full">Promo -20%</SuBadge>
+      <SuBadge variant="default" size="sm" radius="full">13"</SuBadge>
+      <SuBadge variant="secondary" size="sm" radius="full">M3</SuBadge>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.product-card {
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+}
+
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.product-header h3 {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.product-description {
+  margin: 0 0 1rem 0;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.product-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+</style>
+```
+
+### Indicateurs de statut de service
+
+```vue
+<template>
+  <div class="service-status">
+    <h3>État des services</h3>
+    
+    <div class="status-list">
+      <div class="status-item">
+        <span>API Principal</span>
+        <SuBadge variant="dot" dotText="Opérationnel" backgroundColor="#10b981" />
+      </div>
+      
+      <div class="status-item">
+        <span>Base de données</span>
+        <SuBadge variant="dot" dotText="Dégradé" backgroundColor="#f59e0b" />
+      </div>
+      
+      <div class="status-item">
+        <span>CDN</span>
+        <SuBadge variant="dot" dotText="Panne" backgroundColor="#ef4444" />
+      </div>
+      
+      <div class="status-item">
+        <span>Authentification</span>
+        <SuBadge variant="dot" dotText="Maintenance" backgroundColor="#3b82f6" />
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.service-status {
+  max-width: 400px;
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.service-status h3 {
+  margin: 0 0 1.5rem 0;
+  color: #1f2937;
+}
+
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+</style>
+```
+
+### Badges cliquables
+
+```vue
+<script setup>
+import { StarIcon, CheckIcon } from '@heroicons/vue/24/outline'
+
+const handleBadgeClick = (type) => {
+  console.log(`Badge ${type} cliqué!`)
+}
+</script>
+
+<template>
+  <div class="clickable-badges">
+    <h4>Badges interactifs</h4>
+    
+    <div class="badge-buttons">
+      <button 
+        @click="handleBadgeClick('premium')"
+        class="badge-button"
+      >
+        <SuBadge variant="primary" icon="StarIcon" iconDisplay="left" radius="full">
+          Premium
+        </SuBadge>
+      </button>
+      
+      <button 
+        @click="handleBadgeClick('verified')"
+        class="badge-button"
+      >
+        <SuBadge variant="success" icon="CheckIcon" iconDisplay="left" radius="full">
+          Vérifié
+        </SuBadge>
+      </button>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.badge-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.badge-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.badge-button:hover {
+  transform: scale(1.05);
+}
+
+.badge-button:active {
+  transform: scale(0.95);
+}
+</style>
+```
+
+## Cas d'usage courants
+
+### 🏷️ Étiquettes et catégories
+- **Produits** : Nouveau, Promo, En stock, Rupture
+- **Articles** : Publié, Brouillon, Archivé
+- **Projets** : Actif, Terminé, En pause
+
+### 📊 Statuts et états
+- **Utilisateurs** : En ligne, Absent, Occupé, Hors ligne
+- **Services** : Opérationnel, Dégradé, Panne, Maintenance
+- **Commandes** : Confirmé, Expédié, Livré, Annulé
+
+### 🔔 Notifications et compteurs
+- **Messages** : Nombre de messages non lus
+- **Alertes** : Nombre d'alertes actives
+- **Mises à jour** : Nouvelles fonctionnalités disponibles
+
+### ⭐ Niveaux et récompenses
+- **Utilisateurs** : Débutant, Intermédiaire, Expert
+- **Abonnements** : Gratuit, Premium, Enterprise
+- **Réalisations** : Badges de progression, certifications
+
+## Bonnes pratiques
+
+### ✅ À faire
+- Utiliser des couleurs cohérentes pour les mêmes types de statut
+- Fournir un `aria-label` pour les badges avec icône seule
+- Utiliser la variante `dot` pour les indicateurs de statut discrets
+- Limiter le texte à quelques mots maximum
+- Utiliser `radius="full"` pour les compteurs de notifications
+
+### ❌ À éviter
+- Utiliser trop de badges dans une même interface
+- Mettre des textes longs dans les badges
+- Oublier l'accessibilité pour les badges informatifs
+- Utiliser des couleurs sans signification cohérente
+- Surcharger visuellement avec trop de variantes différentes
+
+## Performance
+
+### 🚀 Optimisations intégrées
+- **CSS minimal** : Styles optimisés et légers
+- **Pas de JavaScript** : Composant purement CSS (sauf calcul de contraste)
+- **Transitions fluides** : Animations hardware-accelerated
+- **Mode sombre** : Support natif sans JavaScript
+
+### 📊 Impact minimal
+- **CSS généré** : ~2KB gzippé
+- **Rendu** : Aucun impact sur les performances
+- **Accessibilité** : Aucun compromis sur les performances
+- **Responsive** : Adaptation automatique

@@ -42,6 +42,9 @@ export type AvatarVariant = 'circle' | 'rounded' | 'square'
 export type AvatarStatus = 'online' | 'offline' | 'busy' | 'away' | 'none'
 export type DropdownTrigger = 'click' | 'hover'
 export type DropdownPlacement = 'bottom-start' | 'bottom-end' | 'top-start' | 'top-end' | 'left-start' | 'left-end' | 'right-start' | 'right-end'
+export type BadgeVariant = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'dot'
+export type BadgeSize = 'sm' | 'md' | 'lg'
+export type BadgeRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'
 
 
 export interface PasswordRules {
@@ -129,6 +132,17 @@ export interface DropdownProps extends AccessibilityProps {
   label?: string
   closeOnSelect?: boolean
   maxHeight?: string
+}
+
+export interface BadgeProps extends AccessibilityProps {
+  variant?: BadgeVariant
+  size?: BadgeSize
+  radius?: BadgeRadius
+  icon?: Component
+  iconDisplay?: 'left' | 'right' | 'only'
+  dotText?: string
+  color?: string
+  backgroundColor?: string
 }
 export interface InputProps extends AccessibilityProps {
   type?: InputType
@@ -332,6 +346,7 @@ export interface LinkProps extends AccessibilityProps {
 
 export interface LinksGroupProps extends AccessibilityProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
+  separator?: LinksGroupSeparator
   separator?: LinksGroupSeparator
   size?: LinkSize
   variant?: LinkVariant

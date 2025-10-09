@@ -20,12 +20,13 @@ import Image from './components/atoms/Image.vue'
 import Avatar from './components/atoms/Avatar.vue'
 import AvatarsGroup from './components/molecules/AvatarsGroup.vue'
 import Dropdown from './components/molecules/Dropdown.vue'
+import Badge from './components/atoms/Badge.vue'
 import * as accessibility from './utils/accessibility'
-import { ButtonRadius, ButtonSize, ButtonVariant, LinkSize, LinkUnderline, LinkVariant, DialogDisplay } from './types'
+import { ButtonRadius, ButtonSize, ButtonVariant, LinkSize, LinkUnderline, LinkVariant, DialogDisplay, BadgeVariant, BadgeSize, BadgeRadius } from './types'
 
 export { FormField, Button, Password, ButtonsGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields }
 export { Link, LinksGroup, FloatButton, Dialog, Dropdown }
-export { Image, Avatar, AvatarsGroup }
+export { Image, Avatar, AvatarsGroup, Badge }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -197,7 +198,7 @@ export default {
     app.component(`${prefix}Image`, Image)
     app.component(`${prefix}Avatar`, Avatar)
     app.component(`${prefix}AvatarsGroup`, AvatarsGroup)
+    app.component(`${prefix}Badge`, Badge)
   }
 }
-
 export * from './types'

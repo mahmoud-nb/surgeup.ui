@@ -569,7 +569,7 @@ export const NavigationDropdown: Story = {
         <div style="display: flex; gap: 2rem; align-items: center;">
           <h1 style="margin: 0; font-size: 1.25rem; font-weight: 600;">surgeUI</h1>
           
-          <div style="display: flex; gap: 1rem;">
+          <div style="display: flex; gap: 1rem; align-items: center;">
             <a href="/" style="text-decoration: none; color: #374151;">Accueil</a>
             
             <Dropdown 

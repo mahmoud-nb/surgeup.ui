@@ -7,6 +7,7 @@ This section contains the documentation for all components available in the Surg
 - [Image](/en/components/image) - Image component with ratios, multiple sources and lazy loading
 - [Avatar](/en/components/avatar) - Avatar component with initials, status and badges
 - [AvatarsGroup](/en/components/avatarsgroup) - Avatar group with overflow management
+- [Badge](/en/components/badge) - Modern badge component with variants and icons
 - [Dialog](/en/components/dialog) - Versatile modal/drawer component
 
 ## Forms

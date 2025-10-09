@@ -36,6 +36,7 @@ export default defineConfig({
                   { text: 'Image', link: '/components/image' },
                   { text: 'Avatar', link: '/components/avatar' },
                   { text: 'AvatarsGroup', link: '/components/avatarsgroup' },
+                  { text: 'Badge', link: '/components/badge' },
                   { text: 'Dialog', link: '/components/dialog' }
                 ]
               },
@@ -98,6 +99,7 @@ export default defineConfig({
                   { text: 'Image', link: '/en/components/image' },
                   { text: 'Avatar', link: '/en/components/avatar' },
                   { text: 'AvatarsGroup', link: '/en/components/avatarsgroup' },
+                  { text: 'Badge', link: '/en/components/badge' },
                   { text: 'Dialog', link: '/en/components/dialog' }
                 ]
               },
