@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { UserIcon, AtSymbolIcon, LockClosedIcon, BuildingOfficeIcon } from '@heroicons/vue/24/outline'
 import FormFields from '../FormFields.vue'
-import Input from '../../atoms/Input.vue'
+import Input from '../Input.vue'
 import SelectBox from '../../atoms/SelectBox.vue'
 import RadioGroup from '../../atoms/RadioGroup.vue'
 import CheckboxGroup from '../../atoms/CheckboxGroup.vue'

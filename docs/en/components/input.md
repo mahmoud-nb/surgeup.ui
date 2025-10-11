@@ -194,7 +194,6 @@ import {
 | `prefixIcon` | `Component` | `undefined` | Prefix icon |
 | `suffixIcon` | `Component` | `undefined` | Suffix icon |
 | `textAlign` | `'left' \| 'center' \| 'right'` | `'left'` | Text alignment |
-| `dir` | `'ltr' \| 'rtl' \| 'auto'` | `'auto'` | Text direction |
 | `label` | `string` | `undefined` | Input label |
 | `message` | `string` | `undefined` | Additional message |
 

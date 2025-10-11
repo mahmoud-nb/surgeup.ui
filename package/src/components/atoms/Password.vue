@@ -1,8 +1,36 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { EyeIcon, EyeSlashIcon } from '@heroicons/vue/24/outline'
-import Input from './Input.vue'
-import type { PasswordProps, PasswordValidation } from '@/types'
+import Input from '../molecules/Input.vue'
+import type { InputProps } from '../molecules/Input.vue'
+
+export interface PasswordValidation {
+  isValid: boolean
+  score: number // 0-100
+  satisfied: string[]
+  unsatisfied: string[]
+  details: {
+    length: { required: number; current: number; satisfied: boolean }
+    uppercase: { required: number; current: number; satisfied: boolean }
+    lowercase: { required: number; current: number; satisfied: boolean }
+    digits: { required: number; current: number; satisfied: boolean }
+    specialChars: { required: number; current: number; satisfied: boolean }
+  }
+}
+
+export interface PasswordRules {
+  minLength?: number
+  minUppercase?: number
+  minLowercase?: number
+  minDigits?: number
+  minSpecialChars?: number
+}
+
+export interface PasswordProps extends Omit<InputProps, 'type' | 'suffixIcon'> {
+  rules?: PasswordRules
+  showProgress?: boolean
+  showToggle?: boolean
+}
 
 export interface Props extends PasswordProps {}
 
@@ -207,7 +235,6 @@ watch(validation, (newValidation) => {
       :prefixIcon="prefixIcon"
       :suffixIcon="showToggle ? suffixIcon : undefined"
       :textAlign="textAlign"
-      :dir="dir"
       :label="label"
       :message="message"
       :ariaLabel="ariaLabel"

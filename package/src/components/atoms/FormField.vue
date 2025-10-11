@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 
 export interface FormFieldProps {
-  fieldId: string
+  fieldId?: string
   label?: string
   message?: string
   state?: 'default' | 'error' | 'success' | 'warning'

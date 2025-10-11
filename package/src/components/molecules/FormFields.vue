@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, h, Fragment, Comment, Text } from 'vue'
 import type { FormFieldsProps } from '@/types'
-import Input from '../atoms/Input.vue'
+import Input from './Input.vue'
 import SelectBox from '../atoms/SelectBox.vue'
 import RadioGroup from '../atoms/RadioGroup.vue'
 import CheckboxGroup from '../atoms/CheckboxGroup.vue'

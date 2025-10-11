@@ -1,12 +1,12 @@
 import type { Component } from 'vue'
 
+export type Size = 'sm' | 'md' | 'lg'
+export type State = 'default' | 'error' | 'success' | 'warning'
+export type TextAlign = 'left' | 'center' | 'right'
+
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'default'
 export type ButtonSize = 'sm' | 'md' | 'lg' | 'default'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'default'
-export type InputType = 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'time' | 'datetime-local' | 'month' | 'week'
-export type InputSize = 'sm' | 'md' | 'lg'
-export type InputState = 'default' | 'error' | 'success' | 'warning'
-export type TextAlign = 'left' | 'center' | 'right'
 export type SelectSize = 'sm' | 'md' | 'lg'
 export type SelectState = 'default' | 'error' | 'success' | 'warning'
 export type RadioSize = 'sm' | 'md' | 'lg'
@@ -46,29 +46,6 @@ export type BadgeVariant = 'default' | 'primary' | 'secondary' | 'success' | 'wa
 export type BadgeSize = 'sm' | 'md' | 'lg'
 export type BadgeRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full'
 
-
-export interface PasswordRules {
-  minLength?: number
-  minUppercase?: number
-  minLowercase?: number
-  minDigits?: number
-  minSpecialChars?: number
-}
-
-export interface PasswordValidation {
-  isValid: boolean
-  score: number // 0-100
-  satisfied: string[]
-  unsatisfied: string[]
-  details: {
-    length: { required: number; current: number; satisfied: boolean }
-    uppercase: { required: number; current: number; satisfied: boolean }
-    lowercase: { required: number; current: number; satisfied: boolean }
-    digits: { required: number; current: number; satisfied: boolean }
-    specialChars: { required: number; current: number; satisfied: boolean }
-  }
-}
-
 export interface DropdownOption {
   value: string | number
   label: string
@@ -79,11 +56,6 @@ export interface DropdownOption {
   icon?: Component
   description?: string
   separator?: boolean
-}
-export interface PasswordProps extends Omit<InputProps, 'type' | 'suffixIcon'> {
-  rules?: PasswordRules
-  showProgress?: boolean
-  showToggle?: boolean
 }
 
 export interface SelectOption {
@@ -143,39 +115,6 @@ export interface BadgeProps extends AccessibilityProps {
   dotText?: string
   color?: string
   backgroundColor?: string
-}
-export interface InputProps extends AccessibilityProps {
-  type?: InputType
-  size?: InputSize
-  state?: InputState
-  disabled?: boolean
-  readonly?: boolean
-  required?: boolean
-  placeholder?: string
-  value?: string | number
-  prefix?: string
-  linkVariant?: Exclude<LinkVariant, 'default'>
-  linkSize?: Exclude<LinkSize, 'default'>
-  linkUnderline?: Exclude<LinkUnderline, 'default'>
-  buttonRadius?: Exclude<ButtonRadius, 'default'>
-  buttonVariant?: Exclude<ButtonVariant, 'default'>
-  buttonSize?: Exclude<ButtonSize, 'default'>
-  suffix?: string
-  prefixIcon?: Component
-  suffixIcon?: Component
-  textAlign?: TextAlign
-  dir?: 'ltr' | 'rtl' | 'auto'
-  label?: string
-  message?: string
-  ariaInvalid?: boolean
-  ariaRequired?: boolean
-  autocomplete?: string
-  min?: number | string
-  max?: number | string
-  step?: number | string
-  minLength?: number
-  maxLength?: number
-  pattern?: string
 }
 
 export interface SelectProps extends AccessibilityProps {
@@ -468,12 +407,25 @@ export interface DialogProps extends AccessibilityProps {
   zIndex?: number
   disableScroll?: boolean
 }
+
+export type HTMLNativeProps = {
+  autocomplete?: string
+  min?: number | string
+  max?: number | string
+  step?: number | string
+  minLength?: number
+  maxLength?: number
+  pattern?: string
+}
+
 // Types pour l'accessibilité
 export interface AccessibilityProps {
   ariaLabel?: string
   ariaLabelledBy?: string
   ariaDescribedBy?: string
   ariaHidden?: boolean
+  ariaInvalid?: boolean
+  ariaRequired?: boolean
   role?: string
   tabIndex?: number
 }

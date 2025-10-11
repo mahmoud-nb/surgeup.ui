@@ -201,22 +201,19 @@ import {
 <div class="component-demo">
   <div class="demo-section">
     <h4>Support des langues RTL</h4>
-    <div class="demo-inputs">
+    <div class="demo-inputs" dir="rtl">
       <SuInput 
         label="Texte arabe (RTL)"
-        dir="rtl"
         placeholder="أدخل النص هنا"
         value="النص العربي"
       />
       <SuInput 
         label="Texte hébreu (RTL)"
-        dir="rtl"
         placeholder="הכנס טקסט כאן"
         value="טקסט עברי"
       />
       <SuInput 
         label="Prix (RTL avec suffixe)"
-        dir="rtl"
         placeholder="0.00"
         suffix="$"
         type="number"
@@ -227,25 +224,24 @@ import {
 
 ```vue
 <template>
-  <SuInput 
-    label="Texte arabe (RTL)"
-    dir="rtl"
-    placeholder="أدخل النص هنا"
-    value="النص العربي"
-  />
-  <SuInput 
-    label="Texte hébreu (RTL)"
-    dir="rtl"
-    placeholder="הכנס טקסט כאן"
-    value="טקסט עברי"
-  />
-  <SuInput 
-    label="Prix (RTL avec suffixe)"
-    dir="rtl"
-    placeholder="0.00"
-    suffix="$"
-    type="number"
-  />
+  <div dir="rtl">
+    <SuInput 
+      label="Texte arabe (RTL)"
+      placeholder="أدخل النص هنا"
+      value="النص العربي"
+    />
+    <SuInput 
+      label="Texte hébreu (RTL)"
+      placeholder="הכנס טקסט כאן"
+      value="טקסט עברי"
+    />
+    <SuInput 
+      label="Prix (RTL avec suffixe)"
+      placeholder="0.00"
+      suffix="$"
+      type="number"
+    />
+  </div>
 </template>
 ```
 
@@ -315,7 +311,6 @@ import {
 | `prefixIcon` | `Component` | `undefined` | Icône de préfixe |
 | `suffixIcon` | `Component` | `undefined` | Icône de suffixe |
 | `textAlign` | `'left' \| 'center' \| 'right'` | `'left'` | Alignement du texte |
-| `dir` | `'ltr' \| 'rtl' \| 'auto'` | `'auto'` | Direction du texte |
 | `label` | `string` | `undefined` | Label de l'input |
 | `message` | `string` | `undefined` | Message additionnel |
 
