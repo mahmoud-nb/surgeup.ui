@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import Textarea from '../Textarea.vue'
 
 const meta: Meta<typeof Textarea> = {
-  title: 'Atoms/Textarea',
+  title: 'Molecules/Textarea',
   component: Textarea,
   parameters: {
     layout: 'centered',
@@ -67,6 +67,15 @@ const meta: Meta<typeof Textarea> = {
     autoResize: {
       control: 'boolean',
       description: 'Ajustement automatique de la hauteur'
+    },
+    spellcheck: {
+      control: 'boolean',
+      description: 'Vérification orthographique activée'
+    },
+    wrap: {
+      control: 'select',
+      options: ['soft', 'hard', 'off'],
+      description: 'Type de retour à la ligne'
     },
     label: {
       control: 'text',
@@ -227,7 +236,7 @@ export const ContactForm: Story = {
   render: () => ({
     components: { Textarea },
     template: `
-      <form style="max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
+      <form style="width: 360px; max-width: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 1.5rem;">
         <h2>Nous contacter</h2>
         
         <Textarea 
@@ -258,7 +267,7 @@ export const Editor: Story = {
     components: { Textarea },
     template: `
       <div style="max-width: 800px; margin: 0 auto;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e5e7eb;">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap:24px; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e5e7eb;">
           <h3>Éditeur de texte</h3>
           <div style="display: flex; gap: 1rem; font-size: 0.875rem; color: #6b7280;">
             <span>0 mots</span>

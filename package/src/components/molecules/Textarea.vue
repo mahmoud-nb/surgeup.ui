@@ -1,24 +1,29 @@
 <script setup lang="ts">
-import { computed, ref, useId, useAttrs } from 'vue'
+import { computed, ref, watch, nextTick, useId, useAttrs } from 'vue'
 import FormField from '../atoms/FormField.vue'
-import BaseInput from '../atoms/BaseInput.vue'
+import BaseTextarea from '../atoms/BaseTextarea.vue';
 import type { FormFieldProps } from '../atoms/FormField.vue'
-import type { BaseInputProps } from '../atoms/BaseInput.vue'
+import type { BaseTextareaProps } from '../atoms/BaseTextarea.vue'
 
-export type InputProps = FormFieldProps & BaseInputProps
+export type TextareaProps = FormFieldProps & BaseTextareaProps
 
-const props = withDefaults(defineProps<InputProps>(), {
-  type: 'text',
+const props = withDefaults(defineProps<TextareaProps>(), {
   size: 'md',
   state: 'default',
   disabled: false,
   readonly: false,
   required: false,
-  textAlign: 'left',
-  dir: 'auto'
+  rows: 3,
+  minRows: 2,
+  maxRows: 10,
+  showCounter: false,
+  autoResize: false,
+  spellcheck: true,
+  wrap: 'soft'
 })
 
-const modelValue = defineModel<string | number>({ default: '' })
+// Utilisation de defineModel pour v-model
+const modelValue = defineModel<string>({ default: '' })
 
 const emit = defineEmits<{
   input: [event: Event]
@@ -27,17 +32,13 @@ const emit = defineEmits<{
   blur: [event: FocusEvent]
   keydown: [event: KeyboardEvent]
   keyup: [event: KeyboardEvent]
-  'prefix-click': [event: MouseEvent]
-  'prefix-icon-click': [event: MouseEvent]
-  'suffix-click': [event: MouseEvent]
-  'suffix-icon-click': [event: MouseEvent]
 }>()
 
 const attrs = useAttrs()
-const fieldId = 'input-' + useId()
-const inputId = computed(() => attrs.id as string || fieldId)
+const fieldId = 'textarea-' + useId()
+const textareaId = computed(() => attrs.id as string || fieldId)
 
-const baseInputProps = computed(() => {
+const baseTextareaProps = computed(() => {
   const { label, message, value, ...rest } = props
   return rest
 })
@@ -51,21 +52,21 @@ const handleKeydown = (event: KeyboardEvent) => emit('keydown', event)
 const handleKeyup = (event: KeyboardEvent) => emit('keyup', event)
 
 // Méthodes exposées
-const baseInputRef = ref<InstanceType<typeof BaseInput>>()
+const baseTextareaRef = ref<InstanceType<typeof BaseTextarea>>()
 
-const focus = () => baseInputRef.value?.focus()
-const select = () => baseInputRef.value?.select()
+const focus = () => baseTextareaRef.value?.focus()
+const select = () => baseTextareaRef.value?.select()
 
 defineExpose({
   focus,
   select,
-  inputRef: baseInputRef?.value?.inputRef
+  textareaRef: baseTextareaRef?.value?.textareaRef
 })
 </script>
 
 <template>
   <FormField
-    :fieldId="inputId"
+    :fieldId="textareaId"
     :label="label"
     :message="message"
     :state="state"
@@ -73,22 +74,19 @@ defineExpose({
     :disabled="disabled"
   >
     <template #default="{ messageId }">
-      <BaseInput 
-        ref="baseInputRef"
-        :id="inputId"
+      <BaseTextarea
+        ref="baseTextareaRef"
+        :id="textareaId"
         :value="modelValue"
         :aria-describedby="messageId"
-        v-bind="{ ...baseInputProps }"
+        v-bind="{ ...baseTextareaProps }"
+
         @input="handleInput"
         @change="handleChange"
         @focus="handleFocus"
         @blur="handleBlur"
         @keydown="handleKeydown"
         @keyup="handleKeyup"
-        @prefix-click="$emit('prefix-click', $event)"
-        @prefix-icon-click="$emit('prefix-icon-click', $event)"
-        @suffix-click="$emit('suffix-click', $event)"
-        @suffix-icon-click="$emit('suffix-icon-click', $event)"
       />
     </template>
   </FormField>

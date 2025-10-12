@@ -7,7 +7,7 @@ import RadioGroup from '../atoms/RadioGroup.vue'
 import CheckboxGroup from '../atoms/CheckboxGroup.vue'
 import Switch from '../atoms/Switch.vue'
 import FileUpload from '../atoms/FileUpload.vue'
-import Textarea from '../atoms/Textarea.vue'
+import Textarea from '../molecules/Textarea.vue'
 import Slider from '../atoms/Slider.vue'
 
 export interface Props extends FormFieldsProps {}

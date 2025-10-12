@@ -21,8 +21,6 @@ export type SwitchLabelPosition = 'outside' | 'inside'
 export type FileUploadSize = 'sm' | 'md' | 'lg'
 export type FileUploadState = 'default' | 'error' | 'success' | 'warning'
 export type FileUploadVariant = 'default' | 'dashed' | 'solid' | 'minimal'
-export type TextareaSize = 'sm' | 'md' | 'lg'
-export type TextareaState = 'default' | 'error' | 'success' | 'warning'
 export type LinkVariant = 'default' | 'primary' | 'secondary' | 'muted'
 export type DialogDisplay = 'center' | 'left' | 'right' | 'top' | 'bottom' | 'full'
 export type LinkSize = 'sm' | 'md' | 'lg'
@@ -246,29 +244,6 @@ export interface FileUploadProps extends AccessibilityProps {
   loading?: boolean
 }
 
-export interface TextareaProps extends AccessibilityProps {
-  size?: TextareaSize
-  state?: TextareaState
-  disabled?: boolean
-  readonly?: boolean
-  required?: boolean
-  placeholder?: string
-  value?: string
-  rows?: number
-  minRows?: number
-  maxRows?: number
-  maxLength?: number
-  showCounter?: boolean
-  autoResize?: boolean
-  label?: string
-  message?: string
-  ariaInvalid?: boolean
-  ariaRequired?: boolean
-  autocomplete?: string
-  spellcheck?: boolean
-  wrap?: 'soft' | 'hard' | 'off'
-}
-
 export interface LinkProps extends AccessibilityProps {
   href?: string
   to?: string | object
@@ -285,7 +260,6 @@ export interface LinkProps extends AccessibilityProps {
 
 export interface LinksGroupProps extends AccessibilityProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
-  separator?: LinksGroupSeparator
   separator?: LinksGroupSeparator
   size?: LinkSize
   variant?: LinkVariant
