@@ -3,17 +3,17 @@ import { computed, h, Fragment, Comment, Text } from 'vue'
 import Link, { LinkSize, LinkUnderline, LinkVariant } from '../atoms/Link.vue'
 import { AccessibilityProps } from '@/types'
 
-export type LinksGroupSeparator = 'none' | 'dot' | 'slash' | 'pipe' | 'arrow'
-export interface LinksGroupProps extends AccessibilityProps {
+export type LinkGroupSeparator = 'none' | 'dot' | 'slash' | 'pipe' | 'arrow'
+export interface LinkGroupProps extends AccessibilityProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
-  separator?: LinksGroupSeparator
+  separator?: LinkGroupSeparator
   size?: LinkSize
   variant?: LinkVariant
   underline?: LinkUnderline
   direction?: 'horizontal' | 'vertical'
 }
 
-const props = withDefaults(defineProps<LinksGroupProps>(), {
+const props = withDefaults(defineProps<LinkGroupProps>(), {
   gap: 'md',
   separator: 'none',
   direction: 'horizontal'
@@ -55,10 +55,10 @@ const processedLinks = computed(() => {
     // Vérifie si le VNode est une instance du composant Link
     if (vnode.type === Link) {
       // Crée un nouvel objet de props en fusionnant les props existantes
-      // avec les props du LinksGroup (qui ont la priorité)
+      // avec les props du LinkGroup (qui ont la priorité)
       const newProps = { ...vnode.props }
 
-      // Force les props size, variant et underline si définies sur le LinksGroup
+      // Force les props size, variant et underline si définies sur le LinkGroup
       if (props.size) {
         newProps.size = props.size
       }
@@ -82,7 +82,7 @@ const processedLinks = computed(() => {
       continue
     } else {
       // Avertit si un élément non-Link est trouvé
-      console.warn('LinksGroup expects only Link components as children. Found:', vnode.type)
+      console.warn('LinkGroup expects only Link components as children. Found:', vnode.type)
       // On peut choisir de rendre l'élément tel quel ou de l'ignorer
       // Pour la cohérence, on l'ignore ici
     }

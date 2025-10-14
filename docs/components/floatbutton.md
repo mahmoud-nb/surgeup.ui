@@ -114,7 +114,7 @@ import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
 </template>
 ```
 
-### Avec ButtonsGroup
+### Avec ButtonGroup
 
 <div class="component-demo">
   <div class="demo-section">
@@ -129,11 +129,11 @@ import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
           :offset="{ x: 16, y: 16 }"
           style="position: absolute;"
         >
-          <SuButtonsGroup gap="sm" variant="secondary" size="sm">
+          <SuButtonGroup gap="sm" variant="secondary" size="sm">
             <SuButton :icon="'CogIcon'" iconDisplay="only" aria-label="Paramètres" />
             <SuButton :icon="'HeartIcon'" iconDisplay="only" aria-label="Favoris" />
             <SuButton :icon="'ShareIcon'" iconDisplay="only" aria-label="Partager" />
-          </SuButtonsGroup>
+          </SuButtonGroup>
         </SuFloatButton>
       </div>
     </div>
@@ -151,16 +151,16 @@ import { PlusIcon, CogIcon, HeartIcon, ShareIcon } from '@heroicons/vue/24/outli
     label="Actions rapides"
     position="right"
   >
-    <SuButtonsGroup gap="sm" variant="secondary" size="sm">
+    <SuButtonGroup gap="sm" variant="secondary" size="sm">
       <SuButton :icon="'CogIcon'" iconDisplay="only" aria-label="Paramètres" />
       <SuButton :icon="'HeartIcon'" iconDisplay="only" aria-label="Favoris" />
       <SuButton :icon="'ShareIcon'" iconDisplay="only" aria-label="Partager" />
-    </SuButtonsGroup>
+    </SuButtonGroup>
   </SuFloatButton>
 </template>
 ```
 
-### Avec LinksGroup
+### Avec LinkGroup
 
 <div class="component-demo">
   <div class="demo-section">
@@ -176,12 +176,12 @@ import { PlusIcon, CogIcon, HeartIcon, ShareIcon } from '@heroicons/vue/24/outli
           :offset="{ x: 16, y: 16 }"
           style="position: absolute;"
         >
-          <SuLinksGroup gap="sm" variant="secondary" size="sm">
+          <SuLinkGroup gap="sm" variant="secondary" size="sm">
             <SuLink href="/help" :icon="'QuestionMarkCircleIcon'" iconDisplay="left">Centre d'aide</SuLink>
             <SuLink href="tel:+33123456789" :icon="'PhoneIcon'" iconDisplay="left">Téléphone</SuLink>
             <SuLink href="mailto:support@example.com" :icon="'EnvelopeIcon'" iconDisplay="left">Email</SuLink>
             <SuLink href="/chat" :icon="'ChatBubbleLeftIcon'" iconDisplay="left">Chat</SuLink>
-          </SuLinksGroup>
+          </SuLinkGroup>
         </SuFloatButton>
       </div>
     </div>
@@ -200,12 +200,12 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
     position="left"
     tooltip-position="right"
   >
-    <SuLinksGroup gap="sm" variant="secondary" size="sm">
+    <SuLinkGroup gap="sm" variant="secondary" size="sm">
       <SuLink href="/help" :icon="'QuestionMarkCircleIcon'" iconDisplay="left">Centre d'aide</SuLink>
       <SuLink href="tel:+33123456789" :icon="'PhoneIcon'" iconDisplay="left">Téléphone</SuLink>
       <SuLink href="mailto:support@example.com" :icon="'EnvelopeIcon'" iconDisplay="left">Email</SuLink>
       <SuLink href="/chat" :icon="'ChatBubbleLeftIcon'" iconDisplay="left">Chat</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
   </SuFloatButton>
 </template>
 ```
@@ -379,7 +379,7 @@ import { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon } f
 
 | Slot | Description |
 |------|-------------|
-| `default` | Contenu affiché au-dessus du bouton (LinksGroup ou ButtonsGroup) |
+| `default` | Contenu affiché au-dessus du bouton (LinkGroup ou ButtonGroup) |
 
 ## Fonctionnalités avancées
 
@@ -470,10 +470,10 @@ Le composant FloatButton respecte les normes WCAG 2.1 AA :
     role="button"
     aria-haspopup="true"
   >
-    <ButtonsGroup role="menu" aria-label="Actions rapides">
+    <ButtonGroup role="menu" aria-label="Actions rapides">
 	    <Button role="menuitem">Action 1</Button>
 	    <Button role="menuitem">Action 2</Button>
-    </ButtonsGroup>
+    </ButtonGroup>
   </SuFloatButton>
 </template>
 ```
@@ -512,7 +512,7 @@ const handleChatClick = () => {
     position="right"
     @click="handleChatClick"
   >
-    <LinksGroup gap="sm" variant="muted" size="sm">
+    <LinkGroup gap="sm" variant="muted" size="sm">
       <Link href="/help" :icon="'QuestionMarkCircleIcon'" iconDisplay="left">
         Centre d'aide
       </Link>
@@ -522,7 +522,7 @@ const handleChatClick = () => {
       <Link href="mailto:support@example.com" :icon="'EnvelopeIcon'" iconDisplay="left">
         Email
       </Link>
-    </LinksGroup>
+    </LinkGroup>
   </SuFloatButton>
 </template>
 ```
@@ -554,7 +554,7 @@ const handleAction = (action: string) => {
     :aria-expanded="showActions"
     @click="toggleActions"
   >
-    <ButtonsGroup 
+    <ButtonGroup 
       v-if="showActions"
       gap="sm" 
       variant="secondary" 
@@ -586,7 +586,7 @@ const handleAction = (action: string) => {
         aria-label="Marquer"
         @click="handleAction('bookmark')"
       />
-    </ButtonsGroup>
+    </ButtonGroup>
   </SuFloatButton>
 </template>
 ```
@@ -696,7 +696,7 @@ const unreadTickets = ref(2)
         <h4>Comment pouvons-nous vous aider ?</h4>
       </div>
       
-      <LinksGroup gap="sm" variant="muted" size="sm">
+      <LinkGroup gap="sm" variant="muted" size="sm">
         <Link 
           v-for="option in supportOptions"
           :key="option.href"
@@ -707,7 +707,7 @@ const unreadTickets = ref(2)
         >
           {{ option.label }}
         </Link>
-      </LinksGroup>
+      </LinkGroup>
     </div>
   </SuFloatButton>
 </template>

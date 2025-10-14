@@ -3,13 +3,13 @@ import { computed, h, Fragment, Comment, Text } from 'vue'
 import type { AccessibilityProps } from '@/types'
 import Button, { ButtonSize, ButtonVariant } from '../atoms/Button.vue'
 
-export interface ButtonsGroupProps extends AccessibilityProps {
+export interface ButtonGroupProps extends AccessibilityProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
   size?: ButtonSize
   variant?: ButtonVariant
 }
 
-export interface Props extends ButtonsGroupProps {}
+export interface Props extends ButtonGroupProps {}
 
 const props = withDefaults(defineProps<Props>(), {
   gap: 'md'
@@ -39,10 +39,10 @@ const processedButtons = computed(() => {
     // Vérifie si le VNode est une instance du composant Button
     if (vnode.type === Button) {
       // Crée un nouvel objet de props en fusionnant les props existantes
-      // avec les props du ButtonsGroup (qui ont la priorité)
+      // avec les props du ButtonGroup (qui ont la priorité)
       const newProps = { ...vnode.props }
 
-      // Force les props size et variant si définies sur le ButtonsGroup
+      // Force les props size et variant si définies sur le ButtonGroup
       if (props.size) {
         newProps.size = props.size
       }
@@ -63,7 +63,7 @@ const processedButtons = computed(() => {
       continue
     } else {
       // Avertit si un élément non-Button est trouvé
-      console.warn('ButtonsGroup expects only Button components as children. Found:', vnode.type)
+      console.warn('ButtonGroup expects only Button components as children. Found:', vnode.type)
       // On peut choisir de rendre l'élément tel quel ou de l'ignorer
       // Pour la cohérence, on l'ignore ici
     }

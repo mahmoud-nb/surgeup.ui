@@ -72,8 +72,8 @@ app.mount('#app')
 - **Link** - Smart links with Vue Router support and external link detection
 
 ### Layout Components
-- **ButtonsGroup** - Organize buttons with controlled spacing
-- **LinksGroup** - Organize links with controlled spacing
+- **ButtonGroup** - Organize buttons with controlled spacing
+- **LinkGroup** - Organize links with controlled spacing
 - **FormFields** - Organize form fields with sections and responsive layout
 - **FloatButton** - Floating action button with slots and positioning
 
@@ -169,11 +169,11 @@ import { PlusIcon, CogIcon, TrashIcon } from '@heroicons/vue/24/outline'
 </script>
 
 <template>
-  <SuButtonsGroup gap="none" variant="outline" size="sm">
+  <SuButtonGroup gap="none" variant="outline" size="sm">
     <SuButton :icon="PlusIcon" iconDisplay="only" aria-label="Add" />
     <SuButton :icon="CogIcon" iconDisplay="only" aria-label="Settings" />
     <SuButton :icon="TrashIcon" iconDisplay="only" aria-label="Delete" />
-  </SuButtonsGroup>
+  </SuButtonGroup>
 </template>
 ```
 
@@ -305,8 +305,8 @@ MIT License - see the [LICENSE](LICENSE) file for details.
 - `SuLink` - Smart links with Vue Router and external link support
 
 ### Layout Components
-- `SuButtonsGroup` - Organize buttons with spacing control
-- `SuLinksGroup` - Organize links with spacing control
+- `SuButtonGroup` - Organize buttons with spacing control
+- `SuLinkGroup` - Organize links with spacing control
 - `SuFormFields` - Organize form fields with sections
 - `SuFloatButton` - Floating action button with positioning and slots
 

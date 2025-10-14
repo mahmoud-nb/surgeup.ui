@@ -1,31 +1,31 @@
-# ButtonsGroup
+# ButtonGroup
 
-Composant ButtonsGroup pour organiser et aligner des boutons avec un espacement contrôlé. Supporte la propagation des props `size` et `variant` aux boutons enfants et la gestion spéciale des bordures pour les boutons connectés.
+Composant ButtonGroup pour organiser et aligner des boutons avec un espacement contrôlé. Supporte la propagation des props `size` et `variant` aux boutons enfants et la gestion spéciale des bordures pour les boutons connectés.
 
 ## Exemples d'utilisation
 
-### ButtonsGroup de base
+### ButtonGroup de base
 
 <div class="component-demo">
   <div class="demo-section">
     <h4>Groupe simple avec gap par défaut</h4>
     <div class="demo-buttons">
-      <SuButtonsGroup>
+      <SuButtonGroup>
         <SuButton>Premier</SuButton>
         <SuButton>Deuxième</SuButton>
         <SuButton>Troisième</SuButton>
-      </SuButtonsGroup>
+      </SuButtonGroup>
     </div>
   </div>
 </div>
 
 ```vue
 <template>
-  <SuButtonsGroup>
+  <SuButtonGroup>
     <SuButton>Premier</SuButton>
     <SuButton>Deuxième</SuButton>
     <SuButton>Troisième</SuButton>
-  </SuButtonsGroup>
+  </SuButtonGroup>
 </template>
 ```
 
@@ -37,35 +37,35 @@ Composant ButtonsGroup pour organiser et aligner des boutons avec un espacement 
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Gap Small</strong></p>
-        <SuButtonsGroup gap="sm">
+        <SuButtonGroup gap="sm">
           <SuButton>Action 1</SuButton>
           <SuButton>Action 2</SuButton>
           <SuButton>Action 3</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
       <div>
         <p><strong>Gap Medium (défaut)</strong></p>
-        <SuButtonsGroup gap="md">
+        <SuButtonGroup gap="md">
           <SuButton>Action 1</SuButton>
           <SuButton>Action 2</SuButton>
           <SuButton>Action 3</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
       <div>
         <p><strong>Gap Large</strong></p>
-        <SuButtonsGroup gap="lg">
+        <SuButtonGroup gap="lg">
           <SuButton>Action 1</SuButton>
           <SuButton>Action 2</SuButton>
           <SuButton>Action 3</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
       <div>
         <p><strong>Gap None (connecté)</strong></p>
-        <SuButtonsGroup gap="none">
+        <SuButtonGroup gap="none">
           <SuButton>Premier</SuButton>
           <SuButton>Milieu</SuButton>
           <SuButton>Dernier</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
     </div>
   </div>
@@ -75,32 +75,32 @@ Composant ButtonsGroup pour organiser et aligner des boutons avec un espacement 
 <template>
   <div>
     <!-- Espacement petit -->
-    <SuButtonsGroup gap="sm">
+    <SuButtonGroup gap="sm">
       <SuButton>Action 1</SuButton>
       <SuButton>Action 2</SuButton>
       <SuButton>Action 3</SuButton>
-    </SuButtonsGroup>
+    </SuButtonGroup>
     
     <!-- Espacement moyen (défaut) -->
-    <SuButtonsGroup gap="md">
+    <SuButtonGroup gap="md">
       <SuButton>Action 1</SuButton>
       <SuButton>Action 2</SuButton>
       <SuButton>Action 3</SuButton>
-    </SuButtonsGroup>
+    </SuButtonGroup>
     
     <!-- Espacement large -->
-    <SuButtonsGroup gap="lg">
+    <SuButtonGroup gap="lg">
       <SuButton>Action 1</SuButton>
       <SuButton>Action 2</SuButton>
       <SuButton>Action 3</SuButton>
-    </SuButtonsGroup>
+    </SuButtonGroup>
     
     <!-- Boutons connectés -->
-    <SuButtonsGroup gap="none">
+    <SuButtonGroup gap="none">
       <SuButton>Premier</SuButton>
       <SuButton>Milieu</SuButton>
       <SuButton>Dernier</SuButton>
-    </SuButtonsGroup>
+    </SuButtonGroup>
   </div>
 </template>
 ```
@@ -113,27 +113,27 @@ Composant ButtonsGroup pour organiser et aligner des boutons avec un espacement 
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Taille Small forcée</strong></p>
-        <SuButtonsGroup size="sm">
+        <SuButtonGroup size="sm">
           <SuButton>Petit 1</SuButton>
           <SuButton>Petit 2</SuButton>
           <SuButton>Petit 3</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
       <div>
         <p><strong>Taille Medium forcée</strong></p>
-        <SuButtonsGroup size="md">
+        <SuButtonGroup size="md">
           <SuButton>Moyen 1</SuButton>
           <SuButton>Moyen 2</SuButton>
           <SuButton>Moyen 3</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
       <div>
         <p><strong>Taille Large forcée</strong></p>
-        <SuButtonsGroup size="lg">
+        <SuButtonGroup size="lg">
           <SuButton>Grand 1</SuButton>
           <SuButton>Grand 2</SuButton>
           <SuButton>Grand 3</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
     </div>
   </div>
@@ -143,18 +143,18 @@ Composant ButtonsGroup pour organiser et aligner des boutons avec un espacement 
 <template>
   <div>
     <!-- Tous les boutons seront en taille small -->
-    <SuButtonsGroup size="sm">
+    <SuButtonGroup size="sm">
       <SuButton>Petit 1</SuButton>
       <SuButton>Petit 2</SuButton>
       <SuButton>Petit 3</SuButton>
-    </SuButtonsGroup>
+    </SuButtonGroup>
     
     <!-- Tous les boutons seront en taille large -->
-    <SuButtonsGroup size="lg">
+    <SuButtonGroup size="lg">
       <SuButton>Grand 1</SuButton>
       <SuButton>Grand 2</SuButton>
       <SuButton>Grand 3</SuButton>
-    </SuButtonsGroup>
+    </SuButtonGroup>
   </div>
 </template>
 ```
@@ -167,27 +167,27 @@ Composant ButtonsGroup pour organiser et aligner des boutons avec un espacement 
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Variante Primary forcée</strong></p>
-        <SuButtonsGroup variant="primary">
+        <SuButtonGroup variant="primary">
           <SuButton>Action 1</SuButton>
           <SuButton>Action 2</SuButton>
           <SuButton>Action 3</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
       <div>
         <p><strong>Variante Outline forcée</strong></p>
-        <SuButtonsGroup variant="outline">
+        <SuButtonGroup variant="outline">
           <SuButton>Action 1</SuButton>
           <SuButton>Action 2</SuButton>
           <SuButton>Action 3</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
       <div>
         <p><strong>Variante Ghost forcée</strong></p>
-        <SuButtonsGroup variant="ghost">
+        <SuButtonGroup variant="ghost">
           <SuButton>Action 1</SuButton>
           <SuButton>Action 2</SuButton>
           <SuButton>Action 3</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
     </div>
   </div>
@@ -197,18 +197,18 @@ Composant ButtonsGroup pour organiser et aligner des boutons avec un espacement 
 <template>
   <div>
     <!-- Tous les boutons seront primary -->
-    <SuButtonsGroup variant="primary">
+    <SuButtonGroup variant="primary">
       <SuButton>Action 1</SuButton>
       <SuButton>Action 2</SuButton>
       <SuButton>Action 3</SuButton>
-    </SuButtonsGroup>
+    </SuButtonGroup>
     
     <!-- Tous les boutons seront outline -->
-    <SuButtonsGroup variant="outline">
+    <SuButtonGroup variant="outline">
       <SuButton>Action 1</SuButton>
       <SuButton>Action 2</SuButton>
       <SuButton>Action 3</SuButton>
-    </SuButtonsGroup>
+    </SuButtonGroup>
   </div>
 </template>
 ```
@@ -221,27 +221,27 @@ Composant ButtonsGroup pour organiser et aligner des boutons avec un espacement 
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Primary connecté</strong></p>
-        <SuButtonsGroup gap="none" variant="primary">
+        <SuButtonGroup gap="none" variant="primary">
           <SuButton>Gauche</SuButton>
           <SuButton>Centre</SuButton>
           <SuButton>Droite</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
       <div>
         <p><strong>Outline connecté</strong></p>
-        <SuButtonsGroup gap="none" variant="outline">
+        <SuButtonGroup gap="none" variant="outline">
           <SuButton>Option A</SuButton>
           <SuButton>Option B</SuButton>
           <SuButton>Option C</SuButton>
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
       <div>
         <p><strong>Toolbar d'icônes</strong></p>
-        <SuButtonsGroup gap="none" variant="secondary" size="sm">
+        <SuButtonGroup gap="none" variant="secondary" size="sm">
           <SuButton :icon="PlusIcon" iconDisplay="only" aria-label="Ajouter" />
           <SuButton :icon="CogIcon" iconDisplay="only" aria-label="Paramètres" />
           <SuButton :icon="TrashIcon" iconDisplay="only" aria-label="Supprimer" />
-        </SuButtonsGroup>
+        </SuButtonGroup>
       </div>
     </div>
   </div>
@@ -255,18 +255,18 @@ import { PlusIcon, CogIcon, TrashIcon } from '@heroicons/vue/24/outline'
 <template>
   <div>
     <!-- Boutons connectés primary -->
-    <SuButtonsGroup gap="none" variant="primary">
+    <SuButtonGroup gap="none" variant="primary">
       <SuButton>Gauche</SuButton>
       <SuButton>Centre</SuButton>
       <SuButton>Droite</SuButton>
-    </SuButtonsGroup>
+    </SuButtonGroup>
     
     <!-- Toolbar d'icônes -->
-    <SuButtonsGroup gap="none" variant="secondary" size="sm">
+    <SuButtonGroup gap="none" variant="secondary" size="sm">
       <SuButton :icon="PlusIcon" iconDisplay="only" aria-label="Ajouter" />
       <SuButton :icon="CogIcon" iconDisplay="only" aria-label="Paramètres" />
       <SuButton :icon="TrashIcon" iconDisplay="only" aria-label="Supprimer" />
-    </SuButtonsGroup>
+    </SuButtonGroup>
   </div>
 </template>
 ```
@@ -299,15 +299,15 @@ import { PlusIcon, CogIcon, TrashIcon } from '@heroicons/vue/24/outline'
 
 ### 🔄 Propagation automatique
 
-Quand `size` ou `variant` sont définies sur le `ButtonsGroup`, elles **surchargent** automatiquement les props des boutons enfants :
+Quand `size` ou `variant` sont définies sur le `ButtonGroup`, elles **surchargent** automatiquement les props des boutons enfants :
 
 ```vue
 <!-- Les boutons auront TOUS la taille 'lg' et la variante 'primary' -->
-<SuButtonsGroup size="lg" variant="primary">
+<SuButtonGroup size="lg" variant="primary">
   <SuButton size="sm" variant="outline">Bouton 1</SuButton>  <!-- Devient lg + primary -->
   <SuButton>Bouton 2</SuButton>                              <!-- Devient lg + primary -->
   <SuButton variant="ghost">Bouton 3</SuButton>              <!-- Devient lg + primary -->
-</SuButtonsGroup>
+</SuButtonGroup>
 ```
 
 ### 🎯 Validation du contenu
@@ -341,7 +341,7 @@ Quand `gap="none"`, les boutons sont visuellement connectés :
 
 ## Accessibilité
 
-Le composant ButtonsGroup respecte les normes WCAG 2.1 AA :
+Le composant ButtonGroup respecte les normes WCAG 2.1 AA :
 
 ### ✅ Fonctionnalités d'accessibilité
 
@@ -355,7 +355,7 @@ Le composant ButtonsGroup respecte les normes WCAG 2.1 AA :
 
 ```vue
 <!-- Toolbar d'actions -->
-<SuButtonsGroup 
+<SuButtonGroup 
   gap="sm" 
   role="toolbar" 
   aria-label="Actions de formatage"
@@ -363,10 +363,10 @@ Le composant ButtonsGroup respecte les normes WCAG 2.1 AA :
   <SuButton aria-label="Gras">B</SuButton>
   <SuButton aria-label="Italique">I</SuButton>
   <SuButton aria-label="Souligné">U</SuButton>
-</SuButtonsGroup>
+</SuButtonGroup>
 
 <!-- Navigation par pages -->
-<SuButtonsGroup 
+<SuButtonGroup 
   gap="none" 
   variant="outline"
   role="group" 
@@ -375,14 +375,14 @@ Le composant ButtonsGroup respecte les normes WCAG 2.1 AA :
   <SuButton>Page 1</SuButton>
   <SuButton>Page 2</SuButton>
   <SuButton>Page 3</SuButton>
-</SuButtonsGroup>
+</SuButtonGroup>
 
 <!-- Actions CRUD -->
-<SuButtonsGroup gap="sm" aria-label="Actions sur l'élément">
+<SuButtonGroup gap="sm" aria-label="Actions sur l'élément">
   <SuButton variant="primary" :icon="PlusIcon">Créer</SuButton>
   <SuButton variant="secondary" :icon="CogIcon">Modifier</SuButton>
   <SuButton variant="outline" :icon="TrashIcon">Supprimer</SuButton>
-</SuButtonsGroup>
+</SuButtonGroup>
 ```
 
 ## Exemples d'usage avancés
@@ -413,7 +413,7 @@ const formatting = ref({
   <div>
     <div class="editor-toolbar">
       <!-- Groupe de formatage de texte -->
-      <SuButtonsGroup 
+      <SuButtonGroup 
         gap="none" 
         variant="ghost" 
         size="sm"
@@ -441,10 +441,10 @@ const formatting = ref({
           aria-label="Souligné"
           @click="formatting.underline = !formatting.underline"
         />
-      </SuButtonsGroup>
+      </SuButtonGroup>
       
       <!-- Groupe d'alignement -->
-      <SuButtonsGroup 
+      <SuButtonGroup 
         gap="none" 
         variant="outline" 
         size="sm"
@@ -472,7 +472,7 @@ const formatting = ref({
           aria-label="Aligner à droite"
           @click="formatting.align = 'right'"
         />
-      </SuButtonsGroup>
+      </SuButtonGroup>
     </div>
   </div>
 </template>
@@ -506,7 +506,7 @@ const handleDelete = () => console.log('Supprimer')
       <h3>Actions disponibles</h3>
       
       <!-- Actions principales -->
-      <SuButtonsGroup gap="sm" aria-label="Actions principales">
+      <SuButtonGroup gap="sm" aria-label="Actions principales">
         <SuButton 
           variant="primary" 
           :icon="PlusIcon" 
@@ -531,7 +531,7 @@ const handleDelete = () => console.log('Supprimer')
         >
           Supprimer
         </SuButton>
-      </SuButtonsGroup>
+      </SuButtonGroup>
     </div>
   </div>
 </template>
@@ -563,7 +563,7 @@ const nextPage = () => {
 <template>
   <div>
     <nav aria-label="Navigation par pages">
-      <SuButtonsGroup 
+      <SuButtonGroup 
         gap="none" 
         variant="outline"
         role="group"
@@ -594,7 +594,7 @@ const nextPage = () => {
           aria-label="Page suivante"
           @click="nextPage"
         />
-      </SuButtonsGroup>
+      </SuButtonGroup>
     </nav>
   </div>
 </template>
@@ -602,7 +602,7 @@ const nextPage = () => {
 
 ## Contrôle du contenu du slot
 
-Le composant `ButtonsGroup` vérifie automatiquement le contenu de son slot :
+Le composant `ButtonGroup` vérifie automatiquement le contenu de son slot :
 
 ### ✅ Éléments acceptés
 - Composants `Button` du design system
@@ -618,22 +618,22 @@ Le composant `ButtonsGroup` vérifie automatiquement le contenu de son slot :
 
 ```vue
 <!-- ✅ Correct -->
-<SuButtonsGroup>
+<SuButtonGroup>
   <div>
     <SuButton>Bouton 1</SuButton>
     <SuButton>Bouton 2</SuButton>
     <!-- Commentaire ignoré -->
   </div>
-</SuButtonsGroup>
+</SuButtonGroup>
 
 <!-- ⚠️ Avertissement dans la console -->
-<SuButtonsGroup>
+<SuButtonGroup>
   <div>
     <SuButton>Bouton valide</SuButton>
     <div>Élément non-bouton</div> <!-- Ignoré avec avertissement -->
     <SuButton>Autre bouton valide</SuButton>
   </div>
-</SuButtonsGroup>
+</SuButtonGroup>
 ```
 
 Cette approche garantit la cohérence visuelle tout en informant les développeurs des problèmes potentiels.

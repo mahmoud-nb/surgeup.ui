@@ -1,16 +1,16 @@
-# AvatarsGroup
+# AvatarGroup
 
-Composant AvatarsGroup pour afficher une série d'avatars avec gestion du surplus, espacement contrôlé et slots before/after. Idéal pour montrer les équipes, participants ou collaborateurs.
+Composant AvatarGroup pour afficher une série d'avatars avec gestion du surplus, espacement contrôlé et slots before/after. Idéal pour montrer les équipes, participants ou collaborateurs.
 
 ## Exemples d'utilisation
 
-### AvatarsGroup de base
+### AvatarGroup de base
 
 <div class="component-demo">
   <div class="demo-section">
     <h4>Groupe d'avatars simple</h4>
     <div class="demo-inputs">
-      <SuAvatarsGroup 
+      <SuAvatarGroup 
         :avatars="[
           { id: '1', src: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=100', name: 'John Doe', alt: 'John Doe' },
           { id: '2', name: 'Marie Dupont', alt: 'Marie Dupont' },
@@ -33,7 +33,7 @@ const teamMembers = [
 </script>
 
 <template>
-  <SuAvatarsGroup :avatars="teamMembers" />
+  <SuAvatarGroup :avatars="teamMembers" />
 </template>
 ```
 
@@ -43,7 +43,7 @@ const teamMembers = [
   <div class="demo-section">
     <h4>Limitation du nombre d'avatars</h4>
     <div class="demo-inputs">
-      <SuAvatarsGroup 
+      <SuAvatarGroup 
         :avatars="[
           { id: '1', src: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=100', name: 'John Doe', alt: 'John Doe' },
           { id: '2', name: 'Marie Dupont', alt: 'Marie Dupont' },
@@ -61,7 +61,7 @@ const teamMembers = [
 
 ```vue
 <template>
-  <SuAvatarsGroup 
+  <SuAvatarGroup 
     :avatars="longTeamList"
     :max="4"
   />
@@ -96,4 +96,4 @@ const teamMembers = [
 
 ## Accessibilité
 
-Le composant AvatarsGroup respecte les normes WCAG 2.1 AA avec support complet de la navigation au clavier et des lecteurs d'écran.
+Le composant AvatarGroup respecte les normes WCAG 2.1 AA avec support complet de la navigation au clavier et des lecteurs d'écran.

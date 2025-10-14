@@ -6,7 +6,7 @@ Cette section contient la documentation de tous les composants disponibles dans 
 
 - [Image](/components/image) - Composant image avec ratios, sources multiples et lazy loading
 - [Avatar](/components/avatar) - Composant avatar avec initiales, statut et badges
-- [AvatarsGroup](/components/avatarsgroup) - Groupe d'avatars avec gestion du surplus
+- [AvatarGroup](/components/avatargroup) - Groupe d'avatars avec gestion du surplus
 - [Badge](/components/badge) - Composant badge moderne avec variantes et icônes
 - [Dialog](/components/dialog) - Composant modale/tiroir polyvalent
 
@@ -22,9 +22,9 @@ Cette section contient la documentation de tous les composants disponibles dans 
 ## Actions
 
 - [Button](/components/button) - Composant bouton avec plusieurs variantes
-- [ButtonsGroup](/components/buttonsgroup) - Groupe de boutons avec espacement contrôlé
+- [ButtonGroup](/components/buttongroup) - Groupe de boutons avec espacement contrôlé
 - [Link](/components/link) - Composant lien avec support des icônes et variantes
-- [LinksGroup](/components/linksgroup) - Groupe de liens avec espacement contrôlé
+- [LinkGroup](/components/linkgroup) - Groupe de liens avec espacement contrôlé
 - [Dropdown](/components/dropdown) - Composant dropdown avec options et liens
 
 ## Organisation

@@ -35,7 +35,7 @@ export default defineConfig({
                 items: [
                   { text: 'Image', link: '/components/image' },
                   { text: 'Avatar', link: '/components/avatar' },
-                  { text: 'AvatarsGroup', link: '/components/avatarsgroup' },
+                  { text: 'AvatarGroup', link: '/components/avatargroup' },
                   { text: 'Badge', link: '/components/badge' },
                   { text: 'Dialog', link: '/components/dialog' }
                 ]
@@ -59,9 +59,9 @@ export default defineConfig({
                 text: '# Actions',
                 items: [
                   { text: 'Button', link: '/components/button' },
-                  { text: 'ButtonGroup', link: '/components/buttonsgroup' },
+                  { text: 'ButtonGroup', link: '/components/buttongroup' },
                   { text: 'Link', link: '/components/link' },
-                  { text: 'LinkGroup', link: '/components/linksgroup' },           
+                  { text: 'LinkGroup', link: '/components/linkgroup' },           
                   { text: 'FloatButton', link: '/components/floatbutton' },
                   { text: 'Dropdown', link: '/components/dropdown' }
                 ]
@@ -98,7 +98,7 @@ export default defineConfig({
                 items: [
                   { text: 'Image', link: '/en/components/image' },
                   { text: 'Avatar', link: '/en/components/avatar' },
-                  { text: 'AvatarsGroup', link: '/en/components/avatarsgroup' },
+                  { text: 'AvatarGroup', link: '/en/components/avatargroup' },
                   { text: 'Badge', link: '/en/components/badge' },
                   { text: 'Dialog', link: '/en/components/dialog' }
                 ]
@@ -122,9 +122,9 @@ export default defineConfig({
                 text: '# Actions',
                 items: [
                   { text: 'Button', link: '/en/components/button' },
-                  { text: 'ButtonGroup', link: '/en/components/buttonsgroup' },
+                  { text: 'ButtonGroup', link: '/en/components/buttongroup' },
                   { text: 'Link', link: '/en/components/link' },
-                  { text: 'LinkGroup', link: '/en/components/linksgroup' },           
+                  { text: 'LinkGroup', link: '/en/components/linkgroup' },           
                   { text: 'FloatButton', link: '/en/components/floatbutton' },
                   { text: 'Dropdown', link: '/en/components/dropdown' }
                 ]

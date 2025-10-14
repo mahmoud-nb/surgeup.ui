@@ -6,7 +6,7 @@ This section contains the documentation for all components available in the Surg
 
 - [Image](/en/components/image) - Image component with ratios, multiple sources and lazy loading
 - [Avatar](/en/components/avatar) - Avatar component with initials, status and badges
-- [AvatarsGroup](/en/components/avatarsgroup) - Avatar group with overflow management
+- [AvatarGroup](/en/components/avatargroup) - Avatar group with overflow management
 - [Badge](/en/components/badge) - Modern badge component with variants and icons
 - [Dialog](/en/components/dialog) - Versatile modal/drawer component
 
@@ -22,9 +22,9 @@ This section contains the documentation for all components available in the Surg
 ## Actions
 
 - [Button](/en/components/button) - Button component with multiple variants
-- [ButtonsGroup](/en/components/buttonsgroup) - Button group with controlled spacing
+- [ButtonGroup](/en/components/buttongroup) - Button group with controlled spacing
 - [Link](/en/components/link) - Link component with icon support and variants
-- [LinksGroup](/en/components/linksgroup) - Link group with controlled spacing
+- [LinkGroup](/en/components/linkgroup) - Link group with controlled spacing
 - [Dropdown](/en/components/dropdown) - Dropdown component with options and links
 
 ## Organization

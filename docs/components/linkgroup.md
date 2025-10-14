@@ -1,31 +1,31 @@
-# LinksGroup
+# LinkGroup
 
-Composant LinksGroup pour organiser et aligner des liens avec un espacement contrôlé. Supporte la propagation des props `size`, `variant` et `underline` aux liens enfants et la gestion spéciale des bordures pour les liens connectés.
+Composant LinkGroup pour organiser et aligner des liens avec un espacement contrôlé. Supporte la propagation des props `size`, `variant` et `underline` aux liens enfants et la gestion spéciale des bordures pour les liens connectés.
 
 ## Exemples d'utilisation
 
-### LinksGroup de base
+### LinkGroup de base
 
 <div class="component-demo">
   <div class="demo-section">
     <h4>Groupe simple avec gap par défaut</h4>
     <div class="demo-buttons">
-      <SuLinksGroup>
+      <SuLinkGroup>
         <SuLink href="/home">Accueil</SuLink>
         <SuLink href="/about">À propos</SuLink>
         <SuLink href="/contact">Contact</SuLink>
-      </SuLinksGroup>
+      </SuLinkGroup>
     </div>
   </div>
 </div>
 
 ```vue
 <template>
-  <SuLinksGroup>
+  <SuLinkGroup>
     <SuLink href="/home">Accueil</SuLink>
     <SuLink href="/about">À propos</SuLink>
     <SuLink href="/contact">Contact</SuLink>
-  </SuLinksGroup>
+  </SuLinkGroup>
 </template>
 ```
 
@@ -37,35 +37,35 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Gap Small</strong></p>
-        <SuLinksGroup gap="sm">
+        <SuLinkGroup gap="sm">
           <SuLink href="/page1">Page 1</SuLink>
           <SuLink href="/page2">Page 2</SuLink>
           <SuLink href="/page3">Page 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Gap Medium (défaut)</strong></p>
-        <SuLinksGroup gap="md">
+        <SuLinkGroup gap="md">
           <SuLink href="/page1">Page 1</SuLink>
           <SuLink href="/page2">Page 2</SuLink>
           <SuLink href="/page3">Page 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Gap Large</strong></p>
-        <SuLinksGroup gap="lg">
+        <SuLinkGroup gap="lg">
           <SuLink href="/page1">Page 1</SuLink>
           <SuLink href="/page2">Page 2</SuLink>
           <SuLink href="/page3">Page 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Gap None (connecté)</strong></p>
-        <SuLinksGroup gap="none">
+        <SuLinkGroup gap="none">
           <SuLink href="/first">Premier</SuLink>
           <SuLink href="/middle">Milieu</SuLink>
           <SuLink href="/last">Dernier</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
     </div>
   </div>
@@ -75,32 +75,32 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
 <template>
   <div>
     <!-- Espacement petit -->
-    <SuLinksGroup gap="sm">
+    <SuLinkGroup gap="sm">
       <SuLink href="/page1">Page 1</SuLink>
       <SuLink href="/page2">Page 2</SuLink>
       <SuLink href="/page3">Page 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- Espacement moyen (défaut) -->
-    <SuLinksGroup gap="md">
+    <SuLinkGroup gap="md">
       <SuLink href="/page1">Page 1</SuLink>
       <SuLink href="/page2">Page 2</SuLink>
       <SuLink href="/page3">Page 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- Espacement large -->
-    <SuLinksGroup gap="lg">
+    <SuLinkGroup gap="lg">
       <SuLink href="/page1">Page 1</SuLink>
       <SuLink href="/page2">Page 2</SuLink>
       <SuLink href="/page3">Page 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- Liens connectés -->
-    <SuLinksGroup gap="none">
+    <SuLinkGroup gap="none">
       <SuLink href="/first">Premier</SuLink>
       <SuLink href="/middle">Milieu</SuLink>
       <SuLink href="/last">Dernier</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
   </div>
 </template>
 ```
@@ -113,27 +113,27 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Taille Small forcée</strong></p>
-        <SuLinksGroup size="sm">
+        <SuLinkGroup size="sm">
           <SuLink href="/link1">Petit lien 1</SuLink>
           <SuLink href="/link2">Petit lien 2</SuLink>
           <SuLink href="/link3">Petit lien 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Taille Medium forcée</strong></p>
-        <SuLinksGroup size="md">
+        <SuLinkGroup size="md">
           <SuLink href="/link1">Lien moyen 1</SuLink>
           <SuLink href="/link2">Lien moyen 2</SuLink>
           <SuLink href="/link3">Lien moyen 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Taille Large forcée</strong></p>
-        <SuLinksGroup size="lg">
+        <SuLinkGroup size="lg">
           <SuLink href="/link1">Grand lien 1</SuLink>
           <SuLink href="/link2">Grand lien 2</SuLink>
           <SuLink href="/link3">Grand lien 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
     </div>
   </div>
@@ -143,18 +143,18 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
 <template>
   <div>
     <!-- Tous les liens seront en taille small -->
-    <SuLinksGroup size="sm">
+    <SuLinkGroup size="sm">
       <SuLink href="/link1">Petit lien 1</SuLink>
       <SuLink href="/link2">Petit lien 2</SuLink>
       <SuLink href="/link3">Petit lien 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- Tous les liens seront en taille large -->
-    <SuLinksGroup size="lg">
+    <SuLinkGroup size="lg">
       <SuLink href="/link1">Grand lien 1</SuLink>
       <SuLink href="/link2">Grand lien 2</SuLink>
       <SuLink href="/link3">Grand lien 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
   </div>
 </template>
 ```
@@ -167,27 +167,27 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Variante Primary forcée</strong></p>
-        <SuLinksGroup variant="primary">
+        <SuLinkGroup variant="primary">
           <SuLink href="/link1">Lien 1</SuLink>
           <SuLink href="/link2">Lien 2</SuLink>
           <SuLink href="/link3">Lien 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Variante Secondary forcée</strong></p>
-        <SuLinksGroup variant="secondary">
+        <SuLinkGroup variant="secondary">
           <SuLink href="/link1">Lien 1</SuLink>
           <SuLink href="/link2">Lien 2</SuLink>
           <SuLink href="/link3">Lien 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Variante Muted forcée</strong></p>
-        <SuLinksGroup variant="muted">
+        <SuLinkGroup variant="muted">
           <SuLink href="/link1">Lien 1</SuLink>
           <SuLink href="/link2">Lien 2</SuLink>
           <SuLink href="/link3">Lien 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
     </div>
   </div>
@@ -197,18 +197,18 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
 <template>
   <div>
     <!-- Tous les liens seront primary -->
-    <SuLinksGroup variant="primary">
+    <SuLinkGroup variant="primary">
       <SuLink href="/link1">Lien 1</SuLink>
       <SuLink href="/link2">Lien 2</SuLink>
       <SuLink href="/link3">Lien 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- Tous les liens seront muted -->
-    <SuLinksGroup variant="muted">
+    <SuLinkGroup variant="muted">
       <SuLink href="/link1">Lien 1</SuLink>
       <SuLink href="/link2">Lien 2</SuLink>
       <SuLink href="/link3">Lien 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
   </div>
 </template>
 ```
@@ -221,35 +221,35 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Séparateur point (•)</strong></p>
-        <SuLinksGroup separator="dot" variant="muted">
+        <SuLinkGroup separator="dot" variant="muted">
           <SuLink href="/home">Accueil</SuLink>
           <SuLink href="/about">À propos</SuLink>
           <SuLink href="/contact">Contact</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Séparateur slash (/)</strong></p>
-        <SuLinksGroup separator="slash" variant="secondary">
+        <SuLinkGroup separator="slash" variant="secondary">
           <SuLink href="/">Accueil</SuLink>
           <SuLink href="/products">Produits</SuLink>
           <SuLink href="/products/laptops">Ordinateurs portables</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Séparateur pipe (|)</strong></p>
-        <SuLinksGroup separator="pipe" variant="primary">
+        <SuLinkGroup separator="pipe" variant="primary">
           <SuLink href="/privacy">Confidentialité</SuLink>
           <SuLink href="/terms">Conditions</SuLink>
           <SuLink href="/cookies">Cookies</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Séparateur flèche (→)</strong></p>
-        <SuLinksGroup separator="arrow" variant="default">
+        <SuLinkGroup separator="arrow" variant="default">
           <SuLink href="/step1">Étape 1</SuLink>
           <SuLink href="/step2">Étape 2</SuLink>
           <SuLink href="/step3">Étape 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
     </div>
   </div>
@@ -258,25 +258,25 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
 ```vue
 <template>
   <!-- Breadcrumb avec slash -->
-  <SuLinksGroup separator="slash" variant="muted" size="sm">
+  <SuLinkGroup separator="slash" variant="muted" size="sm">
     <SuLink href="/">Accueil</SuLink>
     <SuLink href="/products">Produits</SuLink>
     <SuLink href="/products/laptops">Ordinateurs portables</SuLink>
-  </SuLinksGroup>
+  </SuLinkGroup>
   
   <!-- Navigation avec points -->
-  <SuLinksGroup separator="dot" variant="secondary">
+  <SuLinkGroup separator="dot" variant="secondary">
     <SuLink href="/home">Accueil</SuLink>
     <SuLink href="/about">À propos</SuLink>
     <SuLink href="/contact">Contact</SuLink>
-  </SuLinksGroup>
+  </SuLinkGroup>
   
   <!-- Étapes avec flèches -->
-  <SuLinksGroup separator="arrow" variant="primary">
+  <SuLinkGroup separator="arrow" variant="primary">
     <SuLink href="/step1">Étape 1</SuLink>
     <SuLink href="/step2">Étape 2</SuLink>
     <SuLink href="/step3">Étape 3</SuLink>
-  </SuLinksGroup>
+  </SuLinkGroup>
 </template>
 ```
 
@@ -286,24 +286,24 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
   <div class="demo-section">
     <h4>Navigation verticale</h4>
     <div class="demo-buttons">
-      <SuLinksGroup direction="vertical" variant="secondary">
+      <SuLinkGroup direction="vertical" variant="secondary">
         <SuLink href="/dashboard">Tableau de bord</SuLink>
         <SuLink href="/projects">Projets</SuLink>
         <SuLink href="/team">Équipe</SuLink>
         <SuLink href="/settings">Paramètres</SuLink>
-      </SuLinksGroup>
+      </SuLinkGroup>
     </div>
   </div>
 </div>
 
 ```vue
 <template>
-  <SuLinksGroup direction="vertical" variant="secondary">
+  <SuLinkGroup direction="vertical" variant="secondary">
     <SuLink href="/dashboard">Tableau de bord</SuLink>
     <SuLink href="/projects">Projets</SuLink>
     <SuLink href="/team">Équipe</SuLink>
     <SuLink href="/settings">Paramètres</SuLink>
-  </SuLinksGroup>
+  </SuLinkGroup>
 </template>
 ```
 
@@ -315,27 +315,27 @@ Composant LinksGroup pour organiser et aligner des liens avec un espacement cont
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Primary connecté</strong></p>
-        <SuLinksGroup gap="none" variant="primary">
+        <SuLinkGroup gap="none" variant="primary">
           <SuLink href="/section1">Section 1</SuLink>
           <SuLink href="/section2">Section 2</SuLink>
           <SuLink href="/section3">Section 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Secondary connecté</strong></p>
-        <SuLinksGroup gap="none" variant="secondary">
+        <SuLinkGroup gap="none" variant="secondary">
           <SuLink href="/option-a">Option A</SuLink>
           <SuLink href="/option-b">Option B</SuLink>
           <SuLink href="/option-c">Option C</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Navigation d'icônes</strong></p>
-        <SuLinksGroup gap="none" variant="muted" size="sm">
+        <SuLinkGroup gap="none" variant="muted" size="sm">
           <SuLink href="/home" :icon="HomeIcon" iconDisplay="only" aria-label="Accueil" />
           <SuLink href="/profile" :icon="UserIcon" iconDisplay="only" aria-label="Profil" />
           <SuLink href="/settings" :icon="CogIcon" iconDisplay="only" aria-label="Paramètres" />
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
     </div>
   </div>
@@ -349,18 +349,18 @@ import { HomeIcon, UserIcon, CogIcon } from '@heroicons/vue/24/outline'
 <template>
   <div>
     <!-- Liens connectés primary -->
-    <SuLinksGroup gap="none" variant="primary">
+    <SuLinkGroup gap="none" variant="primary">
       <SuLink href="/section1">Section 1</SuLink>
       <SuLink href="/section2">Section 2</SuLink>
       <SuLink href="/section3">Section 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- Navigation d'icônes -->
-    <SuLinksGroup gap="none" variant="muted" size="sm">
+    <SuLinkGroup gap="none" variant="muted" size="sm">
       <SuLink href="/home" :icon="HomeIcon" iconDisplay="only" aria-label="Accueil" />
       <SuLink href="/profile" :icon="UserIcon" iconDisplay="only" aria-label="Profil" />
       <SuLink href="/settings" :icon="CogIcon" iconDisplay="only" aria-label="Paramètres" />
-    </SuLinksGroup>
+    </SuLinkGroup>
   </div>
 </template>
 ```
@@ -406,18 +406,18 @@ Les séparateurs permettent d'ajouter des caractères entre les liens pour amél
 
 ```vue
 <!-- Breadcrumb avec slash -->
-<SuLinksGroup separator="slash" variant="muted">
+<SuLinkGroup separator="slash" variant="muted">
   <SuLink href="/">Accueil</SuLink>
   <SuLink href="/products">Produits</SuLink>
   <SuLink href="/products/laptops">Ordinateurs portables</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 
 <!-- Navigation avec points -->
-<SuLinksGroup separator="dot" variant="secondary">
+<SuLinkGroup separator="dot" variant="secondary">
   <SuLink href="/home">Accueil</SuLink>
   <SuLink href="/about">À propos</SuLink>
   <SuLink href="/contact">Contact</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 ```
 
 ### 📱 Comportement responsive
@@ -428,15 +428,15 @@ Les séparateurs sont automatiquement masqués en mode vertical pour éviter l'e
 
 ### 🔄 Propagation automatique
 
-Quand `size`, `variant` ou `underline` sont définies sur le `LinksGroup`, elles **surchargent** automatiquement les props des liens enfants :
+Quand `size`, `variant` ou `underline` sont définies sur le `LinkGroup`, elles **surchargent** automatiquement les props des liens enfants :
 
 ```vue
 <!-- Les liens auront TOUS la taille 'lg', la variante 'primary' et underline 'never' -->
-<SuLinksGroup size="lg" variant="primary" underline="never">
+<SuLinkGroup size="lg" variant="primary" underline="never">
   <SuLink size="sm" variant="muted" underline="always" href="/link1">Lien 1</SuLink>  <!-- Devient lg + primary + never -->
   <SuLink href="/link2">Lien 2</SuLink>                                              <!-- Devient lg + primary + never -->
   <SuLink variant="secondary" href="/link3">Lien 3</SuLink>                          <!-- Devient lg + primary + never -->
-</SuLinksGroup>
+</SuLinkGroup>
 ```
 
 ### 🎯 Validation du contenu
@@ -481,7 +481,7 @@ Pour `gap="none"` en mode vertical :
 
 ## Accessibilité
 
-Le composant LinksGroup respecte les normes WCAG 2.1 AA :
+Le composant LinkGroup respecte les normes WCAG 2.1 AA :
 
 ### ✅ Fonctionnalités d'accessibilité
 
@@ -495,7 +495,7 @@ Le composant LinksGroup respecte les normes WCAG 2.1 AA :
 
 ```vue
 <!-- Navigation principale -->
-<SuLinksGroup 
+<SuLinkGroup 
   gap="lg" 
   role="navigation" 
   aria-label="Navigation principale"
@@ -503,10 +503,10 @@ Le composant LinksGroup respecte les normes WCAG 2.1 AA :
   <SuLink href="/">Accueil</SuLink>
   <SuLink href="/products">Produits</SuLink>
   <SuLink href="/about">À propos</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 
 <!-- Breadcrumb -->
-<SuLinksGroup 
+<SuLinkGroup 
   gap="sm" 
   variant="muted"
   size="sm"
@@ -517,14 +517,14 @@ Le composant LinksGroup respecte les normes WCAG 2.1 AA :
   <SuLink href="/">Accueil</SuLink>
   <SuLink href="/products">Produits</SuLink>
   <SuLink href="/products/laptops">Ordinateurs portables</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 
 <!-- Footer links -->
-<SuLinksGroup gap="md" separator="dot" variant="secondary" aria-label="Liens du footer">
+<SuLinkGroup gap="md" separator="dot" variant="secondary" aria-label="Liens du footer">
   <SuLink href="/privacy">Confidentialité</SuLink>
   <SuLink href="/terms">Conditions</SuLink>
   <SuLink href="/contact">Contact</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 ```
 
 ## Exemples d'usage avancés
@@ -539,7 +539,7 @@ import { HomeIcon, ShoppingBagIcon, InformationCircleIcon, PhoneIcon } from '@he
 <template>
   <header>
     <nav role="navigation" aria-label="Navigation principale">
-      <SuLinksGroup gap="lg" variant="primary" size="md">
+      <SuLinkGroup gap="lg" variant="primary" size="md">
         <SuLink href="/" :icon="HomeIcon" iconDisplay="left">
           Accueil
         </SuLink>
@@ -552,7 +552,7 @@ import { HomeIcon, ShoppingBagIcon, InformationCircleIcon, PhoneIcon } from '@he
         <SuLink href="/contact" :icon="PhoneIcon" iconDisplay="left">
           Contact
         </SuLink>
-      </SuLinksGroup>
+      </SuLinkGroup>
     </nav>
   </header>
 </template>
@@ -573,7 +573,7 @@ import {
 <template>
   <aside>
     <nav role="navigation" aria-label="Navigation latérale">
-      <SuLinksGroup 
+      <SuLinkGroup 
         direction="vertical" 
         gap="sm" 
         variant="secondary"
@@ -591,7 +591,7 @@ import {
         <SuLink to="/settings" :icon="CogIcon" iconDisplay="left">
           Paramètres
         </SuLink>
-      </SuLinksGroup>
+      </SuLinkGroup>
     </nav>
   </aside>
 </template>
@@ -605,7 +605,7 @@ import {
     <div class="footer-content">
       <div class="footer-section">
         <h4>Produit</h4>
-        <SuLinksGroup 
+        <SuLinkGroup 
           direction="vertical" 
           gap="sm" 
           variant="muted" 
@@ -616,12 +616,12 @@ import {
           <SuLink href="/pricing">Tarifs</SuLink>
           <SuLink href="/integrations">Intégrations</SuLink>
           <SuLink href="/api">API</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       
       <div class="footer-section">
         <h4>Support</h4>
-        <SuLinksGroup 
+        <SuLinkGroup 
           direction="vertical" 
           gap="sm" 
           variant="muted" 
@@ -632,12 +632,12 @@ import {
           <SuLink href="/contact">Contact</SuLink>
           <SuLink href="/status">Statut</SuLink>
           <SuLink href="https://github.com/company" external>GitHub</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       
       <div class="footer-section">
         <h4>Légal</h4>
-        <SuLinksGroup 
+        <SuLinkGroup 
           direction="vertical" 
           gap="sm" 
           variant="muted" 
@@ -647,7 +647,7 @@ import {
           <SuLink href="/privacy">Confidentialité</SuLink>
           <SuLink href="/terms">Conditions</SuLink>
           <SuLink href="/cookies">Cookies</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
     </div>
   </footer>
@@ -698,7 +698,7 @@ const breadcrumbs = computed(() => {
 
 <template>
   <nav role="navigation" aria-label="Fil d'ariane">
-    <SuLinksGroup gap="sm" variant="muted" size="sm">
+    <SuLinkGroup gap="sm" variant="muted" size="sm">
       <template v-for="(crumb, index) in breadcrumbs" :key="crumb.path">
         <SuLink 
           v-if="index < breadcrumbs.length - 1"
@@ -713,14 +713,14 @@ const breadcrumbs = computed(() => {
           /
         </span>
       </template>
-    </SuLinksGroup>
+    </SuLinkGroup>
   </nav>
 </template>
 ```
 
 ## Contrôle du contenu du slot
 
-Le composant `LinksGroup` vérifie automatiquement le contenu de son slot :
+Le composant `LinkGroup` vérifie automatiquement le contenu de son slot :
 
 ### ✅ Éléments acceptés
 - Composants `Link` du design system
@@ -736,18 +736,18 @@ Le composant `LinksGroup` vérifie automatiquement le contenu de son slot :
 
 ```vue
 <!-- ✅ Correct -->
-<SuLinksGroup>
+<SuLinkGroup>
   <SuLink href="/link1">Lien 1</SuLink>
   <SuLink href="/link2">Lien 2</SuLink>
   <!-- Commentaire ignoré -->
-</SuLinksGroup>
+</SuLinkGroup>
 
 <!-- ⚠️ Avertissement dans la console -->
-<SuLinksGroup>
+<SuLinkGroup>
   <SuLink href="/valid">Lien valide</SuLink>
   <a href="/invalid">Élément non-Link</a> <!-- Ignoré avec avertissement -->
   <SuLink href="/valid2">Autre lien valide</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 ```
 
 Cette approche garantit la cohérence visuelle tout en informant les développeurs des problèmes potentiels.

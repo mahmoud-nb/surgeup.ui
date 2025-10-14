@@ -1,16 +1,16 @@
-# AvatarsGroup
+# AvatarGroup
 
-AvatarsGroup component to display a series of avatars with overflow management, controlled spacing and before/after slots. Ideal for showing teams, participants or collaborators.
+AvatarGroup component to display a series of avatars with overflow management, controlled spacing and before/after slots. Ideal for showing teams, participants or collaborators.
 
 ## Usage examples
 
-### Basic AvatarsGroup
+### Basic AvatarGroup
 
 <div class="component-demo">
   <div class="demo-section">
     <h4>Simple avatar group</h4>
     <div class="demo-inputs">
-      <SuAvatarsGroup 
+      <SuAvatarGroup 
         :avatars="[
           { id: '1', src: 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=100', name: 'John Doe', alt: 'John Doe' },
           { id: '2', name: 'Marie Dupont', alt: 'Marie Dupont' },
@@ -33,7 +33,7 @@ const teamMembers = [
 </script>
 
 <template>
-  <SuAvatarsGroup :avatars="teamMembers" />
+  <SuAvatarGroup :avatars="teamMembers" />
 </template>
 ```
 
@@ -65,4 +65,4 @@ const teamMembers = [
 
 ## Accessibility
 
-The AvatarsGroup component follows WCAG 2.1 AA standards with complete keyboard navigation and screen reader support.
+The AvatarGroup component follows WCAG 2.1 AA standards with complete keyboard navigation and screen reader support.

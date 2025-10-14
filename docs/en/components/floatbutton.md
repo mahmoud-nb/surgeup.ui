@@ -112,7 +112,7 @@ import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
 </template>
 ```
 
-### With ButtonsGroup
+### With ButtonGroup
 
 <div class="component-demo">
   <div class="demo-section">
@@ -127,11 +127,11 @@ import { QuestionMarkCircleIcon } from '@heroicons/vue/24/outline'
           :offset="{ x: 16, y: 16 }"
           style="position: absolute;"
         >
-          <SuButtonsGroup gap="sm" variant="secondary" size="sm">
+          <SuButtonGroup gap="sm" variant="secondary" size="sm">
             <SuButton :icon="'CogIcon'" iconDisplay="only" aria-label="Settings" />
             <SuButton :icon="'HeartIcon'" iconDisplay="only" aria-label="Favorites" />
             <SuButton :icon="'ShareIcon'" iconDisplay="only" aria-label="Share" />
-          </SuButtonsGroup>
+          </SuButtonGroup>
         </SuFloatButton>
       </div>
     </div>
@@ -149,11 +149,11 @@ import { PlusIcon, CogIcon, HeartIcon, ShareIcon } from '@heroicons/vue/24/outli
     label="Quick actions"
     position="right"
   >
-    <SuButtonsGroup gap="sm" variant="secondary" size="sm">
+    <SuButtonGroup gap="sm" variant="secondary" size="sm">
       <SuButton :icon="'CogIcon'" iconDisplay="only" aria-label="Settings" />
       <SuButton :icon="'HeartIcon'" iconDisplay="only" aria-label="Favorites" />
       <SuButton :icon="'ShareIcon'" iconDisplay="only" aria-label="Share" />
-    </SuButtonsGroup>
+    </SuButtonGroup>
   </SuFloatButton>
 </template>
 ```
@@ -193,7 +193,7 @@ import { PlusIcon, CogIcon, HeartIcon, ShareIcon } from '@heroicons/vue/24/outli
 
 | Slot | Description |
 |------|-------------|
-| `default` | Content displayed above the button (LinksGroup or ButtonsGroup) |
+| `default` | Content displayed above the button (LinkGroup or ButtonGroup) |
 
 ## Advanced features
 
@@ -283,10 +283,10 @@ The FloatButton component follows WCAG 2.1 AA standards:
     role="button"
     aria-haspopup="true"
   >
-    <ButtonsGroup role="menu" aria-label="Quick actions">
+    <ButtonGroup role="menu" aria-label="Quick actions">
       <Button role="menuitem">Action 1</Button>
       <Button role="menuitem">Action 2</Button>
-    </ButtonsGroup>
+    </ButtonGroup>
   </SuFloatButton>
 </template>
 ```

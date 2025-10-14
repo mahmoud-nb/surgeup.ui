@@ -1,16 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
 import { PlusIcon, UsersIcon } from '@heroicons/vue/24/outline'
-import AvatarsGroup from '../AvatarsGroup.vue'
+import AvatarGroup from '../AvatarGroup.vue'
 import Button from '../../atoms/Button.vue'
 
-const meta: Meta<typeof AvatarsGroup> = {
-  title: 'Molecules/AvatarsGroup',
-  component: AvatarsGroup,
+const meta: Meta<typeof AvatarGroup> = {
+  title: 'Molecules/AvatarGroup',
+  component: AvatarGroup,
   parameters: {
     layout: 'centered',
     docs: {
       description: {
-        component: 'Composant AvatarsGroup pour afficher une série d\'avatars avec gestion du surplus et slots before/after.'
+        component: 'Composant AvatarGroup pour afficher une série d\'avatars avec gestion du surplus et slots before/after.'
       }
     }
   },
@@ -113,7 +113,7 @@ export const WithOverflow: Story = {
 
 export const Spacing: Story = {
   render: () => ({
-    components: { AvatarsGroup },
+    components: { AvatarGroup },
     setup() {
       return { teamMembers: teamMembers.slice(0, 4) }
     },
@@ -121,7 +121,7 @@ export const Spacing: Story = {
       <div style="display: flex; flex-direction: column; gap: 2rem; align-items: flex-start;">
         <div>
           <h4 style="margin-bottom: 0.5rem;">Spacing None (superposés)</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             spacing="none"
           />
@@ -129,7 +129,7 @@ export const Spacing: Story = {
         
         <div>
           <h4 style="margin-bottom: 0.5rem;">Spacing Small</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             spacing="sm"
           />
@@ -137,7 +137,7 @@ export const Spacing: Story = {
         
         <div>
           <h4 style="margin-bottom: 0.5rem;">Spacing Medium (défaut)</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             spacing="md"
           />
@@ -145,7 +145,7 @@ export const Spacing: Story = {
         
         <div>
           <h4 style="margin-bottom: 0.5rem;">Spacing Large</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             spacing="lg"
           />
@@ -157,7 +157,7 @@ export const Spacing: Story = {
 
 export const Sizes: Story = {
   render: () => ({
-    components: { AvatarsGroup },
+    components: { AvatarGroup },
     setup() {
       return { teamMembers: teamMembers.slice(0, 3) }
     },
@@ -165,7 +165,7 @@ export const Sizes: Story = {
       <div style="display: flex; flex-direction: column; gap: 2rem; align-items: flex-start;">
         <div>
           <h4 style="margin-bottom: 0.5rem;">Small</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             size="sm"
           />
@@ -173,7 +173,7 @@ export const Sizes: Story = {
         
         <div>
           <h4 style="margin-bottom: 0.5rem;">Medium</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             size="md"
           />
@@ -181,7 +181,7 @@ export const Sizes: Story = {
         
         <div>
           <h4 style="margin-bottom: 0.5rem;">Large</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             size="lg"
           />
@@ -193,7 +193,7 @@ export const Sizes: Story = {
 
 export const Clickable: Story = {
   render: () => ({
-    components: { AvatarsGroup },
+    components: { AvatarGroup },
     setup() {
       const handleAvatarClick = (avatar, index, event) => {
         if (avatar.type === 'more') {
@@ -208,7 +208,7 @@ export const Clickable: Story = {
     template: `
       <div>
         <h4 style="margin-bottom: 1rem;">Avatars cliquables</h4>
-        <AvatarsGroup 
+        <AvatarGroup 
           :avatars="teamMembers"
           :max="3"
           :clickable="true"
@@ -224,7 +224,7 @@ export const Clickable: Story = {
 
 export const WithSlots: Story = {
   render: () => ({
-    components: { AvatarsGroup, Button },
+    components: { AvatarGroup, Button },
     setup() {
       return { teamMembers: teamMembers.slice(0, 4), PlusIcon, UsersIcon }
     },
@@ -232,19 +232,19 @@ export const WithSlots: Story = {
       <div style="display: flex; flex-direction: column; gap: 2rem; align-items: flex-start;">
         <div>
           <h4 style="margin-bottom: 1rem;">Avec slot before</h4>
-          <AvatarsGroup :avatars="teamMembers">
+          <AvatarGroup :avatars="teamMembers">
             <template #before>
               <div style="display: flex; align-items: center; gap: 0.5rem; margin-right: 0.75rem;">
                 <UsersIcon style="width: 1.25rem; height: 1.25rem; color: #6b7280;" />
                 <span style="font-size: 0.875rem; color: #6b7280; font-weight: 500;">Équipe:</span>
               </div>
             </template>
-          </AvatarsGroup>
+          </AvatarGroup>
         </div>
         
         <div>
           <h4 style="margin-bottom: 1rem;">Avec slot after</h4>
-          <AvatarsGroup :avatars="teamMembers">
+          <AvatarGroup :avatars="teamMembers">
             <template #after>
               <Button 
                 :icon="PlusIcon" 
@@ -255,12 +255,12 @@ export const WithSlots: Story = {
                 style="margin-left: 0.75rem;"
               />
             </template>
-          </AvatarsGroup>
+          </AvatarGroup>
         </div>
         
         <div>
           <h4 style="margin-bottom: 1rem;">Avec les deux slots</h4>
-          <AvatarsGroup :avatars="teamMembers" spacing="sm">
+          <AvatarGroup :avatars="teamMembers" spacing="sm">
             <template #before>
               <div style="display: flex; align-items: center; gap: 0.5rem; margin-right: 1rem;">
                 <UsersIcon style="width: 1.25rem; height: 1.25rem; color: #6b7280;" />
@@ -279,7 +279,7 @@ export const WithSlots: Story = {
                 </Button>
               </div>
             </template>
-          </AvatarsGroup>
+          </AvatarGroup>
         </div>
       </div>
     `
@@ -288,7 +288,7 @@ export const WithSlots: Story = {
 
 export const ProjectTeam: Story = {
   render: () => ({
-    components: { AvatarsGroup, Button },
+    components: { AvatarGroup, Button },
     setup() {
       const projectTeam = [
         {
@@ -340,7 +340,7 @@ export const ProjectTeam: Story = {
         </div>
         
         <div style="display: flex; justify-content: space-between; align-items: center;">
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="projectTeam"
             :max="4"
             spacing="none"
@@ -352,7 +352,7 @@ export const ProjectTeam: Story = {
                 Équipe:
               </span>
             </template>
-          </AvatarsGroup>
+          </AvatarGroup>
           
           <Button 
             :icon="PlusIcon" 
@@ -381,7 +381,7 @@ export const ProjectTeam: Story = {
 
 export const ChatParticipants: Story = {
   render: () => ({
-    components: { AvatarsGroup },
+    components: { AvatarGroup },
     setup() {
       const participants = [
         {
@@ -411,7 +411,7 @@ export const ChatParticipants: Story = {
     },
     template: `
       <div style="padding: 1rem; background-color: #f9fafb; border-radius: 0.5rem; border: 1px solid #e5e7eb;">
-        <AvatarsGroup 
+        <AvatarGroup 
           :avatars="participants"
           size="sm"
           spacing="sm"
@@ -426,7 +426,7 @@ export const ChatParticipants: Story = {
               ({{ participants.length }} participants)
             </span>
           </template>
-        </AvatarsGroup>
+        </AvatarGroup>
       </div>
     `
   })
@@ -434,7 +434,7 @@ export const ChatParticipants: Story = {
 
 export const StackedAvatars: Story = {
   render: () => ({
-    components: { AvatarsGroup },
+    components: { AvatarGroup },
     setup() {
       return { teamMembers: teamMembers.slice(0, 6) }
     },
@@ -442,7 +442,7 @@ export const StackedAvatars: Story = {
       <div style="display: flex; flex-direction: column; gap: 2rem; align-items: flex-start;">
         <div>
           <h4 style="margin-bottom: 0.5rem;">Avatars superposés (spacing="none")</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             :max="5"
             spacing="none"
@@ -452,7 +452,7 @@ export const StackedAvatars: Story = {
         
         <div>
           <h4 style="margin-bottom: 0.5rem;">Avec limite de 3</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             :max="3"
             spacing="none"
@@ -466,7 +466,7 @@ export const StackedAvatars: Story = {
 
 export const Interactive: Story = {
   render: () => ({
-    components: { AvatarsGroup },
+    components: { AvatarGroup },
     setup() {
       const handleAvatarClick = (avatar, index, event) => {
         if (avatar.type === 'more') {
@@ -481,7 +481,7 @@ export const Interactive: Story = {
     template: `
       <div>
         <h4 style="margin-bottom: 1rem;">Groupe interactif</h4>
-        <AvatarsGroup 
+        <AvatarGroup 
           :avatars="teamMembers"
           :max="4"
           :clickable="true"
@@ -498,7 +498,7 @@ export const Interactive: Story = {
 
 export const DifferentVariants: Story = {
   render: () => ({
-    components: { AvatarsGroup },
+    components: { AvatarGroup },
     setup() {
       return { teamMembers: teamMembers.slice(0, 4) }
     },
@@ -506,7 +506,7 @@ export const DifferentVariants: Story = {
       <div style="display: flex; flex-direction: column; gap: 2rem; align-items: flex-start;">
         <div>
           <h4 style="margin-bottom: 0.5rem;">Circle (défaut)</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             variant="circle"
             spacing="sm"
@@ -515,7 +515,7 @@ export const DifferentVariants: Story = {
         
         <div>
           <h4 style="margin-bottom: 0.5rem;">Rounded</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             variant="rounded"
             spacing="sm"
@@ -524,7 +524,7 @@ export const DifferentVariants: Story = {
         
         <div>
           <h4 style="margin-bottom: 0.5rem;">Square</h4>
-          <AvatarsGroup 
+          <AvatarGroup 
             :avatars="teamMembers"
             variant="square"
             spacing="sm"

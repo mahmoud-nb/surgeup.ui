@@ -2,9 +2,9 @@ import type { App } from 'vue'
 import FormField from './components/atoms/FormField.vue'
 import Button, { ButtonRadius, ButtonSize, ButtonVariant } from './components/atoms/Button.vue'
 import Password from './components/molecules/Password.vue'
-import ButtonsGroup from './components/molecules/ButtonsGroup.vue'
+import ButtonGroup from './components/molecules/ButtonGroup.vue'
 import Link, { LinkSize, LinkUnderline, LinkVariant } from './components/atoms/Link.vue'
-import LinksGroup from './components/molecules/LinksGroup.vue'
+import LinkGroup from './components/molecules/LinkGroup.vue'
 import Input from './components/molecules/Input.vue'
 import SelectBox from './components/molecules/SelectBox.vue'
 import RadioGroup from './components/molecules/RadioGroup.vue'
@@ -18,14 +18,14 @@ import FormFields from './components/molecules/FormFields.vue'
 import FloatButton from './components/molecules/FloatButton.vue'
 import Image from './components/atoms/Image.vue'
 import Avatar from './components/atoms/Avatar.vue'
-import AvatarsGroup from './components/molecules/AvatarsGroup.vue'
+import AvatarGroup from './components/molecules/AvatarGroup.vue'
 import Dropdown from './components/molecules/Dropdown.vue'
 import Badge from './components/atoms/Badge.vue'
 import * as accessibility from './utils/accessibility'
 
-export { FormField, Button, Password, ButtonsGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields }
-export { Link, LinksGroup, FloatButton, Dialog, Dropdown }
-export { Image, Avatar, AvatarsGroup, Badge }
+export { FormField, Button, Password, ButtonGroup, Input, SelectBox, RadioGroup, CheckboxGroup, Switch, FileUpload, Textarea, Slider, FormFields }
+export { Link, LinkGroup, FloatButton, Dialog, Dropdown }
+export { Image, Avatar, AvatarGroup, Badge }
 export { accessibility }
 
 export interface SurgeUpDSOptions {
@@ -179,9 +179,9 @@ export default {
     app.component(`${prefix}FormField`, FormField)
     app.component(`${prefix}Button`, Button)
     app.component(`${prefix}Password`, Password)
-    app.component(`${prefix}ButtonsGroup`, ButtonsGroup)
+    app.component(`${prefix}ButtonGroup`, ButtonGroup)
     app.component(`${prefix}Link`, Link)
-    app.component(`${prefix}LinksGroup`, LinksGroup)
+    app.component(`${prefix}LinkGroup`, LinkGroup)
     app.component(`${prefix}Input`, Input)
     app.component(`${prefix}SelectBox`, SelectBox)
     app.component(`${prefix}RadioGroup`, RadioGroup)
@@ -196,7 +196,7 @@ export default {
     app.component(`${prefix}Dropdown`, Dropdown)
     app.component(`${prefix}Image`, Image)
     app.component(`${prefix}Avatar`, Avatar)
-    app.component(`${prefix}AvatarsGroup`, AvatarsGroup)
+    app.component(`${prefix}AvatarGroup`, AvatarGroup)
     app.component(`${prefix}Badge`, Badge)
   }
 }

@@ -2,9 +2,9 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import { PlusIcon, ChatBubbleLeftIcon, QuestionMarkCircleIcon, CogIcon, HeartIcon, ShareIcon, PhoneIcon, EnvelopeIcon } from '@heroicons/vue/24/outline'
 import FloatButton from '../FloatButton.vue'
 import Button from '../../atoms/Button.vue'
-import ButtonsGroup from '../ButtonsGroup.vue'
+import ButtonGroup from '../ButtonGroup.vue'
 import Link from '../../atoms/Link.vue'
-import LinksGroup from '../LinksGroup.vue'
+import LinkGroup from '../LinkGroup.vue'
 
 const meta: Meta<typeof FloatButton> = {
   title: 'Molecules/FloatButton',
@@ -159,9 +159,9 @@ export const AsLink: Story = {
   })
 }
 
-export const WithButtonsGroup: Story = {
+export const WithButtonGroup: Story = {
   render: () => ({
-    components: { FloatButton, ButtonsGroup, Button },
+    components: { FloatButton, ButtonGroup, Button },
     setup() {
       return { PlusIcon, CogIcon, HeartIcon, ShareIcon }
     },
@@ -175,20 +175,20 @@ export const WithButtonsGroup: Story = {
           label="Actions rapides"
           position="right"
         >
-          <ButtonsGroup gap="sm" variant="secondary" size="sm">
+          <ButtonGroup gap="sm" variant="secondary" size="sm">
             <Button :icon="CogIcon" iconDisplay="only" aria-label="Paramètres" />
             <Button :icon="HeartIcon" iconDisplay="only" aria-label="Favoris" />
             <Button :icon="ShareIcon" iconDisplay="only" aria-label="Partager" />
-          </ButtonsGroup>
+          </ButtonGroup>
         </FloatButton>
       </div>
     `
   })
 }
 
-export const WithLinksGroup: Story = {
+export const WithLinkGroup: Story = {
   render: () => ({
-    components: { FloatButton, LinksGroup, Link },
+    components: { FloatButton, LinkGroup, Link },
     setup() {
       return { QuestionMarkCircleIcon, PhoneIcon, EnvelopeIcon, ChatBubbleLeftIcon }
     },
@@ -202,12 +202,12 @@ export const WithLinksGroup: Story = {
           label="Besoin d'aide ?"
           position="left"
         >
-          <LinksGroup gap="sm" variant="secondary" size="sm">
+          <LinkGroup gap="sm" variant="secondary" size="sm">
             <Link href="/help" :icon="QuestionMarkCircleIcon" iconDisplay="left">Centre d'aide</Link>
             <Link href="tel:+33123456789" :icon="PhoneIcon" iconDisplay="left">Téléphone</Link>
             <Link href="mailto:support@example.com" :icon="EnvelopeIcon" iconDisplay="left">Email</Link>
             <Link href="/chat" :icon="ChatBubbleLeftIcon" iconDisplay="left">Chat en direct</Link>
-          </LinksGroup>
+          </LinkGroup>
         </FloatButton>
       </div>
     `
@@ -469,7 +469,7 @@ export const Variants: Story = {
 
 export const ComplexExample: Story = {
   render: () => ({
-    components: { FloatButton, ButtonsGroup, Button, LinksGroup, Link },
+    components: { FloatButton, ButtonGroup, Button, LinkGroup, Link },
     setup() {
       const handleMainClick = () => {
         console.log('Bouton principal cliqué!')
@@ -506,11 +506,11 @@ export const ComplexExample: Story = {
           badge="2"
           @click="handleMainClick"
         >
-          <ButtonsGroup gap="none" variant="secondary" size="sm" direction="vertical">
+          <ButtonGroup gap="none" variant="secondary" size="sm" direction="vertical">
             <Button :icon="CogIcon" iconDisplay="only" aria-label="Paramètres" />
             <Button :icon="HeartIcon" iconDisplay="only" aria-label="Favoris" />
             <Button :icon="ShareIcon" iconDisplay="only" aria-label="Partager" />
-          </ButtonsGroup>
+          </ButtonGroup>
         </FloatButton>
         
         <!-- Bouton d'aide avec liens -->
@@ -521,12 +521,12 @@ export const ComplexExample: Story = {
           variant="secondary"
           tooltipPosition="right"
         >
-          <LinksGroup gap="sm" variant="muted" size="sm">
+          <LinkGroup gap="sm" variant="muted" size="sm">
             <Link href="/help" :icon="QuestionMarkCircleIcon" iconDisplay="left">Centre d'aide</Link>
             <Link href="tel:+33123456789" :icon="PhoneIcon" iconDisplay="left">Téléphone</Link>
             <Link href="mailto:support@example.com" :icon="EnvelopeIcon" iconDisplay="left">Email</Link>
             <Link href="/chat" :icon="ChatBubbleLeftIcon" iconDisplay="left">Chat</Link>
-          </LinksGroup>
+          </LinkGroup>
         </FloatButton>
       </div>
     `

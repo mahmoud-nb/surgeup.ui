@@ -55,12 +55,12 @@ const showCenterModal = ref(false)
       <SuButton @click="showLeftDrawer = true">Open Left Drawer</SuButton>
       <SuDialog v-model:modelValue="showLeftDrawer" display="left" title="Navigation Menu" width="300px">
         <template #default>
-          <SuLinksGroup direction="vertical" gap="md">
+          <SuLinkGroup direction="vertical" gap="md">
             <SuLink href="/dashboard">Dashboard</SuLink>
             <SuLink href="/profile">My Profile</SuLink>
             <SuLink href="/settings">Settings</SuLink>
             <SuLink href="/logout">Logout</SuLink>
-          </SuLinksGroup>
+          </SuLinkGroup>
         </template>
         <template #footer>
           <SuButton variant="outline" @click="showLeftDrawer = false">Close</SuButton>
@@ -73,7 +73,7 @@ const showCenterModal = ref(false)
 ```vue
 <script setup>
 import { ref } from 'vue'
-import { SuDialog, SuButton, SuLinksGroup, SuLink } from '@surgeui/ds-vue'
+import { SuDialog, SuButton, SuLinkGroup, SuLink } from '@surgeui/ds-vue'
 
 const showLeftDrawer = ref(false)
 </script>
@@ -82,12 +82,12 @@ const showLeftDrawer = ref(false)
   <SuButton @click="showLeftDrawer = true">Open Left Drawer</SuButton>
   <SuDialog v-model:modelValue="showLeftDrawer" display="left" title="Navigation Menu" width="300px">
     <template #default>
-      <SuLinksGroup direction="vertical" gap="md">
+      <SuLinkGroup direction="vertical" gap="md">
         <SuLink href="/dashboard">Dashboard</SuLink>
         <SuLink href="/profile">My Profile</SuLink>
         <SuLink href="/settings">Settings</SuLink>
         <SuLink href="/logout">Logout</SuLink>
-      </SuLinksGroup>
+      </SuLinkGroup>
     </template>
     <template #footer>
       <SuButton variant="outline" @click="showLeftDrawer = false">Close</SuButton>
@@ -189,11 +189,11 @@ const showTopDrawer = ref(false)
       <SuButton @click="showBottomDrawer = true">Open Bottom Drawer</SuButton>
       <SuDialog v-model:modelValue="showBottomDrawer" display="bottom" title="Quick Actions" height="250px">
         <template #default>
-          <SuButtonsGroup direction="vertical" gap="md">
+          <SuButtonGroup direction="vertical" gap="md">
             <SuButton variant="primary">Take Photo</SuButton>
             <SuButton variant="secondary">Upload File</SuButton>
             <SuButton variant="outline">Share</SuButton>
-          </SuButtonsGroup>
+          </SuButtonGroup>
         </template>
         <template #footer>
           <SuButton variant="ghost" @click="showBottomDrawer = false">Close</SuButton>
@@ -206,7 +206,7 @@ const showTopDrawer = ref(false)
 ```vue
 <script setup>
 import { ref } from 'vue'
-import { SuDialog, SuButton, SuButtonsGroup } from '@surgeui/ds-vue'
+import { SuDialog, SuButton, SuButtonGroup } from '@surgeui/ds-vue'
 
 const showBottomDrawer = ref(false)
 </script>
@@ -215,11 +215,11 @@ const showBottomDrawer = ref(false)
   <SuButton @click="showBottomDrawer = true">Open Bottom Drawer</SuButton>
   <SuDialog v-model:modelValue="showBottomDrawer" display="bottom" title="Quick Actions" height="250px">
     <template #default>
-      <SuButtonsGroup direction="vertical" gap="md">
+      <SuButtonGroup direction="vertical" gap="md">
         <SuButton variant="primary">Take Photo</SuButton>
         <SuButton variant="secondary">Upload File</SuButton>
         <SuButton variant="outline">Share</SuButton>
-      </SuButtonsGroup>
+      </SuButtonGroup>
     </template>
     <template #footer>
       <SuButton variant="ghost" @click="showBottomDrawer = false">Close</SuButton>

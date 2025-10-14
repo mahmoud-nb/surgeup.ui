@@ -201,7 +201,7 @@ defineExpose({
     :class="containerClasses"
     :style="positionStyles"
   >
-    <!-- Slot pour contenu additionnel (LinksGroup ou ButtonsGroup) -->
+    <!-- Slot pour contenu additionnel (LinkGroup ou ButtonGroup) -->
     <div 
       v-if="$slots.default" 
       class="su-float-button-slot"

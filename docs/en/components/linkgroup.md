@@ -1,31 +1,31 @@
-# LinksGroup
+# LinkGroup
 
-LinksGroup component for organizing and aligning links with controlled spacing. Supports propagation of `size`, `variant` and `underline` props to child links and special border handling for connected links.
+LinkGroup component for organizing and aligning links with controlled spacing. Supports propagation of `size`, `variant` and `underline` props to child links and special border handling for connected links.
 
 ## Usage examples
 
-### Basic LinksGroup
+### Basic LinkGroup
 
 <div class="component-demo">
   <div class="demo-section">
     <h4>Simple group with default gap</h4>
     <div class="demo-buttons">
-      <SuLinksGroup>
+      <SuLinkGroup>
         <SuLink href="/home">Home</SuLink>
         <SuLink href="/about">About</SuLink>
         <SuLink href="/contact">Contact</SuLink>
-      </SuLinksGroup>
+      </SuLinkGroup>
     </div>
   </div>
 </div>
 
 ```vue
 <template>
-  <SuLinksGroup>
+  <SuLinkGroup>
     <SuLink href="/home">Home</SuLink>
     <SuLink href="/about">About</SuLink>
     <SuLink href="/contact">Contact</SuLink>
-  </SuLinksGroup>
+  </SuLinkGroup>
 </template>
 ```
 
@@ -37,35 +37,35 @@ LinksGroup component for organizing and aligning links with controlled spacing. 
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Gap Small</strong></p>
-        <SuLinksGroup gap="sm">
+        <SuLinkGroup gap="sm">
           <SuLink href="/page1">Page 1</SuLink>
           <SuLink href="/page2">Page 2</SuLink>
           <SuLink href="/page3">Page 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Gap Medium (default)</strong></p>
-        <SuLinksGroup gap="md">
+        <SuLinkGroup gap="md">
           <SuLink href="/page1">Page 1</SuLink>
           <SuLink href="/page2">Page 2</SuLink>
           <SuLink href="/page3">Page 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Gap Large</strong></p>
-        <SuLinksGroup gap="lg">
+        <SuLinkGroup gap="lg">
           <SuLink href="/page1">Page 1</SuLink>
           <SuLink href="/page2">Page 2</SuLink>
           <SuLink href="/page3">Page 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Gap None (connected)</strong></p>
-        <SuLinksGroup gap="none">
+        <SuLinkGroup gap="none">
           <SuLink href="/first">First</SuLink>
           <SuLink href="/middle">Middle</SuLink>
           <SuLink href="/last">Last</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
     </div>
   </div>
@@ -75,32 +75,32 @@ LinksGroup component for organizing and aligning links with controlled spacing. 
 <template>
   <div>
     <!-- Small spacing -->
-    <SuLinksGroup gap="sm">
+    <SuLinkGroup gap="sm">
       <SuLink href="/page1">Page 1</SuLink>
       <SuLink href="/page2">Page 2</SuLink>
       <SuLink href="/page3">Page 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- Medium spacing (default) -->
-    <SuLinksGroup gap="md">
+    <SuLinkGroup gap="md">
       <SuLink href="/page1">Page 1</SuLink>
       <SuLink href="/page2">Page 2</SuLink>
       <SuLink href="/page3">Page 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- Large spacing -->
-    <SuLinksGroup gap="lg">
+    <SuLinkGroup gap="lg">
       <SuLink href="/page1">Page 1</SuLink>
       <SuLink href="/page2">Page 2</SuLink>
       <SuLink href="/page3">Page 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- Connected links -->
-    <SuLinksGroup gap="none">
+    <SuLinkGroup gap="none">
       <SuLink href="/first">First</SuLink>
       <SuLink href="/middle">Middle</SuLink>
       <SuLink href="/last">Last</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
   </div>
 </template>
 ```
@@ -113,27 +113,27 @@ LinksGroup component for organizing and aligning links with controlled spacing. 
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Small size forced</strong></p>
-        <SuLinksGroup size="sm">
+        <SuLinkGroup size="sm">
           <SuLink href="/link1">Small link 1</SuLink>
           <SuLink href="/link2">Small link 2</SuLink>
           <SuLink href="/link3">Small link 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Medium size forced</strong></p>
-        <SuLinksGroup size="md">
+        <SuLinkGroup size="md">
           <SuLink href="/link1">Medium link 1</SuLink>
           <SuLink href="/link2">Medium link 2</SuLink>
           <SuLink href="/link3">Medium link 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Large size forced</strong></p>
-        <SuLinksGroup size="lg">
+        <SuLinkGroup size="lg">
           <SuLink href="/link1">Large link 1</SuLink>
           <SuLink href="/link2">Large link 2</SuLink>
           <SuLink href="/link3">Large link 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
     </div>
   </div>
@@ -143,18 +143,18 @@ LinksGroup component for organizing and aligning links with controlled spacing. 
 <template>
   <div>
     <!-- All links will be small size -->
-    <SuLinksGroup size="sm">
+    <SuLinkGroup size="sm">
       <SuLink href="/link1">Small link 1</SuLink>
       <SuLink href="/link2">Small link 2</SuLink>
       <SuLink href="/link3">Small link 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- All links will be large size -->
-    <SuLinksGroup size="lg">
+    <SuLinkGroup size="lg">
       <SuLink href="/link1">Large link 1</SuLink>
       <SuLink href="/link2">Large link 2</SuLink>
       <SuLink href="/link3">Large link 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
   </div>
 </template>
 ```
@@ -167,27 +167,27 @@ LinksGroup component for organizing and aligning links with controlled spacing. 
     <div class="demo-buttons-vertical">
       <div>
         <p><strong>Primary variant forced</strong></p>
-        <SuLinksGroup variant="primary">
+        <SuLinkGroup variant="primary">
           <SuLink href="/link1">Link 1</SuLink>
           <SuLink href="/link2">Link 2</SuLink>
           <SuLink href="/link3">Link 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Secondary variant forced</strong></p>
-        <SuLinksGroup variant="secondary">
+        <SuLinkGroup variant="secondary">
           <SuLink href="/link1">Link 1</SuLink>
           <SuLink href="/link2">Link 2</SuLink>
           <SuLink href="/link3">Link 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
       <div>
         <p><strong>Muted variant forced</strong></p>
-        <SuLinksGroup variant="muted">
+        <SuLinkGroup variant="muted">
           <SuLink href="/link1">Link 1</SuLink>
           <SuLink href="/link2">Link 2</SuLink>
           <SuLink href="/link3">Link 3</SuLink>
-        </SuLinksGroup>
+        </SuLinkGroup>
       </div>
     </div>
   </div>
@@ -197,18 +197,18 @@ LinksGroup component for organizing and aligning links with controlled spacing. 
 <template>
   <div>
     <!-- All links will be primary -->
-    <SuLinksGroup variant="primary">
+    <SuLinkGroup variant="primary">
       <SuLink href="/link1">Link 1</SuLink>
       <SuLink href="/link2">Link 2</SuLink>
       <SuLink href="/link3">Link 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
     
     <!-- All links will be muted -->
-    <SuLinksGroup variant="muted">
+    <SuLinkGroup variant="muted">
       <SuLink href="/link1">Link 1</SuLink>
       <SuLink href="/link2">Link 2</SuLink>
       <SuLink href="/link3">Link 3</SuLink>
-    </SuLinksGroup>
+    </SuLinkGroup>
   </div>
 </template>
 ```
@@ -219,24 +219,24 @@ LinksGroup component for organizing and aligning links with controlled spacing. 
   <div class="demo-section">
     <h4>Vertical navigation</h4>
     <div class="demo-buttons">
-      <SuLinksGroup direction="vertical" variant="secondary">
+      <SuLinkGroup direction="vertical" variant="secondary">
         <SuLink href="/dashboard">Dashboard</SuLink>
         <SuLink href="/projects">Projects</SuLink>
         <SuLink href="/team">Team</SuLink>
         <SuLink href="/settings">Settings</SuLink>
-      </SuLinksGroup>
+      </SuLinkGroup>
     </div>
   </div>
 </div>
 
 ```vue
 <template>
-  <SuLinksGroup direction="vertical" variant="secondary">
+  <SuLinkGroup direction="vertical" variant="secondary">
     <SuLink href="/dashboard">Dashboard</SuLink>
     <SuLink href="/projects">Projects</SuLink>
     <SuLink href="/team">Team</SuLink>
     <SuLink href="/settings">Settings</SuLink>
-  </SuLinksGroup>
+  </SuLinkGroup>
 </template>
 ```
 
@@ -281,18 +281,18 @@ Separators allow adding characters between links to improve readability:
 
 ```vue
 <!-- Breadcrumb with slash -->
-<SuLinksGroup separator="slash" variant="muted">
+<SuLinkGroup separator="slash" variant="muted">
   <SuLink href="/">Home</SuLink>
   <SuLink href="/products">Products</SuLink>
   <SuLink href="/products/laptops">Laptops</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 
 <!-- Navigation with dots -->
-<SuLinksGroup separator="dot" variant="secondary">
+<SuLinkGroup separator="dot" variant="secondary">
   <SuLink href="/home">Home</SuLink>
   <SuLink href="/about">About</SuLink>
   <SuLink href="/contact">Contact</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 ```
 
 ### 📱 Responsive behavior
@@ -303,15 +303,15 @@ Separators are automatically hidden in vertical mode to avoid visual clutter.
 
 ### 🔄 Automatic propagation
 
-When `size`, `variant` or `underline` are defined on `LinksGroup`, they **override** the props of child links automatically:
+When `size`, `variant` or `underline` are defined on `LinkGroup`, they **override** the props of child links automatically:
 
 ```vue
 <!-- All links will have 'lg' size, 'primary' variant and 'never' underline -->
-<SuLinksGroup size="lg" variant="primary" underline="never">
+<SuLinkGroup size="lg" variant="primary" underline="never">
   <SuLink size="sm" variant="muted" underline="always" href="/link1">Link 1</SuLink>  <!-- Becomes lg + primary + never -->
   <SuLink href="/link2">Link 2</SuLink>                                              <!-- Becomes lg + primary + never -->
   <SuLink variant="secondary" href="/link3">Link 3</SuLink>                          <!-- Becomes lg + primary + never -->
-</SuLinksGroup>
+</SuLinkGroup>
 ```
 
 ### 🎯 Content validation
@@ -356,7 +356,7 @@ For `gap="none"` in vertical mode:
 
 ## Accessibility
 
-The LinksGroup component follows WCAG 2.1 AA standards:
+The LinkGroup component follows WCAG 2.1 AA standards:
 
 ### ✅ Accessibility features
 
@@ -370,7 +370,7 @@ The LinksGroup component follows WCAG 2.1 AA standards:
 
 ```vue
 <!-- Main navigation -->
-<SuLinksGroup 
+<SuLinkGroup 
   gap="lg" 
   role="navigation" 
   aria-label="Main navigation"
@@ -378,10 +378,10 @@ The LinksGroup component follows WCAG 2.1 AA standards:
   <SuLink href="/">Home</SuLink>
   <SuLink href="/products">Products</SuLink>
   <SuLink href="/about">About</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 
 <!-- Breadcrumb -->
-<SuLinksGroup 
+<SuLinkGroup 
   gap="sm" 
   variant="muted"
   size="sm"
@@ -392,12 +392,12 @@ The LinksGroup component follows WCAG 2.1 AA standards:
   <SuLink href="/">Home</SuLink>
   <SuLink href="/products">Products</SuLink>
   <SuLink href="/products/laptops">Laptops</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 
 <!-- Footer links -->
-<SuLinksGroup gap="md" separator="dot" variant="secondary" aria-label="Footer links">
+<SuLinkGroup gap="md" separator="dot" variant="secondary" aria-label="Footer links">
   <SuLink href="/privacy">Privacy</SuLink>
   <SuLink href="/terms">Terms</SuLink>
   <SuLink href="/contact">Contact</SuLink>
-</SuLinksGroup>
+</SuLinkGroup>
 ```

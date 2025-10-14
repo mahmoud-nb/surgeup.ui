@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import type { AccessibilityProps } from '@/types'
 import Avatar, { AvatarProps, AvatarSize, AvatarVariant } from '../atoms/Avatar.vue'
 
-export interface AvatarsGroupProps extends AccessibilityProps {
+export interface AvatarGroupProps extends AccessibilityProps {
   avatars: AvatarProps[]
   size?: AvatarSize
   variant?: AvatarVariant
@@ -12,7 +12,7 @@ export interface AvatarsGroupProps extends AccessibilityProps {
   clickable?: boolean
 }
 
-export interface Props extends AvatarsGroupProps {}
+export interface Props extends AvatarGroupProps {}
 
 const props = withDefaults(defineProps<Props>(), {
   avatars: () => [],
