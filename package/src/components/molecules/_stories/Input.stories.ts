@@ -3,7 +3,7 @@ import { MagnifyingGlassIcon, AtSymbolIcon, LockClosedIcon, UserIcon } from '@he
 import Input from '../Input.vue'
 
 const meta: Meta<typeof Input> = {
-  title: 'Molecules/Input',
+  title: 'Molecules/FormField - Input',
   component: Input,
   parameters: {
     layout: 'centered',

@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import FileUpload from '../FileUpload.vue'
 
 const meta: Meta<typeof FileUpload> = {
-  title: 'Atoms/FileUpload',
+  title: 'Molecules/FormField - FileUpload',
   component: FileUpload,
   parameters: {
     layout: 'centered',

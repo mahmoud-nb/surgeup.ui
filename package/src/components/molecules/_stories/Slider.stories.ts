@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import Slider from '../Slider.vue'
 
 const meta: Meta<typeof Slider> = {
-  title: 'Atoms/Slider',
+  title: 'Molecules/FormField - Slider',
   component: Slider,
   parameters: {
     layout: 'centered',

@@ -1,16 +1,15 @@
 <script setup lang="ts">
 import { computed, h, Fragment, Comment, Text } from 'vue'
-import type { ButtonVariant, ButtonSize } from '@/types'
-import Button from '../atoms/Button.vue'
+import type { AccessibilityProps } from '@/types'
+import Button, { ButtonSize, ButtonVariant } from '../atoms/Button.vue'
 
-export interface Props {
+export interface ButtonsGroupProps extends AccessibilityProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
   size?: ButtonSize
   variant?: ButtonVariant
-  ariaLabel?: string
-  ariaDescribedBy?: string
-  role?: string
 }
+
+export interface Props extends ButtonsGroupProps {}
 
 const props = withDefaults(defineProps<Props>(), {
   gap: 'md'

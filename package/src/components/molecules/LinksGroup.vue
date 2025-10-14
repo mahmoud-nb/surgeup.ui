@@ -1,17 +1,16 @@
 <script setup lang="ts">
 import { computed, h, Fragment, Comment, Text } from 'vue'
-import Link from '../atoms/Link.vue'
+import Link, { LinkSize, LinkUnderline, LinkVariant } from '../atoms/Link.vue'
+import { AccessibilityProps } from '@/types'
 
-export interface LinksGroupProps {
+export type LinksGroupSeparator = 'none' | 'dot' | 'slash' | 'pipe' | 'arrow'
+export interface LinksGroupProps extends AccessibilityProps {
   gap?: 'sm' | 'md' | 'lg' | 'none'
-  separator?: 'none' | 'dot' | 'slash' | 'pipe' | 'arrow'
-  size?: 'sm' | 'md' | 'lg'
-  variant?: 'default' | 'primary' | 'secondary' | 'muted'
-  underline?: 'always' | 'hover' | 'never'
+  separator?: LinksGroupSeparator
+  size?: LinkSize
+  variant?: LinkVariant
+  underline?: LinkUnderline
   direction?: 'horizontal' | 'vertical'
-  ariaLabel?: string
-  ariaDescribedBy?: string
-  role?: string
 }
 
 const props = withDefaults(defineProps<LinksGroupProps>(), {
@@ -98,7 +97,7 @@ const elementsWithSeparators = computed(() => {
     return processedLinks.value
   }
   
-  const elements = []
+  const elements: Array<ReturnType<typeof h>> = []
   const separatorChar = getSeparatorChar(props.separator)
   
   processedLinks.value.forEach((link, index) => {

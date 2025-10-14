@@ -3,7 +3,7 @@ import { CheckIcon, XMarkIcon, SunIcon, MoonIcon } from '@heroicons/vue/24/outli
 import Switch from '../Switch.vue'
 
 const meta: Meta<typeof Switch> = {
-  title: 'Atoms/Switch',
+  title: 'Molecules/FormField - Switch',
   component: Switch,
   parameters: {
     layout: 'centered',

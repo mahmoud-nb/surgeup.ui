@@ -1,6 +1,31 @@
 <script setup lang="ts">
 import { computed, ref, onMounted, useAttrs, useId } from 'vue'
-import type { ImageProps } from '@/types'
+import type { AccessibilityProps } from '@/types'
+
+export interface ImageSource {
+  srcset: string
+  type?: string
+  media?: string
+}
+export type ImageRatio = 'auto' | '16/9' | '4/3' | '1/1' | number
+export type ImageFit = 'cover' | 'contain' | 'fill' | 'none' | 'scale-down'
+export type ImagePosition = 'center' | 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right'
+
+export interface ImageProps extends AccessibilityProps {
+  src: string
+  alt: string
+  fallback?: string
+  sources?: ImageSource[]
+  ratio?: ImageRatio
+  fit?: ImageFit
+  position?: ImagePosition
+  lazy?: boolean
+  loading?: 'eager' | 'lazy'
+  width?: string | number
+  height?: string | number
+  placeholder?: boolean
+  placeholderColor?: string
+}
 
 export interface Props extends ImageProps {}
 

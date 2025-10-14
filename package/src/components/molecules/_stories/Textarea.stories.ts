@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/vue3'
 import Textarea from '../Textarea.vue'
 
 const meta: Meta<typeof Textarea> = {
-  title: 'Molecules/Textarea',
+  title: 'Molecules/FormField - Textarea',
   component: Textarea,
   parameters: {
     layout: 'centered',

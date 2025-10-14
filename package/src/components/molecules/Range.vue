@@ -1,12 +1,31 @@
 <script setup lang="ts">
 import { computed, ref, useAttrs, useId } from 'vue'
-import type { SliderProps } from '@/types'
 import { announceToScreenReader } from '@/utils/accessibility'
-import FormField from './FormField.vue'
+import FormField, { FormFieldProps } from '@/components/atoms/FormField.vue'
+import type { AccessibilityProps, Size, State, Orientation } from '@/types'
 
-export interface Props extends Omit<SliderProps, 'value'> {}
+//export interface Props extends Omit<RangeProps, 'value'> {}
 
-const props = withDefaults(defineProps<Props>(), {
+export interface BaseRangeProps extends AccessibilityProps {
+  min?: number
+  max?: number
+  step?: number
+  size?: Size
+  state?: State
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
+  orientation?: Orientation
+  dual?: boolean
+  showValue?: boolean
+  showTicks?: boolean
+  showLabels?: boolean
+  formatValue?(value: number): string
+}
+
+export type RangeProps = FormFieldProps & BaseRangeProps
+
+const props = withDefaults(defineProps<RangeProps>(), {
   min: 0,
   max: 100,
   step: 1,
@@ -16,12 +35,10 @@ const props = withDefaults(defineProps<Props>(), {
   readonly: false,
   required: false,
   orientation: 'horizontal',
-  tooltip: 'none',
-  marks: () => [],
+  dual: false,
   showValue: true,
   showTicks: false,
-  showLabels: false,
-  dir: 'auto'
+  showLabels: false
 })
 
 // Utilisation de defineModel pour v-model
@@ -38,31 +55,29 @@ const emit = defineEmits<{
 const attrs = useAttrs()
 
 // Refs
-const sliderRef = ref<HTMLDivElement>()
+const rangeRef = ref<HTMLDivElement>()
 const trackRef = ref<HTMLDivElement>()
 const thumb1Ref = ref<HTMLDivElement>()
 const thumb2Ref = ref<HTMLDivElement>()
 const isDragging = ref(false)
 const activeThumb = ref<'min' | 'max' | null>(null)
-const showTooltip1 = ref(false)
-const showTooltip2 = ref(false)
 
-const fieldId = 'slider-' + useId()
-const sliderId = computed(() => attrs.id as string || fieldId)
-
-// Détection automatique du mode dual-range
-const isDualRange = computed(() => {
-  return Array.isArray(modelValue.value)
-})
+const fieldId = 'range-' + useId()
+const rangeId = computed(() => attrs.id as string || fieldId)
 
 // Valeurs normalisées
 const currentValue = computed({
   get() {
     // Si modelValue n'est pas défini, utiliser les valeurs par défaut
     if (modelValue.value === undefined || modelValue.value === null) {
-      return props.min
+      return props.dual ? [props.min, props.max] : props.min
     }
-    return modelValue.value
+    
+    if (props.dual) {
+      const val = modelValue.value as [number, number]
+      return Array.isArray(val) ? val : [props.min, props.max]
+    }
+    return modelValue.value as number || props.min
   },
   set(newValue: number | [number, number]) {
     modelValue.value = newValue
@@ -72,11 +87,11 @@ const currentValue = computed({
 })
 
 const minValue = computed(() => {
-  return isDualRange.value ? (currentValue.value as [number, number])[0] : (currentValue.value as number)
+  return props.dual ? (currentValue.value as [number, number])[0] : (currentValue.value as number)
 })
 
 const maxValue = computed(() => {
-  return isDualRange.value ? (currentValue.value as [number, number])[1] : (currentValue.value as number)
+  return props.dual ? (currentValue.value as [number, number])[1] : (currentValue.value as number)
 })
 
 // Formatage des valeurs
@@ -89,46 +104,43 @@ const formatValue = (value: number): string => {
 
 // Calcul des pourcentages
 const minPercent = computed(() => {
-  const percent = ((minValue.value - props.min) / (props.max - props.min)) * 100
-  return props.dir === 'rtl' ? 100 - percent : percent
+  return ((minValue.value - props.min) / (props.max - props.min)) * 100
 })
 
 const maxPercent = computed(() => {
-  const percent = ((maxValue.value - props.min) / (props.max - props.min)) * 100
-  return props.dir === 'rtl' ? 100 - percent : percent
+  return ((maxValue.value - props.min) / (props.max - props.min)) * 100
 })
 
 // Classes CSS
 const containerClasses = computed(() => [
-  'su-slider-container',
-  `su-slider-container--${props.size}`,
-  `su-slider-container--${props.state}`,
-  `su-slider-container--${props.orientation}`,
+  'su-range-container',
+  `su-range-container--${props.size}`,
+  `su-range-container--${props.state}`,
+  `su-range-container--${props.orientation}`,
   {
-    'su-slider-container--disabled': props.disabled,
-    'su-slider-container--readonly': props.readonly,
-    'su-slider-container--dual': isDualRange.value,
-    'su-slider-container--dragging': isDragging.value,
-    'su-slider-container--rtl': props.dir === 'rtl'
+    'su-range-container--disabled': props.disabled,
+    'su-range-container--readonly': props.readonly,
+    'su-range-container--dual': props.dual,
+    'su-range-container--dragging': isDragging.value
   }
 ])
 
 const trackClasses = computed(() => [
-  'su-slider-track',
-  `su-slider-track--${props.size}`,
-  `su-slider-track--${props.state}`,
-  `su-slider-track--${props.orientation}`
+  'su-range-track',
+  `su-range-track--${props.size}`,
+  `su-range-track--${props.state}`,
+  `su-range-track--${props.orientation}`
 ])
 
 const getThumbClasses = (thumbType: 'min' | 'max') => [
-  'su-slider-thumb',
-  `su-slider-thumb--${props.size}`,
-  `su-slider-thumb--${props.state}`,
-  `su-slider-thumb--${props.orientation}`,
+  'su-range-thumb',
+  `su-range-thumb--${props.size}`,
+  `su-range-thumb--${props.state}`,
+  `su-range-thumb--${props.orientation}`,
   {
-    'su-slider-thumb--disabled': props.disabled,
-    'su-slider-thumb--readonly': props.readonly,
-    'su-slider-thumb--active': activeThumb.value === thumbType
+    'su-range-thumb--disabled': props.disabled,
+    'su-range-thumb--readonly': props.readonly,
+    'su-range-thumb--active': activeThumb.value === thumbType
   }
 ]
 
@@ -145,7 +157,7 @@ const getAriaAttributes = (thumbType: 'min' | 'max') => {
   }
   
   if (props.ariaLabel) {
-    attrs['aria-label'] = isDualRange.value 
+    attrs['aria-label'] = props.dual 
       ? `${props.ariaLabel} ${thumbType === 'min' ? 'minimum' : 'maximum'}` 
       : props.ariaLabel
   }
@@ -175,9 +187,6 @@ const getValueFromPosition = (clientX: number, clientY: number): number => {
   
   if (props.orientation === 'horizontal') {
     percent = (clientX - rect.left) / rect.width
-    if (props.dir === 'rtl') {
-      percent = 1 - percent
-    }
   } else {
     percent = 1 - (clientY - rect.top) / rect.height
   }
@@ -193,7 +202,7 @@ const updateValue = (newValue: number, thumbType: 'min' | 'max' = 'min') => {
   
   const clampedValue = clampValue(snapToStep(newValue))
   
-  if (isDualRange.value) {
+  if (props.dual) {
     const [currentMin, currentMax] = currentValue.value as [number, number]
     
     if (thumbType === 'min') {
@@ -206,7 +215,7 @@ const updateValue = (newValue: number, thumbType: 'min' | 'max' = 'min') => {
   }
   
   // Annonce pour les lecteurs d'écran
-  const announcement = isDualRange.value 
+  const announcement = props.dual 
     ? `${thumbType === 'min' ? 'Minimum' : 'Maximum'} : ${formatValue(clampedValue)}`
     : formatValue(clampedValue)
   announceToScreenReader(announcement)
@@ -240,7 +249,7 @@ const handleTrackClick = (event: MouseEvent) => {
   
   const newValue = getValueFromPosition(event.clientX, event.clientY)
   
-  if (isDualRange.value) {
+  if (props.dual) {
     const [currentMin, currentMax] = currentValue.value as [number, number]
     const distanceToMin = Math.abs(newValue - currentMin)
     const distanceToMax = Math.abs(newValue - currentMax)
@@ -293,46 +302,12 @@ const handleKeyDown = (event: KeyboardEvent, thumbType: 'min' | 'max' = 'min') =
   emit('keydown', event)
 }
 
-const handleFocus = (event: FocusEvent, thumbType: 'min' | 'max' = 'min') => {
-  if (props.tooltip !== 'none') {
-    if (thumbType === 'min') {
-      showTooltip1.value = true
-    } else {
-      showTooltip2.value = true
-    }
-  }
+const handleFocus = (event: FocusEvent) => {
   emit('focus', event)
 }
 
-const handleBlur = (event: FocusEvent, thumbType: 'min' | 'max' = 'min') => {
-  if (props.tooltip !== 'none') {
-    if (thumbType === 'min') {
-      showTooltip1.value = false
-    } else {
-      showTooltip2.value = false
-    }
-  }
+const handleBlur = (event: FocusEvent) => {
   emit('blur', event)
-}
-
-const handleMouseEnter = (thumbType: 'min' | 'max' = 'min') => {
-  if (props.tooltip !== 'none' && !props.disabled) {
-    if (thumbType === 'min') {
-      showTooltip1.value = true
-    } else {
-      showTooltip2.value = true
-    }
-  }
-}
-
-const handleMouseLeave = (thumbType: 'min' | 'max' = 'min') => {
-  if (props.tooltip !== 'none') {
-    if (thumbType === 'min') {
-      showTooltip1.value = false
-    } else {
-      showTooltip2.value = false
-    }
-  }
 }
 
 // Génération des ticks
@@ -345,32 +320,22 @@ const ticks = computed(() => {
   return Array.from({ length: tickCount }, (_, i) => {
     const value = props.min + (i * tickStep)
     const percent = ((value - props.min) / (props.max - props.min)) * 100
-    const adjustedPercent = props.dir === 'rtl' ? 100 - percent : percent
-    return { value: snapToStep(value), percent: adjustedPercent }
+    return { value: snapToStep(value), percent }
   })
-})
-
-// Génération des marques
-const processedMarks = computed(() => {
-  if (!props.marks || props.marks.length === 0) return []
-  
-  return props.marks
-    .filter(mark => mark >= props.min && mark <= props.max)
-    .map(mark => {
-      const percent = ((mark - props.min) / (props.max - props.min)) * 100
-      const adjustedPercent = props.dir === 'rtl' ? 100 - percent : percent
-      return { value: mark, percent: adjustedPercent }
-    })
 })
 
 // Méthodes exposées
 const focus = () => {
-  thumb1Ref.value?.focus()
+  if (props.dual) {
+    thumb1Ref.value?.focus()
+  } else {
+    thumb1Ref.value?.focus()
+  }
 }
 
 defineExpose({
   focus,
-  sliderRef,
+  rangeRef,
   thumb1Ref,
   thumb2Ref
 })
@@ -378,7 +343,7 @@ defineExpose({
 
 <template>
   <FormField
-    :fieldId="sliderId"
+    :fieldId="rangeId"
     :label="label"
     :message="message"
     :state="state"
@@ -386,36 +351,31 @@ defineExpose({
     :disabled="disabled"
   >
     <template #default="{ fieldId: id, messageId }">
-      <div :class="containerClasses" :dir="dir">
-        <!-- Slot before -->
-        <div v-if="$slots.before" class="su-slider-before">
-          <slot name="before" />
-        </div>
-
+      <div :class="containerClasses">
         <!-- Labels min/max (si activés) -->
-        <div v-if="showLabels" class="su-slider-labels">
-          <span class="su-slider-label su-slider-label--min">{{ formatValue(min) }}</span>
-          <span class="su-slider-label su-slider-label--max">{{ formatValue(max) }}</span>
+        <div v-if="showLabels" class="su-range-labels">
+          <span class="su-range-label su-range-label--min">{{ formatValue(min) }}</span>
+          <span class="su-range-label su-range-label--max">{{ formatValue(max) }}</span>
         </div>
 
         <!-- Container du slider -->
-        <div class="su-slider-wrapper">
-          <!-- Valeur affichée (si activée et pas de tooltip) -->
-          <div v-if="showValue && tooltip === 'none'" class="su-slider-value">
-            <span v-if="!isDualRange" class="su-slider-value-display">
+        <div class="su-range-wrapper">
+          <!-- Valeur affichée (si activée) -->
+          <div v-if="showValue" class="su-range-value">
+            <span v-if="!dual" class="su-range-value-display">
               {{ formatValue(minValue) }}
             </span>
-            <div v-else class="su-slider-value-dual">
-              <span class="su-slider-value-min">{{ formatValue(minValue) }}</span>
-              <span class="su-slider-value-separator">-</span>
-              <span class="su-slider-value-max">{{ formatValue(maxValue) }}</span>
+            <div v-else class="su-range-value-dual">
+              <span class="su-range-value-min">{{ formatValue(minValue) }}</span>
+              <span class="su-range-value-separator">-</span>
+              <span class="su-range-value-max">{{ formatValue(maxValue) }}</span>
             </div>
           </div>
 
           <!-- Slider -->
           <div 
-            ref="sliderRef"
-            class="su-slider-slider"
+            ref="rangeRef"
+            class="su-range-slider"
             :aria-describedby="messageId"
             @click="handleTrackClick"
           >
@@ -423,44 +383,29 @@ defineExpose({
             <div ref="trackRef" :class="trackClasses">
               <!-- Track actif -->
               <div 
-                class="su-slider-track-active"
+                class="su-range-track-active"
                 :style="{
-                  [orientation === 'horizontal' ? 'left' : 'bottom']: `${isDualRange ? Math.min(minPercent, maxPercent) : 0}%`,
-                  [orientation === 'horizontal' ? 'width' : 'height']: `${isDualRange ? Math.abs(maxPercent - minPercent) : Math.abs(minPercent)}%`
+                  [orientation === 'horizontal' ? 'left' : 'bottom']: `${dual ? minPercent : 0}%`,
+                  [orientation === 'horizontal' ? 'width' : 'height']: `${dual ? maxPercent - minPercent : minPercent}%`
                 }"
               />
 
               <!-- Ticks (si activés) -->
-              <div v-if="showTicks" class="su-slider-ticks">
+              <div v-if="showTicks" class="su-range-ticks">
                 <div
                   v-for="tick in ticks"
                   :key="tick.value"
-                  class="su-slider-tick"
+                  class="su-range-tick"
                   :style="{
                     [orientation === 'horizontal' ? 'left' : 'bottom']: `${tick.percent}%`
                   }"
                 />
               </div>
 
-              <!-- Marques personnalisées -->
-              <div v-if="processedMarks.length > 0" class="su-slider-marks">
-                <div
-                  v-for="mark in processedMarks"
-                  :key="mark.value"
-                  class="su-slider-mark"
-                  :style="{
-                    [orientation === 'horizontal' ? 'left' : 'bottom']: `${mark.percent}%`
-                  }"
-                >
-                  <div class="su-slider-mark-dot" />
-                  <div class="su-slider-mark-label">{{ formatValue(mark.value) }}</div>
-                </div>
-              </div>
-
               <!-- Thumb principal (ou minimum pour dual) -->
               <div
                 ref="thumb1Ref"
-                :id="isDualRange ? `${id}-min` : id"
+                :id="dual ? `${id}-min` : id"
                 :class="getThumbClasses('min')"
                 :style="{
                   [orientation === 'horizontal' ? 'left' : 'bottom']: `${minPercent}%`
@@ -469,26 +414,15 @@ defineExpose({
                 v-bind="getAriaAttributes('min')"
                 @mousedown="handleMouseDown($event, 'min')"
                 @keydown="handleKeyDown($event, 'min')"
-                @focus="handleFocus($event, 'min')"
-                @blur="handleBlur($event, 'min')"
-                @mouseenter="handleMouseEnter('min')"
-                @mouseleave="handleMouseLeave('min')"
+                @focus="handleFocus"
+                @blur="handleBlur"
               >
-                <div class="su-slider-thumb-handle" />
-                
-                <!-- Tooltip pour le thumb principal -->
-                <div 
-                  v-if="tooltip !== 'none' && (showTooltip1 || isDragging && activeThumb === 'min')"
-                  class="su-slider-tooltip"
-                  :class="`su-slider-tooltip--${tooltip}`"
-                >
-                  {{ formatValue(minValue) }}
-                </div>
+                <div class="su-range-thumb-handle" />
               </div>
 
               <!-- Thumb maximum (dual seulement) -->
               <div
-                v-if="isDualRange"
+                v-if="dual"
                 ref="thumb2Ref"
                 :id="`${id}-max`"
                 :class="getThumbClasses('max')"
@@ -499,29 +433,13 @@ defineExpose({
                 v-bind="getAriaAttributes('max')"
                 @mousedown="handleMouseDown($event, 'max')"
                 @keydown="handleKeyDown($event, 'max')"
-                @focus="handleFocus($event, 'max')"
-                @blur="handleBlur($event, 'max')"
-                @mouseenter="handleMouseEnter('max')"
-                @mouseleave="handleMouseLeave('max')"
+                @focus="handleFocus"
+                @blur="handleBlur"
               >
-                <div class="su-slider-thumb-handle" />
-                
-                <!-- Tooltip pour le thumb maximum -->
-                <div 
-                  v-if="tooltip !== 'none' && (showTooltip2 || isDragging && activeThumb === 'max')"
-                  class="su-slider-tooltip"
-                  :class="`su-slider-tooltip--${tooltip}`"
-                >
-                  {{ formatValue(maxValue) }}
-                </div>
+                <div class="su-range-thumb-handle" />
               </div>
             </div>
           </div>
-        </div>
-
-        <!-- Slot after -->
-        <div v-if="$slots.after" class="su-slider-after">
-          <slot name="after" />
         </div>
       </div>
     </template>
@@ -532,30 +450,30 @@ defineExpose({
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
-.su-slider-container {
+.su-range-container {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
   
   &--horizontal {
-    .su-slider-wrapper {
+    .su-range-wrapper {
       flex-direction: column;
     }
   }
   
   &--vertical {
-    .su-slider-wrapper {
+    .su-range-wrapper {
       flex-direction: row;
       align-items: center;
       gap: 1rem;
     }
     
-    .su-slider-slider {
+    .su-range-slider {
       height: 200px;
       width: auto;
     }
     
-    .su-slider-labels {
+    .su-range-labels {
       flex-direction: column-reverse;
       height: 200px;
       justify-content: space-between;
@@ -566,32 +484,21 @@ defineExpose({
     opacity: 0.6;
     cursor: not-allowed;
   }
-  
-  &--rtl {
-    direction: rtl;
-  }
 }
 
-.su-slider-wrapper {
+.su-range-wrapper {
   display: flex;
   gap: 0.75rem;
   align-items: center;
 }
 
-.su-slider-before,
-.su-slider-after {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.su-slider-labels {
+.su-range-labels {
   display: flex;
   justify-content: space-between;
   font-size: $font-size-sm;
   color: $text-secondary;
   
-  .su-slider-label {
+  .su-range-label {
     font-weight: 500;
     
     &--min {
@@ -604,7 +511,7 @@ defineExpose({
   }
 }
 
-.su-slider-value {
+.su-range-value {
   display: flex;
   justify-content: center;
   min-width: 4rem;
@@ -639,7 +546,7 @@ defineExpose({
   }
 }
 
-.su-slider-slider {
+.su-range-slider {
   position: relative;
   flex: 1;
   cursor: pointer;
@@ -659,7 +566,7 @@ defineExpose({
   }
 }
 
-.su-slider-track {
+.su-range-track {
   position: absolute;
   background-color: $gray-200;
   border-radius: 9999px;
@@ -683,28 +590,28 @@ defineExpose({
   
   // Tailles
   &--sm {
-    &.su-slider-track--horizontal {
+    &.su-range-track--horizontal {
       height: 0.25rem;
     }
-    &.su-slider-track--vertical {
+    &.su-range-track--vertical {
       width: 0.25rem;
     }
   }
   
   &--md {
-    &.su-slider-track--horizontal {
+    &.su-range-track--horizontal {
       height: 0.375rem;
     }
-    &.su-slider-track--vertical {
+    &.su-range-track--vertical {
       width: 0.375rem;
     }
   }
   
   &--lg {
-    &.su-slider-track--horizontal {
+    &.su-range-track--horizontal {
       height: 0.5rem;
     }
-    &.su-slider-track--vertical {
+    &.su-range-track--vertical {
       width: 0.5rem;
     }
   }
@@ -723,48 +630,48 @@ defineExpose({
   }
 }
 
-.su-slider-track-active {
+.su-range-track-active {
   position: absolute;
   background-color: $primary-500;
   border-radius: inherit;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   
   // Orientation
-  .su-slider-track--horizontal & {
+  .su-range-track--horizontal & {
     top: 0;
     height: 100%;
   }
   
-  .su-slider-track--vertical & {
+  .su-range-track--vertical & {
     left: 0;
     width: 100%;
   }
   
   // États
-  .su-slider-track--error & {
+  .su-range-track--error & {
     background-color: $error-500;
   }
   
-  .su-slider-track--success & {
+  .su-range-track--success & {
     background-color: $success-500;
   }
   
-  .su-slider-track--warning & {
+  .su-range-track--warning & {
     background-color: $warning-500;
   }
 }
 
-.su-slider-ticks {
+.su-range-ticks {
   position: absolute;
   
-  .su-slider-track--horizontal & {
+  .su-range-track--horizontal & {
     top: 0;
     left: 0;
     right: 0;
     height: 100%;
   }
   
-  .su-slider-track--vertical & {
+  .su-range-track--vertical & {
     left: 0;
     top: 0;
     bottom: 0;
@@ -772,78 +679,24 @@ defineExpose({
   }
 }
 
-.su-slider-tick {
+.su-range-tick {
   position: absolute;
   background-color: $gray-400;
   
-  .su-slider-track--horizontal & {
+  .su-range-track--horizontal & {
     width: 1px;
     height: 100%;
     transform: translateX(-50%);
   }
   
-  .su-slider-track--vertical & {
+  .su-range-track--vertical & {
     height: 1px;
     width: 100%;
     transform: translateY(-50%);
   }
 }
 
-.su-slider-marks {
-  position: absolute;
-  
-  .su-slider-track--horizontal & {
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 0.5rem;
-  }
-  
-  .su-slider-track--vertical & {
-    left: 100%;
-    top: 0;
-    bottom: 0;
-    margin-left: 0.5rem;
-  }
-}
-
-.su-slider-mark {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  
-  .su-slider-track--horizontal & {
-    flex-direction: column;
-    transform: translateX(-50%);
-  }
-  
-  .su-slider-track--vertical & {
-    flex-direction: row;
-    transform: translateY(50%);
-  }
-  
-  &-dot {
-    width: 0.375rem;
-    height: 0.375rem;
-    background-color: $gray-400;
-    border-radius: 50%;
-    margin-bottom: 0.25rem;
-    
-    .su-slider-track--vertical & {
-      margin-bottom: 0;
-      margin-right: 0.25rem;
-    }
-  }
-  
-  &-label {
-    font-size: 0.75rem;
-    color: $text-secondary;
-    font-weight: 500;
-    white-space: nowrap;
-  }
-}
-
-.su-slider-thumb {
+.su-range-thumb {
   position: absolute;
   cursor: grab;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -853,7 +706,7 @@ defineExpose({
     outline: none;
     z-index: 2;
     
-    .su-slider-thumb-handle {
+    .su-range-thumb-handle {
       box-shadow: 0 0 0 3px rgba($primary-500, 0.3);
     }
   }
@@ -863,7 +716,7 @@ defineExpose({
     cursor: grabbing;
     z-index: 3;
     
-    .su-slider-thumb-handle {
+    .su-range-thumb-handle {
       transform: scale(1.1);
     }
   }
@@ -881,21 +734,21 @@ defineExpose({
   
   // Tailles
   &--sm {
-    .su-slider-thumb-handle {
+    .su-range-thumb-handle {
       width: 1rem;
       height: 1rem;
     }
   }
   
   &--md {
-    .su-slider-thumb-handle {
+    .su-range-thumb-handle {
       width: 1.25rem;
       height: 1.25rem;
     }
   }
   
   &--lg {
-    .su-slider-thumb-handle {
+    .su-range-thumb-handle {
       width: 1.5rem;
       height: 1.5rem;
     }
@@ -905,7 +758,7 @@ defineExpose({
   &--disabled {
     cursor: not-allowed;
     
-    .su-slider-thumb-handle {
+    .su-range-thumb-handle {
       background-color: $gray-300;
       border-color: $gray-400;
     }
@@ -916,37 +769,37 @@ defineExpose({
   }
   
   &--error {
-    .su-slider-thumb-handle {
+    .su-range-thumb-handle {
       border-color: $error-500;
     }
     
-    &:focus .su-slider-thumb-handle {
+    &:focus .su-range-thumb-handle {
       box-shadow: 0 0 0 3px rgba($error-500, 0.3);
     }
   }
   
   &--success {
-    .su-slider-thumb-handle {
+    .su-range-thumb-handle {
       border-color: $success-500;
     }
     
-    &:focus .su-slider-thumb-handle {
+    &:focus .su-range-thumb-handle {
       box-shadow: 0 0 0 3px rgba($success-500, 0.3);
     }
   }
   
   &--warning {
-    .su-slider-thumb-handle {
+    .su-range-thumb-handle {
       border-color: $warning-500;
     }
     
-    &:focus .su-slider-thumb-handle {
+    &:focus .su-range-thumb-handle {
       box-shadow: 0 0 0 3px rgba($warning-500, 0.3);
     }
   }
 }
 
-.su-slider-thumb-handle {
+.su-range-thumb-handle {
   width: 1.25rem;
   height: 1.25rem;
   background-color: white;
@@ -961,134 +814,67 @@ defineExpose({
   }
 }
 
-.su-slider-tooltip {
-  position: absolute;
-  padding: 0.25rem 0.5rem;
-  background-color: $gray-900;
-  color: white;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border-radius: $border-radius-sm;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 10;
-  
-  // Flèche du tooltip
-  &::after {
-    content: '';
-    position: absolute;
-    width: 0;
-    height: 0;
-    border: 4px solid transparent;
-  }
-  
-  &--top {
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 0.5rem;
-    
-    &::after {
-      top: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-top-color: $gray-900;
-    }
-  }
-  
-  &--bottom {
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 0.5rem;
-    
-    &::after {
-      bottom: 100%;
-      left: 50%;
-      transform: translateX(-50%);
-      border-bottom-color: $gray-900;
-    }
-  }
-}
-
 // Mode sombre
 @media (prefers-color-scheme: dark) {
-  .su-slider-track {
+  .su-range-track {
     background-color: $gray-600;
   }
   
-  .su-slider-track-active {
+  .su-range-track-active {
     background-color: $primary-400;
     
-    .su-slider-track--error & {
+    .su-range-track--error & {
       background-color: $error-400;
     }
     
-    .su-slider-track--success & {
+    .su-range-track--success & {
       background-color: $success-400;
     }
     
-    .su-slider-track--warning & {
+    .su-range-track--warning & {
       background-color: $warning-400;
     }
   }
   
-  .su-slider-thumb-handle {
+  .su-range-thumb-handle {
     background-color: $gray-800;
     border-color: $primary-400;
   }
   
-  .su-slider-value-display,
-  .su-slider-value-min,
-  .su-slider-value-max {
+  .su-range-value-display,
+  .su-range-value-min,
+  .su-range-value-max {
     background-color: $gray-700;
     color: $text-primary-dark;
   }
   
-  .su-slider-labels {
+  .su-range-labels {
     color: $text-secondary-dark;
-  }
-  
-  .su-slider-mark-label {
-    color: $text-secondary-dark;
-  }
-  
-  .su-slider-tooltip {
-    background-color: $gray-100;
-    color: $gray-900;
-    
-    &--top::after {
-      border-top-color: $gray-100;
-    }
-    
-    &--bottom::after {
-      border-bottom-color: $gray-100;
-    }
   }
 }
 
 // Mode de contraste élevé
 @media (prefers-contrast: high) {
-  .su-slider-thumb-handle {
+  .su-range-thumb-handle {
     border-width: 3px;
   }
   
-  .su-slider-track {
+  .su-range-track {
     border: 1px solid $gray-400;
   }
 }
 
 // Support de la réduction des animations
 @media (prefers-reduced-motion: reduce) {
-  .su-slider-track,
-  .su-slider-track-active,
-  .su-slider-thumb,
-  .su-slider-thumb-handle {
+  .su-range-track,
+  .su-range-track-active,
+  .su-range-thumb,
+  .su-range-thumb-handle {
     transition: none;
   }
   
-  .su-slider-thumb:active .su-slider-thumb-handle,
-  .su-slider-thumb--active .su-slider-thumb-handle {
+  .su-range-thumb:active .su-range-thumb-handle,
+  .su-range-thumb--active .su-range-thumb-handle {
     transform: none;
   }
 }

@@ -4,7 +4,7 @@ import { StarIcon, BuildingOfficeIcon, GlobeAltIcon } from '@heroicons/vue/24/ou
 import CheckboxGroup from '../CheckboxGroup.vue'
 
 const meta: Meta<typeof CheckboxGroup> = {
-  title: 'Atoms/CheckboxGroup',
+  title: 'Molecules/FormField - CheckboxGroup',
   component: CheckboxGroup,
   parameters: {
     layout: 'centered',

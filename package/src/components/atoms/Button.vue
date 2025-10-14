@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { ButtonProps } from '@/types'
+import type { Component } from 'vue'
+import type { AccessibilityProps } from '@/types'
+
+export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'default'
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'default'
+export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'xl' | 'full' | 'default'
+export interface ButtonProps extends AccessibilityProps {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  radius?: ButtonRadius
+  disabled?: boolean
+  loading?: boolean
+  block?: boolean
+  icon?: Component
+  iconDisplay?: 'left' | 'right' | 'only'
+  ariaExpanded?: boolean
+  ariaPressed?: boolean
+}
 
 export interface Props extends ButtonProps {}
 

@@ -1,10 +1,33 @@
 <script setup lang="ts">
 import { computed, useAttrs, useId } from 'vue'
-import type { RadioGroupProps } from '@/types'
-import FormField from './FormField.vue'
+import FormField from '@/components/atoms/FormField.vue'
+import type { Component } from 'vue'
+import { AccessibilityProps, Size, State } from '@/types'
 
-// Définition du modèle en premier
-const modelValue = defineModel<string | number>('modelValue')
+export type RadioDisplayType = 'default' | 'inline-card' | 'block-card'
+
+export interface RadioOption {
+  value: string | number
+  label: string
+  description?: string
+  disabled?: boolean
+  icon?: Component
+}
+
+export interface RadioGroupProps extends AccessibilityProps {
+  options: RadioOption[]
+  value?: string | number
+  name?: string
+  size?: Size
+  state?: State
+  disabled?: boolean
+  required?: boolean
+  displayType?: RadioDisplayType
+  label?: string
+  message?: string
+  direction?: 'horizontal' | 'vertical'
+  maxHeight?: string | null
+}
 
 export interface Props extends Omit<RadioGroupProps, 'value'> {}
 
@@ -18,6 +41,9 @@ const props = withDefaults(defineProps<Props>(), {
   direction: 'vertical',
   maxHeight: null,
 })
+
+// Définition du modèle en premier
+const modelValue = defineModel<string | number>('modelValue')
 
 const emit = defineEmits<{
   change: [value: string | number]

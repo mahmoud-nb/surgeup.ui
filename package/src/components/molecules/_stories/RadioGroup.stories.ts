@@ -4,7 +4,7 @@ import { UserIcon, BuildingOfficeIcon, GlobeAltIcon } from '@heroicons/vue/24/ou
 import RadioGroup from '../RadioGroup.vue'
 
 const meta: Meta<typeof RadioGroup> = {
-  title: 'Atoms/RadioGroup',
+  title: 'Molecules/FormField - RadioGroup',
   component: RadioGroup,
   parameters: {
     layout: 'centered',

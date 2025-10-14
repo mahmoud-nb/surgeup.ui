@@ -4,7 +4,7 @@ import { LockClosedIcon } from '@heroicons/vue/24/outline'
 import Password from '../Password.vue'
 
 const meta: Meta<typeof Password> = {
-  title: 'Atoms/Password',
+  title: 'Molecules/FormField - Password',
   component: Password,
   parameters: {
     layout: 'centered',

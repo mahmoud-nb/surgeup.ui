@@ -1,7 +1,25 @@
 <script setup lang="ts">
 import { computed, ref, useAttrs, useId } from 'vue'
-import type { AvatarProps } from '@/types'
 import Image from './Image.vue'
+import { AccessibilityProps } from '@/types'
+
+export type AvatarSize = 'sm' | 'md' | 'lg' | 'xl'
+export type AvatarVariant = 'circle' | 'rounded' | 'square'
+export type AvatarStatus = 'online' | 'offline' | 'busy' | 'away' | 'none'
+
+export interface AvatarProps extends AccessibilityProps {
+  src?: string
+  alt?: string
+  fallback?: string
+  name?: string
+  size?: AvatarSize
+  variant?: AvatarVariant
+  status?: AvatarStatus
+  badge?: string | number
+  badgeColor?: string
+  loading?: boolean
+  clickable?: boolean
+}
 
 export interface Props extends AvatarProps {}
 

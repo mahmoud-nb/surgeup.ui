@@ -1,9 +1,52 @@
 <script setup lang="ts">
 import { computed, ref, watch, nextTick, onMounted, onUnmounted, useAttrs, useId } from 'vue'
 import { ChevronDownIcon, XMarkIcon, MagnifyingGlassIcon, CheckIcon } from '@heroicons/vue/24/outline'
-import type { SelectProps, SelectOption } from '@/types'
 import { trapFocus, announceToScreenReader } from '@/utils/accessibility'
-import FormField from './FormField.vue'
+import FormField from '@/components/atoms/FormField.vue'
+import type { Component } from 'vue'
+import type { AccessibilityProps, Size, State, TextAlign } from '@/types'
+
+export interface SelectGroup {
+  label: string
+  options: SelectOption[]
+}
+
+export interface SelectOption {
+  value: string | number
+  label: string
+  disabled?: boolean
+  group?: string
+  icon?: Component
+  description?: string
+}
+
+export interface SelectProps extends AccessibilityProps {
+  options?: SelectOption[]
+  groups?: SelectGroup[]
+  value?: string | number | (string | number)[]
+  multiple?: boolean
+  searchable?: boolean
+  clearable?: boolean
+  size?: Size
+  state?: State
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
+  placeholder?: string
+  searchPlaceholder?: string
+  noOptionsText?: string
+  noResultsText?: string
+  maxHeight?: string
+  textAlign?: TextAlign
+  dir?: 'ltr' | 'rtl' | 'auto'
+  label?: string
+  message?: string
+  ariaInvalid?: boolean
+  ariaRequired?: boolean
+  maxSelectedItems?: number
+  closeOnSelect?: boolean
+  loading?: boolean
+}
 
 export interface Props extends Omit<SelectProps, 'value'> {}
 

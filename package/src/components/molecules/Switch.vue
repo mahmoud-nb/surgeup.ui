@@ -1,7 +1,27 @@
 <script setup lang="ts">
 import { computed, useAttrs, useId } from 'vue'
-import FormField from './FormField.vue'
-import type { SwitchProps } from '@/types'
+import FormField from '@/components/atoms/FormField.vue'
+import type { Component } from 'vue'
+import { AccessibilityProps, Size, State } from '@/types'
+
+export type SwitchLabelPosition = 'outside' | 'inside'
+export interface SwitchProps extends AccessibilityProps {
+  value?: boolean
+  leftIcon?: Component
+  rightIcon?: Component
+  labelPosition?: SwitchLabelPosition
+  size?: Size
+  state?: State
+  disabled?: boolean
+  readonly?: boolean
+  required?: boolean
+  label?: string
+  leftLabel?: string
+  rightLabel?: string
+  message?: string
+  ariaInvalid?: boolean
+  ariaRequired?: boolean
+}
 
 export interface Props extends Omit<SwitchProps, 'value'> {}
 

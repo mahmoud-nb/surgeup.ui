@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { State } from '@/types'
 import { computed } from 'vue'
 
 export interface FormFieldProps {
   fieldId?: string
   label?: string
   message?: string
-  state?: 'default' | 'error' | 'success' | 'warning'
+  state?: State
   required?: boolean
   disabled?: boolean
 }

@@ -4,7 +4,7 @@ import SelectBox from '../SelectBox.vue'
 import { ref } from 'vue'
 
 const meta: Meta<typeof SelectBox> = {
-  title: 'Atoms/SelectBox',
+  title: 'Molecules/FormField - SelectBox',
   component: SelectBox,
   parameters: {
     layout: 'centered',

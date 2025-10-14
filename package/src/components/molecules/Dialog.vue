@@ -1,7 +1,21 @@
 <script setup lang="ts">
 import { computed, ref, watch, onMounted, onUnmounted, nextTick, useAttrs, useId } from 'vue'
-import type { DialogProps } from '@/types'
 import { trapFocus } from '../../utils/accessibility'
+import type { AccessibilityProps } from '@/types'
+
+export type DialogDisplay = 'center' | 'left' | 'right' | 'top' | 'bottom' | 'full'
+export interface DialogProps extends AccessibilityProps {
+  modelValue?: boolean
+  display?: DialogDisplay
+  title?: string
+  description?: string
+  closeOnOverlayClick?: boolean
+  closeOnEscape?: boolean
+  width?: string
+  height?: string
+  zIndex?: number
+  disableScroll?: boolean
+}
 
 export interface Props extends DialogProps {}
 
